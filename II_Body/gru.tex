@@ -1,2 +1,21 @@
 \section{Gradient Recurrent Unit (GRU)}\label{sec:GRU}
-Implementation of the model based on BinXio or someone else. Introduce their way of implementation how to improve optimisation using 2 algorithms as per their discussion.
+\subsection{Definition}
+    One of the methods, developed by ... , which improves behavior of Neural network is Gradient Recurrent Unit.
+    The structure of the layers is similar to simple Dense network, similar input and output layers.
+    Unlike recurrent Neural Network with a single activation function in the cells, GRU implements a memory cell.
+    On top of activation function, it adds two gates, related to input sequence.
+    THe reset gate controls the level information which has to be ignored, then the update one controls the impact of previos information on the current status \footnote{Bigger value - bigger impact}.
+    The gates implemented by following sigmoid equations, where \textit{func} acts as an activation function:
+    \begin{itemize}
+        \item Reset gate: r= sigmoid(W*(ht-1, xt))
+        \item Update gate: z = sigmoid(Wz*(ht-1, xt)
+        \item Output: ht = func(W*(r*ht, x))
+    \end{itemize}
+\subsection{Implementation}
+    Implementation of the model from YuchenSong2018 utilises recurrent neural network with Gradient Recurrent Unit cells. 
+    Model itself will be a single feature based.
+    Instead of implementing learning based on Battery Capacity, following method will use State of Charge as an input and output, similar to Dense example. Folowing table highglights parameters, which proven to be most effective during the tests.  \textbf{Table of the parameters like BinXiao}. The activation function was selected as the \textit{tanh} \textbf{the number of sample experementaly was selected as 500?? .} \\
+    \textbf{I have found the place to describe statefulnes for the first time. Potentially, need to implement properly. Use following link to understand how to keep it between batches.}
+    %https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
+    
+    

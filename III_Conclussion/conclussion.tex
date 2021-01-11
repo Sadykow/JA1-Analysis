@@ -1,2 +1,8 @@
 \section{Conclusion}\label{sec:conclussion}
-The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries.
+The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\ [2pc]
+
+Even though most of the model provided worthy results, they all were lacking of accuracy which Time-series model can achieve in other similar predictions.
+The reason for that are the weights, which model places on the the features and lacking State of Charge reading as one of it inputs.
+\textbf{Most of the time, model placed most of its' weight on Voltage readings, then current or Amp/hours make more significant impact on a battery cell. Voltage makes it the most obvios one.}\\
+In the second case, the property of the predicting output makes it questionable to use.
+On one hand, usage of simply Coulumb Counter may fix this problem, then a model may have enough information to predict the full battery consumption. On the other, due to Coulumbing efficiency of a Li-ion cells, CC methods soffers from many factors which makes reading inaccurate with the time. By training model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning along with other methods such as Kalman filter may prove itself more effective****.
