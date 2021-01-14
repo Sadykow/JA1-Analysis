@@ -33,15 +33,15 @@
                 right=2cm,%
                 top=2.25cm,%
                 bottom=2.25cm,%
-                headheight=12pt,%
+                headheight=15pt,% USED TO BE 12
                 letterpaper]{geometry}%
                 
 \RequirePackage[labelfont={bf,sf},%
                 labelsep=period,%
                 justification=raggedright]{caption}
                 
-\RequirePackage{natbib}
-\bibliographystyle{apalike}
+%\RequirePackage{natbib}
+\bibliographystyle{IEEEtran}
          
 %
 % headers and footers
@@ -66,7 +66,8 @@
 \RequirePackage[explicit]{titlesec}
 \titleformat{\section}
   {\color{color1}\large\sffamily\bfseries}
-  {\thesection}
+  %{\thesection}
+  {\Roman{section}.}
   {0.5em}
   {\MakeUppercase{#1}}
   []

@@ -1,5 +1,5 @@
-\section{Gradient Recurrent Unit (GRU)}\label{sec:GRU}
-\subsection{Definition}
+%\section{Gradient Recurrent Unit (GRU)}
+\subsection{Definition GRU}\label{sec:GRU}
     One of the methods, developed by ... , which improves behavior of Neural network is Gradient Recurrent Unit.
     The structure of the layers is similar to simple Dense network, similar input and output layers.
     Unlike recurrent Neural Network with a single activation function in the cells, GRU implements a memory cell.
@@ -11,11 +11,11 @@
         \item Update gate: z = sigmoid(Wz*(ht-1, xt)
         \item Output: ht = func(W*(r*ht, x))
     \end{itemize}
-\subsection{Implementation}
-    Implementation of the model from YuchenSong2018 utilises recurrent neural network with Gradient Recurrent Unit cells. 
-    Model itself will be a single feature based.
-    Instead of implementing learning based on Battery Capacity, following method will use State of Charge as an input and output, similar to Dense example. Folowing table highglights parameters, which proven to be most effective during the tests.  \textbf{Table of the parameters like BinXiao}. The activation function was selected as the \textit{tanh} \textbf{the number of sample experementaly was selected as 500?? .} \\
-    \textbf{I have found the place to describe statefulnes for the first time. Potentially, need to implement properly. Use following link to understand how to keep it between batches.}
+% \subsection{Implementation}
+%     Implementation of the model from YuchenSong2018 utilises recurrent neural network with Gradient Recurrent Unit cells. 
+%     Model itself will be a single feature based.
+%     Instead of implementing learning based on Battery Capacity, following method will use State of Charge as an input and output, similar to Dense example. Folowing table highglights parameters, which proven to be most effective during the tests.  \textbf{Table of the parameters like BinXiao}. The activation function was selected as the \textit{tanh} \textbf{the number of sample experementaly was selected as 500?? .} \\
+%     \textbf{I have found the place to describe statefulnes for the first time. Potentially, need to implement properly. Use following link to understand how to keep it between batches.}
     %https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
     
     

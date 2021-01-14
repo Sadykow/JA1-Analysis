@@ -1,0 +1,32 @@
+%\section{Long-Short Term Memory (LSTM)}
+\subsection{Definition LSTM}\label{sec:LSTM}
+    Currently, the most common usage of the Time-series Machine LEarning model is the prediction of stock prices, weather prognosition or any other time dependant data.
+    However, the most common problem for any of those scenarios is vanishing gradient.
+    Long range data tend to fade away from the model, which impacts overall prediction.
+    The Long Short-Term Memory (LSTM) models tend to capture long-term \textbf{dependancies by longer preserving the sequence} of data. \\
+    The structure of LSTM Recurrent Neural Network is similar to clasical RNN, discussed earlier.
+    The difference is withing cells themself.
+    Unlike Dense layers with single activation function, the structure LSTM, presented on \textbf{Figure} consists of multiple gates.
+    \textbf{Try put very brief desciption from my notebook on structure followed by formulas.} \\ [2 pc]
+% \subsection{Implementation}
+%     Following implementation is based on Chemali2017 article, which used similar setup and dataset to predict State of Charge with different Network depts \footnote{history sizes}.
+%     Following table higlighs parameters, which provided best results for their experements.
+%     \textbf{Table of the parameters.}
+%     The network will be the one discussed above.
+%     Model itself will be multi-feature based with follwoing parameters: Voltage \textit{V(t)}, Current \textit{A(t)} and Temperature \textit{C(t)}, where \textit{t} represents a time-stamp. Each feature will contain equal amount of sample and each will be feed in input column vector. As a result, a single input will have following form: \\
+%     % [V(0)], [I(0)], [T(0)] \\
+%     % [V(1)], [I(1)], [T(1)] \\
+%     % [V(n)], [I(n)], [T(n)] \\
+%     where \textit{n} is the history size.
+%     The output vector will be a State of Charge \textit{SoC(\%)} percentage up to 2 decimal places, within range 0 to 1 and time stamp \textit{n}: \\
+%     % [SoC(n)] \\
+%     As a result the shape of input and output data will be: X(0)=(n,3) and Y(0)=(1)
+%     The entire dataset will use single-step windowing tecnhinue with no bathces to save memory and utilsase \textbf{stateless}* \footnote{Need to discuss this with Holmes.} model. \\
+%     The Generated dataset of sample size \textit{k}, will consist of two Tensor input/output Vectors of following shape: \\
+%     X = (k-n,n,3), Y = (k-n,1).
+%     The variable type for computation was selected to be float32.
+%     To keep Denerated dataset simple, no batching approach spared from dealing with 4-dimensional input vectors.
+% \subsection{Prediction results}
+
+
+%     Implementation of the model based on Chemali2017. Application for our section and results. Refer to methodology from time to time.

@@ -1,5 +1,4 @@
-\section{Recurrent Neural Network (RNN)}\label{sec:RNN}
-\subsection{Definition}
+\subsection{Recurrent Neural Network (RNN)}\label{sec:RNN}
     Implementation of the model based on simple RNN using multi layer Dense(X) networks.~\cite{lees2010theoretical}
     A very basic version of Recurrent Neural Network consist of very basic layers with some amount of neurons.
     Each neuron uses a single function as an activation one.
@@ -17,14 +16,16 @@
     Figure \textbf{N} provides an example of such network.
     Due to inability to directly interact with those layers, they also referred as Hidden layers, where as Input and Output are defined by use and not always fixed. \\
     \textbf{FIGURE OF DEEP NN taken from old articles}
-\subsection{Implementation}
-    The input data for a network has been created using Windowing technique, where \textbf{216k} sample of battery data, consisting of State Of Charge only were separated on 500 sample windows.
-    As a results, model outputs a single sample as SoC at next Time Step. Using Tensorflow library and calculating number of Neurons using recomended formula \\
-    \textbf{THIS IS THE BEST PLACE FOR IT}. No other places suites as much.
-    The strcuture of the model has the following form. (Few Dense Layers+Dropount).
-    A Dropout layer has been used to prevent data overfitting. The selection of activation functions has been done through the properties of the data, which model has to fit in and multiple trials.
-\subsection{Observation}
-    A simple Recurrent Neural Network has proven itself effective with simple Linear problems. However, with battery state of charge it is unable to capture complicated features like transition between Discharge and Charge or process of Constant-Voltage Constant-Current charging. In the application of battery utilisation inside Electrical Vehichle, this approach can be used only with some additional logic, such as Kalman Filters.
-    The best approach is to introduce more information about battery state and use more complicated version of Time Series capable to memorise feature with time, such as LSTM~\ref{sec:LSTM} and GRU~\ref{sec:GRU}.
-    The results of the prediction discussed in Section~\ref{sec:results}.
+
+
+% \subsubsection{Implementation}
+%     The input data for a network has been created using Windowing technique, where \textbf{216k} sample of battery data, consisting of State Of Charge only were separated on 500 sample windows.
+%     As a results, model outputs a single sample as SoC at next Time Step. Using Tensorflow library and calculating number of Neurons using recomended formula \\
+%     \textbf{THIS IS THE BEST PLACE FOR IT}. No other places suites as much.
+%     The strcuture of the model has the following form. (Few Dense Layers+Dropount).
+%     A Dropout layer has been used to prevent data overfitting. The selection of activation functions has been done through the properties of the data, which model has to fit in and multiple trials.
+% \subsubsection{Observation}
+%     A simple Recurrent Neural Network has proven itself effective with simple Linear problems. However, with battery state of charge it is unable to capture complicated features like transition between Discharge and Charge or process of Constant-Voltage Constant-Current charging. In the application of battery utilisation inside Electrical Vehichle, this approach can be used only with some additional logic, such as Kalman Filters.
+%     The best approach is to introduce more information about battery state and use more complicated version of Time Series capable to memorise feature with time, such as LSTM~\ref{sec:LSTM} and GRU~\ref{sec:GRU}.
+%     The results of the prediction discussed in Section~\ref{sec:results}.
     
