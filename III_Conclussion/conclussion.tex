@@ -1,8 +1,33 @@
-\section{Conclusion}\label{sec:conclussion}
-The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\ [2pc]
+The work offered several implementations of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\ [2pc]
 
-Even though most of the model provided worthy results, they all were lacking of accuracy which Time-series model can achieve in other similar predictions.
-The reason for that are the weights, which model places on the the features and lacking State of Charge reading as one of it inputs.
-\textbf{Most of the time, model placed most of its' weight on Voltage readings, then current or Amp/hours make more significant impact on a battery cell. Voltage makes it the most obvios one.}\\
+%
+%
+\textbf{implementation of the model based on TadeleMamo 2020 as the most recent and how to implement improvement to the model to make it better. Gracefully transition an idea from here to my model. It is similar.}
+
+%
+%
+Even though most of the model provided excellent results, they all lacked the accuracy of the Time-series model in other similar predictions. The reason for that is the weights, which the model places on the features and lacks State of Charge reading as input. 
+\textbf{The usage of any training profiles for real electrical vehicles falls into a limitation of temperature data. The model tends to put equal weight on the Temp feature. Considering that all values within a tolerance of 1 degree, the actual car will increase or decrease slope over utilisation. All model has proven to capture complicated behaviours as per FUDS schedule, but not very efficient in the general characterisation of the system. That fact made DST acts as a better learning input ...}
+\textbf{Most of the time, the model placed most of its' weight on Voltage readings, then current or Amp/hours make a more significant impact on a battery cell. Voltage makes it the most obvious one.}
+
+%
+%
 In the second case, the property of the predicting output makes it questionable to use.
-On one hand, usage of simply Coulumb Counter may fix this problem, then a model may have enough information to predict the full battery consumption. On the other, due to Coulumbing efficiency of a Li-ion cells, CC methods soffers from many factors which makes reading inaccurate with the time. By training model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning along with other methods such as Kalman filter may prove itself more effective****.
+On the one hand, using simply Coulumb Counter may fix this problem, then a model may have enough information to predict the total battery consumption.
+On the other, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading inaccurate.
+By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning along with other methods such as Kalman filter may prove itself more effective****.
+\textbf{All the methods suffer from one thing, having SoC as an input feature. There are two ways to deal with either a perfect sensor or a good model that does not mess up itself when applying results.} \\
+\textbf{The Chip-on-board devices, which has potential usage inside an Electrical vehicle, are limited to Stateless model implementation. The most computationally effective approach has been measured over two potential devices.}
+
+%
+%
+The model training process consists of N essential steps.
+The methods described in this article applied different methods to all three independently.
+This articles summarised all of them together to determine the reasonable approach for further improvements.
+From the results, the choice of optimiser affects the speed of the training offline but closely helps achieve better performance in the online one.
+However, all models lacked additional input features as SoC.
+The methods of whether or stock price forecasting.
+The inability to accurately estimate SoC and the current time and then using it as an input for further predictions reduces chances for good estimation.
+The accuracy of other SoC estimation methods, like CC, prove themself ineffective due to inaccuracies. 
+To achieve that, the most reasonable approach is to use the approach by Tadele Momo et al.~\cite{mamo_long_2020} and modify the structure of the model to accommodate SoC not as just history dependant, but ....
+The implementation of this method and further investigation is the topic for another article.

@@ -1,0 +1,164 @@
+\subsubsection{Ensemble optimisation with Nadam and AdaMax}
+The Adam algorithm remains the most commonly used optimiser.
+The reason behind changing it to another lies within two reasons.
+The first is the training converges, which may not happen at all[Xioa~22].
+The second is the chance of missing optimal solution[Xioa~23].
+Xioa et al.~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address those issues.
+The new ensemble optisation algorithm is based on the combination of Nadam~[Xiao~25] and the AdaMax~\cite{kingma_adam_2017} optimiser at certain moments of training.
+
+%
+%
+The Nadam optimiser is an extension of Adam algorithm, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
+The advantage lies in the fast converging speed.
+Line 11 and 12 adds additional calculation to default algorithms*** \\
+\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+  \caption{Nesterov Adaptive Moment Estimation (Nadam) optimisation}
+  \begin{algorithmic}[1]
+    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
+    \STATE Define Loss function $L$
+    \WHILE{$W_t \text{ not converge}$}
+    \STATE $t \gets t+1$
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ // $1_{st}$ moment calculation
+    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ // $2_{nd}$ moment calculation \label{alg:Adam-Line-2Moment}
+    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ // Corrected $\hat{m_t}$
+    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ // Corrected $\hat{\upsilon_t}$
+    \STATE $\hat{g_t} \gets \frac{g_t}{1-\prod\nolimits_{i = 1}^{k}\beta^t_2} $ // Corrected $\hat{g_t}$
+    \STATE $W_t \gets W_{t-1}-\alpha
+                        \frac{\left(\beta^{k+1}_1\hat{m_t}+\left(1-\beta^t_1\right)\hat{g_t}\right)}
+                             {\sqrt{\hat{\upsilon_t}}+\epsilon}$
+    % \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ // ??
+    \ENDWHILE
+  \end{algorithmic}
+  \label{alg:nadam}
+\end{algorithm}
+% \begin{tabular}{ l } 
+%     \hline
+%     Algorithm Nadam optimisation  \\
+%     \hline
+%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
+%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
+%     \ \ \ 1: Define I/O and Params: $\alpha, \beta_1, \beta_2, \epsilon $ \\
+%     %\ \ \ 2: $m_0; n_0 \leftarrow 0$ ($1^{st}$ and $2^{nd}$ moment vector) \\
+%     \ \ \ 2: Define loss function $L$ \\
+%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
+%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
+%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \\
+%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right)g_t $ \\
+%     \ \ \ 7: \ \ $\upsilon_t\ \leftarrow \beta_2 \upsilon_{t-1}+\left(1-\beta_2\right)g^2_t $ \\
+%     \ \ \ 8: \ \ $\hat{m_t}\ \ \leftarrow \frac{m_t}{1-\prod\nolimits_{i = 1}^{k+1}\beta^t_1}$ \\
+%     \ \ \ 9: \ \ $\hat{\upsilon_t}\ \ \leftarrow \frac{\upsilon_t}{1-\beta^t_2} $ \\
+%     \ \  10: \ \ $\hat{g_t}\ \ \leftarrow \frac{g_t}{1-\prod\nolimits_{i = 1}^{k}\beta^t_2} $ \\
+%     \ \  11: \ \ $\phi_t \leftarrow \phi_{t-1}-\alpha
+%                         \frac{\left(\beta^{k+1}_1\hat{m_t}+\left(1-\beta^t_1\right)\hat{g_t}\right)}
+%                              {\sqrt{\hat{\upsilon_t}}+\epsilon}$ \\
+%     \ \  13: \textbf{end while} \\
+%     \hline
+% \end{tabular}
+\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+  \caption{??? Adaptive Moment Estimation (AdaMax) optimisation}
+  \begin{algorithmic}[1]
+    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
+    \STATE Define Loss function $L$
+    \WHILE{$W_t \text{ not converge}$}
+    \STATE $t \gets t+1$
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ // $1^{st}$ moment calculation
+    \STATE $\upsilon_t \gets max\left(\beta_2\upsilon_{t-1}, |g_t|\right) $
+    % \STATE $W_t \gets W_{t-1}- \alpha \frac{1}{1-\beta^t_1}\frac{m_t}{\upsilon_t} $
+    \STATE $W_t \gets W_{t-1}- \alpha \frac{m_t}{(1-\beta^t_1)(\upsilon_t+\epsilon)} $ \\
+    \ENDWHILE
+  \end{algorithmic}
+  \label{alg:adamax}
+\end{algorithm}
+% \begin{tabular}{ l } 
+%     \hline
+%     Algorithm AdaMax optimisation  \\
+%     \hline
+%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
+%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
+%     \ \ \ 1: Define I/O and Params: $\alpha, \beta_1, \beta_2, \epsilon $ \\
+%     \ \ \ 2: Define loss function $L$ \\
+%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
+%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
+%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \\
+%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right)g_t $ \\
+%     \ \ \ 7: \ \ $\upsilon_t\ \leftarrow max\left(\beta_2\upsilon_{t-1}, |g_t|\right) $ \\ \\ \\ \\
+%     \ \ \ 8: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha \frac{1}{1-\beta^t_1}\frac{m_t}{\upsilon_t} $ \\
+%     \ \ \ 8: \ \ ***$\phi_t \leftarrow \phi_{t-1}- \alpha \frac{m_t}{(1-\beta^t_1)(\upsilon_t+\epsilon)} $ \\
+%     \ \ \ 9: \textbf{end while} \\
+%     \hline
+% \end{tabular} \\ \\
+\textcolor{red}{Another error. This time with SQRT. According to Adam and source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that corrected.}
+AdaMax algorithm:
+The second algorithm, which proposed next to the Adam AdaMax~\cite{kingma_adam_2017}.
+The advantage of this optimiser lies in the reduction of gradient flictuatuin~\cite{xiao_accurate_2019}, line 7 and 8.
+Note that $\epsilon$ does not take part in the calculation.
+Second order moment on Line 7 gets replaced with the infinity norm of the moment.
+As a result, Xiai et al. considered AdaMax to have stable weight updating rule and used in the fine-tuning phase.
+\\
+\textcolor{red}{I'll be cursed. No, epsilon does. In the tensorflow implementation epsilons added to the vt. Corrected formula added, but commented out. \\
+Remarks made by Xiao justifies the usage of ENsemble algorithm. How would I reprase it into something shorter}\\
+\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
+\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
+The proposed Ensamble algorithm combines both methods for single GRU training.
+Following Algorithm describes the model training procedures after setting up the model, with Nadam for pre-training and AdaMax for fine-tuning phases.
+\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+    \caption{??? Ensemble optimisation training process}
+        \begin{algorithmic}[1]
+            \STATE \textbf{Input:} Data sample with shape=(1,500,1,3) 
+            \STATE \textbf{Output:} Predicted SoC shape=(1,500,1)
+            \STATE Setup model. Split total number of epoch by 30\% to $p_{1}$ and $p_{2}$
+            \STATE Initialise parameters
+            \WHILE{epoch  $<p_{1}$:}
+                \IF{epoch $<p_{2}$:}
+                    \STATE compile model with Nadam parameters //pre-training phase
+                \ELSE
+                    \STATE compile model with AdaMax parameters //fine-tuning phase
+                \ENDIF
+                \STATE train for single epoch
+            \ENDWHILE
+        \end{algorithmic}
+    \label{alg:ENS}
+\end{algorithm}
+% \begin{center}
+%     \begin{tabular}{ l } 
+%     \hline
+%     Algorithm Ensemble Optimisation Training  \\
+%     \hline
+%     %\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ 
+%     \ \ \textbf{Input:} Data sample with shape=(1,500,1,3)\\ 
+%     \ \ \textbf{Output:} Predicted SoC shape=(1,500,1)\\
+%     \ \ Setup model. Split total number of epoch by 30\% to $p_{1}$ and $p_{2}$\\ 
+%     \hline
+%     \ \ 1: Initialise parameters \\
+%     \ \ 2: while epoch  $<p_{1}$: \\
+%     \ \ 3: \ \ if epoch $<p_{2}$: \\
+%     \ \ 4: \ \ \ \ compile model with Nadam parameters //pre-training phase \\
+%     \ \ 5: \ \ else: \\
+%     \ \ 6: \ \ \ \ compile model with AdaMax parameters //fine-tuning phase \\
+%     \ \ 7: \ \ end if \\
+%     \ \ 8: \ \ train for single epoch \\
+%     \ \ 9: end while \\
+%     \hline
+%     \end{tabular}
+% \end{center}
+Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et al.~\cite{xiao_accurate_2019}.
+\begin{center}
+    \begin{table}[htbp]
+    \caption{Adam, specific parameters}
+    \label{tab:ensemble-params}
+\begin{tabular}{ p{6.0cm} p{1.5cm} p{1.5cm} p{1.5cm} p{1.5cm}  }
+    \hline
+    Method     & $\alpha$ & $\beta_1 $ & $\beta_2$ &   $\epsilon$ \\
+    \hline
+    Nadam
+            & $0.001$ & $0.99$ & $0.999$ & $10^{-8}$ \\% 0.0000001
+    AdaMax
+            & $5*10^{-4}$ & $0.99$ & $0.999$ & | \\% $10^{-8}$
+    
+    %\hline
+    \hline
+\end{tabular}
+    \end{table}
+\end{center}

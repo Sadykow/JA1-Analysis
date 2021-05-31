@@ -28,6 +28,7 @@
 \RequirePackage{graphicx,xcolor}
 \RequirePackage{booktabs}
 \RequirePackage{authblk}
+\RequirePackage{svg}
 
 \RequirePackage[left=3cm,%
                 right=2cm,%

@@ -1,2 +1,145 @@
-\section{Introduction} \label{sec:Introduction}
-As per requirements of Formula FSAE, an electrical side of the racing car has to be able to ..
+The market for Electrical Vehicles (EV) has grown significantly over the past decade [ref].
+The replacement of a fossil fuel-based engine with an electric drivetrain eliminates exhaust emissions with the potential to have significant benefits in reducing human impact on climate change.
+For EVs to grow in the market share and reduce costs, battery cost and longevity must continue to be improved.
+Extensive battery cycling leads to battery degradation over time (aging).
+A proper battery management strategy may prolong service duty.
+It relies upon a system's ability to estimate a battery's state at any point in time.
+An accurate charge calculation avoids overcharging or over-discharging, leading to improved battery service utilisation, better health estimation, longer life span, more reliable range prediction and further benefits~\cite{calif_proper_2008}.
+
+%
+%
+Effective methods of State-of-Charge (SoC) estimation remain a topic of crucial research focus.
+Various techniques to estimate the State of Charge (SoC) have been developed to enhance battery usage.
+The ability to determine the state of a battery or a battery system is a required function for an advanced Battery Management System (BMS).
+Those techniques can be classified into three primary categories~\cite{ali_towards_2019,ng_enhanced_2009,robust_SoC,6953745}: direct measurement, model-based methods, and computer intelligence.
+Direct measurements methods take readings from batteries relying on sensors, such as open circuit Voltage, internal resistance or current readings over set periods (i.e. Coulomb Counting)~\cite{ng_enhanced_2009,robust_SoC}.
+Model-based methods recreate battery behaviour and use sensor inputs to calculate results from a pre-defined model~\cite{6953745}.
+Computer intelligence techniques enhance such models with additional data.
+Those data-driven calculations aim to improve model estimation by fitting to an actual behaviour observation.
+Examples include Fuzzy Logic~\cite{malkhandi_fuzzy_2006}, Support Vector Machine~\cite{hansen_support_2005, anton_battery_2013}, or Neural Networks (NN)~\cite{song_lithium-ion_2018,Chemali2017,mamo_long_2020,jiao_gru-rnn_2020,xiao_accurate_2019,javid_adaptive_2020,zhang_deep_2020}.
+
+%
+%
+While some model-based methods, such as the equivalent circuit model, are simple to implement within a BMS, many cannot correctly capture batteries' complex multi-dependant behaviour~\cite{6953745}.
+Others are limited to offline simulation due to high complexity and computation requirements, therefore not suited to an onboard BMS.
+Direct measurement estimation is limited to sensor accuracy and affected by losses created by Coulombic efficiencies~\cite{Smith_2010} when some portion of charge gets transferred to heat or gets affected by battery ageing that is not captured.
+Additionally, the measured voltage depends on whether the battery is in use or has been on rest for a given time [ref].
+An accurate SoC estimation model has to implement a way to accommodate battery losses and sensor readings.
+If model-based methods treat as constant values, then in real scenarios, they can be significantly limited to sensors inaccuracy, environmental and internal battery temperature or aging.
+In contrast, Neural Network methods can accommodate losses as they can capture complex phenomenological behaviours~\cite{bengio_learning_1994}.
+
+%
+%
+Several implementations of intelligent BMSs do not require a battery's physical properties using computer intelligence incorporated with battery sensory~\cite{zhang_deep_2020}.
+Machine learning methods can establish relationships in complicated and multi-dimensional non-linear systems~\cite{hansen_support_2005,anton_battery_2013,he_state_2014}.
+Some researchers used the support vector machine-based methods to estimate SoC using voltage, current, and temperature inputs~\cite{hansen_support_2005,anton_battery_2013}.
+Data were obtained from the US06 driving schedule profile, and the end error estimation was achieved as less than 6\%~\cite{he_state_2014}.
+The solution to lowering that percentage may lie within the more complicated models, like Neural Networks.
+Many attempts to implement different NN exist, but the most promising net for charge estimation were Recurrent Neural Networks (RNN)~\cite{song_lithium-ion_2018,Chemali2017,mamo_long_2020,jiao_gru-rnn_2020,xiao_accurate_2019,javid_adaptive_2020,zhang_deep_2020}.
+Their effectiveness in time-series dependant problems was shown using internal neurons to process data sequences with varying length~\cite{Chemali2017}.
+The cells act as memory units, building relationship and giving output based on multiple inputs over time.
+Typical examples are data forecasting, handwriting, speech and image recognition, machine translation or music composition~\cite{devdarshan_applications_2019}. 
+
+%
+%
+Over the past years, the RNN approach has received extensive attention from different researchers to estimate.
+The most recent attempt to determine the Li-Ion battery's remaining useful life was the Gradient Recurrent Unit (GRU) models~\cite{song_lithium-ion_2018}[other].
+The earliest approach utilised a battery charge's regression nature only using stateless models~\cite{song_lithium-ion_2018}[ref to stateless models].
+Later, some approaches introduced additional parameters to support the NN learning process [ref].
+Besides good converges, the model's use was in determining critical events, not a value of the charge, due to the battery's initial state's requirement and prior utilisation as input before prediction.
+The most popular way lies in determining the charge's value using a fixed size of historical data of voltage, current and temperature in a stateless Long Short-Term Memory (LSTM) models~\cite{Chemali2017}[10..].
+The method's advantage is independence from the charge or discharge cycles at different times, as long as the history samples are in order.
+Estimation determines values based on fixed history samples and does not preserve for the next prediction, making practical estimation of single or several charge values, but not in determining critical event ahead.
+
+%
+%
+Both stateful and stateless methods fall for input samples' impact and their size on model estimation accuracy, which became the research source [ref to some comparisons].
+After identifying the most optimal input type, without significant effect on the performance, one of the further developments apply changes to the structure of GRU or LSTM by adding additional layers (Attention or Extra Dense layers)~\cite{mamo_long_2020, jiao_gru-rnn_2020}.
+Another way is to change the optimisation process to achieve similar accuracy faster (i. e., adding a Momentum algorithm to the Stochastic Gradient Optimisations process or replacing gradient calculations with statistical)~\cite{xiao_accurate_2019, javid_adaptive_2020}.
+Those methods modify standard ways introduced earlier in model training by applying additional operations.
+They met to achieve better accuracy faster using similar training approaches.
+The drawback lies within testing procedures.
+%All the above articles used training and testing processes on different profiles of battery cycling.
+%Although it makes reasonable justification to Machine Learning algorithm effectiveness in feature capturing to estimate Charge's State, fitting into real driving schedule scenario remains under a question.
+
+%
+%
+Several attempts to introduce an online procedure for models performance measurement have been introduced by not being limited to the battery testing machine's table data, i.e. the validation mechanism to tune an NN model based on batteries data during actual battery cycling~\cite{zhang_deep_2020}.
+This method brings the model learning process closer to real-time battery utilisation without adding model complexity. 
+
+%
+%
+Table~\ref{tab:review} summarises the hand-picked method for analysis, highlighting the type of model cell, structure to define input sample type, optimiser selection, and additional features introduced by authors to improve predictions.
+The model type highlights a primary author path in structuring a Neural Net model.
+The statefulness defines the input method, where stateless uses a fixed size of input samples per each feature and statefully apply each time sample at a time for all features one by one.
+Optimiser selection sets the algorithm for the learning process from one of the following methods: Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
+
+\begin{center}
+    \begin{table}[h]
+    \caption{Reviewed papers implementation summary.}
+    \label{tab:review}
+\begin{tabular}{p{2.0cm}|p{0.8cm}|p{1.0cm}|p{0.8cm}|p{0.8cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.7cm}|p{0.7cm}|p{2.1cm}}
+    %\multicolumn{12}{c}{Unknown yet table} \\
+    \hline
+    \multicolumn{1}{ c }{} & 
+    \multicolumn{2}{|c|}{Model} & 
+    %\multicolumn{1}{ c|}{Ext} &
+    \multicolumn{2}{ c|}{State-} & 
+    \multicolumn{5}{ c|}{Optimiser} &
+    \multirow{2}{ 4em }{Extension} \\
+    \cline{1-4} \cline{5-10}
+    Ref & GRU  & LSTM & -less & -full & Adam & Nadam & SGD & AM & DE &           \\
+    \hline
+    Song~\cite{song_lithium-ion_2018}
+        & \chk &      &       & \chk  & \chk &       &     &    &    & 4 Layers  \\
+    Chemali~\cite{Chemali2017}
+        &      & \chk & \chk  &       & \chk &       &     &    &    &           \\
+    Mamo~\cite{mamo_long_2020}
+        &      & \chk &  \chk &       &      &       &     &    &\chk& Attention \\
+    Jiao~\cite{jiao_gru-rnn_2020}
+        & \chk &      &       & \chk  &      &       & \chk&    &    & Momentum  \\
+    Xiao~\cite{xiao_accurate_2019}
+        & \chk &      &       & \chk  &      & \chk  &     &\chk&    & Ensemble  \\
+    Javid~\cite{javid_adaptive_2020}
+        & \chk &      & \chk  &       & \chk &       &     &     &   & Robust    \\
+    Zhang~\cite{zhang_deep_2020}
+        &      & \chk & \chk  &       &      & \chk  &     &     &   & Online    \\
+    \hline
+\end{tabular}
+    \end{table}
+\end{center}
+All authors conducted model experiments on battery cycling data of different cell type.
+The majority used table data or real-time sensory result from battery cycler to validate efficiencies.
+Mamo et al.~\cite{mamo_long_2020} conducted experiments by validating the RNN model performance by training one driving profile and testing against another.
+The results showed an increase in Root Mean Squared Error, comparing to single dataset training and validation scenario.
+There have not been many similar experiments against other neural nets or other SoC estimation methods.
+Usage of a single profile's battery cycling data may not validate ML methods' efficiency in driving an electric vehicle.
+The inability to determine the charge's current state during EV driving makes the online learning process inapplicable.
+Even with other SoC estimation technique usage, the computational complexity of training any NN is complicated to fit on a low power device.
+An offline trained model had the advantage of insignificant resource consumption during the prediction stage, making it a prefered way for an EV.
+All further model testing will be applied through varying three different battery cycling profiles to capture the influence of data type to model efficiency.
+% ------------------------------------------------------------------------ \\
+% PAPER CONTRIBUTION, may be worth adding as a clear statement \\
+% ------------------------------------------------------------------------ \\
+% Asses handpicked article from different categories of SoC estimation, asses efficiency and complexity to utilise in EV.
+% This paper's contribution lies in researching recent approaches used to estimate Charge's State from battery sensor readings.
+% Comparing and implementing the most promising algorithms intended to determine the direction to build upon in the future. \\ \\
+% This paper will test recent developments in the most common SoC prediction to determine the most promising direction/approach towards implementing an improved, and light model applied to an electric vehicle.
+% It determined to find the ML model creation's weakness and implement a new one, for an EV. \\
+% ------------------------------------------------------------------------ \\
+
+%
+%
+This paper investigates, implements and compares extended memory-based models of RNN to predict the State of Charge and additional built-on over time techniques to select the most effective and least resource requiring onboard-based computations appliable within Electrical Vehicles.
+The recent advancement and commonly used subsets are Gradient Recurrent Unit and Long Shot-Term Memory unit cells. Recurrent Neural Network has confirmed to be suitable for the battery-related system by authors discussed further, such as Chemali~\cite{LSTM_Hochreiter1997}.
+There is no valid proof of if GRU or LSTM useful for battery SoC estimation.
+The best way to separate them and explore differences and efficiencies is to use them as Stateful and Stateless models.
+Each subset will contain implementation from various articles changing either structure of the models or learning approaches.
+In the end, each method will be taken through the same battery data of three different driving profiles and compared against robustness and accuracy of estimation State of Charge of Lithium-Ion batteries.
+
+%
+%
+The remaining sections organised as follows: all methodology, methods and data discussed in Section~\ref{sec:Body}.
+The details of data management and models structure are in Subsection~\ref{subsec:RNN}.
+Subsections~\ref{subsec:structure},~\ref{subsec:optimisers} and~\ref{subsec:soft} separate all details for each GRU and LSTM methods using multiple optimising algorithms.
+Section~\ref{sec:conclussion} gives the results of implementation, performance, discussion and concludes the critical analysis.

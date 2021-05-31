@@ -1,20 +1,80 @@
-\documentclass[fleqn,10pt]{olplainarticle}
-% Use option lineno for line numbers 
+\documentclass[fleqn,12pt]{olplainarticle}
+% Adds SVG Support out of cls file
+\usepackage{svg}
+% Merge multiple references into 1
+\usepackage[noadjust]{cite}
 
-\title{Critical analysis of Lithium Battery State of Charge Estimation using Memory Mechanisms of Machine Learning}
+% Double line spacing
+% \usepackage{setspace}
+% \doublespace
+%\linespread{2pc}
+
+% Fancy table related trick
+\usepackage{multirow}
+\usepackage{tikz}
+\def\chk{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+
+% Python code
+\usepackage{listings}
+
+% Algorithmic
+\usepackage{algorithm, algorithmic}
+
+% Subfigures
+\usepackage{caption}
+\usepackage{subcaption}
+
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+%Code listing style named "mystyle"
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+%"mystyle" code listing set
+\lstset{style=mystyle}
+
+% lscape.sty Produce landscape pages in a (mainly) portrait document.
+\usepackage{pdflscape}
+
+\title{Critical analysis of Lithium Battery State of Charge estimation methods using Time-Series Machine Learning prediction over supported chip-on-board devices for Electric Vehicles.}
 
 \author[1]{Mr Marat (Matt) Sadykov}
 \author[2]{Dr David Holmes}
+\author[3]{Pr Geoff Walker}
+\author[4]{\\Dr Mark Broadmeadow}
+
 \affil[1]{Queensland University of Technology}
 %\affil[2]{Address of second author}
 
 \keywords{BMS, NN, RNN, LSTM, GRU, SoC}
 
 \begin{abstract}
-    \textbf{State of Charge (SoC) estimation is one of the critical parameters, which determines the state at which electrical system currently is.
-    Popular in Electrical Vehicle (EV) especially for Formula FSAE competitons etc.
-    The articles summarises several methods to estimate SoC using 3 types of Machine Learning (ML). Recurrent Neural Network (RNN), Long-Short Term Memory (LSTM) Neural Networ and Gated Recurrent Unit (GRU) Neural Network.
-    It also includes some of the other variations of those algorith to make improvements in model preperation.}
+    \textbf{
+    State of Charge (SoC) estimation is a critical aspect of battery management in any battery-based electrical system.
+    SoC is a crucial metric for Electrical Vehicle (EV) because ... 
+    The article analyses several methods to estimate SoC using three types of Machine Learning (ML).
+    Recurrent Neural Network (RNN), Long-Short Term Memory (LSTM) Neural Network and Gated Recurrent Unit (GRU) Neural Network.
+    It also includes some of the other variations of those algorithms to make improvements in model preparation.
+    }
 \end{abstract}
 
 \begin{document}
@@ -23,18 +83,23 @@
 \maketitle
 \thispagestyle{empty}
 %%% Introduction
+\section{Introduction} \label{sec:Introduction}
 \input{./I_Introduction/Intro}
 %%% Body
-\section{The concept and structure of Recurrent Neural Network and corresponding implementations OR}
-\section{Recurrent Neural Networks and its' variations for State of Charge prediction/estimation}
-\input{./II_Body/rnn}
-\input{./II_Body/GRU/gru}
-\input{./II_Body/GRU/gru-nadam}
-\input{./II_Body/LSTM/lstm}
-\input{./II_Body/LSTM/lstm-attention}
-
+\section{Time-series models implementation} \label{sec:Body}
+% \textcolor{red}{\textit{\textbf{Other titles:}}
+%     \begin{itemize}
+%         \item The concept and structure of Recurrent Neural Network and corresponding implementations OR
+%         \item Recurrent Neural Networks and its' variations for State of Charge prediction/estimation
+%         \item Preliminary Work / A review of GRU and LSTM methods
+%         \item RNNs for SoC model training and validation
+%     \end{itemize}
+% }
+\input{./II_Body/rnn2} 
 %%% Conclusion
+\section{Performance and Results}\label{sec:results}
 \input{./III_Conclussion/results}
+\section{Conclusion} \label{sec:conclussion}
 \input{./III_Conclussion/conclussion}
 \input{./III_Conclussion/acknowledgements}
 
@@ -104,6 +169,6 @@
 
 %     Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
 
-\bibliography{sample}
+\bibliography{I_Introduction/BibIntro, II_Body/BibRNN, II_Body/LSTM/BibLSTM, II_Body/GRU/BibGRU, II_Body/Optimisers/BibOpt.bib}
 
 \end{document}

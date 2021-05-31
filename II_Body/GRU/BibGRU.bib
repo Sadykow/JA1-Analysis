@@ -1,0 +1,72 @@
+@inproceedings{song_lithium-ion_2018,
+	title = {Lithium-{Ion} {Battery} {Remaining} {Useful} {Life} {Prediction} {Based} on {GRU}-{RNN}},
+	doi = {10.1109/ICRMS.2018.00067},
+	abstract = {Lithium-ion battery has been widely applied as an energy storage component in various industrial applications including electric vehicles, distributed grids and space crafts. However, the battery performance degrades gradually due to the SEI growth, li-plating and other irreversible electro-chemical reactions. These inevitable reactions directly influence the reliability of the energy storage system and may further cause catastrophic consequences to the host system. Remaining useful life (RUL) is one of critical indicators to evaluate the battery performance. This paper proposes a battery RUL prediction approach based on a new recurrent neural network (RNN), i.e. the RNN with Gated Recurrent Unit (GRU). The proposed method overcomes the drawback on dealing with long term relationship of RNN. The structure of the RNN-GRU is much simpler which contributes to a higher computational complexity. The experiments based on the NMC lithium-ion battery cycle life testing data are conducted and the results indicate that the mean error of different battery cells are both less than 3\% which means the proposed method is accurate and robust for battery RUL predictions.},
+	booktitle = {2018 12th {International} {Conference} on {Reliability}, {Maintainability}, and {Safety} ({ICRMS})},
+	author = {Song, Y. and Li, L. and Peng, Y. and Liu, D.},
+	month = oct,
+	year = {2018},
+	note = {ISSN: 2575-2642},
+	keywords = {battery RUL prediction approach, computational complexity, Degradation, gated recurrent unit, GRU-RNN, Lithium-ion batteries, Lithium-ion battery, lithium-ion battery remaining useful life prediction, Logic gates, Prediction algorithms, Predictive models, recurrent neural nets, recurrent neural network, Recurrent neural networks, remaining life assessment, remaining useful life prediction, secondary cells},
+	pages = {317--322},
+	file = {IEEE Xplore Abstract Record:/mnt/WORK/Zotero/storage/XIZ3H5NI/8718958.html:text/html}
+}
+
+@article{jiao_gru-rnn_2020,
+	title = {A {GRU}-{RNN} based momentum optimized algorithm for {SOC} estimation},
+	volume = {459},
+	issn = {0378-7753},
+	url = {http://www.sciencedirect.com/science/article/pii/S0378775320303542},
+	doi = {https://doi.org/10.1016/j.jpowsour.2020.228051},
+	abstract = {For a lithium battery, a gated recurrent unit recurrent neural network (GRU-RNN) based momentum gradient method is investigated to estimate its state of charge (SOC). In the momentum gradient method, the current weight change direction takes a compromise of the gradient direction at current instant and at historical time to prevent the oscillation of the weight change and to improve the SOC estimation speed. The details include: (1) construct a GRU-RNN model for estimating SOC by taking the measured voltage and current as the inputs, and the estimated SOC as the output of the GRU-RNN; (2) to promote the SOC convergence speed, explore the momentum gradient algorithm to optimize the weights of the network by introducing a momentum term; (3) to prevent overfitting and to improve generalization ability of the GRU-RNN model, add noises to the sample data, so as to improve the SOC estimation accuracy; (4) set up a lithium battery test platform to sample data in battery discharge process and to implement MATLAB simulation. The simulation results verify that the momentum optimized GRU-RNN model can accurately and effectively estimate the SOC of the lithium battery.},
+	journal = {Journal of Power Sources},
+	author = {Jiao, Meng and Wang, Dongqing and Qiu, Jianlong},
+	year = {2020},
+	keywords = {GRU neural Network, Lithium battery, Momentum gradient, State of charge (SOC)},
+	pages = {228051}
+}
+
+@article{xiao_accurate_2019,
+	title = {Accurate {State}-of-{Charge} {Estimation} {Approach} for {Lithium}-{Ion} {Batteries} by {Gated} {Recurrent} {Unit} {With} {Ensemble} {Optimizer}},
+	volume = {7},
+	issn = {2169-3536},
+	doi = {10.1109/ACCESS.2019.2913078},
+	abstract = {State-of-charge (SoC) estimation is indispensable for battery management systems (BMSs). Accurate SoC estimation can improve the efficiency of battery utilization, especially for electric vehicles (EVs). Several kinds of battery SoC estimation approaches have been developed, but a simple and efficient method for battery SoC estimation that can adapt to a variety of lithium-ion batteries is worth exploring. To this end, a recurrent neural network (RNN) model based on a gated recurrent unit (GRU) is presented for battery SoC estimation. The GRU-RNN model can rapidly learn its own parameters by means of an ensemble optimization method based on the Nadam and AdaMax optimizers. The Nadam optimizer is used in the model pre-training phase to find the minimum optimized value as soon as possible, and then the AdaMax optimizer is used in the model fine-tuning phase to further determine the model parameters. To validate the effectiveness and robustness of the proposed method, the GRU-RNN model was trained and tested with three kinds of dynamic loading profiles and compared with existing SoC estimation methods. The experimental results show that the proposed method dramatically reduces the model training time and increases estimation accuracy.},
+	journal = {IEEE Access},
+	author = {Xiao, B. and Liu, Y. and Xiao, B.},
+	year = {2019},
+	note = {Conference Name: IEEE Access},
+	keywords = {AdaMax optimizer, Adaptation models, Batteries, battery management systems, battery SoC estimation approaches, battery utilization, Computational modeling, dynamic loading profiles, electric vehicles, ensemble optimization method, ensemble optimizer, Estimation, gated recurrent unit, GRU-RNN model, Integrated circuit modeling, Li, lithium compounds, lithium-ion batteries, Lithium-ion batteries, Logic gates, model fine-tuning phase, Nadam optimizer, optimisation, recurrent neural nets, recurrent neural network model, secondary cells, state of charge, state-of-charge estimation, Training},
+	pages = {54192--54202}
+}
+
+@inproceedings{javid_adaptive_2020,
+	title = {Adaptive {Online} {Gated} {Recurrent} {Unit} for {Lithium}-{Ion} {Battery} {SOC} {Estimation}},
+	doi = {10.1109/IECON43393.2020.9254506},
+	abstract = {The Li-ion batteries are commonly used for Electric Vehicles (EVs) and aerospace applications. One of the essential parameters in Li-ion batteries is state of charge (SOC) that shows the available energy in a battery. Various methods were proposed for SOC estimation. Since the battery has a nonlinear equations, it is important to use a method that does not require the system model. In the present study, a new Adaptive Online Gated Recurrent Unit (GRU) method is proposed for the State of Charge (SOC) estimation. It is a kind of deep Recurrent Neural Network(RNN) which solved the vanishing gradient problem in RNNs with GRU units. For Optimization a robust adaptive Online gradient learning method is used. This method is able to tune online the learning rate in the process. Adaptive GRU is a nondependent method from the nonlinear batteries model and simplifies the mathematical computation. The proposed technique is implemented on the real dataset of LifePO4 Li-ion batteries for finding SOC estimation. The exprimental result indicate that the Adaptive GRU method is more accurate than simple RNN.},
+	booktitle = {{IECON} 2020 {The} 46th {Annual} {Conference} of the {IEEE} {Industrial} {Electronics} {Society}},
+	author = {Javid, G. and Basset, M. and Abdeslam, D. O.},
+	month = oct,
+	year = {2020},
+	note = {ISSN: 2577-1647},
+	keywords = {adaptive online gated recurrent unit method, adaptive online gradient learning method, aerospace applications, deep recurrent neural network, electric vehicles, Electric Vehicles (EVs), Estimation, Gated Recurrent Unit (GRU), gradient methods, GRU units, learning (artificial intelligence), Li-ion batteries, lithium compounds, Lithium-Ion (Li-ion) batteries, lithium-ion battery SOC estimation, Logic gates, mathematical computation, Mathematical model, nonlinear batteries model, nonlinear equations, optimisation, power engineering computing, recurrent neural nets, Recurrent Neural Network (RNN), Recurrent neural networks, RNN, secondary cells, state of charge, State of charge, State of Charge (SOC), Temperature measurement, Training},
+	pages = {3583--3587},
+	file = {IEEE Xplore Abstract Record:/mnt/WORK/Zotero/storage/GCWA5N8Z/9254506.html:text/html}
+}
+% Must be the original source of Gated Recurrent Unit
+@article{GRU_cho_properties_2014,
+	title = {On the {Properties} of {Neural} {Machine} {Translation}: {Encoder}-{Decoder} {Approaches}},
+	shorttitle = {On the {Properties} of {Neural} {Machine} {Translation}},
+	url = {http://arxiv.org/abs/1409.1259},
+	abstract = {Neural machine translation is a relatively new approach to statistical machine translation based purely on neural networks. The neural machine translation models often consist of an encoder and a decoder. The encoder extracts a ﬁxed-length representation from a variable-length input sentence, and the decoder generates a correct translation from this representation. In this paper, we focus on analyzing the properties of the neural machine translation using two models; RNN Encoder–Decoder and a newly proposed gated recursive convolutional neural network. We show that the neural machine translation performs relatively well on short sentences without unknown words, but its performance degrades rapidly as the length of the sentence and the number of unknown words increase. Furthermore, we ﬁnd that the proposed gated recursive convolutional network learns a grammatical structure of a sentence automatically.},
+	language = {en},
+	urldate = {2021-03-07},
+	journal = {arXiv:1409.1259 [cs, stat]},
+	author = {Cho, Kyunghyun and van Merrienboer, Bart and Bahdanau, Dzmitry and Bengio, Yoshua},
+	month = oct,
+	year = {2014},
+	note = {arXiv: 1409.1259},
+	keywords = {Statistics - Machine Learning, Computer Science - Computation and Language},
+	annote = {Comment: Eighth Workshop on Syntax, Semantics and Structure in Statistical Translation (SSST-8)},
+	file = {Cho et al. - 2014 - On the Properties of Neural Machine Translation E.pdf:/mnt/WORK/Zotero/storage/SKAVB7BZ/Cho et al. - 2014 - On the Properties of Neural Machine Translation E.pdf:application/pdf}
+}

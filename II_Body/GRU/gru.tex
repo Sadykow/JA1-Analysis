@@ -1,21 +1,60 @@
-%\section{Gradient Recurrent Unit (GRU)}
-\subsection{Definition GRU}\label{sec:GRU}
-    One of the methods, developed by ... , which improves behavior of Neural network is Gradient Recurrent Unit.
-    The structure of the layers is similar to simple Dense network, similar input and output layers.
-    Unlike recurrent Neural Network with a single activation function in the cells, GRU implements a memory cell.
-    On top of activation function, it adds two gates, related to input sequence.
-    THe reset gate controls the level information which has to be ignored, then the update one controls the impact of previos information on the current status \footnote{Bigger value - bigger impact}.
-    The gates implemented by following sigmoid equations, where \textit{func} acts as an activation function:
-    \begin{itemize}
-        \item Reset gate: r= sigmoid(W*(ht-1, xt))
-        \item Update gate: z = sigmoid(Wz*(ht-1, xt)
-        \item Output: ht = func(W*(r*ht, x))
-    \end{itemize}
+\subsubsection{Gated Recurrent Unit based models} \label{subsub:gru}
+One of the methods proposed by Cho et al.~\cite{GRU_cho_properties_2014}, which improves the behaviour of the Neural network, is Gated Recurrent Unit.
+Unlike a simple Recurrent NN with a single activation function in the cells, GRU implements different logics to deal with vanishing gradient, as per Figure~\ref{fig:GRU-cell}.
+On top of the activation function, it adds two gates related to input and propagated sequences.
+The reset gate $r_t$ controls the level information, which has to be ignored.
+The update gate $i_t$ controls the impact of previous information on the current status.
+The gates implemented by \textit{sigmoid} Equation~\ref{eq:sigmoid} and gated get updated with Equations~\ref{eq:GRU-gates}.
+Both gates related to cell input sequence $x_t$ and the memory cell's output at last time stamp $h_{t-1}$.
+%The structure of the layers is similar to simple Dense network, similar input and output layers.
+%\textbf{Y. Song~\cite{song_lithium-ion_2018} considered them less complex than another variation (LSTM-RNN) due to usage of 2 gates, rather than 3.}
+% \footnote{Bigger value - bigger impact}..
+%Weight W and bias b will be the training elements. Bias added to each gate to increase network flexibility.\\
+\begin{equation}
+    \sigma(x) = \frac{1}{1+e^{-x}}
+    \label{eq:sigmoid}
+\end{equation}
+\begin{figure}[ht]%[htbp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{II_Body/GRU/images/GRU.jpg}
+    \caption{Gated Recurrent Unit Cell}
+    \label{fig:GRU-cell}
+\end{figure}
+\begin{equation}
+    \begin{split}
+        f_t &= \sigma \left (W_{r} \left [h_{t-1}, x_t \right ] + b_r \right ) \\
+        i_t &= \sigma \left (W_{i} \left [h_{t-1}, x_t \right ] + b_z \right )
+    \end{split}
+    \label{eq:GRU-gates}
+\end{equation}
+%The standard activation function or content of the memory gets modefied with equation~\ref{eq:GRU-output}, where \textit{func} represent the activation function and $\ast$ multiplication by element.
+The memory cell output $h_t$ get calculated through the early chosen activation function, $tanh$ in Equation~\ref{eq:GRU-output}.
+The $\ast$ stand for multiplication by element.
+\begin{equation}
+    \begin{split}
+        \hat{h_t} &= tanh \left (W_{\hat{h}} \left [f_t \ast h_{t-1}, x_t \right] + b_{\hat{h}} \right ) \\
+        h_t &= \left (1-i_t \right) h_{t-1}+i_t \hat{h_t}
+    \end{split}
+    \label{eq:GRU-output}
+\end{equation} \\
+The GRU can act both as a stateful and stateless cell for the model by implementing the model training library.
+For comparison, a Stateful cell will be used as per implementation from Song et al.~\cite{song_lithium-ion_2018} and similar articles.
+%By the implementation on model training library, the GRU can act both as stateful and stateless cell for the model.
+%(1) - not even count. Method proposed by Y.Song2018, Remaining Useful Life (RUL), \textcolor{red}{uses Capacity only. Nothing more. However, noone mentioned the Statefulnes of GRU models. This would be the best place to introduce it, ones properly figured out.} \\[2pc]
+%
+%
+% (3) Method proposed by B.Xiao2019 enhances GRU model training with an Ensemble optimization method.
+% Instead of utilizing standard Adam optimizer, it combines Nadam and Adamax, by running one after another.
+% For the first 1/3 training iterations (epochs) Nadam optimizer used for model pre-training due to its' fast converging speed, then Adamax for model fine-tuning to determine remaining paramets. \\
+% The algorithms for model fitting as follow: \\
+%
+%
+% (8) Similar to LSTM, a Gradien Recurrent Unit intended to solve problem of vanishing gradient.
+%     Unlike Chemali2017 implementation, where training set was consisted of input data sequences with stateles model, BinXio2019 used statefull model within batches and intrduced a technique of optimization to speedup training process.
+%     Implementation of the model based on BinXio or someone else. Introduce their way of implementation how to improve optimisation using 2 algorithms as per their discussion.
+
 % \subsection{Implementation}
-%     Implementation of the model from YuchenSong2018 utilises recurrent neural network with Gradient Recurrent Unit cells. 
-%     Model itself will be a single feature based.
 %     Instead of implementing learning based on Battery Capacity, following method will use State of Charge as an input and output, similar to Dense example. Folowing table highglights parameters, which proven to be most effective during the tests.  \textbf{Table of the parameters like BinXiao}. The activation function was selected as the \textit{tanh} \textbf{the number of sample experementaly was selected as 500?? .} \\
 %     \textbf{I have found the place to describe statefulnes for the first time. Potentially, need to implement properly. Use following link to understand how to keep it between batches.}
-    %https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
-    
-    
+%https://machinelearningmastery.com/time-series-prediction-lstm-recurrent-neural-networks-python-keras/
+

@@ -1,0 +1,88 @@
+\subsubsection{Classic Stochastic Gradient and Momentum Stochastic Gradient algorithm}
+One of the simplest methods used to optimise the model is the Stochastic Gradient Descent (SGD).
+The SGD Optimiser utilised a simple gradient update with a learning rate.
+Unlike improved versions, this algorithm has the potential of missing optimum value. The extension of SGD, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
+To improve accuracy, Jiao introduced noise to the data to be able to capture more variant information.
+Due to the amount of data provided and comparison with other methods, noise variance will not be used in this implementation.
+Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
+\vspace{1pt}
+\hspace{-3pt}
+\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+  \caption{Stochastic Gradient Descent (SGD) optimisation}
+  \begin{algorithmic}[1]
+    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
+    \STATE Define Loss function $L$
+    %\textbf{Function} Twiddle(W, N, stuff)
+    \WHILE{$W_t \text{ not converge}$}
+    \STATE $t \gets t+1$
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
+    \STATE $W_t \gets W_{t-1} - \alpha m_t $// ???
+    % \STATE $ W.r \gets cos(stuff.2.\Pi/N)$
+    % \STATE $ W.i \gets -sin(stuff.2.\Pi/N)$\\
+    \ENDWHILE
+    % \IF{$N_{2}!=1$}
+    % \STATE \textbf{Call} $radix-4(data[N_{2}.k1], N_{2})$
+    % \ENDIF
+  \end{algorithmic}
+  \label{alg:SGD}
+\end{algorithm}
+% \begin{tabular}{ l } 
+%     \hline
+%     Algorithm   \\
+%     \hline
+%     % \ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
+%     % \ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
+%     \ \ \ 1: Define Inputs, Outputs and Parameter: $\alpha$. \\
+%     \ \ \ 2: Define loss function $L$. \\
+%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
+%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
+%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \text{//Obtain Gradient}\\ \\
+%     \ \ \ 6: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha g_t $ \\
+%     \ \ \ 7: \textbf{end while} \\
+%     \hline
+% \end{tabular}
+
+\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+  \caption{Stochastic Gradient Descent with Momentum optimisation}
+  \begin{algorithmic}[1]
+    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
+    \STATE Define Loss function $L$
+    \WHILE{$W_t \text{ not converge}$}
+    \STATE $t \gets t+1$
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ // $1_{st}$ Moment Calculation \label{alg:SGDwM-Line-Moment}
+    \STATE $W_t \gets W_{t-1} - \alpha m_t $  // ???
+    \ENDWHILE
+  \end{algorithmic}
+  \label{alg:SGDwM}
+\end{algorithm}
+% \begin{tabular}{ l } 
+%     \hline
+%     Algorithm SGD w/ Momentum optimisation  \\
+%     \hline
+%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
+%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
+%     \ \ \ 1: Define I/O and Parameters: $\alpha, \beta_1 $ \\
+%     \ \ \ 2: Define loss function $L$ \\
+%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
+%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
+%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_{\phi} L_t\left(\phi_{t-1}\right) $ \text{//Obtain Gradient}\\
+%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right) g_t $ \text{ //Moment}\\
+%     \ \ \ 7: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha m_t $ \\
+%     \ \ \ 8: \textbf{end while} \\
+%     \hline
+% \end{tabular} \\ \\
+%\vspace{-3pt}
+\begin{table}[ht]
+    \centering
+    \caption{Hyper-Parameters as per Jiao et al.~\cite{jiao_gru-rnn_2020}}
+    \label{tab:params-jiao}
+    \begin{tabular}{ p{6.0cm} p{1.5cm} p{1.5cm}   }
+        \hline
+        Method     & $\alpha$ & $\beta_1 $  \\
+        \hline
+        SGDw/M
+                & $0.001$ & $0.8$  \\% 0.0000001
+        \hline
+    \end{tabular}
+\end{table}

@@ -1,2 +1,257 @@
-\section{Performance and Results}\label{sec:results}
-The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries.
+The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\
+
+Table information collected as per datasheet. \\
+
+Android device: 3GB - RAM, Octa-core 1.3 GHz Cortex-A53, Android 5.1 (6), Chipset: Mediatek MT6753 (28 nm), \\
+
+%GFLOPS table: http://web.eece.maine.edu/~vweaver/group/green_machines.html
+
+% R-Pi3B as per Tim Chant:
+% 70.45 GFLOPS / 6.2 GFLOPS/s = 11.36 s
+% Total model flops / device flops = Time  --->>>>> Time * Device flops = Total model flops
+
+% Energy consumption if Voltage and Current from device records not enough
+% 1.36 s/s * 3.7 W / 3,600s = 0.0116 Wh/s
+
+\textcolor{red}{I have to create a table highligting the time in took for Coral TPU to compute each unique model. This will maek paper worty publication of useful to EV.} \\
+By itself, Stateful models not supported by TFLite. A single attempt to make Custom Stateful stateless model to test time efficiency.
+\begin{table}[ht]
+    \centering
+    \caption{Coral TPU classification results. Average time.}
+    \label{tab:speed}
+    \begin{tabular}{c|c|c||c|c|c}
+        Method                   &Total params& flop/it & Coral TPU (ms) & R-Pi4 (ms)      & Android (ms) \\
+        \hline
+        1 $\times$ LSTM          & 1,008,501  & 2,0G & 188.5$\pm$32.5 & 2053.3$\pm$14.7 & 3768*\\
+        \hline
+        1 $\times$ GRU           & 949,761    & 1.9G & 193.5$\pm$12.5 & 2301.5$\pm$79.7& 3926* \\
+        \hline
+        1 $\times$ Layer \& Dense& 3,369      &     & 2.35$\pm$0.25  & 3.15$\pm$0.85 & 6.3*\\
+        \hline
+        2 $\times$ GRU           & *          &     & ** & ** & \\
+        \hline
+        4 $\times$ GRU           & 88,193*    &     & ** & ** & \\
+        \hline
+        1 $\times$ LSTM \& Atten & 1,361,881  & 3.2G & 178$\pm$20     & 2001.8$\pm$18.9& 3643* \\
+    \end{tabular}
+\end{table}
+Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU steady current - 0.07A.
+
+%
+\begin{center}
+    \begin{table}[htbp]
+%\begin{tabular}{ p{1.0cm}|p{1.0cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.9cm}|p{0.1cm} }
+\begin{tabular}{ p{1.5cm} p{1.5cm} p{1.5cm} p{3.2cm} p{1.5cm} p{1.5cm} p{1.8cm} }
+    \hline
+    Model № & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
+    \hline
+     & DST  & DST US06 FUDS & Both & 2.49 2.50 2.53 & 3.48 3.55 3.57 & 98.61 95.51 98.50 \\
+    №1%Chemali \textit{et al.}~\cite{Chemali2017} 
+     & US06 & US06 DST FUDS & Both & 2.57 2.95 2.77 & 3.66 4.02 3.90 & 98.43 98.15 98.21 \\
+     & FUDS & FUDS DST US06 & Both & 2.35 3.67 2.41 & 3.14 5.04 3.20 & 98.84 97.10 98.79 \\
+    \hline
+     & DST  & DST US06 FUDS & Both & 2.68 5.42 5.59 & 3.61 8.32 8.59 & 98.51 92.72 91.32 \\
+    №2%Xioa \textit{et al.}~\cite{xiao_accurate_2019}
+     & US06 & US06 DST FUDS & Both & 4.11 5.93 4.42 & 5.21 7.49 5.71 & 96.77 95.51 96.16 \\
+     & FUDS & FUDS DST US06 & Both & 3.66 5.98 3.71 & 4.96 7.79 5.04 & 97.11 93.08 96.98 \\ % 
+    \hline
+     & DST  & DST US06 FUDS & Both & 3.75 2.97 3.20 & 5.75 \ 3.61 3.95 & 97.42 98.48 98.17 \\
+    №3%Mamo \textit{et al.}~\cite{mamo_long_2020} 
+     & US06 & US06 DST FUDS & Both & 3.81 \ 4.91 3.88 & 4.89 6.14 4.92 & 97.22 95.70 97.15 \\
+     & FUDS & FUDS DST US06 & Both & 2.70 5.27 2.73 & 3.54 6.93 3.62 & 95.69 94.52 98.48 \\ % 64571872354
+    \hline
+     & DST  & DST US06 FUDS & Discharge & ***** ***** ***** & ***** ***** ***** & ***** ***** ***** \\
+    №4%Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020} 
+     & US06 & US06 DST FUDS & Discharge & ***** ***** ***** & ***** ***** ***** & ***** ***** ***** \\
+     & FUDS & FUDS DST US06 & Discharge & ***** ***** ***** & ***** ***** ***** & ***** ***** ***** \\
+    \hline
+\end{tabular} \\
+\caption{Accuracy result summary - part 1.}
+\label{tab:acc-results1}
+    \end{table}
+\end{center}
+
+\begin{center}
+    \begin{table}[htbp]
+%\begin{tabular}{ p{1.0cm}|p{1.0cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.9cm}|p{0.1cm} }
+\begin{tabular}{ p{1.5cm} p{1.5cm} p{1.5cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} }
+    \hline
+    Model № & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
+    \hline
+     & DST  & DST US06 FUDS & Both & 0 & 0 & 0 \\
+    №5%Javid \textit{et al.}~\cite{javid_adaptive_2020} 
+     & US06 & US06 DST FUDS & Both & 0 & 0 & 0 \\
+     & FUDS & FUDS DST US06 & Both & 0 & 0 & 0 \\
+    \hline
+     & DST  & DST US06 FUDS & Discharge & 0 & 0 & 0 \\
+    №6%Song \textit{et al.}~\cite{song_lithium-ion_2018}  
+     & US06 & US06 DST FUDS & Discharge & 0 & 0 & 0 \\
+     & FUDS & FUDS DST US06 & Discharge & 0.0023 & 0.0064 & * \\
+    \hline
+     & DST  & DST US06 FUDS & Both & 0 & 0 & 0 \\
+    №7%Zhang \textit{et al.}~\cite{zhang_deep_2020} 
+     & US06 & US06 DST FUDS & Both & 0 & 0 & 0 \\
+     & FUDS & FUDS DST US06 & Both & 0 & 0 & 0 \\
+    \hline
+\end{tabular} \\
+\caption{Accuracy result summary - part 2.}
+\label{tab:acc-results2}
+    \end{table}
+\end{center}
+\textcolor{red}{I expect to see advantage in Mamo and online versions. Play from them later.}
+\begin{figure}[htbp]
+    \centering
+    % DST based tests
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/DST/DSTval-41.svg}
+        \caption{Validated on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/DST/DST-test_One-41.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/DST/DST-test_Two-41.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    % US06 based tests
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/US06/US06val-50.svg}
+        \caption{Validated on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/US06/US06-test_One-50.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/US06/US06-test_Two-50.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    % FUDS based tests
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/FUDS/FUDSval-48.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/FUDS/FUDS-test_One-50.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/1/FUDS/FUDS-test_Two-50.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \caption{Model 1: Single Layer LSTM}
+    \label{fig:Model-1}
+\end{figure}
+
+
+\begin{figure}[htbp]
+    \centering
+    % DST based tests
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DSTval-50.svg}
+        \caption{Validated on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DST-test_One-50.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DST-test_Two-50.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    % US06 based tests
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06val-50.svg}
+        \caption{Validated on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06-test_One-50.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06-test_Two-50.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    % FUDS based tests
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDSval-50.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDS-test_One-50.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDS-test_Two-50.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    %%% ADDS to be removed
+    \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DSTval-1.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06val-2.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDSval-6.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+        \begin{subfigure}[b]{0.32\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DSTval-50.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06val-50.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.33\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDSval-50.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    
+    \caption{Model 2: Single Layer GRU}
+    \label{fig:Model-1}
+\end{figure}
