@@ -95,7 +95,16 @@
 %         \item RNNs for SoC model training and validation
 %     \end{itemize}
 % }
-\input{./II_Body/rnn2} 
+\input{./II_Body/rnn2}
+\input{./II_Body/GRU/gru} 
+\input{./II_Body/LSTM/lstm}
+\subsection{Optimisers} \label{subsec:optimisers}
+The optimisation algorithm aims to define a way to minimise the difference between model prediction and actual values, using one of the selected Loss functions~\ref{subsub:losses}.
+The following section breaks down several methods selected by chosen authors in the growing complexity.
+\input{./II_Body/Optimisers/optimisers}
+\input{./II_Body/b_data}
+\subsection{Hardware and Software} \label{subsec:soft}
+\input{./II_Body/hardware}
 %%% Conclusion
 \section{Performance and Results}\label{sec:results}
 \input{./III_Conclussion/results}

@@ -1,0 +1,30 @@
+\textcolor{red}{Need to systemise information better} \\
+Tensorflow 2.4.0 with Python 3.9.1 compiled from source with bazel 3.1.0, with packages of Addons version 0.18.* for $R^2$ and Probability 0.* for DE algorithm complied from the source. \\
+Attention Layer has been reimpolemented from provided source code.\textcolor{red}{Good luck finding the link}
+Tensorboard used to observe progress as it goes and keep records to analyze training later.
+Hardware Intel CPU with Graphical Processor with Compute Capability Score of 7.5, CUDA version 11.1.
+Multilayer model flaged with Return sequences boolean. Statefulnes define with Stateful boolean. The dropout affected as separate layer or parameter. With Stateful on, standard Inpust Layer shape requires to be follower Bacthed Input shape. It can be done kwarg parameter to the GRU or LSTM layer or kept as a separate Input Layer to allow precompilation before starting model fitting. Following code snipest demonstrated the difference. \\
+\textcolor{red}{I am going to use the TPU processor to measure time it takes to run each model.} \\
+\begin{table}[ht]
+    \centering
+    \caption{Software details}
+    \label{tab:my_label}
+    \begin{tabular}{p{3.0cm}|c|c|c|c|c}
+        Version & Python version & Compiler & Build tools & CUDA version & Compute Score\\
+        Tensorflow-2.4.0, TF-Addons 13.0, TF-Probability 0.12.1 & 3.9.1 & gcc 9.3.0 & Bazel 3.1.0 & 11.1 & 7.5\\
+        \hline
+        Tensorflow-2.2.0 & 3.8.* & gcc 7.3.1 & Bazel 2.0.0 & CPU & 3.98MHz*
+    \end{tabular}
+\end{table}
+\begin{table}[]
+    \centering
+    \caption{Chip-on-Board Hardware selection}
+    \label{tab:my_label}
+    \begin{tabular}{c|c|c|c}
+        Device & Specification & Source & Software setup \\
+        \hline
+        Coral TPU & (Specs) & (Link to the details) & (Link to libedgetpu.so.1) \\
+        \hline
+        Raspberry Pi 4 (Active cooling) & 
+    \end{tabular}
+\end{table}
