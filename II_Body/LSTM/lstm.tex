@@ -1,4 +1,3 @@
-\subsubsection{Long-Short Term Memory based models} \label{subsub:lstm}
 The second method and the most commonly used in the Time-series Machine learning model is the Long Short-Term Memory Cell~\cite{LSTM_Hochreiter1997}.
 Similar to GRU, LSTM models tend to preserve long-term dependencies in the extended data sequences.
 Since for a longer existence, it became the most widely used type of RNN, used in those type of application.
@@ -32,7 +31,7 @@ The $c_t$ represents the cell state at a timestamp.
     \begin{split}
         \hat{c_t} &= tanh \left(W_c \left[h_{t-1}, x_t \right] + b_c \right) \\
               c_t &= f_t c_{t-1}+i_t \hat{c_t} \\
-              h_t &= o_t*tanh \left(c_t \right)
+              h_t &= o_t*tanh \left(c_t \right)II_Body
     \end{split}
     \label{eq:LSTM-output}
 \end{equation}
