@@ -24,8 +24,8 @@ It provides details of 7 different implementations, which vary in their structur
     1 & 1 $\times$ LSTM (500) & $-$less & 0.001 &       &        &        &           \\
     2 & 1 $\times$ GRU (560)  & $-$less &       & 0.001 &        & 0.0005 & Ensemble  \\
     3 & 1 $\times$ LSTM (520) & $-$less & 0.001 &       &        &        & Attention \\
-    4 & 2 $\times$ GRU (64)   & $-$full &       &       & 0.01   &        & Momentum (0.8)\\
-    5 & 4 $\times$ GRU (64)   & $-$full & 0.001 &       &        &        &           \\
+    4 & 2 $\times$ GRU (64)   & $-$ful  &       &       & 0.01   &        & Momentum (0.8)\\
+    5 & 4 $\times$ GRU (64)   & $-$ful  & 0.001 &       &        &        &           \\
     6 & 1 $\times$ GRU (500)  & $-$less & 0.001 &       &        &        & Robust (RoAdam)\\
     \hline
 \end{tabular}
@@ -43,7 +43,7 @@ Extention defines the specific detail of the model, which distinguish it against
 
 %
 %
-Thus the specifics of each algorithmic aspect will be defined in the following: 2.1,2.2,2.3
+Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
 \begin{itemize}
     \item Data shape for each state type
     \item Model structure and difference between GRU and LSTM
@@ -123,7 +123,8 @@ Final tests for a model performance conducted against an entire set of two remai
 \begin{landscape}
     \begin{figure}[ht]
         \centering
-        \includegraphics[width=0.9\linewidth]{II_Body/images/Windowing3D-3.jpg}
+        % \includegraphics[width=0.9\linewidth]{II_Body/images/Windowing3D-3.jpg}
+        \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
         \caption{Data Windowing scheme. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from actual implementation. Initial index $i$ was kept as a value close to the beginning of the data, around zero.}
         \label{fig:Windowing}
     \end{figure}

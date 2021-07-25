@@ -8,19 +8,26 @@ On top of two constants $\beta$ used for momentum calculation, the algorithm use
 Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam, Line 10-12.
 Adding the direct influence of loss function to the gradient update adds an online calculation to regular $Adam$ correction.
 Table~\ref{tab:adam-params} highlight method-specific parameter selection for the optimiser.
+The framework library contained no inbuild implementation of the Robust optimiser.
+Instead, it was implemented from the first principal and overwriting the model training procedure.
+The code itself can be located in Appendix~\ref{}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Adaptive Moment Estimation (Adam) optimisation}
   \begin{algorithmic}[1]
-    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
-    \STATE Define Loss function $L$
+    \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
+    \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
+    \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
+    \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
+    \STATE Define Loss function: $L$ \\
+           Get hyperparameters: $\alpha, \beta_1, \beta_2, \epsilon$
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_W L_t (W_{t-1})$ // Obtain gradient
-    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ // $1_{st}$ moment calculation
-    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ // $2_{nd}$ moment calculation \label{alg:Adam-Line-2Moment}
-    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ // Corrected $\hat{m_t}$
-    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ // Corrected $\hat{\upsilon_t}$
-    \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ // ??
+    \STATE $g_t \gets \nabla_W L_t (W_{t-1})$ \COMMENT{Obtain gradient}
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ moment calculation}
+    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{$2_{nd}$ moment calculation \label{alg:Adam-Line-2Moment}}
+    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{Corrected $\hat{m_t}$}
+    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{Corrected $\hat{\upsilon_t}$}
+    \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ \COMMENT{Update parameters}
     \ENDWHILE
   \end{algorithmic}
   \label{alg:Adam}
@@ -47,18 +54,22 @@ Table~\ref{tab:adam-params} highlight method-specific parameter selection for th
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Robust Online Adaptive Moment Estimation (Adam) optimisation}
   \begin{algorithmic}[1]
-    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
-    \STATE Define Loss function $L$
+    \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
+    \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
+    \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
+    \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
+    \STATE Define Loss function: $L$ \\
+           Get hyperparameters: $\alpha, \beta_1, \beta_2, \beta_3, \epsilon$
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
-    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ // $1_{st}$ moment calculation
-    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ // $2_{nd}$ moment calculation
-    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ // Corrected $\hat{m_t}$
-    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ // Corrected $\hat{\upsilon_t}$
-    \STATE $r_t \gets \parallel L_t\left(W_{t-1}\right)/L_t\left(W_{t-2}\right) \parallel $ // Relative prediction error term of the loss function
-    \STATE $d_t \gets \beta_3 d_{t-1}+\left(1-\beta_3\right)r_t $ // $3^{rd}$ moment calculation
-    \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{d_t\sqrt{\hat{\upsilon_t}}+\epsilon} $ // ???
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ moment calculation}
+    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{$2_{nd}$ moment calculation}
+    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{Corrected $\hat{m_t}$}
+    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{Corrected $\hat{\upsilon_t}$}
+    \STATE $r_t \gets \parallel L_t\left(W_{t-1}\right)/L_t\left(W_{t-2}\right) \parallel $ \COMMENT{Relative prediction error term of the loss function}
+    \STATE $d_t \gets \beta_3 d_{t-1}+\left(1-\beta_3\right)r_t $ \COMMENT{$3^{rd}$ moment calculation}
+    \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{d_t\sqrt{\hat{\upsilon_t}}+\epsilon} $ \COMMENT{Update parameters}
     \ENDWHILE
   \end{algorithmic}
   \label{alg:RoAdam}

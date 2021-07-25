@@ -10,13 +10,18 @@ Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent (SGD) optimisation}
   \begin{algorithmic}[1]
-    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
-    \STATE Define Loss function $L$
+    \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
+    \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
+    \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
+    \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
+    \STATE Define Loss function: $L$ \\
+           Get hyperparameters: $\alpha$
+    
     %\textbf{Function} Twiddle(W, N, stuff)
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
-    \STATE $W_t \gets W_{t-1} - \alpha m_t $// ???
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
+    \STATE $W_t \gets W_{t-1} - \alpha g_t $ \COMMENT{Update parameters}
     % \STATE $ W.r \gets cos(stuff.2.\Pi/N)$
     % \STATE $ W.i \gets -sin(stuff.2.\Pi/N)$\\
     \ENDWHILE
@@ -26,6 +31,26 @@ Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
   \end{algorithmic}
   \label{alg:SGD}
 \end{algorithm}
+
+% \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+%   \caption{stochastic gradient descent with entropy estimate}
+%   \label{alg:sgd-with-estimate}
+%   \begin{algorithmic}[1]
+%     \STATE { input:}
+%     Weight initialization scale $\sigma_0$, step size $\stepsize$,
+%     twice-differentiable negative log-likelihood $L(\params, t)$
+%     \STATE { initialize} $\params_0 \sim \N{0}{\sigma_0 \vI_D}$
+%     \STATE { initialize} $\entropy_{0} = \frac{D}{2} (1 + \log 2 \pi) + D \log\sigma_0$
+%     \FOR {$t=1$ { to} $T$}
+%     %		\State $\vg = \gradparams$             \Comment{Evaluate gradient}
+%     %		\State $\vr \sim \N{0}{\vI_D}$         \Comment{Draw random direction}
+%     %		\State $\vr\tra \left[ -2 \vr + 3 \left(  R1 - R2 \right) \right]$      \Comment{Estimate determinant}
+%     \STATE $\entropy_{t} = \entropy_{t-1} + \log \left| \vI - \stepsize H_{t-1} \right|$
+%     \STATE $\params_{t} = \params_{t-1} - \stepsize \gradparams$
+%     \ENDFOR
+%     \STATE \textbf{output} sample $\params_T$, entropy estimate $\entropy_T$
+%   \end{algorithmic}
+% \end{algorithm}
 % \begin{tabular}{ l } 
 %     \hline
 %     Algorithm   \\
@@ -45,13 +70,17 @@ Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}
   \begin{algorithmic}[1]
-    \STATE \textbf{???} \\ $N\gets sizeof(\textit{input data})$\\
-    \STATE Define Loss function $L$
+    \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
+    \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
+    \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
+    \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
+    \STATE Define Loss function: $L$ \\
+           Get hyperparameters: $\alpha, \beta_1$
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ // Obtain gradient
-    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ // $1_{st}$ Moment Calculation \label{alg:SGDwM-Line-Moment}
-    \STATE $W_t \gets W_{t-1} - \alpha m_t $  // ???
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ Moment Calculation \label{alg:SGDwM-Line-Moment}}
+    \STATE $W_t \gets W_{t-1} - \alpha m_t $  \COMMENT{Update parameters}
     \ENDWHILE
   \end{algorithmic}
   \label{alg:SGDwM}

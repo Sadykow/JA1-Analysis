@@ -1,33 +1,44 @@
-The work offered several implementations of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\ [2pc]
+The work has offered several implementations of Machine Learning algorithms for State of Charge estimation of A123 batteries.
+Several combinations of model structures and optimisers were investigated, implemented and performance measured using several drive cycles.
 
 %
 %
-\textbf{implementation of the model based on TadeleMamo 2020 as the most recent and how to implement improvement to the model to make it better. Gracefully transition an idea from here to my model. It is similar.}
+Even though most of the models provided excellent results, they all lacked the accuracy of the Time-series models used in other similar scenarios.
+By closely examining average weights between three input features and general observation, models tend to rely a lot on the voltages rather than current.
+Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution.
+Therefore, poor prediction in the middle area of the charge lies in the lack of weights placed on the feature, which directly affect the State of Charge.
+The number of Amps per hour used in calculating the Coulum Counting tended to be overlooked by the training process of the SoC prediction models from Voltage, Current and Temperature.
+The lack of current significants caused errors in the flat voltage areas, where direct interpolation of sensor reading to SoC becomes difficult, which could have been observed in the comparison plots of different driving profiles. 
 
 %
 %
-Even though most of the model provided excellent results, they all lacked the accuracy of the Time-series model in other similar predictions. The reason for that is the weights, which the model places on the features and lacks State of Charge reading as input. 
-\textbf{The usage of any training profiles for real electrical vehicles falls into a limitation of temperature data. The model tends to put equal weight on the Temp feature. Considering that all values within a tolerance of 1 degree, the actual car will increase or decrease slope over utilisation. All model has proven to capture complicated behaviours as per FUDS schedule, but not very efficient in the general characterisation of the system. That fact made DST acts as a better learning input ...}
-\textbf{Most of the time, the model placed most of its' weight on Voltage readings, then current or Amp/hours make a more significant impact on a battery cell. Voltage makes it the most obvious one.}
+The usage of any training profiles as oppose to actual electrical vehicles falls into a limitation of temperature data.
+The model tends to put equal or lower weight on the temperature feature. Considering that all values are within a tolerance of 1 degree, the actual car will increase or decrease slope over utilisation. 
+Despite the highlighted limitations, all model has proven to capture complicated current profile behaviours up to FUDS schedule, but not very efficient in the general characterisation of the system.
+That fact made DST a better learning input profile since it makes a suitable generalisation of all possible driving characteristics.
 
 %
 %
-In the second case, the property of the predicting output makes it questionable to use.
-On the one hand, using simply Coulumb Counter may fix this problem, then a model may have enough information to predict the total battery consumption.
-On the other, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading inaccurate.
-By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning along with other methods such as Kalman filter may prove itself more effective****.
-\textbf{All the methods suffer from one thing, having SoC as an input feature. There are two ways to deal with either a perfect sensor or a good model that does not mess up itself when applying results.} \\
-\textbf{The Chip-on-board devices, which has potential usage inside an Electrical vehicle, are limited to Stateless model implementation. The most computationally effective approach has been measured over two potential devices.}
+The solution to all weight placement issues could be potentially resolved by introducing SoC as part of the input feature.
+However, the property of the predicting output and the discovered average percentage miss accuracy makes it questionable to use.
+Usage of the Coulomb Counter may fix this problem, making a model have enough information to predict the total battery consumption.
+Alas, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading equally inaccurate in the long run.
+By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning and other methods such as Kalman filter may prove themselves more effective with further tests.
 
 %
 %
-The model training process consists of N essential steps.
-The methods described in this article applied different methods to all three independently.
-This articles summarised all of them together to determine the reasonable approach for further improvements.
-From the results, the choice of optimiser affects the speed of the training offline but closely helps achieve better performance in the online one.
-However, all models lacked additional input features as SoC.
-The methods of whether or stock price forecasting.
-The inability to accurately estimate SoC and the current time and then using it as an input for further predictions reduces chances for good estimation.
-The accuracy of other SoC estimation methods, like CC, prove themself ineffective due to inaccuracies. 
-To achieve that, the most reasonable approach is to use the approach by Tadele Momo et al.~\cite{mamo_long_2020} and modify the structure of the model to accommodate SoC not as just history dependant, but ....
-The implementation of this method and further investigation is the topic for another article.
+The performance measurement of model predictions on embedded devices provided reasonable justification for using ML algorithms embeddedly.
+Even with the Chip-on-board devices' computational limitations, which have potential usage inside an Electrical vehicle, they are limited to Stateless model implementation.
+The most computationally practical approach has been measured over two potential devices: an android based ARM processor or a tensor computation dedicated device, like TPU processors on Coral devices.
+
+%
+%
+The model training process consists of several essential steps: data acquisition, model construction with training, validation and deployment.
+The methods described in this article applied different methods to all of them independently.
+This chapter summarised all steps together to determine a reasonable approach for further improvements.
+From the results, the choice of optimiser affects the speed of the training offline but closely helps achieve better performance in the online scenarios.
+However, all models lacked additional input features as SoC, similar to whether or stock-price forecasting methods.
+The inability to accurately estimate SoC at the current time and then using it as an input for further predictions reduces the chances for good estimation.
+Like CC, the accuracy of other SoC estimation methods proves itself ineffective due to poor capture of coulumbic efficiency in the system.
+The most reasonable approach for further investigation is to use the approach similar to Tadele Momo et al.~\cite{mamo_long_2020} and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner.
+It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios. The implementation of this method and further investigation is the topic for the next chapter.

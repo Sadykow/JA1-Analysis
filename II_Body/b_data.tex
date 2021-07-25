@@ -32,8 +32,15 @@ Each method went through a single cycling profile and later tested against the o
     \end{tabular}
 \end{table}
 \subsubsection{Losses}~\label{subsub:losses}
-\textcolor{red}{Small description or purpose of the loss functions or what symbol they replace. Redo it to fit whatever I was using.} \\
-%\begin{center}
+The table~\ref{tab:losses} summarises the loss functions, which has been applied to each tested model.
+Some equations were extracted directly from papers, other were written based on their definition and internal library implementation.
+The goal of the loss function is to calculate the error between model prediction and true result.
+The efficiencies and impact of each equation is hard to determine and is not the goal of this investigation.
+The purpose of the table is only to provide the implementation references, which has been assumed during implementation of each publsihed article based model.
+% \begin{table}[ht]
+%     \centering
+%     \caption{Model's loss functions}
+%     \label{tab:losses}
     \begin{tabular}{ l l c }
         \hline
         Name & Articles & Equation \\ 
@@ -49,30 +56,36 @@ Each method went through a single cycling profile and later tested against the o
         Mean Average Squared Error & Javid \textit{et al.}~\cite{javid_adaptive_2020}, Zhang \textit{et al.}~\cite{zhang_deep_2020} & $\sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ \\
         \hline
     \end{tabular}
-%\end{center}
-\newline
+% \end{table}
 % $ L = \sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ ~\cite{Chemali2017},~\cite{jiao_gru-rnn_2020} \\
 % $ L = \sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ ~\cite{javid_adaptive_2020}~\cite{zhang_deep_2020} \\
 % $ L = (\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2)N$~\cite{xiao_accurate_2019} \\
 % $ L = |SoC_t-\hat{SoC_t}|$ \\
 % $ L = \frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$~\cite{mamo_long_2020} \\
 \subsubsection{Metrics}
-\textcolor{red}{Generally, Losses start form 0, metrics from 1. Articles which did overwise were assumed to be mistaken.}
-\textcolor{red}{Similar to loses and reasons why we have chosen those as out criterias.} \\
-\begin{tabular}{l c}
-    \hline
-    Mean Average Error &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
-    % \hline
-    % Mean Average Percentage Error & $\frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-    \hline
-    Root Mean Square Error & $ \sqrt{\frac{1}{N}\sum\limits^N_{t=1} \left(SoC_t-\hat{SoC_t} \right)^2}$ \\
-    \hline
-    $R^2$ : $M_{SoC}$ is the mean SoC & $1-\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}
-              {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ \\
-    % \hline
-    % Error : Not decided if useful yet & $ \frac{SoC_t-\hat{SoC_5}}{SoC_t}$
-\end{tabular}
-\\
+% \textcolor{red}{Generally, Losses start form 0, metrics from 1. Articles which did overwise were assumed to be mistaken.}
+% \textcolor{red}{Similar to loses and reasons why we have chosen those as out criterias.} \\
+Metrics functions acts as an user evaluation criteria to asses the performance of trained model during both fiting and validation processes.
+Although, some papers relied on different evaluation criteria, for the purpose of this research, metrics were unified with seveal equations from Table~\ref{tab:metrics}.
+Same criterias will be used for the final comparison between models' efficiency in the results section.
+% \begin{table}[ht]
+%     \centering
+%     \caption{Model's metrics functions}
+%     \label{tab:metrics}
+    \begin{tabular}{l c}
+        \hline
+        Mean Average Error &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
+        % \hline
+        % Mean Average Percentage Error & $\frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
+        \hline
+        Root Mean Square Error & $ \sqrt{\frac{1}{N}\sum\limits^N_{t=1} \left(SoC_t-\hat{SoC_t} \right)^2}$ \\
+        \hline
+        $R^2$ : $M_{SoC}$ is the mean SoC & $1-\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}
+                {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ \\
+        % \hline
+        % Error : Not decided if useful yet & $ \frac{SoC_t-\hat{SoC_5}}{SoC_t}$
+    \end{tabular}
+% \ebd{table}
 % $MAE = \frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
 % $MAPE = \frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
 % $RMSE = \sqrt{\frac{1}{N}\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}$ \\
