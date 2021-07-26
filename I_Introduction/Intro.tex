@@ -115,10 +115,12 @@ Mamo et al.~\cite{mamo_long_2020} conducted experiments by validating the RNN mo
 The results showed an increase in Root Mean Squared Error, comparing to single dataset training and validation scenario.
 There have not been many similar experiments against other neural nets or other SoC estimation methods.
 Usage of a single profile's battery cycling data may not validate ML methods' efficiency in driving an electric vehicle.
-The inability to determine the charge's current state during EV driving makes the online learning process inapplicable.
+Because real driving scenarios rarely match idealised battery cycles, so the ability to be robustly accurate outside of a given training set is critical.
+The inability to determine the charge's current state during EV driving also makes the online learning process inapplicable.
 Even with other SoC estimation technique usage, the computational complexity of training any NN is complicated to fit on a low power device.
-An offline trained model had the advantage of insignificant resource consumption during the prediction stage, making it a prefered way for an EV.
-All further model testing will be applied through varying three different battery cycling profiles to capture the influence of data type to model efficiency.
+An offline trained model has the advantage of insignificant resource consumption during the prediction stage, making it a prefered way for an EV.
+All further model testing will be applied through three different battery cycling profiles: DST, US06 and FUDS.
+It intended to capture the influence of data type to model efficiency.
 % ------------------------------------------------------------------------ \\
 % PAPER CONTRIBUTION, may be worth adding as a clear statement \\
 % ------------------------------------------------------------------------ \\
