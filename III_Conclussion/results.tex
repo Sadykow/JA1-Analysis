@@ -13,26 +13,26 @@ Android device: 3GB - RAM, Octa-core 1.3 GHz Cortex-A53, Android 5.1 (6), Chipse
 % Energy consumption if Voltage and Current from device records not enough
 % 1.36 s/s * 3.7 W / 3,600s = 0.0116 Wh/s
 
-\textcolor{red}{I have to create a table highligting the time in took for Coral TPU to compute each unique model. This will maek paper worty publication of useful to EV.} \\
+%\textcolor{red}{I have to create a table highligting the time in took for Coral TPU to compute each unique model. This will maek paper worty publication of useful to EV.} \\
 By itself, Stateful models not supported by TFLite. A single attempt to make Custom Stateful stateless model to test time efficiency.
+Calculation performed with 20 attempts average and offset calculation with mean of difference between maximum and minimum.
 \begin{table}[ht]
     \centering
     \caption{Coral TPU classification results. Average time.}
     \label{tab:speed}
-    \begin{tabular}{c|c|c||c|c|c}
-        Method                   &Total params& flop/it & Coral TPU (ms) & R-Pi4 (ms)      & Android (ms) \\
+    \begin{tabular}{c c c |c c c}
         \hline
-        1 $\times$ LSTM          & 1,008,501  & 2,0G & 188.5$\pm$32.5 & 2053.3$\pm$14.7 & 3768*\\
+        Structure                &Total params& flop/it & Coral TPU (ms) & R-Pi4 (ms)      & Android (ms) \\
         \hline
-        1 $\times$ GRU           & 949,761    & 1.9G & 193.5$\pm$12.5 & 2301.5$\pm$79.7& 3926* \\
+        1 $\times$ LSTM(500)     & 1,008,501  & 2.0G & 227.9$\pm$17.2 & 2021.6$\pm$164.9 & 4058.7$\pm$45.0 \\% 4048.0$\pm$69.0 \\   %FLOPs:2,018,005
+        1 $\times$ GRU(560)      & 949,761    & 1.9G & 198.3$\pm$36.6 & 2104.2$\pm$109.6 & 3809.2$\pm$41.5 \\%3815.9$\pm$33.0 \\   %FLOPs:189,903
+        LSTM(500) \& Atten
+                                 & 1,361,881  & 3.2G & 206.9$\pm$32.9 & 2125.2$\pm$126.1 & 4711.2$\pm$51.0 \\%4711.8$\pm$41.5 \\ %FLOPs:3,222,344
+%        2 $\times$ GRU(60)       & 33,762     & Unkn & ** & ** & \\
+        1 $\times$ GRU(500)      & 758,001    & 1.5G & 140.8$\pm$24.7 & 1816.1$\pm$129.1 & 3227.5$\pm$37.5 \\%3241.7$\pm$32.5 \\  % FLOPs:1,516,503
+        2 $\times$ LSTM(250)     & 504,201    & 1.1G & 102.2$\pm$16.3 & 1802.6$\pm$131.1 & 2494.4$\pm$34.0 \\%2454.4$\pm$33.0 \\   % FLOPs:1,109,409
+%        1 $\times$ Layer \& Dense& 3,369      &     & 2.35$\pm$0.25  & 3.15$\pm$0.85 & 6.3*\\
         \hline
-        1 $\times$ Layer \& Dense& 3,369      &     & 2.35$\pm$0.25  & 3.15$\pm$0.85 & 6.3*\\
-        \hline
-        2 $\times$ GRU           & *          &     & ** & ** & \\
-        \hline
-        4 $\times$ GRU           & 88,193*    &     & ** & ** & \\
-        \hline
-        1 $\times$ LSTM \& Atten & 1,361,881  & 3.2G & 178$\pm$20     & 2001.8$\pm$18.9& 3643* \\
     \end{tabular}
 \end{table}
 Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU steady current - 0.07A.
@@ -40,7 +40,6 @@ Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU ste
 %
 \begin{center}
     \begin{table}[htbp]
-%\begin{tabular}{ p{1.0cm}|p{1.0cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.9cm}|p{0.1cm} }
 \begin{tabular}{ p{1.5cm} p{1.5cm} p{1.5cm} p{3.2cm} p{1.5cm} p{1.5cm} p{1.8cm} }
     \hline
     Model № & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
@@ -60,224 +59,552 @@ Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU ste
      & US06 & US06 DST FUDS & Both & 3.81 \ 4.91 3.88 & 4.89 6.14 4.92 & 97.22 95.70 97.15 \\
      & FUDS & FUDS DST US06 & Both & 2.70 5.27 2.73 & 3.54 6.93 3.62 & 95.69 94.52 98.48 \\ % 64571872354
     \hline
-     & DST  & DST US06 FUDS & Discharge & ***** ***** ***** & ***** ***** ***** & ***** ***** ***** \\
-    №4%Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020} 
-     & US06 & US06 DST FUDS & Discharge & ***** ***** ***** & ***** ***** ***** & ***** ***** ***** \\
-     & FUDS & FUDS DST US06 & Discharge & ***** ***** ***** & ***** ***** ***** & ***** ***** ***** \\
-    \hline
 \end{tabular} \\
 \caption{Accuracy result summary - part 1.}
 \label{tab:acc-results1}
     \end{table}
 \end{center}
-
+%    \hline
+%     & DST  & DST US06 FUDS & Both & 5c 1A 1B & 5c 1A 1B & 5c 1A 1B \\
+%    № %Autor \textit{et al.}~\cite{} 
+%     & US06 & US06 DST FUDS & Both & 2A 4a 2B & 2A 4a 2B & 2A 4a 2B \\
+%     & FUDS & FUDS DST US06 & Both & 3B 4b 3A & 3B 4b 3A & 3B 4b 3A \\
+%    \hline
 \begin{center}
     \begin{table}[htbp]
-%\begin{tabular}{ p{1.0cm}|p{1.0cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.9cm}|p{0.1cm} }
-\begin{tabular}{ p{1.5cm} p{1.5cm} p{1.5cm} p{2.0cm} p{2.0cm} p{2.0cm} p{2.0cm} }
+\begin{tabular}{ p{1.5cm} p{1.5cm} p{1.5cm} p{3.2cm} p{1.5cm} p{1.5cm} p{1.8cm} }
     \hline
     Model № & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
     \hline
-     & DST  & DST US06 FUDS & Both & 0 & 0 & 0 \\
+     & DST  & DST US06 FUDS & Both & 5.89* 5.46* 7.61* & 8.87* 7.84* 10.64* & 90.91* 92.68* 86.45* \\
+    №4%Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020} 
+     & US06 & US06 DST FUDS & Discharge & 6.39* 7.23* 8.78* & 8.35* 9.68* 12.33* & 91.61* 88.86* 81.48* \\
+     & FUDS & FUDS DST US06 & Discharge & 12.83* 12.64* 8.73* & 16.02* 15.68* 11.71* & 67.99* 71.58* 83.82* \\
+    \hline
+     & DST  & DST US06 FUDS & Both & 1.94 \ 2.60 2.60 & 2.87 3.64 3.64 & 99.06 98.42 98.44 \\
     №5%Javid \textit{et al.}~\cite{javid_adaptive_2020} 
-     & US06 & US06 DST FUDS & Both & 0 & 0 & 0 \\
-     & FUDS & FUDS DST US06 & Both & 0 & 0 & 0 \\
-    \hline
-     & DST  & DST US06 FUDS & Discharge & 0 & 0 & 0 \\
-    №6%Song \textit{et al.}~\cite{song_lithium-ion_2018}  
-     & US06 & US06 DST FUDS & Discharge & 0 & 0 & 0 \\
-     & FUDS & FUDS DST US06 & Discharge & 0.0023 & 0.0064 & * \\
-    \hline
-     & DST  & DST US06 FUDS & Both & 0 & 0 & 0 \\
-    №7%Zhang \textit{et al.}~\cite{zhang_deep_2020} 
-     & US06 & US06 DST FUDS & Both & 0 & 0 & 0 \\
-     & FUDS & FUDS DST US06 & Both & 0 & 0 & 0 \\
+     & US06 & US06 DST FUDS & Both & 4.19 4.75 4.00 & 5.32 5.96 5.05  & 96.68 95.95 96.97  \\
+     & FUDS & FUDS DST US06 & Both & 2.13 4.98 2.17  & 3.28 6.75 3.34 & 98.73 94.80 98.68  \\
+    \hline%0.0589 0.0779 0.7745
+     & DST  & DST US06 FUDS & Both & 6.06 6.22 6.16 & 8.09 8.29 8.21 & 92.38 91.99 92.20 \\
+    №6%Zhang \textit{et al.}~\cite{zhang_deep_2020} 
+     & US06 & US06 DST FUDS & Both & 5.85 5.96 5.98 & 7.30 7.42 7.72 & 93.76 93.72 93.52 \\
+     & FUDS & FUDS DST US06 & Both & 3.09 6.40 3.13 & 4.59 8.25 4.65 & 97.52 92.24 97.46 \\
     \hline
 \end{tabular} \\
 \caption{Accuracy result summary - part 2.}
 \label{tab:acc-results2}
     \end{table}
 \end{center}
-\textcolor{red}{I expect to see advantage in Mamo and online versions. Play from them later.}
+%\textcolor{red}{I expect to see advantage in Mamo and online versions. Play from them later.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Model №1 Chemali2017 %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
     \centering
-    % DST based tests
-    \begin{subfigure}[b]{0.32\textwidth}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/DST/DSTval-41.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/DST-models/ChDST-val-45.svg}
         \caption{Validated on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/DST/DST-test_One-41.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/DST-models/ChDST-Test One-45.svg}
         \caption{Tested on US06}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/DST/DST-test_Two-41.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/DST-models/ChDST-Test Two-45.svg}
         \caption{Tested on FUDS}
     \end{subfigure}
-    % US06 based tests
-    \begin{subfigure}[b]{0.32\textwidth}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/US06/US06val-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/US06-models/ChUS06-val-50.svg}
         \caption{Validated on US06}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/US06/US06-test_One-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/US06-models/ChUS06-Test One-50.svg}
         \caption{Tested on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/US06/US06-test_Two-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/US06-models/ChUS06-Test Two-50.svg}
         \caption{Tested on FUDS}
     \end{subfigure}
-    % FUDS based tests
-    \begin{subfigure}[b]{0.32\textwidth}
+    %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/FUDS/FUDSval-48.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/FUDS-models/ChFUDS-val-48.svg}
         \caption{Validated on FUDS}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/FUDS/FUDS-test_One-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/FUDS-models/ChFUDS-Test One-48.svg}
         \caption{Tested on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/1/FUDS/FUDS-test_Two-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/FUDS-models/ChFUDS-Test Two-48.svg}
         \caption{Tested on US06}
     \end{subfigure}
-    \caption{Model 1: Single Layer LSTM}
-    \label{fig:Model-1}
+    \caption{Model 1: Single Layer Stateless LSTM}
+    \label{fig:Model-1res}
 \end{figure}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Model №2 BinXiao2020 %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
     \centering
-    % DST based tests
-    \begin{subfigure}[b]{0.32\textwidth}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DSTval-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/DST-models/BXDST-val-50.svg}
         \caption{Validated on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DST-test_One-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/DST-models/BXDST-Test One-50.svg}
         \caption{Tested on US06}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DST-test_Two-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/DST-models/BXDST-Test Two-50.svg}
         \caption{Tested on FUDS}
     \end{subfigure}
-    % US06 based tests
-    \begin{subfigure}[b]{0.32\textwidth}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06val-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/US06-models/BXUS06-val-50.svg}
         \caption{Validated on US06}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06-test_One-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/US06-models/BXUS06-Test One-50.svg}
         \caption{Tested on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06-test_Two-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/US06-models/BXUS06-Test Two-50.svg}
         \caption{Tested on FUDS}
     \end{subfigure}
-    % FUDS based tests
-    \begin{subfigure}[b]{0.32\textwidth}
+    %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDSval-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/FUDS-models/BXFUDS-val-50.svg}
         \caption{Validated on FUDS}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDS-test_One-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/FUDS-models/BXFUDS-Test One-50.svg}
         \caption{Tested on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDS-test_Two-50.svg}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/FUDS-models/BXFUDS-Test Two-50.svg}
         \caption{Tested on US06}
     \end{subfigure}
-    %%% ADDS to be removed
-    \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DSTval-1.svg}
-        \caption{Validated on FUDS}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
-        \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06val-2.svg}
-        \caption{Tested on DST}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
-        \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDSval-6.svg}
-        \caption{Tested on US06}
-    \end{subfigure}
-        \begin{subfigure}[b]{0.32\textwidth}
-        \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/DST/DSTval-50.svg}
-        \caption{Validated on FUDS}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
-        \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/US06/US06val-50.svg}
-        \caption{Tested on DST}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[b]{0.33\textwidth}
-        \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/2/FUDS/FUDSval-50.svg}
-        \caption{Tested on US06}
-    \end{subfigure}
-    
-    \caption{Model 2: Single Layer GRU}
-    \label{fig:Model-1}
+    \caption{Model 2: Single Layer Stateless GRU}
+    \label{fig:Model-2res}
 \end{figure}
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%% Model №3 TadeleMamo2020 %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
     \centering
-    % DST based tests
-    \begin{subfigure}[b]{0.5\textwidth}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/3/loss1.svg}
-        \caption{Loss1}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/DST-models/TMDST-val-19.svg}
+        \caption{Validated on DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.5\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/3/loss2.svg}
-        \caption{Loss2}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/DST-models/TMDST-Test One-19.svg}
+        \caption{Tested on US06}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.5\textwidth}
+    \begin{subfigure}[b]{0.325\textwidth}
         \centering
-        \includesvg[width=\linewidth]{III_Conclussion/Results/3/loss3.svg}
-        \caption{Loss3}
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/DST-models/TMDST-Test Two-19.svg}
+        \caption{Tested on FUDS}
     \end{subfigure}
-    
-    \caption{Test losses}
-    \label{fig:losses}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/US06-models/TMUS06-val-25.svg}
+        \caption{Validated on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/US06-models/TMUS06-Test One-25.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/US06-models/TMUS06-Test Two-25.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/FUDS-models/TMFUDS-val-10.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/FUDS-models/TMFUDS-Test One-10.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/FUDS-models/TMFUDS-Test Two-10.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \caption{Model 3: Single Layer Stateless LSTM with Attention}
+    \label{fig:Model-3res}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model №$4 MengJiao2020 %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/DST-models/MJDST-val-69.svg}
+        \caption{Validated on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/DST-models/MJDST-Test One-69.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/DST-models/MJDST-Test Two-69.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_US06-models/MJd_US06-val-29.svg}
+        \caption{Validated on US06 - Discharge}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_US06-models/MJd_US06-Test One-29.svg}
+        \caption{Tested on DST - Discharge}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_US06-models/MJd_US06-Test Two-29.svg}
+        \caption{Tested on FUDS - Discharge}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_FUDS-models/MJd_FUDS-val-68.svg}
+        \caption{Validated on FUDS - Discharge}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_FUDS-models/MJd_FUDS-Test One-68.svg}
+        \caption{Tested on DST - Discharge}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_FUDS-models/MJd_FUDS-Test Two-68.svg}
+        \caption{Tested on US06 - Discharge}
+    \end{subfigure}
+    \caption{Model 4: Two Layer Stateful GRU}
+    \label{fig:Model-4res}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% Model №5 GelarehJavid2020 %%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/DST-models/GJDST-val-2.svg}
+        \caption{Validated on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/DST-models/GJDST-Test One-2.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/DST-models/GJDST-Test Two-2.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/US06-models/GJUS06-val-7.svg}
+        \caption{Validated on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/US06-models/GJUS06-Test One-7.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/US06-models/GJUS06-Test Two-7.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/FUDS-models/GJFUDS-val-7.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/FUDS-models/GJFUDS-Test One-7.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/FUDS-models/GJFUDS-Test Two-7.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \caption{Model 5: Single Layer Stateless GRU}
+    \label{fig:Model-5res}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model №6 WeiZhang2020 %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/DST-models/WZDST-val-9.svg}
+        \caption{Validated on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/DST-models/WZDST-Test One-9.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/DST-models/WZDST-Test Two-9.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/US06-models/WZUS06-val-3.svg}
+        \caption{Validated on US06}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/US06-models/WZUS06-Test One-3.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/US06-models/WZUS06-Test Two-3.svg}
+        \caption{Tested on FUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/FUDS-models/WZFUDS-val-3.svg}
+        \caption{Validated on FUDS}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/FUDS-models/WZFUDS-Test One-3.svg}
+        \caption{Tested on DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/FUDS-models/WZFUDS-Test Two-3.svg}
+        \caption{Tested on US06}
+    \end{subfigure}
+    \caption{Model 6: Two Layer Stateless GRU}
+    \label{fig:Model-6res}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%% Model №1 Chemali2017 %%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/DST-models/Chhistory-DST.svg}
+        \caption{DST - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/US06-models/Chhistory-US06.svg}
+        \caption{US06 - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/Chemali2017/FUDS-models/Chhistory-FUDS.svg}
+        \caption{FUDS Training accuracy history}
+    \end{subfigure}    
+    \caption{Model 1: Single Layer Stateless LSTM Losses}
+    \label{fig:Model-1losses}
+\end{figure}
+%%%%%%%%%%%%%% Model №2 BinXiao2020 %%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/DST-models/Bihistory-DST.svg}
+        \caption{DST - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/US06-models/Bihistory-US06.svg}
+        \caption{US06 - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/FUDS-models/Bihistory-FUDS.svg}
+        \caption{FUDS Training accuracy history}
+    \end{subfigure}    
+    \caption{Model 2: Single Layer Stateless GRU Losses}
+    \label{fig:Model-2losses}
+\end{figure}
+%%%%%%%%%%%% Model №3 TadeleMamo2020 %%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/DST-models/Tahistory-DST.svg}
+        \caption{DST - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/US06-models/Tahistory-US06.svg}
+        \caption{US06 - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/TadeleMamo2020/FUDS-models/Tahistory-FUDS.svg}
+        \caption{FUDS Training accuracy history}
+    \end{subfigure}    
+    \caption{Model 3: Single Layer Stateless LSTM with Attention Losses}
+    \label{fig:Model-3losses}
+\end{figure}
+%%%%%%%%%%%%% Model №$4 MengJiao2020 %%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/DST-models/Mehistory-DST.svg}
+        \caption{DST - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_US06-models/Mehistory-d_US06.svg}
+        \caption{US06 - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/MengJiao2020/d_FUDS-models/Mehistory-d_FUDS.svg}
+        \caption{FUDS Training accuracy history}
+    \end{subfigure}    
+    \caption{Model 4: Two Layer Stateful GRU Losses}
+    \label{fig:Model-4losses}
+\end{figure}
+%%%%%%%%%%% Model №5 GelarehJavid2020 %%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/DST-models/Gehistory-DST.svg}
+        \caption{DST - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/US06-models/Gehistory-US06.svg}
+        \caption{US06 - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/FUDS-models/Gehistory-FUDS.svg}
+        \caption{FUDS Training accuracy history}
+    \end{subfigure}    
+    \caption{Model 5: Single Layer Stateless GRU Losses}
+    \label{fig:Model-5losses}
+\end{figure}
+%%%%%%%%%%%%% Model №6 WeiZhang2020 %%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/DST-models/Wehistory-DST.svg}
+        \caption{DST - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/US06-models/Wehistory-US06.svg}
+        \caption{US06 - Training accuracy history}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results/Models/WeiZhang2020/FUDS-models/Wehistory-FUDS.svg}
+        \caption{FUDS Training accuracy history}
+    \end{subfigure}    
+    \caption{Model 6: - Two Layer Stateless GRU Losses}
+    \label{fig:Model-6losses}
 \end{figure}

@@ -1,6 +1,6 @@
 \textcolor{red}{Need to systemise information better} \\
 Tensorflow 2.4.0 with Python 3.9.1 compiled from source with bazel 3.1.0, with packages of Addons version 0.18.* for $R^2$ and Probability 0.* for DE algorithm complied from the source. \\
-Attention Layer has been reimpolemented from provided source code.\textcolor{red}{Good luck finding the link}
+Attention Layer has been reimpolemented from provided source code.%\textcolor{red}{Good luck finding the link}
 Tensorboard used to observe progress as it goes and keep records to analyze training later.
 Hardware Intel CPU with Graphical Processor with Compute Capability Score of 7.5, CUDA version 11.1.
 Multilayer model flaged with Return sequences boolean. Statefulnes define with Stateful boolean. The dropout affected as separate layer or parameter. With Stateful on, standard Inpust Layer shape requires to be follower Bacthed Input shape. It can be done kwarg parameter to the GRU or LSTM layer or kept as a separate Input Layer to allow precompilation before starting model fitting. Following code snipest demonstrated the difference. \\

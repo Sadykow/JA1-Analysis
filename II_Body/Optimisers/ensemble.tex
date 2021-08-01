@@ -61,7 +61,7 @@ Line 11 and 12 adds additional calculation to default algorithms*** \\
 %     \hline
 % \end{tabular}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
-  \caption{??? Adaptive Moment Estimation (AdaMax) optimisation}
+  \caption{Adaptive Moment Estimation based on the infinity norm (Adamax)}
   \begin{algorithmic}[1]
     \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
     \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
@@ -106,8 +106,9 @@ Note that $\epsilon$ does not take part in the calculation.
 Second order moment on Line 7 gets replaced with the infinity norm of the moment.
 As a result, Xiai et al. considered AdaMax to have stable weight updating rule and used in the fine-tuning phase.
 \\
-\textcolor{red}{I'll be cursed. No, epsilon does. In the tensorflow implementation epsilons added to the vt. Corrected formula added, but commented out. \\
-Remarks made by Xiao justifies the usage of ENsemble algorithm. How would I reprase it into something shorter}\\
+%\textcolor{red}{I'll be cursed. No, epsilon does. In the tensorflow implementation epsilons added to the vt. Corrected formula added, but commented out. \\
+%Remarks made by Xiao justifies the usage of ENsemble algorithm. How would I reprase it into something shorter}\\
+
 \textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
 \textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
 The proposed Ensamble algorithm combines both methods for single GRU training.
