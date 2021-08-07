@@ -1,7 +1,7 @@
 \subsubsection{Long-Short Term Memory based models} \label{subsub:lstm}
 The second method and the most commonly used in the Time-series Machine learning model is the Long Short-Term Memory Cell~\cite{LSTM_Hochreiter1997}.
 Similar to GRU, LSTM models tend to preserve long-term dependencies in the extended data sequences.
-Since for a longer existence, it became the most widely used type of RNN, used in those type of application.
+For a longer existence, it became the most widely used type of RNN, used in those types of applications.
 Figure~\ref{fig:LSTM-cell} summarises the internal cell logic.
 %Currently, the most common usage of the Time-series Machine LEarning model is the prediction of stock prices, weather prognosition or any other time dependant data.
 %However, the most common problem for any of those scenarios is vanishing gradient.
@@ -46,14 +46,18 @@ For further comparison, it will be used as a Stateless cell based on Chemali et 
 % (7) \textcolor{red}{The most complicated one}. Method by WeiZhang2020. Adaptive Time-series prediction on online validation. Data taken directly during cycling batteries.
 % \textbf{I have to study this properly first. Long-Horizon, as they called it, more useful ti State if Health. This should be the end of them.}
 \subsubsection{Attention Layer}
-The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve the model introducing addition techniques into the default structure of training model.
-He added Attention Layer~\cite{yang_hierarchical_2016} in addition between LSTM and fully connected layers to improve accuracy, along with replacing traditional gradient optimiser with probability based Differential Evolution.
-Figure~\ref{fig:attention} summarises the model structure and equations~\ref{eq:AttentionWithContext} and~\ref{eq:Addition} define the internal logic between hidden layers and output.
+The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve the model introducing addition techniques into the default structure of the training model.
+They added Attention Layer~\cite{yang_hierarchical_2016} in addition between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
+Figure~\ref{fig:attention} summarises the model structure, and equations~\ref{eq:AttentionWithContext} and~\ref{eq:Addition} define the internal logic between hidden layers and output.
+
+%
+%
 %bla bla bla... I am exosted, I hgete this part I have no idea what to write and have no desire to research more.
-The implementation of the Attention layer does not get provided with Machine Learning library, the source code from Winata research~\cite{winata_attention-based_2018} has been used instead.
-The open source code publickly accesses through Github source~\cite{attention_8461990}.
-Details in terms of optimiser usage and replacement justefied in the subsection~\ref{subsec:optimisers}.
-In the State of Charge estimation, attention layer addresses 2 shortcomings of LSTM: replacing traditional method of recursively constructing LSTM depth and located after the output of the main layer, just before the model Dense output~\cite{mamo_long_2020}.
+The implementation of the Attention layer does not get provided with the Machine Learning library.
+The source code from Winata research~\cite{winata_attention-based_2018} has been used instead.
+The open-source code publicly accesses through Github source~\cite{attention_8461990}.
+Details in terms of optimiser usage and replacement are justified in subsection~\ref{subsec:optimisers}.
+In the State of Charge estimation, the attention layer addresses two shortcomings of LSTM: replacing the traditional method of recursively constructing LSTM depth and located after the output of the primary layer, just before the model Dense layer output~\cite{mamo_long_2020}.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.35\linewidth]{II_Body/LSTM/images/AttenrionDrawing.png}

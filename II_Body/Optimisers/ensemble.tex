@@ -1,16 +1,41 @@
 \subsubsection{Ensemble optimisation with Nadam and AdaMax}
 The Adam algorithm remains the most commonly used optimiser.
-The reason behind changing it to another lies within two reasons.
-The first is the training converges, which may not happen at all[Xioa~22].
-The second is the chance of missing optimal solution[Xioa~23].
+The reason behind changing it to another lies within two potential issues.
+The first is the training converges, which may not happen at all~\cite{reddi_convergence_2019}.
+The second is the chance of missing the optimal solution~\cite{wilson_marginal_2017}.
 Xioa et al.~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address those issues.
-The new ensemble optisation algorithm is based on the combination of Nadam~[Xiao~25] and the AdaMax~\cite{kingma_adam_2017} optimiser at certain moments of training.
+The new ensemble optimisation algorithm is based on the combination of Nadam~\cite{dozat_nadam_2016} and the AdaMax~\cite{kingma_adam_2017} at certain moments of training.
 
 %
 %
-The Nadam optimiser is an extension of Adam algorithm, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
-The advantage lies in the fast converging speed.
-Line 11 and 12 adds additional calculation to default algorithms*** \\
+The Nadam optimiser is an extension of the Adam algorithm~\ref{alg:nadam}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
+Line~\ref{alg:Nadam-Line} and~\ref{alg:Nadam-Line-update} add additional calculations involving gradient and parameters update, intending to improve convergence speed.
+% \textcolor{red}{Another error. This time with SQRT. According to Adam and source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that corrected.}
+
+%
+%
+The second algorithm~\ref{alg:adamax} in the ensemble sequence is AdaMax~\cite{kingma_adam_2017}, another modification of the Adam.
+The second-order moment on Line~\ref{alg:AdaMax-Line} gets replaced with the infinity norm of the moment.
+As a result, Xiao et al.~\cite{xiao_accurate_2019} considered AdaMax to have a stable weight updating rule and used in the fine-tuning phase since its' advantage lies in the reduction of gradient fluctuation. 
+
+%
+%
+Xiao et al.~\cite{xiao_accurate_2019} considered separating the training process into two stages: pre-training and fine-tuning.
+Based on his observations: "The purpose of the pre-training phase is to endow GRU model with the appropriate parameters to capture inherent features of the training samples.
+The Nadam algorithm uses adaptive learning rates and approximates the gradient using the Nesterov momentum, thereby ensuring fast convergence of the pre-training process."~\cite{xiao_accurate_2019}
+The selection of the second algorithm is trivial.
+Although, Xiao et al.~\cite{xiao_accurate_2019} selection of AdaMax is defined by fast-convergence to a more stable value for further parameter adjustment.
+% \textcolor{red}{I'll be cursed. No, epsilon does. In the tensorflow implementation epsilons added to the vt. Corrected formula added, but commented out. \\
+%Remarks made by Xiao justifies the usage of Ensemble algorithm. How would I reprase it into something shorter}\\
+%\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
+%\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
+The proposed Ensamble algorithm~\ref{alg:ENS} combines both methods for single GRU training.
+The following algorithm describes the adapted version of the Ensemble algorithm, used by the model training procedures, with Nadam for pre-training and AdaMax for fine-tuning phases.
+%\textcolor{red}{Descibe what shape has been used. Single sample, history length, batch size (if applicable), features number}
+
+%
+%
+Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et al.~\cite{xiao_accurate_2019}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Nesterov Adaptive Moment Estimation (Nadam) optimisation}
   \begin{algorithmic}[1]
@@ -24,14 +49,14 @@ Line 11 and 12 adds additional calculation to default algorithms*** \\
     \STATE $t \gets t+1$
     \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
     \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ moment calculation}
-    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{$2_{nd}$ moment calculation \label{alg:Adam-Line-2Moment}}
+    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{$2_{nd}$ moment calculation}
     \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{Corrected $\hat{m_t}$}
     \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{Corrected $\hat{\upsilon_t}$}
-    \STATE $\hat{g_t} \gets \frac{g_t}{1-\prod\nolimits_{i = 1}^{k}\beta^t_2} $ \COMMENT{Corrected $\hat{g_t}$}
+    \STATE $\hat{g_t} \gets \frac{g_t}{1-\prod\nolimits_{i = 1}^{k}\beta^t_2} $ \COMMENT{Corrected $\hat{g_t}$\label{alg:Nadam-Line}}
     \STATE $W_t \gets W_{t-1}-\alpha
                         \frac{\left(\beta^{k+1}_1\hat{m_t}+\left(1-\beta^t_1\right)\hat{g_t}\right)}
                              {\sqrt{\hat{\upsilon_t}}+\epsilon}$
-                             \COMMENT{Update parameters}
+                             \COMMENT{Update parameters\label{alg:Nadam-Line-update}}
     % \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ // ??
     \ENDWHILE
   \end{algorithmic}
@@ -73,7 +98,7 @@ Line 11 and 12 adds additional calculation to default algorithms*** \\
     \STATE $t \gets t+1$
     \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
     \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1^{st}$ moment calculation}
-    \STATE $\upsilon_t \gets max\left(\beta_2\upsilon_{t-1}, |g_t|\right) $ \COMMENT{Corrected $\hat{\upsilon_t}$}
+    \STATE $\upsilon_t \gets max\left(\beta_2\upsilon_{t-1}, |g_t|\right) $ \COMMENT{Corrected $\hat{\upsilon_t}$ \label{alg:AdaMax-Line}}
     % \STATE $W_t \gets W_{t-1}- \alpha \frac{1}{1-\beta^t_1}\frac{m_t}{\upsilon_t} $
     \STATE $W_t \gets W_{t-1}- \alpha \frac{m_t}{(1-\beta^t_1)(\upsilon_t+\epsilon)} $ \COMMENT{Update parameters}
     \ENDWHILE
@@ -98,34 +123,18 @@ Line 11 and 12 adds additional calculation to default algorithms*** \\
 %     \ \ \ 9: \textbf{end while} \\
 %     \hline
 % \end{tabular} \\ \\
-% \textcolor{red}{Another error. This time with SQRT. According to Adam and source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that corrected.}
-AdaMax algorithm:
-The second algorithm, which proposed next to the Adam AdaMax~\cite{kingma_adam_2017}.
-The advantage of this optimiser lies in the reduction of gradient flictuatuin~\cite{xiao_accurate_2019}, line 7 and 8.
-Note that $\epsilon$ does not take part in the calculation.
-Second order moment on Line 7 gets replaced with the infinity norm of the moment.
-As a result, Xiai et al. considered AdaMax to have stable weight updating rule and used in the fine-tuning phase.
-\\
-%\textcolor{red}{I'll be cursed. No, epsilon does. In the tensorflow implementation epsilons added to the vt. Corrected formula added, but commented out. \\
-%Remarks made by Xiao justifies the usage of ENsemble algorithm. How would I reprase it into something shorter}\\
-
-\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
-\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
-The proposed Ensamble algorithm combines both methods for single GRU training.
-Following Algorithm describes the model training procedures after setting up the model, with Nadam for pre-training and AdaMax for fine-tuning phases.
-\textcolor{red}{Descibe what shape has been used. Single sample, history length, batch size (if applicable), features number}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Ensemble optimisation training process}
         \begin{algorithmic}[1]
-            \STATE \textbf{Input:} Data sample with shape=(1,500,1,3) 
-            \STATE \textbf{Output:} Predicted SoC shape=(1,1,1)
+            % \STATE \textbf{Input:} Data sample with shape=(1,500,1,3) 
+            % \STATE \textbf{Output:} Predicted SoC shape=(1,1,1)
             \STATE Setup model. Split total number of epoch by 30\% to $p_{1}$ and $p_{2}$
             \STATE Initialise parameters
             \WHILE{epoch  $<p_{1}$:}
                 \IF{epoch $<p_{2}$:}
-                    \STATE compile model with Nadam parameters //pre-training phase
+                    \STATE compile model with Nadam parameters. \COMMENT{pre-training phase}
                 \ELSE
-                    \STATE compile model with AdaMax parameters //fine-tuning phase
+                    \STATE compile model with AdaMax parameters. \COMMENT{fine-tuning phase}
                 \ENDIF
                 \STATE train for single epoch
             \ENDWHILE
@@ -154,7 +163,6 @@ Following Algorithm describes the model training procedures after setting up the
 %     \hline
 %     \end{tabular}
 % \end{center}
-Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et al.~\cite{xiao_accurate_2019}.
 \begin{center}
     \begin{table}[htbp]
     \caption{Adam, specific parameters}
@@ -167,8 +175,6 @@ Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et a
             & $0.001$ & $0.99$ & $0.999$ & $10^{-8}$ \\% 0.0000001
     AdaMax
             & $5*10^{-4}$ & $0.99$ & $0.999$ & $10^{-8}$ \\% $10^{-8}$
-    
-    %\hline
     \hline
 \end{tabular}
     \end{table}

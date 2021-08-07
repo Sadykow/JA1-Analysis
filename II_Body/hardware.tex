@@ -1,30 +1,61 @@
-\textcolor{red}{Need to systemise information better} \\
-Tensorflow 2.4.0 with Python 3.9.1 compiled from source with bazel 3.1.0, with packages of Addons version 0.18.* for $R^2$ and Probability 0.* for DE algorithm complied from the source. \\
-Attention Layer has been reimpolemented from provided source code.%\textcolor{red}{Good luck finding the link}
-Tensorboard used to observe progress as it goes and keep records to analyze training later.
-Hardware Intel CPU with Graphical Processor with Compute Capability Score of 7.5, CUDA version 11.1.
-Multilayer model flaged with Return sequences boolean. Statefulnes define with Stateful boolean. The dropout affected as separate layer or parameter. With Stateful on, standard Inpust Layer shape requires to be follower Bacthed Input shape. It can be done kwarg parameter to the GRU or LSTM layer or kept as a separate Input Layer to allow precompilation before starting model fitting. Following code snipest demonstrated the difference. \\
-\textcolor{red}{I am going to use the TPU processor to measure time it takes to run each model.} \\
-\begin{table}[ht]
-    \centering
-    \caption{Software details}
-    \label{tab:my_label}
-    \begin{tabular}{p{3.0cm}|c|c|c|c|c}
-        Version & Python version & Compiler & Build tools & CUDA version & Compute Score\\
-        Tensorflow-2.4.0, TF-Addons 13.0, TF-Probability 0.12.1 & 3.9.1 & gcc 9.3.0 & Bazel 3.1.0 & 11.1 & 7.5\\
-        \hline
-        Tensorflow-2.2.0 & 3.8.* & gcc 7.3.1 & Bazel 2.0.0 & CPU & 3.98MHz*
-    \end{tabular}
-\end{table}
-\begin{table}[]
-    \centering
-    \caption{Chip-on-Board Hardware selection}
-    \label{tab:my_label}
-    \begin{tabular}{c|c|c|c}
-        Device & Specification & Source & Software setup \\
-        \hline
-        Coral TPU & (Specs) & (Link to the details) & (Link to libedgetpu.so.1) \\
-        \hline
-        Raspberry Pi 4 (Active cooling) & 
-    \end{tabular}
-\end{table}
+% \textcolor{red}{Need to systemise information better} \\
+\subsubsection{Model training Framework}
+The framework for Machine Learning has been Tensorflow 2.4.0 with Python 3.9.1 compiled from source using Bazel 3.1.0.
+An additional package with Addons 0.18 for $R^2$ and Probability 0.13 for Differential Evoltions algorithms has been compiled from the source and added to the main framework.
+Tensorboard is used to observe progress as it goes and keep records to analyze training later. It also made an excellent initial tool for model profiling and performance measure.
+
+%
+%
+Initial model training and validation has been performed on a Desktop machine with Intel CPU and Graphical Processor with Compute Capability Score of 7.5. The version of CUDA library for GPU computation has been used of version 11.1 from the beginning of the research.
+%
+% Attention Layer has been reimplemented from provided source code.%\textcolor{red}{Good luck finding the link}
+% Robust Adam was also implemented from the source; what should I do with that now?
+% Multilayer model flagged with Return sequences boolean. Statefulnes define with Stateful boolean. The dropout is affected as a separate layer or parameter. With Stateful on, standard Input Layer shape requires to be follower Bacthed Input shape. It can be done kwarg parameter to the GRU or LSTM layer or kept as a separate Input Layer to allow precompilation before starting model fitting. Following code, the snipest demonstrated the difference. 
+
+% \textcolor{red}{I am going to use the TPU processor to measure time it takes to run e ach model.} \\
+% \begin{table}[ht]
+%     \centering
+%     \caption{Software details}
+%     \label{tab:my_label}
+%     \begin{tabular}{p{3.0cm}|c|c|c|c|c}
+%         Version & Python version & Compiler & Build tools & CUDA version & Compute Score\\
+%         Tensorflow-2.4.0, TF-Addons 13.0, TF-Probability 0.12.1 & 3.9.1 & gcc 9.3.0 & Bazel 3.1.0 & 11.1 & 7.5\\
+%         \hline
+%         Tensorflow-2.2.0 & 3.8.* & gcc 7.3.1 & Bazel 2.0.0 & CPU & 3.98MHz*
+%     \end{tabular}
+% \end{table}
+\subsection{Embedded devices for performance measurements}
+Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi), and an Android-based smartphone.
+Coral TPU produced by Google has limited specifications information, but the software setup has provided two libraries for average and maximum clock frequency computation.
+Raspberry Pi 4 powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
+The Operating System was selected with a beta version of Raspbian 64 (aarch64).
+The selection of Android devices depended on the highest percentage distribution.
+An Octa-core Cortex-A53 with 3GB RAM seemed the most commonly used at a time.
+The inbuilt chipset is Mediatek MT6753 (28 nm) with Android version 5.1-7.
+
+
+%Table information collected as per datasheet. \\
+%Android device: 3GB - RAM, Octa-core 1.3 GHz Cortex-A53, Android 5.1 (6), Chipset: Mediatek MT6753 (28 nm), \\
+
+%GFLOPS table: http://web.eece.maine.edu/~vweaver/group/green_machines.html
+
+% R-Pi3B as per Tim Chant:
+% 70.45 GFLOPS / 6.2 GFLOPS/s = 11.36 s
+% Total model flops / device flops = Time  --->>>>> Time * Device flops = Total model flops
+
+% Energy consumption if Voltage and Current from device records not enough
+% 1.36 s/s * 3.7 W / 3,600s = 0.0116 Wh/s
+
+
+% \begin{table}[]
+%     \centering
+%     \caption{Chip-on-Board Hardware selection}
+%     \label{tab:my_label}
+%     \begin{tabular}{c|c|c|c}
+%         Device & Specification & Source & Software setup \\
+%         \hline
+%         Coral TPU & (Specs) & (Link to the details) & (Link to libedgetpu.so.1) \\
+%         \hline
+%         Raspberry Pi 4 (Active cooling) & 
+%     \end{tabular}
+% \end{table}

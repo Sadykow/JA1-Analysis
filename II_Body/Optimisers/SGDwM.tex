@@ -1,12 +1,16 @@
 \subsubsection{Classic Stochastic Gradient and Momentum Stochastic Gradient algorithm}
-One of the simplest methods used to optimise the model is the Stochastic Gradient Descent (SGD).
+One of the simplest methods used to optimise the model is the Stochastic Gradient Descent (SGD), Algorithm~\ref{alg:SGD}.
 The SGD Optimiser utilised a simple gradient update with a learning rate.
-Unlike improved versions, this algorithm has the potential of missing optimum value. The extension of SGD, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
+Unlike improved versions, this algorithm has the potential of missing optimum value.
+The extension of SGD, Algorithm~\ref{alg:SGDwM}, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
 To improve accuracy, Jiao introduced noise to the data to be able to capture more variant information.
 Due to the amount of data provided and comparison with other methods, noise variance will not be used in this implementation.
-Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
-\vspace{1pt}
-\hspace{-3pt}
+
+%
+%
+Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
+% \vspace{1pt}
+% \hspace{-3pt}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent (SGD) optimisation}
   \begin{algorithmic}[1]
@@ -31,7 +35,6 @@ Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
   \end{algorithmic}
   \label{alg:SGD}
 \end{algorithm}
-
 % \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
 %   \caption{stochastic gradient descent with entropy estimate}
 %   \label{alg:sgd-with-estimate}
@@ -66,7 +69,6 @@ Table~\ref{tab:params-jiao} provides parameters selection for optimiser.
 %     \ \ \ 7: \textbf{end while} \\
 %     \hline
 % \end{tabular}
-
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}
   \begin{algorithmic}[1]

@@ -1,16 +1,17 @@
 \subsubsection{Adam and Robust Online Adam}
 The most commonly and by default used in Time-series prediction is Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
-The algorithm below highlights the steps required to update model weights and bias as per the source.
-On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, which referred to as fuzz factor.
+The Algorithm~\ref{alg:Adam} highlights the steps required to update model weights and bias as per the source.
+On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, which is referred to as fuzz factor.
 
 %
 %
-Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam, Line 10-12.
-Adding the direct influence of loss function to the gradient update adds an online calculation to regular $Adam$ correction.
-Table~\ref{tab:adam-params} highlight method-specific parameter selection for the optimiser.
+Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam, Line~\ref{alg:Adam-Line-2Moment}.
+Adding the direct influence of loss function to the gradient update adds an online calculation to regular $Adam$ correction, Algorithm~\ref{alg:RoAdam}.
+Table~\ref{tab:adam-params} highlights method-specific parameter selection for the optimiser.
 The framework library contained no inbuild implementation of the Robust optimiser.
 Instead, it was implemented from the first principal and overwriting the model training procedure.
-The code itself can be located in Appendix~\ref{}
+The code itself can be located in Appendix~\ref{}.
+\textcolor{red}{The implementation was much difficult that it looks, since the author forgot to mention key parameters. I must not repeat his mistake, either in Appendix or in algorithm below.}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Adaptive Moment Estimation (Adam) optimisation}
   \begin{algorithmic}[1]

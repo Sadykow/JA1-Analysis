@@ -1,15 +1,16 @@
-Model training has been conducted over Lithium Ion battery cycling data, obtained from CALCE university~\cite{noauthor_calce_2017}.
-The SoC value calculated from following equation where $C$ represent Charge and $D$ Discharge Capacities in $Ah$.
+% Battery Data for training and validation
+Model training has been conducted over Lithium-Ion battery cycling data obtained from CALCE University~\cite{noauthor_calce_2017}.
+The SoC value is calculated from the following equation where $C$ represent Charge and $D$ Discharge Capacities in $Ah$.
 Table~\ref{tab:battery} highlights selected battery characteristics.
 The Battery Cycling data in a Battery testing chamber were stored as Excel spreadsheets over temperature range 0 and 50 degrees.
-Each testing cycle contains 3 testing profiles: Dynamic stress test (DST), (US06) and the Federal urban driving schedule (FUDS).
-The temperatrue step 10 degrees with tolerance around 1 degrees.
-The range of 20 to 50 was used as training and testing dataset.
-Each method went through a single cycling profile and later tested against the other two, as per Mamo \textit{et. al.} \cite{mamo_long_2020} research.
+Each testing cycle contains three testing profiles: Dynamic stress test (DST), (US06) and the Federal urban driving schedule (FUDS).
+The temperature steps 10 degrees with a tolerance of around 0.5-1 degrees.
+The range of 20 to 50 was used as a training and testing dataset.
+Each method went through a single cycling profile and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020} research.
 \begin{equation}
     \begin{split}
         \hat{SoC} &= MinMax(C-D) \\
-        SoC &= \frac{round(100*\hat{SoC})}{100}
+        SoC &= \frac{round(100\hat{SoC})}{100}
     \end{split}
 \end{equation}
 \begin{table}[ht]
@@ -32,32 +33,32 @@ Each method went through a single cycling profile and later tested against the o
     \end{tabular}
 \end{table}
 \subsubsection{Losses}~\label{subsub:losses}
-The table~\ref{tab:losses} summarises the loss functions, which has been applied to each tested model.
-Some equations were extracted directly from papers, other were written based on their definition and internal library implementation.
-The goal of the loss function is to calculate the error between model prediction and true result.
-The efficiencies and impact of each equation is hard to determine and is not the goal of this investigation.
-The purpose of the table is only to provide the implementation references, which has been assumed during implementation of each publsihed article based model.
-% \begin{table}[ht]
-%     \centering
-%     \caption{Model's loss functions}
-%     \label{tab:losses}
-
-    \begin{tabular}{ l l c }
-        \hline
-        Name & Articles & Equation \\ 
-        \hline
-        Absolute Error & Song \textit{et al.}~\cite{song_lithium-ion_2018} & $|SoC_t-\hat{SoC_t}|$ \\
-        \hline
-        | & Chemal \textit{et al.}\cite{Chemali2017}, Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020} & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ \\
-        \hline
-        Mean Average Percentage Error & Mamo \textit{et al.}~\cite{mamo_long_2020} & $\frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-        \hline
-        | & Xiao \textit{et al.}~\cite{xiao_accurate_2019} & $\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}{N}$ \\
-        \hline
-        Mean Average Squared Error & Javid \textit{et al.}~\cite{javid_adaptive_2020}, Zhang \textit{et al.}~\cite{zhang_deep_2020} & $\sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ \\
-        \hline
-    \end{tabular}
-% \end{table}
+Table~\ref{tab:losses} summarises the loss functions, which has been applied to each tested model.
+Some equations were extracted directly from papers; others were written based on their definition and internal library implementation.
+The goal of the loss function is to calculate the error between model prediction and the actual value.
+The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
+The purpose of the table is only to provide the implementation references, which has been assumed during the implementation of each published article based model.
+\begin{center}
+    \begin{table}[htbp]
+    \caption{Model's loss functions}
+    \label{tab:losses}
+\begin{tabular}{ l l c }
+    \hline
+    Function Name & Articles & Equation \\ 
+    \hline
+    Absolute Error & Song \textit{et al.}~\cite{song_lithium-ion_2018} & $|SoC_t-\hat{SoC_t}|$ \\
+    \hline
+    | & Chemal \textit{et al.}\cite{Chemali2017}, Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020} & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ \\
+    \hline
+    Mean Average Percentage Error & Mamo \textit{et al.}~\cite{mamo_long_2020} & $\frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
+    \hline
+    | & Xiao \textit{et al.}~\cite{xiao_accurate_2019} & $\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}{N}$ \\
+    \hline
+    Mean Average Squared Error & Javid \textit{et al.}~\cite{javid_adaptive_2020}, Zhang \textit{et al.}~\cite{zhang_deep_2020} & $\sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ \\
+    \hline
+\end{tabular}
+    \end{table}
+\end{center}
 % $ L = \sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ ~\cite{Chemali2017},~\cite{jiao_gru-rnn_2020} \\
 % $ L = \sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ ~\cite{javid_adaptive_2020}~\cite{zhang_deep_2020} \\
 % $ L = (\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2)N$~\cite{xiao_accurate_2019} \\
@@ -66,27 +67,30 @@ The purpose of the table is only to provide the implementation references, which
 \subsubsection{Metrics}
 % \textcolor{red}{Generally, Losses start form 0, metrics from 1. Articles which did overwise were assumed to be mistaken.}
 % \textcolor{red}{Similar to loses and reasons why we have chosen those as out criterias.} \\
-Metrics functions acts as an user evaluation criteria to asses the performance of trained model during both fiting and validation processes.
-Although, some papers relied on different evaluation criteria, for the purpose of this research, metrics were unified with seveal equations from Table~\ref{tab:metrics}.
-Same criterias will be used for the final comparison between models' efficiency in the results section.
-% \begin{table}[ht]
-%     \centering
-%     \caption{Model's metrics functions}
-%     \label{tab:metrics}
-
-    \begin{tabular}{l c}
-        \hline
-        Mean Average Error &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
-        % \hline
-        % Mean Average Percentage Error & $\frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-        \hline
-        Root Mean Square Error & $ \sqrt{\frac{1}{N}\sum\limits^N_{t=1} \left(SoC_t-\hat{SoC_t} \right)^2}$ \\
-        \hline
-        $R^2$ : $M_{SoC}$ is the mean SoC & $1-\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}
-                {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ \\
-        % \hline
-        % Error : Not decided if useful yet & $ \frac{SoC_t-\hat{SoC_5}}{SoC_t}$
-    \end{tabular}
+Metrics functions act as user evaluation criteria to assess the performance of the trained model during both fitting and validation processes.
+Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations from Table~\ref{tab:metrics}.
+Thus, the same criteria will be used for the final comparison between models' efficiency in the results section.
+\begin{center}
+    \begin{table}[htbp]
+    \caption{Model's metrics functions}
+    \label{tab:metrics}
+\begin{tabular}{l c}
+    \hline
+    Function Name & Equation \\ 
+    \hline
+    Mean Average Error &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
+    % \hline
+    % Mean Average Percentage Error & $\frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
+    \hline
+    Root Mean Square Error & $ \sqrt{\frac{1}{N}\sum\limits^N_{t=1} \left(SoC_t-\hat{SoC_t} \right)^2}$ \\
+    \hline
+    $R^2$ : $M_{SoC}$ is the mean SoC & $1-\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}
+            {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ \\
+    \hline
+    % Error : Not decided if useful yet & $ \frac{SoC_t-\hat{SoC_5}}{SoC_t}$
+\end{tabular}
+    \end{table}
+\end{center}
 % \ebd{table}
 % $MAE = \frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
 % $MAPE = \frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\

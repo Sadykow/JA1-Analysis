@@ -53,12 +53,12 @@ Thus the specifics of each algorithmic aspect will be defined further~\ref{subse
 %
 %
 \subsection{Dataset description and generator} \label{subsec:dataset}
-Recurrent Neural Network is a subclass of NN, which has proven effective in weather or stock prices forecasting.
+Recurrent Neural Network is a subclass of NN, proven effective in weather or stock prices forecasting.
 This method learns by recognising a pattern within sequential data input, thus predicting the future outcome.
 It makes the following approach applicable to almost any type of time series dependant problem~\cite{anton_battery_2013}.
 Classical RNN consists primarily of three layers, represented in Figure~\ref{fig:RNN-structure}.
-The Input and Output Layers defined by the two vectors or matrices.
-The general description of a single input X and an output Y samples represented by Equations~\ref{eq:xy-matrix}.
+The two vectors or matrices define the Input and Output Layers.
+The general description of a single input X and an output Y samples are represented by Equations~\ref{eq:xy-matrix}.
 $V, I, T, SoC$ represent Voltage (V), Current (A), Temperature (\textdegree{}C) as input features, and percentage of State of Charge (between 0 and 1) as output.
 All samples are equally time distributed, and the t represents the number of input time steps at a time.
 \begin{equation}
@@ -105,15 +105,15 @@ The statefulness of a model preserves the state at index $i$ to the same index i
 %
 The value of SoC has been calculated from the difference between charge and discharge capacity.
 Values were rounded to 2 decimal places and kept in the range of 0 and 1 using min-max normalisation to reduce error in estimation.
-Since there is no way to directly obtain the battery's accurate charge practically during a run, output SoC excluded from the time-series model's input feature, unlike in any classic examples of usage Time-Series estimations.
+Since there is no way to directly obtain the battery's accurate charge practically during a run, output SoC is excluded from the time-series model's input feature, unlike any classic examples of usage Time-Series estimations.
 The trainable model has to distribute weights across inputs and still develop a charge's close estimate.
 All input samples were taken through normalisation by the mean and standard deviation across all input files with the same values, simplifying model weights acquiring and speeding up the training process.
 It is important to note that the normalisation values of mean and standard deviation from a training dataset are applied to both validation and testings sets.
 
 %
 %
-The training process conducted through all datasets for a single battery testing profile and validated on a single cycle (less or around 20\% of the entire set).
-Final tests for a model performance conducted against an entire set of two remaining profiles separately.
+The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle (less or around 20\% of the entire set).
+Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\linewidth]{II_Body/images/SoC-RNN.png}
@@ -136,7 +136,7 @@ Final tests for a model performance conducted against an entire set of two remai
 The general summary model structure is represented in Figure~\ref{fig:RNN-structure}, with three feature inputs and a single output.
 The number of hidden layers will be dependant on the authors' implementation.
 Since the output consists of only a single sample, it is defined by a fully connected layer - a dense layer with a single neuron.
-In case if the article did not specify the number of neurons per layer, one of the following equation has been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
+In case if the article did not specify the number of neurons per layer, one of the following equations has been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
 \begin{equation}
     \begin{split}
         N_h &= \frac{N_s}{ a \left(N_i+N_o \right)} \ \ OR \ \ N_h = \frac{2}{3}\left(N_i+N_o \right) \\
@@ -190,7 +190,7 @@ A dropout layer technique with a 20\% cut-off has been applied to all hidden lay
 % Requires editing below
 The efficiency of an RNN over time series problem is defined by the ability of the neurons to store memory as an internal state.
 With time, the memory of long passed samples may fade away.
-The problem refereed as vanishing gradient, when the value to update network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
+The problem is referred to as vanishing gradient when the value to update network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
 Long-term dependencies do not get captured since layers with a slight gradient do not significantly affect due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
 The more complicated structures of neurons tend to solve that problem.
 % The gradient is the value used to update Neural Networks’ weight.

@@ -1,21 +1,11 @@
 The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\
-
-Table information collected as per datasheet. \\
-
-Android device: 3GB - RAM, Octa-core 1.3 GHz Cortex-A53, Android 5.1 (6), Chipset: Mediatek MT6753 (28 nm), \\
-
-%GFLOPS table: http://web.eece.maine.edu/~vweaver/group/green_machines.html
-
-% R-Pi3B as per Tim Chant:
-% 70.45 GFLOPS / 6.2 GFLOPS/s = 11.36 s
-% Total model flops / device flops = Time  --->>>>> Time * Device flops = Total model flops
-
-% Energy consumption if Voltage and Current from device records not enough
-% 1.36 s/s * 3.7 W / 3,600s = 0.0116 Wh/s
-
 %\textcolor{red}{I have to create a table highligting the time in took for Coral TPU to compute each unique model. This will maek paper worty publication of useful to EV.} \\
 By itself, Stateful models not supported by TFLite. A single attempt to make Custom Stateful stateless model to test time efficiency.
-Calculation performed with 20 attempts average and offset calculation with mean of difference between maximum and minimum.
+Calculation of accuracies on Table~\ref{tab:acc-results1} performed with 20 attempts average and offset calculation with mean of difference between maximum and minimum.
+Steady Voltage consumption over USB Port stable around 5.03V for all devices. % Coral TPU steady current - 0.07A.
+Two tables~\ref{tab:acc-results1} and ~\ref{tab:acc-results2} results of accuracy validation on 6 implemented models.
+Figures between~\ref{fig:Model-1res} and~\ref{fig:Model-6res} demonstrated the best selected cases for visual demonstration and comparison of training on 3 different profiles.
+Figures between~\ref{fig:Model-1losses} and~\ref{fig:Model-6losses} act as references to the best model based on minimum Mean average or Root Mean Squared errors.
 \begin{table}[ht]
     \centering
     \caption{Coral TPU classification results. Average time.}
@@ -35,9 +25,6 @@ Calculation performed with 20 attempts average and offset calculation with mean 
         \hline
     \end{tabular}
 \end{table}
-Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU steady current - 0.07A.
-
-%
 \begin{center}
     \begin{table}[htbp]
 \begin{tabular}{ p{1.5cm} p{1.5cm} p{1.5cm} p{3.2cm} p{1.5cm} p{1.5cm} p{1.8cm} }
@@ -513,7 +500,7 @@ Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU ste
         \includesvg[width=\linewidth]{III_Conclussion/Results/Models/BinXiao2020/FUDS-models/Bihistory-FUDS.svg}
         \caption{FUDS Training accuracy history}
     \end{subfigure}    
-    \caption{Model 2: Single Layer Stateless GRU Losses}
+    \caption{Model 2: Single Layer Stateless GRU Losses.}
     \label{fig:Model-2losses}
 \end{figure}
 %%%%%%%%%%%% Model №3 TadeleMamo2020 %%%%%%%%%%%%%%
@@ -582,7 +569,7 @@ Steady boltage consumption over USB3.0 Port stable around 5.03V. % Coral TPU ste
         \includesvg[width=\linewidth]{III_Conclussion/Results/Models/GelarehJavid2020/FUDS-models/Gehistory-FUDS.svg}
         \caption{FUDS Training accuracy history}
     \end{subfigure}    
-    \caption{Model 5: Single Layer Stateless GRU Losses}
+    \caption{Model 5: Single Layer Stateless GRU Losses -  \textcolor{red}{Error with RMS. Most likely the order of the root and mean has been flipped. Probably will require entire retraining to determine new measurments. Shape it was done long ago, there are no so detailed logs.}}
     \label{fig:Model-5losses}
 \end{figure}
 %%%%%%%%%%%%% Model №6 WeiZhang2020 %%%%%%%%%%%%%%%
