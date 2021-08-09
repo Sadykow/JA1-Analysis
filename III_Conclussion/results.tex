@@ -1,11 +1,22 @@
 The work offered several implementation of Machine Learning algorithms for State of Charge estimation for A123 batteries. \\
-%\textcolor{red}{I have to create a table highligting the time in took for Coral TPU to compute each unique model. This will maek paper worty publication of useful to EV.} \\
 By itself, Stateful models not supported by TFLite. A single attempt to make Custom Stateful stateless model to test time efficiency.
 Calculation of accuracies on Table~\ref{tab:acc-results1} performed with 20 attempts average and offset calculation with mean of difference between maximum and minimum.
 Steady Voltage consumption over USB Port stable around 5.03V for all devices. % Coral TPU steady current - 0.07A.
 Two tables~\ref{tab:acc-results1} and ~\ref{tab:acc-results2} results of accuracy validation on 6 implemented models.
 Figures between~\ref{fig:Model-1res} and~\ref{fig:Model-6res} demonstrated the best selected cases for visual demonstration and comparison of training on 3 different profiles.
 Figures between~\ref{fig:Model-1losses} and~\ref{fig:Model-6losses} act as references to the best model based on minimum Mean average or Root Mean Squared errors.
+\textcolor{red}{Describe what table referes to after all plots discussed. Use several guiding points to build additional discussion around findongs:}
+\begin{itemize}
+    \item Model 5 with RoAdam usage suprisingly showed the best results. Considering the effort it took, I should not be suprised.
+    \item LSTM and GPU has no obvios advantages one after another.
+    \item Model 4 validation is difficult, that is why marked with a star. All graphs were validated against entire another dataset. Model 4 only over single snapshot. THe values were taken from the plots. I can't think of any mean to do it properly and I have no time to think or do it manually with all dozens of cycles
+    \item The better fit over training data, the worse with time it becomes against other two.
+    \item Only statefull model 4 had difficulties fitting into both cycles, as ot shown on DST. That is why only half was used for remaining
+    \item Training on model 5 and 6 was terminated early either due to overfit which leads to none, or any further training is unnecessary since RMS is stable.
+    \item The attention layer has the good idea of how that problem has to be solved. There is no point adjusting things manually like with weights. Need to introduce algorith at the end of hidden layer to make all necessary adjustment. Similar to how sigmoid function was used on output layer to keep values between 0 and 1.
+    \item Model 1 and 2 create an illusion of that LSTM is better than GRU, but it may not had enmough time to fit since not the best selection for ensemble algorith. Model 5 is the prove. PErhaps ensamble has means for usage in future, since idea is understandable, especially with learning rate.
+    \item There are more. Need to think what else what was important. Only relevant. Consult with electrical supervisor about notes made in the middle of the night. Notes with title "Ch3 result which lead to autoregression".
+\end{itemize}
 \begin{table}[ht]
     \centering
     \caption{Coral TPU classification results. Average time.}

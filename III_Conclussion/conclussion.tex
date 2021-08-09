@@ -3,27 +3,33 @@ Several combinations of model structures and optimisers were investigated, imple
 
 %
 %
-Even though most of the models provided excellent results, they all lacked the accuracy of the Time-series models used in other similar scenarios.
-By closely examining average weights between three input features and general observation, models tend to rely a lot on the voltages rather than current.
-Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution.
-Therefore, poor prediction in the middle area of the charge lies in the lack of weights placed on the feature, which directly affect the State of Charge.
-The number of Amps per hour used in calculating the Coulum Counting tended to be overlooked by the training process of the SoC prediction models from Voltage, Current and Temperature.
-The lack of current significants caused errors in the flat voltage areas, where direct interpolation of sensor reading to SoC becomes difficult, which could have been observed in the comparison plots of different driving profiles. 
+Even though most of the models provided excellent results, they lacked the accuracy of the Time-series models used in similar scenarios.
+By closely examining average weights between three input features and general observation, models tend to rely more on the voltages than currents.
+Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution. 
+Therefore, the poor prediction was observed in the shallow middle area of the charge due to this lack of weights placed on current, which directly affect the State of Charge.
+In addition, the number of Amps per hour used in calculating the Coulum Counting tended to be overlooked by the training process of the SoC prediction models from Voltage, Current and Temperature.
+The lack of current significance caused errors in the flat voltage areas, where direct interpolation of sensor reading to SoC becomes difficult.
+This is observed in the comparison plots of different driving profiles. 
 
 %
 %
-The usage of any training profiles as oppose to actual electrical vehicles falls into a limitation of temperature data.
-The model tends to put equal or lower weight on the temperature feature. Considering that all values are within a tolerance of 1 degree, the actual car will increase or decrease slope over utilisation. 
-Despite the highlighted limitations, all model has proven to capture complicated current profile behaviours up to FUDS schedule, but not very efficient in the general characterisation of the system.
-That fact made DST a better learning input profile since it makes a suitable generalisation of all possible driving characteristics.
+The usage of any training profiles has limitations in application to actual electrical vehicles due to temperature variation and other non-obvious factors.
+The models tend to put equal or lower weight on the temperature feature.
+While all values are within a tolerance of 1 degree, the actual car will much more severely increase or decrease slope over utilisation.
+Despite the highlighted limitations, all models have proven to capture complicated current profile behaviours up to the FUDS schedule but are not very efficient in the general characterisation of the system.
+That behaviour can be observed throughout the training process.
+The better the fit over a single training profile, the more offset it becomes against the other two.
+It makes DST appear to be a better learning input profile since it makes a suitable generalisation of the other two driving characteristics and does create such offsets as rapid.
+Although, its intention is only for stress testing and does not characterise the general behaviour of drivers.
+The mistake that models make relies on one feature than all three, which makes the current setup unsuitable and requires actual car data to train a proper SoC model.
 
 %
 %
-The solution to all weight placement issues could be potentially resolved by introducing SoC as part of the input feature.
+The solution to all weight placement issues could be potentially resolved by introducing SoC as part of the input features.
 However, the property of the predicting output and the discovered average percentage miss accuracy makes it questionable to use.
 Usage of the Coulomb Counter may fix this problem, making a model have enough information to predict the total battery consumption.
-Alas, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading equally inaccurate in the long run.
-By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning and other methods such as Kalman filter may prove themselves more effective with further tests.
+However, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading equally inaccurate in the long run.
+By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning and other methods such as Kalman filter may prove more effective with further tests.
 
 %
 %
@@ -42,3 +48,7 @@ The inability to accurately estimate SoC at the current time and then using it a
 Like CC, the accuracy of other SoC estimation methods proves itself ineffective due to poor capture of coulumbic efficiency in the system.
 The most reasonable approach for further investigation is to use the approach similar to Tadele Momo et al.~\cite{mamo_long_2020} and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner.
 It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios. The implementation of this method and further investigation is the topic for the next chapter.
+
+%
+%
+\textcolor{red}{Which NN is better or which will be used from now on? Non is great, hard to make selection since fundamentaly do not fit. Need to think how to phrase that.}

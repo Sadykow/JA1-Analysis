@@ -1,48 +1,50 @@
-Following Literature Review, this chapter will analyse the selected branch of Neural Networks.
-It explores the Recurrent NN in-depth and establishes the methodology for further research and implementation.
-The accuracy against complexity plot states that there are two types of RNN worth detailed exploration and implementation: Long Short-Term Memory (LSTM) and Gradient Recurrent Unit (GRU).
-Each type will be the subject of a detailed review with multiple published papers, analysed, implemented and compared with percentage accuracy. 
-
+Following Literature Review, this chapter will analyse the selected branch of Neural Networks in detail.
+It explores the Recurrent NN in-depth and establishes the methodology for further research and implementation
+The accuracy against complexity plot, Figure~\ref{fig:alg-comparioson}, states that there are two types of RNN worth detailed exploration and implementation: Long Short-Term Memory (LSTM) and Gradient Recurrent Unit (GRU).
+Each type will be the subject of a detailed review with multiple published papers analysed, implemented and compared with percentage accuracy. 
 %
 %
-Machine learning methods can establish relationships in complicated and multi-dimensional non-linear systems~\cite{hansen_support_2005,anton_battery_2013,he_state_2014}.
+Machine learning methods can establish relationships in complicated, multi-dimensional non-linear systems~\cite{hansen_support_2005,anton_battery_2013,he_state_2014}.
 Many attempts to implement different NN exist, but the most promising were explored by following papers using Recurrent Neural Networks~\cite{song_lithium-ion_2018,Chemali2017,mamo_long_2020,jiao_gru-rnn_2020,xiao_accurate_2019,javid_adaptive_2020,zhang_deep_2020}.
 RNN effectiveness in time-series dependant problems was shown using internal neurons to process data sequences with varying lengths~\cite{Chemali2017}.
 The cells act as memory units, building relationships and giving output based on multiple inputs over time.
 
 %
 %
-Over the past years, the RNN approach has received extensive attention from different researchers to estimate.
-The most recent attempt to determine the Li-Ion battery's remaining useful life was the Gradient Recurrent Unit models~\cite{song_lithium-ion_2018}[other].
-The earliest approach utilised a battery charge's regression nature only using stateless models~\cite{song_lithium-ion_2018}[ref to stateless models] when inputs impact does not get preserved for further predictions.
-Later, some approaches introduced additional parameters to support the NN learning process [ref].
-Besides good converges, the model's use was in determining critical events, not a value of the charge, due to the battery's initial state's requirement and prior utilisation as input before prediction.
-The most popular way lies in determining the charge's value using a fixed size of historical data of voltage, current and temperature in a stateless Long Short-Term Memory (LSTM) models~\cite{Chemali2017}[10..].
-The method's advantage is independence from the charge or discharge cycles at different times, as long as the history samples are in order.
-However, estimation determines values based on fixed history samples and does not preserve for the next prediction, making practical estimation of single or several charge values, but not in determining critical events ahead.
-That can be achieved with stateful models, which continuously preserve the prediction's impact and can be propagated further until the reach of the end state.
+Over the past years, the RNN approach has received extensive attention from different researchers. The most recent attempt to determine the Li-Ion battery's remaining useful life was the Gradient Recurrent Unit models~\cite{song_lithium-ion_2018,javid_adaptive_2020,xiao_accurate_2019,jiao_gru-rnn_2020}.
+The earliest approach utilised a battery charge's regression nature only using stateless models~\cite{song_lithium-ion_2018,jiao_gru-rnn_2020,xiao_accurate_2019} when input impact is not preserved for further predictions.
+Later, some approaches introduced additional parameters to support the NN learning process~\cite{mamo_long_2020,jiao_gru-rnn_2020,javid_adaptive_2020}.
+Besides good converges, the model's use was in determining critical events, like the time before complete charge depletion or overcharge.
+However, it did not receive wide application due to the battery's initial state's requirement and prior utilisation as input requirements.
+The most popular way lies in determining the charge's value using a fixed size history of voltage, current and temperature in stateless Long Short-Term Memory (LSTM) models~\cite{Chemali2017,mamo_long_2020,javid_adaptive_2020,zhang_deep_2020}.
+The method's advantage is independent of the charge or discharge cycles at different times, as long as the history samples are in order.
+However, estimation determines values based on fixed history samples and does not preserve for the next prediction, making practical estimation of single or several charge values, but not determining critical events ahead.
+That can be achieved with stateful models, which continuously preserve the prediction's impact and can be propagated further until they reach the end state.
 
 %
 %
-Both stateful and stateless methods fall for input samples' impact and their size on model estimation accuracy, which became the research source [ref to some comparisons].
+\textcolor{red}{Both stateful and stateless methods fall for input samples' impact and their size on model estimation accuracy, which became the research source [ref to some comparisons].
 After identifying the most optimal input type, without significant effect on the performance, one of the further developments apply changes to the structure of GRU or LSTM by adding additional layers (Attention or Extra Dense layers)~\cite{mamo_long_2020, jiao_gru-rnn_2020}.
 Another way is to change the optimisation process to achieve similar accuracy faster (i. e., adding a Momentum algorithm to the Stochastic Gradient Optimisations process or replacing gradient calculations with statistical)~\cite{xiao_accurate_2019, javid_adaptive_2020}.
 Those methods modify standard ways introduced earlier in model training by applying additional operations.
 As a result, they met to achieve better accuracy faster using similar training approaches.
-The drawback lies within testing procedures.
+The drawback lies within testing procedures.}
 
 %
 %
 Several attempts to introduce an online procedure for models performance measurement have been introduced by not being limited to the battery testing machine's table data, i.e. the validation mechanism to tune an NN model based on batteries data during actual battery cycling~\cite{zhang_deep_2020}.
 This method brings the model learning process closer to real-time battery utilisation without adding model complexity.
 
-Table~\ref{tab:review} summarises the hand-picked method for analysis, highlighting the type of model cell, structure to define input sample type, optimiser selection, and additional features introduced by authors to improve predictions.
-The model type highlights a primary author path in structuring a Neural Net model.
+%
+%
+Table~\ref{tab:review} summarises the most common methods applied to SoC estimation, highlighting the model cell type, structure to define input sample type, optimiser selection, and additional features introduced by authors to improve predictions.
+The model type highlights a primary path in structuring a Neural Net model.
 The statefulness defines the input method, where stateless uses a fixed size of input samples per each feature and statefully apply each time sample at a time for all features one by one.
 Optimiser selection sets the algorithm for the learning process from one of the following methods: Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
+
 \begin{center}
     \begin{table}[h]
-    \caption{Reviewed papers implementation summary.}
+    \caption{Reviewed ML implementations for SoC estimation.}
     \label{tab:review}
 \begin{tabular}{p{2.0cm}|p{0.8cm}|p{1.0cm}|p{0.8cm}|p{0.8cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.7cm}|p{0.7cm}|p{2.1cm}}
     %\multicolumn{12}{c}{Unknown yet table} \\
@@ -76,7 +78,7 @@ Optimiser selection sets the algorithm for the learning process from one of the 
 \end{center}
 All authors conducted model experiments on battery cycling data of different cell types.
 The majority used table data or real-time sensory results from battery cyclers to validate efficiencies.
-Mamo et al.~\cite{mamo_long_2020} conducted experiments by validating the RNN model performance by training one driving profile and testing against another.
+Mamo et al.~\cite{mamo_long_2020} conducted experiments by validating the RNN model performance by training one \textcolor{red}{driving profile} and testing against another.
 The results showed an increase in Root Mean Squared Error, comparing to single dataset training and validation scenario.
 There have not been many similar experiments against other neural nets or other SoC estimation methods.
 Usage of a single profile's battery cycling data may not validate ML methods' efficiency in driving an electric vehicle.
@@ -88,7 +90,8 @@ All further model testing will be applied through varying three different batter
 %
 %
 This chapter investigates, implements and compares extended memory-based models of RNN to predict the State of Charge and additional built-on over time techniques to select the most effective and least resource requiring onboard-based computations appliable within Electrical Vehicles.
-The recent advancement and commonly used subsets are Gradient Recurrent Unit and Long Shot-Term Memory unit cells. Recurrent Neural Network has been confirmed to be suitable for the battery-related system by authors discussed further, such as Chemali~\cite{LSTM_Hochreiter1997}.
+The recent advances and commonly used subsets are Gradient Recurrent Unit and Long Shot-Term Memory unit cells.
+Recurrent Neural Network has been confirmed to be suitable for the battery-related system by authors, such as Chemali ~\cite{LSTM_Hochreiter1997}.
 However, there is no valid proof of if GRU or LSTM is helpful for battery SoC estimation.
 The best way to separate them and explore differences and efficiencies is to use them as stateful and stateless models.
 Each subset will contain implementation from various articles changing either structure of the models or learning approaches.
@@ -96,7 +99,7 @@ In the end, each method will be taken through the same battery data of three dif
 
 %
 %
-The remaining sections are organised as follows: all methodology, methods and data discussed in Section~\ref{sec:Body}.
-The details of data management and models structure are in Subsection~\ref{subsec:RNN}.
-Subsections~\ref{subsec:structure},~\ref{subsec:optimisers} and~\ref{subsec:soft} separate all details for each GRU and LSTM method using multiple optimising algorithms.
-Section~\ref{sec:conclussion} gives the results of implementation, performance, discussion and concludes the critical analysis.
+% The remaining sections are organised as follows: all methodology, methods and data discussed in Section~\ref{sec:Body}.
+% The details of data management and models structure are in Subsection~\ref{subsec:RNN}.
+% Subsections~\ref{subsec:structure},~\ref{subsec:optimisers} and~\ref{subsec:soft} separate all details for each GRU and LSTM method using multiple optimising algorithms.
+% Section~\ref{sec:conclussion} gives the results of implementation, performance, discussion and concludes the critical analysis.

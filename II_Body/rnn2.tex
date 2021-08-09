@@ -2,11 +2,11 @@
 %   Managing input data
 %
 \subsection{Managing input data} \label{subsec:RNN}
-As discussed in the introduction, Section~\ref{sec:Introduction}, the purpose of the work is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
+As discussed in the introduction, the purpose of the work is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
 Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors, all models were implemented based on the provided information.
 All missing aspects were assumed based on ML's standard methods at the time of their writing.
 Summarising Table~\ref{tab:review} and Literature Review, Table~\ref{tab:experiment} compiles models, which will be evaluated in this work.
-It provides details of 7 different implementations, which vary in their structure and learning process but share the same training, validation, testing and performance measurement procedures.
+It provides details of 7 different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
 \begin{center}
     \begin{table}[h]
     \caption{Testing models summary.}
@@ -36,7 +36,7 @@ It provides details of 7 different implementations, which vary in their structur
 %
 The structure and cell type define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
 The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
-Based on that, the input amount of sample becomes flexible by the requirement of adding only a single sample at a time upon their arrival, instead than wait until the fixed amount has arrived.
+Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has arrived.
 The optimiser selection was based on the derivative calculation algorithms only.
 Other alternatives, like differential evolution, are beyond the scope of research.
 Extention defines the specific detail of the model, which distinguish it against the others.
@@ -77,7 +77,7 @@ All samples are equally time distributed, and the t represents the number of inp
 
 %
 %
-For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per Figure~\ref{fig:Windowing}, where $s$ represents the step between each window, less than the number of input time steps.
+For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per Figure~\ref{fig:Windowing3f}, where $s$ represents the step between each window, less than the number of input time steps.
 The most optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
 Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
@@ -126,7 +126,7 @@ Final tests for a model performance were conducted against an entire set of two 
         % \includegraphics[width=0.9\linewidth]{II_Body/images/Windowing3D-3.jpg}
         \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
         \caption{Data Windowing scheme. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from actual implementation. Initial index $i$ was kept as a value close to the beginning of the data, around zero.}
-        \label{fig:Windowing}
+        \label{fig:Windowing3f}
     \end{figure}
 \end{landscape}
 %
