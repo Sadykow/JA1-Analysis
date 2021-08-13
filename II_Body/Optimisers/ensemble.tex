@@ -8,7 +8,7 @@ The new ensemble optimisation algorithm is based on the combination of Nadam~\ci
 
 %
 %
-The Nadam optimiser is an extension of the Adam algorithm~\ref{alg:nadam}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
+The Nadam optimiser extends the Adam algorithm~\ref{alg:nadam}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
 Line~\ref{alg:Nadam-Line} and~\ref{alg:Nadam-Line-update} add additional calculations involving gradient and parameters update, intending to improve convergence speed.
 % \textcolor{red}{Another error. This time with SQRT. According to Adam and source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that corrected.}
 

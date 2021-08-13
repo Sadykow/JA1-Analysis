@@ -40,14 +40,14 @@ The $c_t$ represents the cell state at a timestamp.
 % $\hat{c_t} \rightarrow$ candidate for cell state \\
 % $* \rightarrow$ element wise multiplication \\
 Like the GRU cell type, the model training Library supports both stateful and stateless utilisation of the LSTM model.
-For further comparison, it will be used as a Stateless cell based on Chemali et al.~\cite{Chemali2017} and similar articles.
+It will be used as a Stateless cell for further comparison based on Chemali et al.~\cite{Chemali2017} and similar articles.
 %
 %
 % (7) \textcolor{red}{The most complicated one}. Method by WeiZhang2020. Adaptive Time-series prediction on online validation. Data taken directly during cycling batteries.
 % \textbf{I have to study this properly first. Long-Horizon, as they called it, more useful ti State if Health. This should be the end of them.}
 \subsubsection{Attention Layer}
 The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve the model introducing addition techniques into the default structure of the training model.
-They added Attention Layer~\cite{yang_hierarchical_2016} in addition between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
+They added Attention Layer~\cite{yang_hierarchical_2016} between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
 Figure~\ref{fig:attention} summarises the model structure, and equations~\ref{eq:AttentionWithContext} and~\ref{eq:Addition} define the internal logic between hidden layers and output.
 
 %

@@ -78,7 +78,7 @@ All samples are equally time distributed, and the t represents the number of inp
 %
 %
 For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per Figure~\ref{fig:Windowing3f}, where $s$ represents the step between each window, less than the number of input time steps.
-The most optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
+The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
 Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
 The state reset for stateful models happens at the end of every dataset, allowing a batching mechanism to speed up the training process.
@@ -190,7 +190,7 @@ A dropout layer technique with a 20\% cut-off has been applied to all hidden lay
 % Requires editing below
 The efficiency of an RNN over time series problem is defined by the ability of the neurons to store memory as an internal state.
 With time, the memory of long passed samples may fade away.
-The problem is referred to as vanishing gradient when the value to update network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
+The problem is called vanishing gradient when the value to update network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
 Long-term dependencies do not get captured since layers with a slight gradient do not significantly affect due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
 The more complicated structures of neurons tend to solve that problem.
 % The gradient is the value used to update Neural Networks’ weight.

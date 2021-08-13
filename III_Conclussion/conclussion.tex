@@ -3,13 +3,13 @@ Several combinations of model structures and optimisers were investigated, imple
 
 %
 %
-Even though most models provided excellent results, they lacked the time-series models' accuracy, observed in similar scenarios. 
+Even though most models provided excellent results, they lacked the accuracy of time-series models, observed in similar scenarios.
 By closely examining average weights between three input features and general observation, models tend to rely more on the voltages than currents.
 Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution. 
 Therefore, the poor prediction was observed in the shallow middle area of the charge due to this lack of weights placed on current, which directly affect the State of Charge.
 In addition, the number of Amps per hour used in calculating the Coulum Counting tended to be overlooked by the training process of the SoC prediction models from Voltage, Current and Temperature.
 The lack of current significance caused errors in the flat voltage areas, where direct interpolation of sensor reading to SoC becomes difficult.
-This is observed in the comparison plots of different driving profiles. 
+It is observed in the comparison plots of different driving profiles. 
 
 %
 %
