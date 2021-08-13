@@ -62,29 +62,6 @@ Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et a
   \end{algorithmic}
   \label{alg:nadam}
 \end{algorithm}
-% \begin{tabular}{ l } 
-%     \hline
-%     Algorithm Nadam optimisation  \\
-%     \hline
-%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
-%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
-%     \ \ \ 1: Define I/O and Params: $\alpha, \beta_1, \beta_2, \epsilon $ \\
-%     %\ \ \ 2: $m_0; n_0 \leftarrow 0$ ($1^{st}$ and $2^{nd}$ moment vector) \\
-%     \ \ \ 2: Define loss function $L$ \\
-%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
-%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
-%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \\
-%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right)g_t $ \\
-%     \ \ \ 7: \ \ $\upsilon_t\ \leftarrow \beta_2 \upsilon_{t-1}+\left(1-\beta_2\right)g^2_t $ \\
-%     \ \ \ 8: \ \ $\hat{m_t}\ \ \leftarrow \frac{m_t}{1-\prod\nolimits_{i = 1}^{k+1}\beta^t_1}$ \\
-%     \ \ \ 9: \ \ $\hat{\upsilon_t}\ \ \leftarrow \frac{\upsilon_t}{1-\beta^t_2} $ \\
-%     \ \  10: \ \ $\hat{g_t}\ \ \leftarrow \frac{g_t}{1-\prod\nolimits_{i = 1}^{k}\beta^t_2} $ \\
-%     \ \  11: \ \ $\phi_t \leftarrow \phi_{t-1}-\alpha
-%                         \frac{\left(\beta^{k+1}_1\hat{m_t}+\left(1-\beta^t_1\right)\hat{g_t}\right)}
-%                              {\sqrt{\hat{\upsilon_t}}+\epsilon}$ \\
-%     \ \  13: \textbf{end while} \\
-%     \hline
-% \end{tabular}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Adaptive Moment Estimation based on the infinity norm (Adamax)}
   \begin{algorithmic}[1]
@@ -105,24 +82,6 @@ Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et a
   \end{algorithmic}
   \label{alg:adamax}
 \end{algorithm}
-% \begin{tabular}{ l } 
-%     \hline
-%     Algorithm AdaMax optimisation  \\
-%     \hline
-%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
-%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
-%     \ \ \ 1: Define I/O and Params: $\alpha, \beta_1, \beta_2, \epsilon $ \\
-%     \ \ \ 2: Define loss function $L$ \\
-%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
-%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
-%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \\
-%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right)g_t $ \\
-%     \ \ \ 7: \ \ $\upsilon_t\ \leftarrow max\left(\beta_2\upsilon_{t-1}, |g_t|\right) $ \\ \\ \\ \\
-%     \ \ \ 8: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha \frac{1}{1-\beta^t_1}\frac{m_t}{\upsilon_t} $ \\
-%     \ \ \ 8: \ \ ***$\phi_t \leftarrow \phi_{t-1}- \alpha \frac{m_t}{(1-\beta^t_1)(\upsilon_t+\epsilon)} $ \\
-%     \ \ \ 9: \textbf{end while} \\
-%     \hline
-% \end{tabular} \\ \\
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Ensemble optimisation training process}
         \begin{algorithmic}[1]
@@ -132,8 +91,10 @@ Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et a
             \STATE Initialise parameters
             \WHILE{epoch  $<p_{1}$:}
                 \IF{epoch $<p_{2}$:}
+                    \STATE \COMMENT{pass if already compiled}
                     \STATE compile model with Nadam parameters. \COMMENT{pre-training phase}
                 \ELSE
+                    \STATE \COMMENT{pass if already compiled}
                     \STATE compile model with AdaMax parameters. \COMMENT{fine-tuning phase}
                 \ENDIF
                 \STATE train for single epoch
@@ -141,28 +102,6 @@ Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et a
         \end{algorithmic}
     \label{alg:ENS}
 \end{algorithm}
-% \begin{center}
-%     \begin{tabular}{ l } 
-%     \hline
-%     Algorithm Ensemble Optimisation Training  \\
-%     \hline
-%     %\multirow{3}{4em}{Multiple row} & cell2 & cell3 \\ 
-%     \ \ \textbf{Input:} Data sample with shape=(1,500,1,3)\\ 
-%     \ \ \textbf{Output:} Predicted SoC shape=(1,500,1)\\
-%     \ \ Setup model. Split total number of epoch by 30\% to $p_{1}$ and $p_{2}$\\ 
-%     \hline
-%     \ \ 1: Initialise parameters \\
-%     \ \ 2: while epoch  $<p_{1}$: \\
-%     \ \ 3: \ \ if epoch $<p_{2}$: \\
-%     \ \ 4: \ \ \ \ compile model with Nadam parameters //pre-training phase \\
-%     \ \ 5: \ \ else: \\
-%     \ \ 6: \ \ \ \ compile model with AdaMax parameters //fine-tuning phase \\
-%     \ \ 7: \ \ end if \\
-%     \ \ 8: \ \ train for single epoch \\
-%     \ \ 9: end while \\
-%     \hline
-%     \end{tabular}
-% \end{center}
 \begin{center}
     \begin{table}[htbp]
     \caption{Adam, specific parameters}

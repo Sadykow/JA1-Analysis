@@ -9,9 +9,12 @@ Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm in
 Adding the direct influence of loss function to the gradient update adds an online calculation to regular $Adam$ correction, Algorithm~\ref{alg:RoAdam}.
 Table~\ref{tab:adam-params} highlights method-specific parameter selection for the optimiser.
 The framework library contained no inbuild implementation of the Robust optimiser.
-Instead, it was implemented from the first principal and overwriting the model training procedure.
-The code itself can be located in Appendix~\ref{}.
-\textcolor{red}{The implementation was much difficult that it looks, since the author forgot to mention key parameters. I must not repeat his mistake, either in Appendix or in algorithm below.}
+Instead, it was implemented from the first principle and overwriting the model training procedure.
+The code itself can be located in Appendix~\ref{app:RoAdam}.
+Unlike initial variables $m$, and $v$ of the Adam algorithm, which are set as a matrix of zeros, the $d$ variable in the RoAdam is set to start with ones.
+In addition, the algorithm is dependant on the loss calculation and not every framework supports it.
+The previous loss result has to be preserved into the next iteration.
+The initial loss value must be set above zero as per the algorithm to avoid a zero-division error.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Adaptive Moment Estimation (Adam) optimisation}
   \begin{algorithmic}[1]
@@ -33,25 +36,6 @@ The code itself can be located in Appendix~\ref{}.
   \end{algorithmic}
   \label{alg:Adam}
 \end{algorithm}
-% \begin{tabular}{ l } 
-%     \hline
-%     Algorithm Adam optimisation  \\
-%     \hline
-%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
-%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
-%     \ \ \ 1: Define I/O and Params: $\alpha, \beta_1, \beta_2, \epsilon $ \\
-%     \ \ \ 2: Define loss function $L$ \\
-%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
-%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
-%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t \left(\phi_{t-1} \right) $ \text{\ \ \ //Obtain Gradient}\\
-%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+ \left(1-\beta_1 \right)g_t $ \text{//$1^{st}$moment }\\
-%     \ \ \ 7: \ \ $\upsilon_t\ \leftarrow \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \text{//$2^{nd}$moment }\\
-%     \ \ \ 8: \ \ $\hat{m_t}\ \ \leftarrow \frac{m_t}{1-\beta^t_1}$ \text{Correct \ \ }$\hat{m_t}$\\
-%     \ \ \ 9: \ \ $\hat{\upsilon_t}\ \ \leftarrow \frac{\upsilon_t}{1-\beta^t_2} $ \text{Correct \ \ }$\hat{\upsilon_t}$ \\ \\ \\ \\
-%     \ \  10: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ \\
-%     \ \  11: \textbf{end while} \\
-%     \hline
-% \end{tabular}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Robust Online Adaptive Moment Estimation (Adam) optimisation}
   \begin{algorithmic}[1]
@@ -59,8 +43,9 @@ The code itself can be located in Appendix~\ref{}.
     \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
     \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
     \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
-    \STATE Define Loss function: $L$ \\
+    \STATE Define Loss function $L$ and initial loss $L_t = 1.0$ \\
            Get hyperparameters: $\alpha, \beta_1, \beta_2, \beta_3, \epsilon$
+    \STATE Initialise: $m,v=zeroes$ and $d=ones$ \\
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
     \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
@@ -75,28 +60,6 @@ The code itself can be located in Appendix~\ref{}.
   \end{algorithmic}
   \label{alg:RoAdam}
 \end{algorithm}
-% \begin{tabular}{ l } 
-%     \hline
-%     Algorithm Robust Adam optimisation  \\
-%     \hline
-%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
-%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
-%     \ \ \ 1: Define I/O and Params: $\alpha, \beta_1, \beta_2, \beta_3, \epsilon $ \\
-%     \ \ \ 2: Define loss function $L$ \\
-%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
-%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
-%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \\
-%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right)g_t $ \\
-%     \ \ \ 7: \ \ $\upsilon_t\ \leftarrow \beta_2 \upsilon_{t-1}+\left(1-\beta_2\right)g^2_t $ \\
-%     \ \ \ 8: \ \ $\hat{m_t}\ \ \leftarrow \frac{m_t}{1-\beta^t_1}$ \\
-%     \ \ \ 9: \ \ $\hat{\upsilon_t}\ \ \leftarrow \frac{\upsilon_t}{1-\beta^t_2} $ \\
-%     \ \ \ // Relative prediction error term of the loss function: \\
-%     \ \ 10: \ \ $r_t \leftarrow \parallel L_t\left(\phi_{t-1}\right)/L_t\left(\phi_{t-2}\right) \parallel $ \\
-%     \ \ 11: \ \ $d_t\ \leftarrow \beta_3 d_{t-1}+\left(1-\beta_3\right)r_t $ \text{//$3^{rd}$moment }\\
-%     \ \ 12: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha \frac{\hat{m_t}}{d_t\sqrt{\hat{\upsilon_t}}+\epsilon} $ \\
-%     \ \ 13: \textbf{end while} \\
-%     \hline
-% \end{tabular}
 \begin{table}[htbp]
     \centering
     \caption{Adam, specific parameters}

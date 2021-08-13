@@ -20,55 +20,14 @@ Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
     \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
     \STATE Define Loss function: $L$ \\
            Get hyperparameters: $\alpha$
-    
-    %\textbf{Function} Twiddle(W, N, stuff)
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
     \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
     \STATE $W_t \gets W_{t-1} - \alpha g_t $ \COMMENT{Update parameters}
-    % \STATE $ W.r \gets cos(stuff.2.\Pi/N)$
-    % \STATE $ W.i \gets -sin(stuff.2.\Pi/N)$\\
     \ENDWHILE
-    % \IF{$N_{2}!=1$}
-    % \STATE \textbf{Call} $radix-4(data[N_{2}.k1], N_{2})$
-    % \ENDIF
   \end{algorithmic}
   \label{alg:SGD}
 \end{algorithm}
-% \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
-%   \caption{stochastic gradient descent with entropy estimate}
-%   \label{alg:sgd-with-estimate}
-%   \begin{algorithmic}[1]
-%     \STATE { input:}
-%     Weight initialization scale $\sigma_0$, step size $\stepsize$,
-%     twice-differentiable negative log-likelihood $L(\params, t)$
-%     \STATE { initialize} $\params_0 \sim \N{0}{\sigma_0 \vI_D}$
-%     \STATE { initialize} $\entropy_{0} = \frac{D}{2} (1 + \log 2 \pi) + D \log\sigma_0$
-%     \FOR {$t=1$ { to} $T$}
-%     %		\State $\vg = \gradparams$             \Comment{Evaluate gradient}
-%     %		\State $\vr \sim \N{0}{\vI_D}$         \Comment{Draw random direction}
-%     %		\State $\vr\tra \left[ -2 \vr + 3 \left(  R1 - R2 \right) \right]$      \Comment{Estimate determinant}
-%     \STATE $\entropy_{t} = \entropy_{t-1} + \log \left| \vI - \stepsize H_{t-1} \right|$
-%     \STATE $\params_{t} = \params_{t-1} - \stepsize \gradparams$
-%     \ENDFOR
-%     \STATE \textbf{output} sample $\params_T$, entropy estimate $\entropy_T$
-%   \end{algorithmic}
-% \end{algorithm}
-% \begin{tabular}{ l } 
-%     \hline
-%     Algorithm   \\
-%     \hline
-%     % \ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
-%     % \ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
-%     \ \ \ 1: Define Inputs, Outputs and Parameter: $\alpha$. \\
-%     \ \ \ 2: Define loss function $L$. \\
-%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
-%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
-%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_\phi L_t\left(\phi_{t-1}\right) $ \text{//Obtain Gradient}\\ \\
-%     \ \ \ 6: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha g_t $ \\
-%     \ \ \ 7: \textbf{end while} \\
-%     \hline
-% \end{tabular}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}
   \begin{algorithmic}[1]
@@ -87,23 +46,6 @@ Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
   \end{algorithmic}
   \label{alg:SGDwM}
 \end{algorithm}
-% \begin{tabular}{ l } 
-%     \hline
-%     Algorithm SGD w/ Momentum optimisation  \\
-%     \hline
-%     %\ \ \textbf{Input:} Data sample with shape=\left(1,500,1,3\right)\\ 
-%     %\ \ \textbf{Output:} Predicted SoC shape=\left(1,500,1\right)\\ 
-%     \ \ \ 1: Define I/O and Parameters: $\alpha, \beta_1 $ \\
-%     \ \ \ 2: Define loss function $L$ \\
-%     \ \ \ 3: \textbf{while} $\phi_t$ not converge \textbf{do}: \\
-%     \ \ \ 4: \ \ $t \leftarrow t + 1$ \\
-%     \ \ \ 5: \ \ $g_t \leftarrow \nabla_{\phi} L_t\left(\phi_{t-1}\right) $ \text{//Obtain Gradient}\\
-%     \ \ \ 6: \ \ $m_t \leftarrow \beta_1 m_{t-1}+\left(1-\beta_1\right) g_t $ \text{ //Moment}\\
-%     \ \ \ 7: \ \ $\phi_t \leftarrow \phi_{t-1}- \alpha m_t $ \\
-%     \ \ \ 8: \textbf{end while} \\
-%     \hline
-% \end{tabular} \\ \\
-%\vspace{-3pt}
 \begin{table}[ht]
     \centering
     \caption{Hyper-Parameters as per Jiao et al.~\cite{jiao_gru-rnn_2020}}

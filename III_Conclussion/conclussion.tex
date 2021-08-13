@@ -3,7 +3,7 @@ Several combinations of model structures and optimisers were investigated, imple
 
 %
 %
-Even though most of the models provided excellent results, they lacked the accuracy of the Time-series models used in similar scenarios.
+Even though most models provided excellent results, they lacked the time-series models' accuracy, observed in similar scenarios. 
 By closely examining average weights between three input features and general observation, models tend to rely more on the voltages than currents.
 Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution. 
 Therefore, the poor prediction was observed in the shallow middle area of the charge due to this lack of weights placed on current, which directly affect the State of Charge.
@@ -46,9 +46,7 @@ From the results, the choice of optimiser affects the speed of the training offl
 However, all models lacked additional input features as SoC, similar to whether or stock-price forecasting methods.
 The inability to accurately estimate SoC at the current time and then using it as an input for further predictions reduces the chances for good estimation.
 Like CC, the accuracy of other SoC estimation methods proves itself ineffective due to poor capture of coulumbic efficiency in the system.
-The most reasonable approach for further investigation is to use the approach similar to Tadele Momo et al.~\cite{mamo_long_2020} and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner.
-It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios. The implementation of this method and further investigation is the topic for the next chapter.
-
-%
-%
-\textcolor{red}{Which NN is better or which will be used from now on? Non is great, hard to make selection since fundamentaly do not fit. Need to think how to phrase that.}
+The most reasonable approach for further investigation is to use the approach similar to Tadele Momo et al.~\cite{mamo_long_2020} (Model №3) and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner. 
+It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios.
+With a modified training loop and choice of the method that gave the lowest error, like Model №5 with Adam or Robust Adam optimiser, as per Javid et al.~\cite{javid_adaptive_2020}, further research will exploit possible improvements combining two designs.
+The implementation of this method and further investigation is the topic for the next chapter.
