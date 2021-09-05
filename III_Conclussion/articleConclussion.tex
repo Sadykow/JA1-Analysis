@@ -1,0 +1,52 @@
+The work has offered several implementations of Machine Learning algorithms for State of Charge estimation of A123 batteries.
+Several combinations of model structures and optimisers were investigated, implemented and performance measured using several drive cycles.
+
+%
+%
+Even though most models provided excellent results, they lacked the accuracy of time-series models, observed in similar scenarios.
+By closely examining average weights between three input features and general observation, models tend to rely more on the voltages than currents.
+Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution. 
+Therefore, the poor prediction was observed in the shallow middle area of the charge due to this lack of weights placed on current, which directly affect the State of Charge.
+In addition, the number of Amps per hour used in calculating the Coulum Counting tended to be overlooked by the training process of the SoC prediction models from Voltage, Current and Temperature.
+The lack of current significance caused errors in the flat voltage areas, where direct interpolation of sensor reading to SoC becomes difficult.
+It is observed in the comparison plots of different driving profiles. 
+
+%
+%
+The usage of any training profiles has limitations in application to actual electrical vehicles due to temperature variation and other non-obvious factors.
+The models tend to put equal or lower weight on the temperature feature.
+While all values are within a tolerance of 1 degree, the actual car will much more severely increase or decrease slope over utilisation.
+Despite the highlighted limitations, all models have proven to capture complicated current profile behaviours up to the FUDS schedule but are not very efficient in the general characterisation of the system.
+That behaviour can be observed throughout the training process.
+The better the fit over a single training profile, the more offset it becomes against the other two.
+It makes DST appear to be a better learning input profile since it makes a suitable generalisation of the other two driving characteristics and does create such offsets as rapid.
+Although, its intention is only for stress testing and does not characterise the general behaviour of drivers.
+The mistake that models make relies on one feature than all three, which makes the current setup unsuitable and requires actual car data to train a proper SoC model.
+
+%
+%
+The solution to all weight placement issues could be potentially resolved by introducing SoC as part of the input features.
+However, the property of the predicting output and the discovered average percentage miss accuracy makes it questionable to use.
+Usage of the Coulomb Counter may fix this problem, making a model have enough information to predict the total battery consumption.
+However, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading equally inaccurate in the long run.
+By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine learning and other methods such as Kalman filter may prove more effective with further tests.
+
+%
+%
+The performance measurement of model predictions on embedded devices provided reasonable justification for using ML algorithms embeddedly.
+Even with the Chip-on-board devices' computational limitations, which have potential usage inside an Electrical vehicle, they are limited to Stateless model implementation.
+The most computationally practical approach has been measured over two potential devices: an android based ARM processor or a tensor computation dedicated device, like TPU processors on Coral devices.
+
+%
+%
+The model training process consists of several essential steps: data acquisition, model construction with training, validation and deployment.
+The methods described in this article applied different methods to all of them independently.
+This chapter summarised all steps together to determine a reasonable approach for further improvements.
+From the results, the choice of optimiser affects the speed of the training offline but closely helps achieve better performance in the online scenarios.
+However, all models lacked additional input features as SoC, similar to whether or stock-price forecasting methods.
+The inability to accurately estimate SoC at the current time and then using it as an input for further predictions reduces the chances for good estimation.
+Like CC, the accuracy of other SoC estimation methods proves itself ineffective due to poor capture of coulumbic efficiency in the system.
+The most reasonable approach for further investigation is to use the approach similar to Tadele Momo et al.~\cite{mamo_long_2020} (Model №3) and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner. 
+It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios.
+With a modified training loop and choice of the method that gave the lowest error, like Model №5 with Adam or Robust Adam optimiser, as per Javid et al.~\cite{javid_adaptive_2020}, further research will exploit possible improvements combining two designs.
+The implementation of this method and further investigation is the topic for the next chapter.
