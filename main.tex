@@ -55,25 +55,35 @@
 % lscape.sty Produce landscape pages in a (mainly) portrait document.
 \usepackage{pdflscape}
 
-\title{Critical analysis of Lithium Battery State of Charge estimation methods using Time-Series Machine Learning prediction over supported chip-on-board devices for Electric Vehicles.}
+\title{Critical analysis of Lithium-Ion battery State of Charge estimation methods using Time-Series Machine Learning prediction over supported chip-on-board devices for Electric Vehicles.}
 
 \author[1]{Mr Marat (Matt) Sadykov}
-\author[2]{Dr David Holmes}
-\author[3]{Pr Geoff Walker}
-\author[4]{\\Dr Mark Broadmeadow}
+\author[2]{Asoc/Pr David Holmes}
+\author[3]{Asoc/Pr Geoff Walker}
+%\author[4]{\\Dr Mark Broadmeadow}
 
 \affil[1]{Queensland University of Technology}
 %\affil[2]{Address of second author}
 
-\keywords{BMS, NN, RNN, LSTM, GRU, SoC}
+\keywords{Lithium-Ion battery (Li-Ion), State of Charge (SOC), Time-Series Machine Learning, Chip-on-Board (CoB), Electric Vehicle (EV), Recurrent Neural Networks (RNN), Long Short-Term Memory (LSTM), Attention Layer, Gradient Recurrent Unit (GRU), Stochastic Gradient Descent with Momentum (SGDw/M), Adaptive Moment Estimation (Adam), Nesterov Adaptive Moment Estimation (Nadam), Robust Online Adaptive Moment Estimation (RoAdam), Adaptive Moment Estimation based on the infinity norm (Adamax), TensorFlow (TF), Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4)}
 
 \begin{abstract}
     \textbf{
-    State of Charge (SoC) estimation is a critical aspect of battery management in any battery-based electrical system.
-    SoC is a crucial metric for Electrical Vehicle (EV) because ... 
-    The article analyses several methods to estimate SoC using three types of Machine Learning (ML).
-    Recurrent Neural Network (RNN), Long-Short Term Memory (LSTM) Neural Network and Gated Recurrent Unit (GRU) Neural Network.
-    It also includes some of the other variations of those algorithms to make improvements in model preparation.
+State of Charge (SoC) estimation is critical for battery management in any battery-based electrical system.
+It acts as a criterion, which justifies the amount of energy left in a single or pack of cells and how long they can supply power, for example, the endurance of electric vehicles before subsequent charging.
+The ability to estimate a correct SoC and manage consumption accordingly, not only to prolong the time between charges but also the general health of the battery, in the long run, became vital for any electrical grid.
+The most common way of estimating batteries charge without direct physical intervention is battery modelling.
+By clearing defining specific constant parameters like internal resistance and capacitance and training over sensory data of battery voltage and current consumption, it is possible to simulate battery behaviour.
+However, while some methods reasonably estimate the charge percentage, the battery losses created by Coulombic efficiency can create unpredictable behaviour with different impacts.
+The Machine Learning models tend to estimate parameters themselves through the long process of training based on statistical data of battery utilisation, rather than constant definitions.
+The Recurrent Neural Network (RNN) treats Coulombic efficiency as part of the system by considering a short period of samples rather than single readings.
+Since the wide usage of Machine Learning in many applications, there have been multiple attempts to estimate the State of Charge using Neural Nets with battery sensory data, such as Voltage, Current and Temperature.
+Those methods attempted multiple model training techniques to minimise the discrepancy in available readings caused by general sensory inaccuracy and develop the best possible SoC estimator, derived from Coulomb Counting with battery testing machine.
+Although it does not match actual Electric Vehicle driving, the technique validation methodology makes a reasonable way of evaluating the most efficient and low-resource consuming method.
+Through the long process of critical analyses, implementation, review and comparison of the already published RNN models over multiple drive cycles, the most promising methods ended up being a Stateless model with an approximate 5-minute long history of samples, trained on LSTM model with robust adaptive Online gradient learning algorithm (RoAdam) as optimiser.
+The Root Mean Squared accuracy of such models tends to be around 3.64\% against the datasets, which were not involved in the training process.
+All models went through a cross-validation process over multiple datasets, and some were tested on few embedded solutions, which can be integrated into electrical circuitry of any type.
+As a result of the research, several weaknesses have been identified during reviews, such as incorrect or inefficient weight distribution across input parameters and lack of accuracy as opposed to general RNN models in other scenarios.
     }
 \end{abstract}
 
@@ -86,14 +96,6 @@
 \section{Introduction} \label{sec:Introduction}
 \input{./I_Introduction/Intro}
 %%% Body
-% \textcolor{red}{\textit{\textbf{Other titles:}}
-%     \begin{itemize}
-%         \item The concept and structure of Recurrent Neural Network and corresponding implementations OR
-%         \item Recurrent Neural Networks and its' variations for State of Charge prediction/estimation
-%         \item Preliminary Work / A review of GRU and LSTM methods
-%         \item RNNs for SoC model training and validation
-%     \end{itemize}
-% }
 \section{Time-series models implementation} \label{sec:Body}
 \input{./II_Body/rnn2}
     \input{./II_Body/GRU/gru}
@@ -192,5 +194,9 @@
     II_Body/GRU/BibGRU,
     II_Body/Optimisers/BibOpt.bib
 }
-
+\appendix
+\section{Appendix A: Robust Adam implementation}  \label{app:RoAdam}
+\input{../X-Appendix/AppendixE}
+\section{Appendix B: Getting Number of Flops from TF2.4}  \label{app:flops}
+\input{../X-Appendix/AppendixF}
 \end{document}

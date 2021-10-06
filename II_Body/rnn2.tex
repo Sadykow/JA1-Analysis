@@ -5,8 +5,26 @@
 As discussed in the introduction, the purpose of the work is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
 Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors, all models were implemented based on the provided information.
 All missing aspects were assumed based on ML's standard methods at the time of their writing.
-Summarising Table~\ref{tab:review} and Literature Review, Table~\ref{tab:experiment} compiles models, which will be evaluated in this work.
+Deriving from Table~\ref{tab:review}, Table~\ref{tab:experiment} compiles models, which will be evaluated in this work.
 It provides details of 7 different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
+
+%
+%
+The structure and cell type define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
+The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
+Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
+The optimiser selection was based on the derivative calculation algorithms only.
+Other alternatives, like differential evolution, are beyond the scope of research.
+Finally, "Extension" defines the model's specific detail, which distinguishes it against the others.
+
+%
+%
+Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
+\begin{itemize}
+    \item Data shape for each state type
+    \item Model structure and difference between GRU and LSTM
+    \item Each optimisation algorithm and hyper-parameters selection
+\end{itemize}
 \begin{center}
     \begin{table}[h]
     \caption{Testing models summary.}
@@ -31,24 +49,6 @@ It provides details of 7 different implementations, which vary in structure and 
 \end{tabular}
     \end{table}
 \end{center}
-
-%
-%
-The structure and cell type define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
-The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
-Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has arrived.
-The optimiser selection was based on the derivative calculation algorithms only.
-Other alternatives, like differential evolution, are beyond the scope of research.
-Extention defines the specific detail of the model, which distinguish it against the others.
-
-%
-%
-Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
-\begin{itemize}
-    \item Data shape for each state type
-    \item Model structure and difference between GRU and LSTM
-    \item Each optimisation algorithm and hyper-parameters selection
-\end{itemize}
 
 %
 %
@@ -79,11 +79,19 @@ All samples are equally time distributed, and the t represents the number of inp
 %
 For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per Figure~\ref{fig:Windowing3f}, where $s$ represents the step between each window, less than the number of input time steps.
 The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
+Figure~\ref{fig:chemali-accuracy} plots his findings in an accuracy plot over a size of time windows.
+The shape demonstrates the root square polynomial, which indicates infinite growth towards zero.
 Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
 The state reset for stateful models happens at the end of every dataset, allowing a batching mechanism to speed up the training process.
 For example, 12 datasets of discharge process with similar Voltage, Current and the State of Charge, but different temperatures at a time $t$ can be treated as a single batch.
-The statefulness of a model preserves the state at index $i$ to the same index in the next batch [ref to the document will not hurt].
+The statefulness of a model preserves the state at index $i$ to the same index in the next batch~\cite{zhu_statefulnes_tfdocs_2020}.
+\begin{figure}[htbp]
+    \centering
+    \includesvg[width=0.55\linewidth]{II_Body/images/chemali_accuracy.svg}
+    \caption{TODO.}
+    \label{fig:chemali-accuracy}
+\end{figure}
 %%%
 % For the process of training for Stateful models speeding up, all data can be separated by batches \textit{b}, for each batch representing a different temperature category, creating a 4-dimensional matrix.
 % \textit{f} defines the number of features as per Voltage, Current and Temperature.
@@ -136,7 +144,7 @@ Final tests for a model performance were conducted against an entire set of two 
 The general summary model structure is represented in Figure~\ref{fig:RNN-structure}, with three feature inputs and a single output.
 The number of hidden layers will be dependant on the authors' implementation.
 Since the output consists of only a single sample, it is defined by a fully connected layer - a dense layer with a single neuron.
-In case if the article did not specify the number of neurons per layer, one of the following equations has been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
+In case if the article did not specify the number of neurons per layer, the following equations has been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
 \begin{equation}
     \begin{split}
         N_h &= \frac{N_s}{ a \left(N_i+N_o \right)} \ \ OR \ \ N_h = \frac{2}{3}\left(N_i+N_o \right) \\
@@ -191,7 +199,7 @@ A dropout layer technique with a 20\% cut-off has been applied to all hidden lay
 The efficiency of an RNN over time series problem is defined by the ability of the neurons to store memory as an internal state.
 With time, the memory of long passed samples may fade away.
 The problem is called vanishing gradient when the value to update network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
-Long-term dependencies do not get captured since layers with a slight gradient do not significantly affect due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
+Long-term dependencies do not get captured since layers with a slight gradient do not significantly affect the system due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
 The more complicated structures of neurons tend to solve that problem.
 % The gradient is the value used to update Neural Networks’ weight.
 %"Therefore, layers that get a small gradient do not learn and they cause the network to have short-term memory."

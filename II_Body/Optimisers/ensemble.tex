@@ -8,13 +8,13 @@ The new ensemble optimisation algorithm is based on the combination of Nadam~\ci
 
 %
 %
-The Nadam optimiser extends the Adam algorithm~\ref{alg:nadam}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
+The Nadam optimiser extends the Adam, Algorithm~\ref{alg:nadam}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
 Line~\ref{alg:Nadam-Line} and~\ref{alg:Nadam-Line-update} add additional calculations involving gradient and parameters update, intending to improve convergence speed.
 % \textcolor{red}{Another error. This time with SQRT. According to Adam and source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that corrected.}
 
 %
 %
-The second algorithm~\ref{alg:adamax} in the ensemble sequence is AdaMax~\cite{kingma_adam_2017}, another modification of the Adam.
+The second algorithm~\ref{alg:adamax} in the ensemble sequence is AdaMax, Algorithm~\cite{kingma_adam_2017}, another modification of the Adam.
 The second-order moment on Line~\ref{alg:AdaMax-Line} gets replaced with the infinity norm of the moment.
 As a result, Xiao et al.~\cite{xiao_accurate_2019} considered AdaMax to have a stable weight updating rule and used in the fine-tuning phase since its' advantage lies in the reduction of gradient fluctuation. 
 
@@ -29,7 +29,7 @@ Although, Xiao et al.~\cite{xiao_accurate_2019} selection of AdaMax is defined b
 %Remarks made by Xiao justifies the usage of Ensemble algorithm. How would I reprase it into something shorter}\\
 %\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
 %\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
-The proposed Ensamble algorithm~\ref{alg:ENS} combines both methods for single GRU training.
+The proposed Ensamble algorithm combines both methods for single GRU training, Algorithm~\ref{alg:ENS}.
 The following algorithm describes the adapted version of the Ensemble algorithm, used by the model training procedures, with Nadam for pre-training and AdaMax for fine-tuning phases.
 %\textcolor{red}{Descibe what shape has been used. Single sample, history length, batch size (if applicable), features number}
 
@@ -91,10 +91,10 @@ Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et a
             \STATE Initialise parameters
             \WHILE{epoch  $<p_{1}$:}
                 \IF{epoch $<p_{2}$:}
-                    \STATE \COMMENT{pass if already compiled}
+                    \STATE \COMMENT{pass if already compiled with Nadam}
                     \STATE compile model with Nadam parameters. \COMMENT{pre-training phase}
                 \ELSE
-                    \STATE \COMMENT{pass if already compiled}
+                    \STATE \COMMENT{pass if already compiled with AdaMax}
                     \STATE compile model with AdaMax parameters. \COMMENT{fine-tuning phase}
                 \ENDIF
                 \STATE train for single epoch

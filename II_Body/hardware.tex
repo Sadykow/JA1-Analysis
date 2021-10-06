@@ -1,4 +1,5 @@
-% \textcolor{red}{Need to systemise information better} \\
+This section will outline hardware and applied software details, which were used in the research process.
+It intended to provide necessary outlines to support further research and allow repeating the experiment with different conditions.
 \subsubsection{Model training Framework}
 The framework for Machine Learning has been Tensorflow 2.4.0 with Python 3.9.1 compiled from source using Bazel 3.1.0.
 An additional package with Addons 0.18 for $R^2$ and Probability 0.13 for Differential Evoltions algorithms has been compiled from the source and added to the main framework.
@@ -24,8 +25,8 @@ Initial model training and validation has been performed on a Desktop machine wi
 %         Tensorflow-2.2.0 & 3.8.* & gcc 7.3.1 & Bazel 2.0.0 & CPU & 3.98MHz*
 %     \end{tabular}
 % \end{table}
-\subsection{Embedded devices for performance measurements}
-Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi), and an Android-based smartphone.
+\subsubsection{Embedded devices for performance measurements}
+Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4), and an Android-based smartphone.
 Coral TPU produced by Google has limited specifications information, but the software setup has provided two libraries for average and maximum clock frequency computation.
 Raspberry Pi 4 powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
 The Operating System was selected with a beta version of Raspbian 64 (aarch64).

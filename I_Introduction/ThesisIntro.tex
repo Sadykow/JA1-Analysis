@@ -24,14 +24,15 @@ That can be achieved with stateful models, which continuously preserve the predi
 %
 %
 Both stateful and stateless methods fall for input samples' impact and their length.
-Chemali et al.~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy model produce and longer it takes to compute.
+Chemali et al.~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy model produced and longer it takes to compute.
 The result of the research is the root square parabola behaviour of size of the history against error in the prediction.
 It was concluded that the length of five minutes made the most optimal trade-off between computational weight and general accuracy.
 In addition, the normalisation technique is commonly used as a means to speed up the fitting process.
 In the SoC estimation, scaling temperatures closer to the voltage and current reduce the time before the first valid results.
 After identifying the most optimal input preferences without significant effect on the performance, one of the further developments apply changes to the structure of GRU or LSTM by adding additional layers (Attention or Extra Dense layers)~\cite{mamo_long_2020, jiao_gru-rnn_2020}.
 Another way is to change the optimisation process to achieve similar accuracy faster (i. e., adding a Momentum algorithm to the Stochastic Gradient Optimisations process or replacing gradient calculations with statistical)~\cite{xiao_accurate_2019, javid_adaptive_2020}.
-Those methods modify standard ways introduced earlier in model training by applying additional operations. As a result, they met to achieve better accuracy faster using similar training approaches. 
+Those methods modify standard ways introduced earlier in model training by applying additional operations.
+As a result, they met to achieve better accuracy faster using similar training approaches. 
 
 %
 %
@@ -62,12 +63,11 @@ Optimiser selection sets the algorithm for the learning process from one of the 
     \hline
     \multicolumn{1}{ c }{} & 
     \multicolumn{2}{|c|}{Model} & 
-    %\multicolumn{1}{ c|}{Ext} &
     \multicolumn{2}{ c|}{State-} & 
     \multicolumn{5}{ c|}{Optimiser} &
     \multirow{2}{ 4em }{Extension} \\
     \cline{1-4} \cline{5-10}
-    Ref & GRU  & LSTM & -less & -full & Adam & Nadam & SGD & AM & DE &           \\
+    Ref & GRU  & LSTM & -less & -ful & Adam & Nadam & SGD & AM & DE &           \\
     \hline
     Song~\cite{song_lithium-ion_2018}
         & \chk &      &       & \chk  & \chk &       &     &    &    & 4 Layers  \\

@@ -30,9 +30,10 @@ Using the same $tanh$ activation function, Equation~\ref{eq:LSTM-output} describ
 The $c_t$ represents the cell state at a timestamp.
 \begin{equation}
     \begin{split}
-        \hat{c_t} &= tanh \left(W_c \left[h_{t-1}, x_t \right] + b_c \right) \\
-              c_t &= f_t c_{t-1}+i_t \hat{c_t} \\
-              h_t &= o_t*tanh \left(c_t \right)II_Body
+        % \hat{c_t} &= tanh \left(W_c \left[h_{t-1}, x_t \right] + b_c \right) \\
+        % c_t &= f_t c_{t-1}+i_t \hat{c_t} \\
+        c_t &= f_t c_{t-1}+i_t \times tanh \left(W_c \left[h_{t-1}, x_t \right] + b_c \right) \\
+        h_t &= o_t*tanh \left(c_t \right)
     \end{split}
     \label{eq:LSTM-output}
 \end{equation}
@@ -46,7 +47,7 @@ It will be used as a Stateless cell for further comparison based on Chemali et a
 % (7) \textcolor{red}{The most complicated one}. Method by WeiZhang2020. Adaptive Time-series prediction on online validation. Data taken directly during cycling batteries.
 % \textbf{I have to study this properly first. Long-Horizon, as they called it, more useful ti State if Health. This should be the end of them.}
 \subsubsection{Attention Layer}
-The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve the model introducing addition techniques into the default structure of the training model.
+The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve LSTM structure introducing addition techniques into the default layer of the training model. 
 They added Attention Layer~\cite{yang_hierarchical_2016} between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
 Figure~\ref{fig:attention} summarises the model structure, and equations~\ref{eq:AttentionWithContext} and~\ref{eq:Addition} define the internal logic between hidden layers and output.
 
@@ -60,7 +61,7 @@ Details in terms of optimiser usage and replacement are justified in subsection~
 In the State of Charge estimation, the attention layer addresses two shortcomings of LSTM: replacing the traditional method of recursively constructing LSTM depth and located after the output of the primary layer, just before the model Dense layer output~\cite{mamo_long_2020}.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.35\linewidth]{II_Body/LSTM/images/AttenrionDrawing.png}
+    \includegraphics[width=0.35\linewidth]{II_Body/LSTM/images/AttenrionDrawing.jpg}
     \caption{Attention based architecture}
     \label{fig:attention}
 \end{figure}
@@ -68,7 +69,7 @@ In the State of Charge estimation, the attention layer addresses two shortcoming
     \begin{split}
         \hat{u_t} &= tanh \left(W h_{t} + b \right) \\
              \alpha_t &= \frac{exp(u^T u)}{\sum_t(exp(u_t^T u))} \\
-              v_t &= \alpha_t*h_t, v in time t
+              v_t &= \alpha_t*h_t%,\ v\ in\ time\ t
     \end{split}
     \label{eq:AttentionWithContext}
 \end{equation}

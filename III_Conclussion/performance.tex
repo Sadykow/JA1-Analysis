@@ -14,7 +14,7 @@ By itself, Stateful models are not supported by TFLite.
 Thus, a single attempt to make a Custom Stateful stateless model test is time inefficient, and those seemed unreasonable.
 Instead, six models were broke down into five foundation implementations and performance profiled, Table~\ref{tab:speed}.
 Calculation of accuracies performed with 20 attempts average and offset calculation with mean of the difference between maximum and minimum.
-As a result, Coral TPU has an advantage over Raspberrypi since the core is dedicated to run tensor computations, despite Pi's latest version.
+As a result, Coral TPU has an advantage over Raspberrypi since the core is dedicated to run tensor computations, despite Pi's latest hardware release.
 The android selection only proved how time-consuming usage of ML model on relatively old CPU could be, but in a proper synchronised manner and without rapid consumption, such devices still have their usage in such application.
 % Steady Voltage consumption over USB Port stable around 5.03V for all devices. Coral TPU steady current - 0.07A. Keep those details for the Ch5 if asked.
 \begin{figure}[ht]
