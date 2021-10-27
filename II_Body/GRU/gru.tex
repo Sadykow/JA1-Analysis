@@ -1,10 +1,10 @@
 \subsubsection{Gated Recurrent Unit based models} \label{subsub:gru}
 One of the methods proposed by Cho et al.~\cite{GRU_cho_properties_2014}, which improves the behaviour of the Neural network, is Gated Recurrent Unit.
-Unlike a simple Recurrent NN with a single activation function in the cells, GRU implements different logics to deal with vanishing gradient, as per Figure~\ref{fig:GRU-cell}.
+Unlike a simple Recurrent NN with a single activation function in the cells, GRU implements different logics to deal with vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.
 On top of the activation function, it adds two gates related to input and propagated sequences.
 The reset gate $r_t$ controls the level information, which has to be ignored.
 The update gate $i_t$ controls the impact of previous information on the current status.
-The gates implemented by \textit{sigmoid} Equation~\ref{eq:sigmoid} and gated get updated with Equations~\ref{eq:GRU-gates}.
+The gates implemented by \textit{sigmoid} \mbox{Equation~\ref{eq:sigmoid}} and gated get updated with \mbox{Equations~\ref{eq:GRU-gates}}.
 Both gates related to cell input sequence $x_t$ and the memory cell's output at last time stamp $h_{t-1}$.
 %The structure of the layers is similar to simple Dense network, similar input and output layers.
 %\textbf{Y. Song~\cite{song_lithium-ion_2018} considered them less complex than another variation (LSTM-RNN) due to usage of 2 gates, rather than 3.}
@@ -28,7 +28,7 @@ Both gates related to cell input sequence $x_t$ and the memory cell's output at 
     \label{eq:GRU-gates}
 \end{equation}
 %The standard activation function or content of the memory gets modefied with equation~\ref{eq:GRU-output}, where \textit{func} represent the activation function and $\ast$ multiplication by element.
-The memory cell output $h_t$ get calculated through the early chosen activation function, $tanh$ in Equation~\ref{eq:GRU-output}.
+The memory cell output $h_t$ get calculated through the early chosen activation function, $tanh$ in \mbox{Equation~\ref{eq:GRU-output}}.
 The $\ast$ stand for multiplication by element.
 \begin{equation}
     \begin{split}

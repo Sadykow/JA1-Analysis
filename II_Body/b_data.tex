@@ -1,9 +1,9 @@
 % Battery Data for training and validation
 Model training has been conducted over Lithium-Ion battery cycling data obtained from CALCE University~\cite{noauthor_calce_2017}.
 The SoC value is calculated from the following equation where $C$ represent Charge and $D$ Discharge Capacities in $Ah$.
-The resulted SoC is equivalent to Coulomb Counting, by Equation~\ref{eq:SoC-calc}.
+The resulted SoC is equivalent to Coulomb Counting, by \mbox{Equation~\ref{eq:SoC-calc}}.
 The expected value gets rounded by two decimal places in all scenarios to simplify training and testing processes. 
-Table~\ref{tab:battery} highlights selected battery characteristics.
+\mbox{Table~\ref{tab:battery}} highlights selected battery characteristics.
 The Battery Cycling data in a Battery testing chamber were stored as Excel spreadsheets over temperature range 0 and 50 degrees.
 Each testing cycle contains three testing profiles: Dynamic stress test (DST), (US06) and the Federal urban driving schedule (FUDS).
 The temperature steps 10 degrees with a tolerance of around 0.5-1 degrees.
@@ -38,7 +38,7 @@ Each method went through a single cycling profile and was tested against the oth
     }
 \end{table}
 \subsubsection{Losses}~\label{subsub:losses}
-Table~\ref{tab:losses} summarises the loss functions, which has been applied to each tested model.
+\mbox{Table~\ref{tab:losses}} summarises the loss functions, which has been applied to each tested model.
 Some equations were extracted directly from papers; others were written based on their definition and internal library implementation.
 The goal of the loss function is to calculate the error between model prediction and the actual value.
 The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
@@ -76,7 +76,7 @@ The purpose of the table is only to provide the implementation references, which
 % \textcolor{red}{Generally, Losses start form 0, metrics from 1. Articles which did overwise were assumed to be mistaken.}
 % \textcolor{red}{Similar to loses and reasons why we have chosen those as out criterias.} \\
 Metrics functions act as user evaluation criteria to assess the performance of the trained model during both fitting and validation processes.
-Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations from Table~\ref{tab:metrics}.
+Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations from \mbox{Table~\ref{tab:metrics}}.
 Thus, the same criteria will be used for the final comparison between models' efficiency in the results section.
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.3}

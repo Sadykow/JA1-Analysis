@@ -1,34 +1,32 @@
-% This file is to set up IEEE style referencing
-
 %%
 %% IEEEtran.bst
 %% BibTeX Bibliography Style file for IEEE Journals and Conferences (unsorted)
 %% Version 1.12 (2007/01/11)
-%% 
+%%
 %% Copyright (c) 2003-2007 Michael Shell
-%% 
+%%
 %% Original starting code base and algorithms obtained from the output of
 %% Patrick W. Daly's makebst package as well as from prior versions of
 %% IEEE BibTeX styles:
-%% 
+%%
 %% 1. Howard Trickey and Oren Patashnik's ieeetr.bst  (1985/1988)
 %% 2. Silvano Balemi and Richard H. Roy's IEEEbib.bst (1993)
-%% 
+%%
 %% Support sites:
 %% http://www.michaelshell.org/tex/ieeetran/
 %% http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
 %% and/or
 %% http://www.ieee.org/
-%% 
+%%
 %% For use with BibTeX version 0.99a or later
 %%
 %% This is a numerical citation style.
-%% 
+%%
 %%*************************************************************************
 %% Legal Notice:
 %% This code is offered as-is without any warranty either expressed or
 %% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% FITNESS FOR A PARTICULAR PURPOSE!
 %% User assumes all risk.
 %% In no event shall IEEE or any contributor to this code be liable for
 %% any damages or losses, including, but not limited to, incidental,
@@ -100,7 +98,7 @@
 % here can be overridden by the user via IEEEtranBSTCTL entry type.
 
 % NOTE: The recommended LaTeX command to invoke a control entry type is:
-% 
+%
 %\makeatletter
 %\def\bstctlcite{\@ifnextchar[{\@bstctlcite}{\@bstctlcite[@auxout]}}
 %\def\@bstctlcite[#1]#2{\@bsphack
@@ -153,7 +151,7 @@ FUNCTION {default.is.use.alt.interword.spacing} { #1 }
 % default "4" here means that the interword spacing in entries with URLs can
 % stretch to four times normal. Does not have to be an integer. Note that
 % the value specified here can be overridden by the user in their LaTeX
-% code via a command such as: 
+% code via a command such as:
 % "\providecommand\BIBentryALTinterwordstretchfactor{1.5}" in addition to
 % that via the IEEEtranBSTCTL entry type.
 FUNCTION {default.ALTinterwordstretchfactor} { "4" }
@@ -162,7 +160,7 @@ FUNCTION {default.ALTinterwordstretchfactor} { "4" }
 % #0 turns off the "dashification" of repeated (i.e., identical to those
 % of the previous entry) names. IEEE normally does this.
 % #1 enables
-FUNCTION {default.is.dash.repeated.names} { #1 }
+FUNCTION {default.is.dash.repeated.names} { #0 }
 
 
 % The default name format control string.
@@ -232,6 +230,7 @@ FUNCTION {bbl.etal}{ "et~al." }
 FUNCTION {bbl.editors}{ "eds." }
 FUNCTION {bbl.editor}{ "ed." }
 FUNCTION {bbl.edition}{ "ed." }
+FUNCTION {bbl.doi}{ "DOI" }
 FUNCTION {bbl.volume}{ "vol." }
 FUNCTION {bbl.of}{ "of" }
 FUNCTION {bbl.number}{ "no." }
@@ -279,12 +278,12 @@ MACRO {apr} {"Apr."}
 MACRO {may} {"May"}
 MACRO {jun} {"Jun."}
 MACRO {jul} {"Jul."}
+MACRO {July} {"Jul."}
 MACRO {aug} {"Aug."}
 MACRO {sep} {"Sep."}
 MACRO {oct} {"Oct."}
 MACRO {nov} {"Nov."}
 MACRO {dec} {"Dec."}
-
 
 
 %%%%%%%%%%%%%%%%%%
@@ -299,6 +298,7 @@ ENTRY
     chapter
     day
     dayfiled
+    doi
     edition
     editor
     howpublished
@@ -348,13 +348,13 @@ ENTRY
 %%%%%%%%%%%%%%%%%%%%%%%
 
 INTEGERS { prev.status.punct this.status.punct punct.std
-           punct.no punct.comma punct.period 
+           punct.no punct.comma punct.period
            prev.status.space this.status.space space.std
            space.no space.normal space.large
            prev.status.quote this.status.quote quote.std
            quote.no quote.close
            prev.status.nline this.status.nline nline.std
-           nline.no nline.newblock 
+           nline.no nline.newblock
            status.cap cap.std
            cap.no cap.yes}
 
@@ -411,9 +411,9 @@ FUNCTION {initialize.controls}
 % or use the newline/newblock feature, but it has been implemented for
 % possible future use.) The output states of IEEEtran.bst consist of
 % multiple independent attributes and, as such, can be thought of as being
-% vectors, rather than the simple scalar values ("before.all", 
+% vectors, rather than the simple scalar values ("before.all",
 % "mid.sentence", etc.) used in most other .bst files.
-% 
+%
 % The more flexible and complex design used here was motivated in part by
 % IEEE's rather unusual bibliography style. For example, IEEE ends the
 % previous field item with a period and large space prior to the publisher
@@ -431,21 +431,21 @@ FUNCTION {initialize.controls}
 %               "PREVIOUS_ITEM
 %
 % which, in this example, is to eventually appear in the bibliography as:
-% 
+%
 %               "PREVIOUS_ITEM," CURRENT_ITEM
 %
 % It is the job of the output routine to take the previous item off of the
 % stack (while leaving the current item at the top of the stack), apply its
 % trailing punctuation (including closing quote marks) and spacing, and then
 % to write the result to BibTeX's output buffer:
-% 
-%               "PREVIOUS_ITEM," 
-% 
+%
+%               "PREVIOUS_ITEM,"
+%
 % Punctuation (and spacing) between items is often determined by both of the
 % items rather than just the first one. The presence of quotation marks
 % further complicates the situation because, in standard English, trailing
 % punctuation marks are supposed to be contained within the quotes.
-% 
+%
 % IEEEtran.bst maintains two output state (aka "status") vectors which
 % correspond to the previous and current (aka "this") items. Each vector
 % consists of several independent attributes which track punctuation,
@@ -453,7 +453,7 @@ FUNCTION {initialize.controls}
 % separate scalar because the format routines, not the output routine,
 % handle capitalization and, therefore, there is no need to maintain the
 % capitalization attribute for both the "previous" and "this" items.
-% 
+%
 % When a format routine adds a new item, it copies the current output status
 % vector to the previous output status vector and (usually) resets the
 % current (this) output status vector to a "standard status" vector. Using a
@@ -463,7 +463,7 @@ FUNCTION {initialize.controls}
 % example, the standard status vector for the @book entry type may use
 % commas for item separators, while the @electronic type may use periods,
 % yet both entry handlers exploit many of the exact same format routines.
-% 
+%
 % Because format routines have write access to the output status vector of
 % the previous item, they can override the punctuation choices of the
 % previous format routine! Therefore, it becomes trivial to implement rules
@@ -475,13 +475,13 @@ FUNCTION {initialize.controls}
 % The IEEEtran.bst output state system can easily be expanded if needed.
 % For instance, it is easy to add a "space.tie" attribute value if the
 % bibliography rules mandate that two items have to be joined with an
-% unbreakable space. 
+% unbreakable space.
 
 FUNCTION {initialize.status.constants}
 { #0 'punct.no :=
   #1 'punct.comma :=
   #2 'punct.period :=
-  #0 'space.no := 
+  #0 'space.no :=
   #1 'space.normal :=
   #2 'space.large :=
   #0 'quote.no :=
@@ -596,7 +596,7 @@ multiresult
 
 % converts a single character string on the stack to an integer
 FUNCTION {char.to.integer}
-{ duplicate$ 
+{ duplicate$
   is.num
     { chr.to.int$ "0" chr.to.int$ - }
     {"noninteger character " quote$ * swap$ * quote$ *
@@ -632,13 +632,13 @@ numnames
 % routines have to consider the previous output status (which corresponds to
 % the item that is being output). Full independent control of punctuation,
 % closing quote marks, spacing, and newblock is provided.
-% 
+%
 % "output.nonnull" does not check for the presence of a previous empty
 % item.
-% 
+%
 % "output" does check for the presence of a previous empty item and will
 % remove an empty item rather than outputing it.
-% 
+%
 % "output.warn" is like "output", but will issue a warning if it detects
 % an empty item.
 
@@ -651,7 +651,7 @@ FUNCTION {output.nonnull}
   prev.status.punct punct.period =
      { add.period$ }
      { skip$ }
-   if$ 
+   if$
   prev.status.quote quote.close =
      { "''" * }
      { skip$ }
@@ -810,7 +810,7 @@ FUNCTION {empty.entry.warn}
 % currently not used as the bogus bibinfo functions defined here output the
 % entry values directly without the \bibinfo wrapper. The bibinfo functions
 % themselves (and the calls to them) are retained for possible future use.
-% 
+%
 % bibinfo.check avoids acting on missing fields while bibinfo.warn will
 % issue a warning message if a missing field is detected. Prior to calling
 % the bibinfo functions, the user should push the field value and then its
@@ -840,7 +840,7 @@ FUNCTION {bibinfo.warn}
 
 
 % IEEE separates large numbers with more than 4 digits into groups of
-% three. IEEE uses a small space to separate these number groups. 
+% three. IEEE uses a small space to separate these number groups.
 % Typical applications include patent and page numbers.
 
 % number of consecutive digits required to trigger the group separation.
@@ -866,7 +866,7 @@ FUNCTION {large.number.separate}
   { t empty$ not }
   { t #-1 #1 substring$ is.num
       { numnames #1 + 'numnames := }
-      { #0 'numnames := 
+      { #0 'numnames :=
         large.number.trigger 'nameptr :=
       }
     if$
@@ -1021,6 +1021,70 @@ FUNCTION {word.to.num}
 }
 
 
+% Converts the month string on the top of the stack to TIE form
+FUNCTION {normalize.month.a}
+{ duplicate$ "l" change.case$ 's :=
+  s "jan" = s "january" = or
+    { pop$ "Jan." }
+    { skip$}
+  if$
+  s "feb" = s "february" = or
+    { pop$ "Feb." }
+    { skip$ }
+  if$
+  s "mar" = s "march" = or
+    { pop$ "Mar." }
+    { skip$ }
+  if$
+  s "apr" = s "april" = or
+    { pop$ "Apr." }
+    { skip$ }
+  if$
+  s "may" =
+    { pop$ "May." }
+    { skip$ }
+  if$
+  s "jun" = s "june" = or
+    { pop$ "Jun." }
+    { skip$ }
+  if$
+  s "jul" = s "july" = or
+    { pop$ "Jul." }
+    { skip$ }
+  if$
+}
+
+FUNCTION {normalize.month.b}
+{ duplicate$ "l" change.case$ 's :=
+  s "aug" = s "august" = or
+    { pop$ "Aug." }
+    { skip$ }
+  if$
+   s "sep" = s "sept" = s "september" = or or
+    { pop$ "Sep." }
+    { skip$ }
+  if$
+  s "oct" = s "october" = or
+    { pop$ "Oct." }
+    { skip$ }
+  if$
+  s "nov" = s "november" = or
+    { pop$ "Nov." }
+    { skip$ }
+  if$
+  s "dec" = s "december" = or
+    { pop$ "Dec." }
+    { skip$ }
+  if$
+}
+
+FUNCTION {normalize.month}
+{
+normalize.month.a
+normalize.month.b
+}
+
+
 % Converts the string on the top of the stack to numerical
 % ordinal (e.g., "11th") form.
 FUNCTION {convert.edition}
@@ -1119,14 +1183,14 @@ FUNCTION {end.bib}
 { newline$ "\end{thebibliography}" write$ newline$ }
 
 FUNCTION {if.url.alt.interword.spacing}
-{ is.use.alt.interword.spacing 
+{ is.use.alt.interword.spacing
      {url empty$ 'skip$ {"\BIBentryALTinterwordspacing" write$ newline$} if$}
      { skip$ }
    if$
 }
 
 FUNCTION {if.url.std.interword.spacing}
-{ is.use.alt.interword.spacing 
+{ is.use.alt.interword.spacing
      {url empty$ 'skip$ {"\BIBentrySTDinterwordspacing" write$ newline$} if$}
      { skip$ }
    if$
@@ -1171,7 +1235,7 @@ FUNCTION {longest.label.pass}
 
 FUNCTION {format.address.org.or.pub.date}
 { 't :=
-  ""
+""
   year empty$
     { "empty year in " cite$ * warning$ }
     { skip$ }
@@ -1209,7 +1273,40 @@ FUNCTION {format.address.org.or.pub.date}
             { month "month" bibinfo.check *
               year empty$
                  { skip$ }
-                 { " " * year "year" bibinfo.check * }
+                 {
+
+                 publisher empty$ organization empty$ address empty$ and and
+                 	{normalize.month}
+			{
+			pop$ ""
+			
+			address empty$
+				{skip$}
+				{
+				address "address" bibinfo.check *
+				
+				publisher empty$ organization empty$ and
+					{ skip$ }
+					{": " *}
+				if$
+				}
+			if$
+			
+			publisher empty$
+				{skip$}
+				{publisher "publisher" bibinfo.check *}
+			if$
+			
+			organization empty$
+				{skip$}
+				{organization "organization" bibinfo.check *}
+			if$					
+
+                 	", " * month normalize.month "month" bibinfo.check *
+			}
+		if$
+		
+                 " " * year "year" bibinfo.check * }
               if$
             }
           if$
@@ -1218,7 +1315,6 @@ FUNCTION {format.address.org.or.pub.date}
     }
   if$
 }
-
 
 FUNCTION {format.names}
 { 'bibinfo :=
@@ -1327,19 +1423,21 @@ FUNCTION {format.date}
       cap.status.std
       swap$ 'skip$
         {
-          swap$
+         swap$
+          normalize.month
           " " * swap$
         }
       if$
       *
     }
   if$
+
 }
 
 FUNCTION {format.date.electronic}
 { month "month" bibinfo.check duplicate$ empty$
   year  "year" bibinfo.check duplicate$ empty$
-    { swap$ 
+    { swap$
         { pop$ }
         { "there's a month but no year in " cite$ * warning$
         pop$ ")" * "(" swap$ *
@@ -1351,7 +1449,7 @@ FUNCTION {format.date.electronic}
         }
       if$
     }
-    { swap$ 
+    { swap$
         { swap$ pop$ ")" * "(" swap$ * }
         { "(" swap$ * ", " * swap$ * ")" * }
       if$
@@ -1369,8 +1467,8 @@ FUNCTION {format.date.electronic}
 %% edition/title
 
 % Note: IEEE considers the edition to be closely associated with
-% the title of a book. So, in IEEEtran.bst the edition is normally handled 
-% within the formatting of the title. The format.edition function is 
+% the title of a book. So, in IEEEtran.bst the edition is normally handled
+% within the formatting of the title. The format.edition function is
 % retained here for possible future use.
 FUNCTION {format.edition}
 { edition duplicate$ empty$ 'skip$
@@ -1389,7 +1487,7 @@ FUNCTION {format.edition}
 }
 
 % This is used to format the booktitle of a conference proceedings.
-% Here we use the "intype" field to provide the user a way to 
+% Here we use the "intype" field to provide the user a way to
 % override the word "in" (e.g., with things like "presented at")
 % Use of intype stops the emphasis of the booktitle to indicate that
 % we no longer mean the written conference proceedings, but the
@@ -1401,7 +1499,7 @@ FUNCTION {format.in.booktitle}
       select.language
       intype missing$
         { emphasize
-          bbl.in " Proceedings of " *
+          bbl.in " " *
         }
         { intype " " * }
       if$
@@ -1459,12 +1557,12 @@ FUNCTION {format.article.title.electronic}
     { this.to.prev.status
       this.status.std
       cap.status.std
-      "t" change.case$ 
+      "t" change.case$
     }
   if$
   "title" bibinfo.check
-  duplicate$ empty$ 
-    { skip$ } 
+  duplicate$ empty$
+    { skip$ }
     { select.language }
   if$
 }
@@ -1508,11 +1606,395 @@ FUNCTION {format.book.title}
 
 
 
+% Converts the month string on the top of the stack to TIE form
+FUNCTION {normalize.journal.a}
+{ duplicate$ "l" change.case$ 's :=
+    % aerospace and military
+    s "aerospace and electronic systems, ieee transactions on" = { pop$ "IEEE Trans. Aerosp. Electron. Syst."} {skip$} if$
+    s "aerospace and navigational electronics, ieee transactions on" = { pop$ "IEEE Trans. Aerosp. Navig. Electron."} {skip$} if$
+    s "aeronautical and navigational electronics, ieee transactions on" = { pop$ "IEEE Trans. Aeronaut. Navig. Electron."} {skip$} if$
+    s "aerospace, ieee transactions on" = { pop$ "IEEE Trans. Aerosp."} {skip$} if$
+    s "airborne electronics, transactions of the ire professional group on" = { pop$ "IEEE Trans. Airborne Electron."} {skip$} if$
+    s "military electronics, ieee transactions on" = { pop$ "IEEE Trans. Mil. Electron."} {skip$} if$
+
+    % autos, transportation and vehicles (non-aerospace)
+    s "intelligent transportation systems, ieee transactions on" = { pop$ "IEEE Trans. Intell. Transp. Syst."} {skip$} if$
+    s "vehicular technology, ieee transactions on" = { pop$ "IEEE Trans. Veh. Technol."} {skip$} if$
+    s "ieee transactions on vehicular communications" = { pop$ "IEEE Trans. Veh. Commun."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.b}
+{ duplicate$ "l" change.case$ 's :=
+    % circuits, signals, systems, audio and controls
+    s "signal processing letters, ieee" = { pop$ "IEEE Signal Process. Lett."} {skip$} if$
+    s "acoustics, speech and signal processing, ieee transactions on" = { pop$ "IEEE Trans. Acoust., Speech, Signal Process."} {skip$} if$
+    s "audio, ieee transactions on" = { pop$ "IEEE Trans. Audio"} {skip$} if$
+    s "audio and electroacoustics, ieee transactions on" = { pop$ "IEEE Trans. Audio Electroacoust."} {skip$} if$
+    s "automatic control, ieee transactions on" = { pop$ "IEEE Trans. Autom. Control"} {skip$} if$
+    s "circuits and systems, ieee transactions on" = { pop$ "IEEE Trans. Circuits Syst."} {skip$} if$
+    s "circuits and systems for video technology, ieee transactions on" = { pop$ "IEEE Trans. Circuits Syst. Video Technol."} {skip$} if$
+    s "circuits and systems i: fundamental theory and applications, ieee transactions on" = { pop$ "IEEE Trans. Circuits Syst. I"} {skip$} if$
+    s "circuits and systems ii: analog and digital signal processing, ieee transactions on" = { pop$ "IEEE Trans. Circuits Syst. II"} {skip$} if$
+
+    % in 2004 CASI and CASII renamed part title to CASI_RP and CASII_EB, respectively.
+    s "circuits and systems i: regular papers, ieee transactions on" = { pop$ "IEEE Trans. Circuits Syst. I"} {skip$} if$
+    s "circuits and systems ii: express briefs, ieee transactions on" = { pop$ "IEEE Trans. Circuits Syst. II"} {skip$} if$
+}
+
+FUNCTION {normalize.journal.c}
+{ duplicate$ "l" change.case$ 's :=
+    s "circuit theory, ieee transactions on" = { pop$ "IEEE Trans. Circuit Theory"} {skip$} if$
+    s "control systems technology, ieee transactions on" = { pop$ "IEEE Trans. Control Syst. Technol."} {skip$} if$
+    s "signal processing, ieee transactions on" = { pop$ "IEEE Trans. Signal Process."} {skip$} if$
+    s "sonics and ultrasonics, ieee transactions on" = { pop$ "IEEE Trans. Sonics Ultrason."} {skip$} if$
+    s "speech and audio processing, ieee transactions on" = { pop$ "IEEE Trans. Speech Audio Process."} {skip$} if$
+    s "ultrasonics engineering, ieee transactions on" = { pop$ "IEEE Trans. Ultrason. Eng."} {skip$} if$
+    s "ultrasonics, ferroelectrics, and frequency control, ieee transactions on" = { pop$ "IEEE Trans. Ultrason., Ferroelectr., Freq. Control"} {skip$} if$
+
+    % communications
+    s "communications letters, ieee" = { pop$ "IEEE Commun. Lett."} {skip$} if$
+    s "selected areas in communications, ieee journal on" = { pop$ "IEEE J. Sel. Areas Commun."} {skip$} if$
+    s "communications, ieee transactions on" = { pop$ "IEEE Trans. Commun."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.d}
+{ duplicate$ "l" change.case$ 's :=
+    s "communication technology, ieee transactions on" = { pop$ "IEEE Trans. Commun. Technol."} {skip$} if$
+    s "wireless communications, ieee transactions on" = { pop$ "IEEE Trans. Wireless Commun."} {skip$} if$
+
+    % components, packaging and manufacturing
+    s "advanced packaging, ieee transactions on" = { pop$ "IEEE Trans. Adv. Packag."} {skip$} if$
+    s "components, hybrids, and manufacturing technology, ieee transactions on" = { pop$ "IEEE Trans. Compon., Hybrids, Manuf. Technol."} {skip$} if$
+    s "components, packaging, and manufacturing technology, ieee transactions on" = { pop$ "IEEE Trans. Compon., Packag., Manuf. Technol."} {skip$} if$
+    s "components, packaging, and manufacturing technology, part a, ieee transactions on" = { pop$ "IEEE Trans. Compon., Packag., Manuf. Technol. A"} {skip$} if$
+    s "components, packaging, and manufacturing technology, part b: advanced packaging, ieee transactions on" = { pop$ "IEEE Trans. Compon., Packag., Manuf. Technol. B"} {skip$} if$
+    s "components, packaging, and manufacturing technology, part c, ieee transactions on" = { pop$ "IEEE Trans. Compon., Packag., Manuf. Technol. C"} {skip$} if$
+    s "components and packaging technologies, ieee transactions on" = { pop$ "IEEE Trans. Compon. Packag. Technol."} {skip$} if$
+    s "component parts, ieee transactions on" = { pop$ "IEEE Trans. Compon. Parts"} {skip$} if$
+}
+
+FUNCTION {normalize.journal.e}
+{ duplicate$ "l" change.case$ 's :=
+    s "electronics packaging manufacturing, ieee transactions on" = { pop$ "IEEE Trans. Electron. Packag. Manuf."} {skip$} if$
+    s "manufacturing technology, ieee transactions on" = { pop$ "IEEE Trans. Manuf. Technol."} {skip$} if$
+    s "parts, hybrids, and packaging, ieee transactions on" = { pop$ "IEEE Trans. Parts, Hybrids, Packag."} {skip$} if$
+    s "parts, materials and packaging, ieee transactions on" = { pop$ "IEEE Trans. Parts, Mater., Packag."} {skip$} if$
+
+    % CAD
+    s "technology computer aided design tcad, journal of" = { pop$ "IEEE J. Technol. Comput. Aided Design"} {skip$} if$
+    s "computer-aided design of integrated circuits and systems, ieee transactions on" = { pop$ "IEEE Trans. Comput.-Aided Design Integr. Circuits Syst."} {skip$} if$
+
+    % coding, data, information, knowledge
+    s "information theory, ieee transactions on" = { pop$ "IEEE Trans. Inf. Theory"} {skip$} if$
+    s "knowledge and data engineering, ieee transactions on" = { pop$ "IEEE Trans. Knowl. Data Eng."} {skip$} if$
+
+    % computers, computation, networking and software
+    s "computers, ieee transactions on" = { pop$ "IEEE Trans. Comput."} {skip$} if$
+    s "computer architecture letters" = { pop$ "IEEE Comput. Archit. Lett."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.f}
+{ duplicate$ "l" change.case$ 's :=
+    % disabled till definition is verified
+    s "dependable and secure computing, ieee transactions on" = { pop$ "IEEE Trans. Dependable Secure Comput."} {skip$} if$
+    s "electronic computers, ieee transactions on" = { pop$ "IEEE Trans. Electron. Comput."} {skip$} if$
+    s "evolutionary computation, ieee transactions on" = { pop$ "IEEE Trans. Evol. Comput."} {skip$} if$
+    s "fuzzy systems, ieee transactions on" = { pop$ "IEEE Trans. Fuzzy Syst."} {skip$} if$
+    s "information forensics and security, ieee transactions on" = { pop$ "IEEE Trans. Inf. Forensics Security"} {skip$} if$
+    s "mobile computing, ieee transactions on" = { pop$ "IEEE Trans. Mobile Comput."} {skip$} if$
+    s "networking, ieee/acm transactions on" = { pop$ "IEEE/ACM Trans. Netw."} {skip$} if$
+    s "neural networks, ieee transactions on" = { pop$ "IEEE Trans. Neural Netw."} {skip$} if$
+    s "parallel and distributed systems, ieee transactions on" = { pop$ "IEEE Trans. Parallel Distrib. Syst."} {skip$} if$
+    s "software engineering, ieee transactions on" = { pop$ "IEEE Trans. Softw. Eng."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.g}
+{ duplicate$ "l" change.case$ 's :=
+    % computer graphics, imaging, and multimedia
+    s "display technology, journal of" = { pop$ "J. Display Technol."} {skip$} if$
+    s "image processing, ieee transactions on" = { pop$ "IEEE Trans. Image Process."} {skip$} if$
+    s "multimedia, ieee transactions on" = { pop$ "IEEE Trans. Multimedia"} {skip$} if$
+    s "visualization and computer graphics, ieee transactions on" = { pop$ "IEEE Trans. Vis. Comput. Graphics"} {skip$} if$
+
+    % cybernetics, ergonomics, robots, man-machine, and automation
+    s "automation science and engineering, ieee transactions on" = { pop$ "IEEE Trans. Autom. Sci. Eng."} {skip$} if$
+    s "robotics and automation, ieee journal of" = { pop$ "IEEE J. Robot. Autom."} {skip$} if$
+    s "human factors in electronics, ieee transactions on" = { pop$ "IEEE Trans. Hum. Factors Electron."} {skip$} if$
+    s "man-machine systems, ieee transactions on" = { pop$ "IEEE Trans. Man-Mach. Syst."} {skip$} if$
+    s "pattern analysis and machine intelligence, ieee transactions on" = { pop$ "IEEE Trans. Pattern Anal. Mach. Intell."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.h}
+{ duplicate$ "l" change.case$ 's :=
+    % in 1989 JRA became RA
+    % in August 2004, RA split into ASE and RO
+    s "robotics and automation, ieee transactions on" = { pop$ "IEEE Trans. Robot. Autom."} {skip$} if$
+    s "robotics, ieee transactions on" = { pop$ "IEEE Trans. Robot."} {skip$} if$
+    s "systems, man and cybernetics, ieee transactions on" = { pop$ "IEEE Trans. Syst., Man, Cybern."} {skip$} if$
+    s "systems, man and cybernetics, part a: systems and humans, ieee transactions on" = { pop$ "IEEE Trans. Syst., Man, Cybern. A"} {skip$} if$
+    s "systems, man, and cybernetics, part b: cybernetics, ieee transactions on" = { pop$ "IEEE Trans. Syst., Man, Cybern. B"} {skip$} if$
+    s "systems, man, and cybernetics, part c: applications and reviews, ieee transactions on" = { pop$ "IEEE Trans. Syst., Man, Cybern. C"} {skip$} if$
+    s "systems science and cybernetics, ieee transactions on" = { pop$ "IEEE Trans. Syst. Sci. Cybern."} {skip$} if$
+
+    % earth, wind, fire and water
+    s "geoscience electronics, ieee transactions on" = { pop$ "IEEE Trans. Geosci. Electron."} {skip$} if$
+    s "geoscience and remote sensing, ieee transactions on" = { pop$ "IEEE Trans. Geosci. Remote Sens."} {skip$} if$
+    s "geoscience and remote sensing letters, ieee" = { pop$ "IEEE Geosci. Remote Sens. Lett."} {skip$} if$
+    s "oceanic engineering, ieee journal of" = { pop$ "IEEE J. Ocean. Eng."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.i}
+{ duplicate$ "l" change.case$ 's :=
+    % education, engineering, history, IEEE, professional
+    % disabled till definition is verified
+    s "electrical and computer engineering, canadian journal of" = { pop$ "Canadian J. Elect. Comput. Eng."} {skip$} if$
+    s "proceedings of the ieee" = { pop$ "Proc. IEEE"} {skip$} if$
+    s "education, ieee transactions on" = { pop$ "IEEE Trans. Educ."} {skip$} if$
+    s "engineering management, ieee transactions on" = { pop$ "IEEE Trans. Eng. Manag."} {skip$} if$
+
+    % disabled till definition is verified
+    s "engineering writing and speech, ieee transactions on" = { pop$ "IEEE Trans. Eng. Writing Speech"} {skip$} if$
+    s "professional communication, ieee transactions on" = { pop$ "IEEE Trans. Prof. Commun."} {skip$} if$
+
+    % electromagnetics, antennas, EMI, magnetics and microwave
+    s "antennas and wireless propagation letters, ieee" = { pop$ "IEEE Antennas Wireless Propag. Lett."} {skip$} if$
+    s "microwave and guided wave letters, ieee" = { pop$ "IEEE Microw. Guided Wave Lett."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.j}
+{ duplicate$ "l" change.case$ 's :=
+    % IEEE seems to want "Compon." here, not "Comp."
+    s "microwave and wireless components letters, ieee" = { pop$ "IEEE Microw. Wireless Compon. Lett."} {skip$} if$
+    s "antennas and propagation, ieee transactions on" = { pop$ "IEEE Trans. Antennas Propag."} {skip$} if$
+    s "electromagnetic compatibility, ieee transactions on" = { pop$ "IEEE Trans. Electromagn. Compat."} {skip$} if$
+    s "magnetics, ieee transactions on" = { pop$ "IEEE Trans. Magn."} {skip$} if$
+    s "microwave theory and techniques, ieee transactions on" = { pop$ "IEEE Trans. Microw. Theory Tech."} {skip$} if$
+    s "radio frequency interference, ieee transactions on" = { pop$ "IEEE Trans. Radio Freq. Interference"} {skip$} if$
+    s "magnetics in japan, ieee translation journal on" = { pop$ "IEEE Transl. J. Magn. Jpn."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.k}
+{ duplicate$ "l" change.case$ 's :=
+    % energy and power
+    s "energy conversion, ieee transactions on" = { pop$ "IEEE Trans. Energy Convers."} {skip$} if$
+    s "power electronics letters, ieee" = { pop$ "IEEE Power Electron. Lett."} {skip$} if$
+    s "power apparatus and systems, ieee transactions on" = { pop$ "IEEE Trans. Power App. Syst."} {skip$} if$
+    s "power delivery, ieee transactions on" = { pop$ "IEEE Trans. Power Del."} {skip$} if$
+    s "power electronics, ieee transactions on" = { pop$ "IEEE Trans. Power Electron."} {skip$} if$
+    s "power systems, ieee transactions on" = { pop$ "IEEE Trans. Power Syst."} {skip$} if$
+
+    % industrial, commercial and consumer
+    s "applications and industry, ieee transactions on" = { pop$ "IEEE Trans. Appl. Ind."} {skip$} if$
+    s "broadcasting, ieee transactions on" = { pop$ "IEEE Trans. Broadcast."} {skip$} if$
+
+    % disabled till definition is verified
+    s "broadcast and television receivers, ieee transactions on" = { pop$ "IEEE Trans. Broadcast Television Receivers"} {skip$} if$
+    s "distributed systems online, ieee" = { pop$ "IEEE Distrib. Syst. Online"} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.l}
+{ duplicate$ "l" change.case$ 's :=
+    s "consumer electronics, ieee transactions on" = { pop$ "IEEE Trans. Consum. Electron."} {skip$} if$
+    s "industrial electronics, ieee transactions on" = { pop$ "IEEE Trans. Ind. Electron." } { skip$ } if$
+    s "industrial electronics and control instrumentation, ieee transactions on" = { pop$ "IEEE Trans. Ind. Electron. Contr. Instrum."} {skip$} if$
+    s "industry applications, ieee transactions on" = { pop$ "IEEE Trans. Ind. Appl."} {skip$} if$
+    s "industry and general applications, ieee transactions on" = { pop$ "IEEE Trans. Ind. Gen. Appl."} {skip$} if$
+    s "industrial informatics, ieee transactions on" = { pop$ "IEEE Trans. Ind. Informat."} {skip$} if$
+    s "product safety engineering, ieee journal on" = { pop$ "IEEE J. Product Safety Eng."} {skip$} if$
+
+    % instrumentation and measurement
+    s "instrumentation and measurement, ieee transactions on" = { pop$ "IEEE Trans. Instrum. Meas."} {skip$} if$
+
+    % insulation and materials
+    s "" = { pop$ "IEEE/TMS J. Electron. Mater."} {skip$} if$
+    s "dielectrics and electrical insulation, ieee transactions on" = { pop$ "IEEE Trans. Dielectr. Electr. Insul."} {skip$} if$
+    s "electrical insulation, ieee transactions on" = { pop$ "IEEE Trans. Electr. Insul."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.m}
+{ duplicate$ "l" change.case$ 's :=
+    % mechanical
+    s "mechatronics, ieee/asme transactions on" = { pop$ "IEEE/ASME Trans. Mechatronics"} {skip$} if$
+    s "microelectromechanical systems, journal of" = { pop$ "J. Microelectromech. Syst."} {skip$} if$
+
+    % medical and biological
+    s "biomedical engineering, ieee transactions on" = { pop$ "IEEE Trans. Biomed. Eng."} {skip$} if$
+
+    % Note: The B-ME journal later dropped the hyphen and became the BME.
+    s "bio-medical engineering, ieee transactions on" = { pop$ "IEEE Trans. Bio-Med. Eng."} {skip$} if$
+    s "bio-medical electronics, ieee transactions on" = { pop$ "IEEE Trans. Bio-Med. Electron."} {skip$} if$
+
+    % disabled till definition is verified
+    s "computational biology and bioinformatics, ieee/acm transactions on" = { pop$ "IEEE/ACM Trans. Comput. Biology Bioinformatics"} {skip$} if$
+}
+
+
+
+FUNCTION {normalize.journal.n}
+{ duplicate$ "l" change.case$ 's :=
+    s "information technology in biomedicine, ieee transactions on" = { pop$ "IEEE Trans. Inf. Technol. Biomed."} {skip$} if$
+    s "medical electronics, ire transactions on" = { pop$ "IEEE Trans. Med. Electron."} {skip$} if$
+    s "medical imaging, ieee transactions on" = { pop$ "IEEE Trans. Med. Imag."} {skip$} if$
+    s "nanobioscience, ieee transactions on" = { pop$ "IEEE Trans. Nanobiosci."} {skip$} if$
+    s "neural systems and rehabilitation engineering, ieee transactions on" = { pop$ "IEEE Trans. Neural Syst. Rehabil. Eng."} {skip$} if$
+    s "rehabilitation engineering, ieee transactions on" = { pop$ "IEEE Trans. Rehabil. Eng."} {skip$} if$
+
+    % optics, lightwave and photonics
+    s "photonics technology letters, ieee" = { pop$ "IEEE Photon. Technol. Lett."} {skip$} if$
+    s "lightwave technology, journal of" = { pop$ "J. Lightw. Technol."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.o}
+{ duplicate$ "l" change.case$ 's :=
+    % physics, electrons, nanotechnology, nuclear and quantum electronics
+    s "electron device letters, ieee" = { pop$ "IEEE Electron Device Lett."} {skip$} if$
+    s "quantum electronics, ieee journal of" = { pop$ "IEEE J. Quantum Electron."} {skip$} if$
+    s "selected topics in quantum electronics, ieee journal of" = { pop$ "IEEE J. Sel. Topics Quantum Electron."} {skip$} if$
+    s "electron devices, ieee transactions on" = { pop$ "IEEE Trans. Electron Devices"} {skip$} if$
+    s "nanotechnology, ieee transactions on" = { pop$ "IEEE Trans. Nanotechnol."} {skip$} if$
+    s "nuclear science, ieee transactions on" = { pop$ "IEEE Trans. Nucl. Sci."} {skip$} if$
+    s "plasma science, ieee transactions on" = { pop$ "IEEE Trans. Plasma Sci."} {skip$} if$
+
+    % reliability
+    % IEEE seems to want "Mat." here, not "Mater."
+    s "device and materials reliability, ieee transactions on" = { pop$ "IEEE Trans. Device Mater. Rel."} {skip$} if$
+    s "reliability, ieee transactions on" = { pop$ "IEEE Trans. Rel."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.p}
+{ duplicate$ "l" change.case$ 's :=
+    % semiconductors, superconductors, electrochemical and solid state
+    s "" = { pop$ "IEEE/ECS Electrochem. Solid-State Lett."} {skip$} if$
+    s "solid-state circuits, ieee journal of" = { pop$ "IEEE J. Solid-State Circuits"} {skip$} if$
+    s "solid-state circuits, ieee journal of" = { pop$ "IEEE Trans. Appl. Supercond."} {skip$} if$
+    s "semiconductor manufacturing, ieee transactions on" = { pop$ "IEEE Trans. Semicond. Manuf."} {skip$} if$
+
+    % sensors
+    s "sensors journal, ieee" = { pop$ "IEEE Sensors J."} {skip$} if$
+
+    % VLSI
+    s "very large scale integration (vlsi) systems, ieee transactions on" = { pop$ "IEEE Trans. VLSI Syst."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.q}
+{ duplicate$ "l" change.case$ 's :=
+    % IEEE Magazines
+    s "industrial electronics magazine, ieee" = { pop$ "IEEE Ind. Electron. Mag."} {skip$} if$
+    s "aerospace and electronic systems magazine, ieee" = { pop$ "IEEE Aerosp. Electron. Syst. Mag."} {skip$} if$    
+    s "annals of the history of computing, ieee" = { pop$ "IEEE Ann. Hist. Comput."} {skip$} if$
+    s "antennas and propagation magazine, ieee" = { pop$ "IEEE Antennas Propag. Mag."} {skip$} if$
+    s "assp magazine, ieee" = { pop$ "IEEE ASSP Mag."} {skip$} if$
+    s "circuits and devices magazine, ieee" = { pop$ "IEEE Circuits Devices Mag."} {skip$} if$
+    s "circuits and systems magazine, ieee" = { pop$ "IEEE Circuits Syst. Mag."} {skip$} if$
+    s "communications magazine, ieee" = { pop$ "IEEE Commun. Mag."} {skip$} if$
+    s "communications society magazine, ieee" = { pop$ "IEEE Commun. Soc. Mag."} {skip$} if$
+    s "computational intelligence magazine, ieee" = { pop$ "IEEE Comput. Intell. Mag."} {skip$} if$
+}
+
+
+FUNCTION {normalize.journal.r}
+{ duplicate$ "l" change.case$ 's :=
+    % CSEM changed to CSE in 1999
+    s "computational science & engineering, ieee" = { pop$ "IEEE Comput. Sci. Eng."} {skip$} if$
+    s "computational science & engineering magazine, ieee" = { pop$ "IEEE Comput. Sci. Eng. Mag."} {skip$} if$
+    s "computer" = { pop$ "IEEE Computer"} {skip$} if$
+    s "computer applications in power, ieee" = { pop$ "IEEE Comput. Appl. Power"} {skip$} if$
+    s "computer graphics and applications, ieee" = { pop$ "IEEE Comput. Graph. Appl."} {skip$} if$
+    s "concurrency, ieee" = { pop$ "IEEE Concurrency"} {skip$} if$
+    s "control systems magazine, ieee" = { pop$ "IEEE Control Syst. Mag."} {skip$} if$
+    s "design & test of computers, ieee" = { pop$ "IEEE Des. Test. Comput."} {skip$} if$
+    s "electrical insulation magazine, ieee" = { pop$ "IEEE Electr. Insul. Mag."} {skip$} if$
+    s "engineering in medicine and biology magazine, ieee" = { pop$ "IEEE Eng. Med. Biol. Mag."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.s}
+{ duplicate$ "l" change.case$ 's :=
+    s "engineering management review, ieee" = { pop$ "IEEE Eng. Manag. Rev."} {skip$} if$
+    s "ieee expert" = { pop$ "IEEE Expert"} {skip$} if$
+    s "industry applications magazine, ieee" = { pop$ "IEEE Ind. Appl. Mag."} {skip$} if$
+    s "instrumentation & measurement magazine, ieee" = { pop$ "IEEE Instrum. Meas. Mag."} {skip$} if$
+    s "intelligent systems, ieee" = { pop$ "IEEE Intell. Syst."} {skip$} if$
+    s "internet computing, ieee" = { pop$ "IEEE Internet Comput."} {skip$} if$
+    s "it professional" = { pop$ "IEEE IT Prof."} {skip$} if$
+    s "micro, ieee" = { pop$ "IEEE Micro"} {skip$} if$
+    s "microwave magazine, ieee" = { pop$ "IEEE Microw. Mag."} {skip$} if$
+    s "multimedia, ieee" = { pop$ "IEEE Multimedia"} {skip$} if$
+    s "network, ieee" = { pop$ "IEEE Netw."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.t}
+{ duplicate$ "l" change.case$ 's :=
+    % IEEE's editorial manual lists "Pers. Commun.",
+    % but "Personal Commun. Mag." seems to be what is used in the journals
+    s "personal communications, ieee" = { pop$ "IEEE Personal Commun. Mag."} {skip$} if$
+    s "potentials, ieee" = { pop$ "IEEE Potentials"} {skip$} if$
+}
+
+FUNCTION {normalize.journal.u}
+{ duplicate$ "l" change.case$ 's :=
+    % CAP and PER merged to form PE in 2003
+    s "power and energy magazine, ieee" = { pop$ "IEEE Power Energy Mag."} {skip$} if$
+    s "power engineering review, ieee" = { pop$ "IEEE Power Eng. Rev."} {skip$} if$
+    s "pervasive computing, ieee" = { pop$ "IEEE Pervasive Comput."} {skip$} if$
+    s "robotics & automation magazine, ieee" = { pop$ "IEEE Robot. Autom. Mag."} {skip$} if$
+    s "security & privacy, ieee" = { pop$ "IEEE Security Privacy"} {skip$} if$
+    s "signal processing magazine, ieee" = { pop$ "IEEE Signal Process. Mag."} {skip$} if$
+    s "software, ieee" = { pop$ "IEEE Softw."} {skip$} if$
+    s "spectrum, ieee" = { pop$ "IEEE Spectr."} {skip$} if$
+    s "technology and society magazine, ieee" = { pop$ "IEEE Technol. Soc. Mag."} {skip$} if$
+    s "vehicular technology magazine, ieee" = { pop$ "IEEE Veh. Technol. Mag."} {skip$} if$
+    s "wireless communications magazine, ieee" = { pop$ "IEEE Wireless Commun. Mag."} {skip$} if$
+}
+
+FUNCTION {normalize.journal.v}
+{ duplicate$ "l" change.case$ 's :=
+    % IEEE Online Publications
+    s "communications surveys & tutorials, ieee" = { pop$ "IEEE Commun. Surveys Tuts."} {skip$} if$
+
+    % Other IEEE trans
+    s "affective computing, ieee transactions on" = { pop$ "IEEE Trans. Affective Comput."} {skip$} if$
+}
+FUNCTION {normalize.journal}
+{
+normalize.journal.a
+normalize.journal.b
+normalize.journal.c
+normalize.journal.d
+normalize.journal.e
+normalize.journal.f
+normalize.journal.g
+normalize.journal.h
+normalize.journal.i
+normalize.journal.j
+normalize.journal.k
+normalize.journal.l
+normalize.journal.m
+normalize.journal.n
+normalize.journal.o
+normalize.journal.p
+normalize.journal.q
+normalize.journal.r
+normalize.journal.s
+normalize.journal.t
+normalize.journal.u
+normalize.journal.v
+}
+
+
 %% journal
 
 FUNCTION {format.journal}
 { journal duplicate$ empty$ 'skip$
-    { this.to.prev.status
+    {
+      normalize.journal
+      this.to.prev.status
       this.status.std
       cap.status.std
       select.language
@@ -1578,12 +2060,42 @@ FUNCTION {format.school}
 
 %% volume/number/series/chapter/pages
 
+FUNCTION {doilink}
+{ duplicate$ empty$
+{ pop$ "" }
+{ doi empty$
+    { skip$ }
+    { "\href{http://dx.doi.org/" doi * "}{" * swap$ * "}" * }
+  if$
+}
+if$
+}
+
+FUNCTION {format.doi}
+{ doi empty.field.to.null.string
+  duplicate$ empty$ 'skip$
+    { this.to.prev.status
+      this.status.std
+      bbl.doi
+      status.cap
+        { capitalize }
+        { skip$ }
+      if$
+      swap$ tie.or.space.prefix
+      "doi" bibinfo.check
+      * *
+      cap.status.std
+    }
+  if$
+  doilink
+}
+
 FUNCTION {format.volume}
 { volume empty.field.to.null.string
   duplicate$ empty$ 'skip$
     { this.to.prev.status
       this.status.std
-      bbl.volume 
+      bbl.volume
       status.cap
         { capitalize }
         { skip$ }
@@ -1614,7 +2126,7 @@ FUNCTION {format.number}
 }
 
 FUNCTION {format.number.if.use.for.article}
-{ is.use.number.for.article 
+{ is.use.number.for.article
      { format.number }
      { "" }
    if$
@@ -1624,7 +2136,7 @@ FUNCTION {format.number.if.use.for.article}
 % and number as is done in other bibliography styles. Instead the
 % series is treated somewhat like an extension of the title.
 FUNCTION {format.series}
-{ series empty$ 
+{ series empty$
    { "" }
    { this.to.prev.status
      this.status.std
@@ -1685,7 +2197,7 @@ FUNCTION {format.paper}
         }
       if$
      }
-     { "" } 
+     { "" }
    if$
 }
 
@@ -1721,12 +2233,12 @@ FUNCTION {format.tech.report.number}
   this.status.std
   cap.status.std
   type duplicate$ empty$
-    { pop$ 
+    { pop$
       bbl.techrep
     }
     { skip$ }
   if$
-  "type" bibinfo.check 
+  "type" bibinfo.check
   swap$ duplicate$ empty$
     { pop$ }
     { tie.or.space.prefix * * }
@@ -1773,10 +2285,10 @@ FUNCTION {format.patent.date}
       if$
       dayfiled duplicate$ empty$
         { "dayfiled" bibinfo.check pop$ "" * }
-        { "dayfiled" bibinfo.check 
-          monthfiled empty$ 
+        { "dayfiled" bibinfo.check
+          monthfiled empty$
              { "dayfiled without a monthfiled in " cite$ * warning$
-               * 
+               *
              }
              { " " swap$ * * }
            if$
@@ -1784,7 +2296,7 @@ FUNCTION {format.patent.date}
       if$
       yearfiled empty$
         { "no year or yearfiled in " cite$ * warning$ }
-        { yearfiled "yearfiled" bibinfo.check 
+        { yearfiled "yearfiled" bibinfo.check
           swap$
           duplicate$ empty$
              { pop$ }
@@ -1799,16 +2311,16 @@ FUNCTION {format.patent.date}
       if$
       day duplicate$ empty$
         { "day" bibinfo.check pop$ "" * }
-        { "day" bibinfo.check 
-          month empty$ 
+        { "day" bibinfo.check
+          month empty$
              { "day without a month in " cite$ * warning$
-               * 
+               *
              }
              { " " swap$ * * }
            if$
         }
       if$
-      year "year" bibinfo.check 
+      year "year" bibinfo.check
       swap$
       duplicate$ empty$
         { pop$ }
@@ -1835,7 +2347,7 @@ FUNCTION {format.patent.nationality.type.number}
   type empty$
     { bbl.patent "type" bibinfo.check }
     { type "type" bibinfo.check }
-  if$  
+  if$
   *
   number duplicate$ empty$
     { "number" bibinfo.warn pop$ }
@@ -1843,7 +2355,7 @@ FUNCTION {format.patent.nationality.type.number}
       large.number.separate
       swap$ " " * swap$ *
     }
-  if$ 
+  if$
   cap.status.std
 }
 
@@ -1855,7 +2367,7 @@ FUNCTION {format.organization.institution.standard.type.number}
 { this.to.prev.status
   this.status.std
   organization duplicate$ empty$
-    { pop$ 
+    { pop$
       institution duplicate$ empty$
         { "institution" bibinfo.warn }
         { "institution" bibinfo.warn " " * }
@@ -1866,7 +2378,7 @@ FUNCTION {format.organization.institution.standard.type.number}
   type empty$
     { bbl.standard "type" bibinfo.check }
     { type "type" bibinfo.check }
-  if$  
+  if$
   *
   number duplicate$ empty$
     { "number" bibinfo.check pop$ }
@@ -1874,7 +2386,7 @@ FUNCTION {format.organization.institution.standard.type.number}
       large.number.separate
       swap$ " " * swap$ *
     }
-  if$ 
+  if$
   cap.status.std
 }
 
@@ -1902,7 +2414,7 @@ FUNCTION {format.master.thesis.type}
     {
       bbl.mthesis
     }
-    { 
+    {
       type "type" bibinfo.check
     }
   if$
@@ -1916,7 +2428,7 @@ FUNCTION {format.phd.thesis.type}
     {
       bbl.phdthesis
     }
-    { 
+    {
       type "type" bibinfo.check
     }
   if$
@@ -1964,6 +2476,7 @@ FUNCTION {article}
   format.article.title "title" output.warn
   format.journal "journal" bibinfo.check "journal" output.warn
   format.volume output
+  format.doi output
   format.number.if.use.for.article output
   format.pages output
   format.date "year" output.warn
@@ -1988,9 +2501,9 @@ FUNCTION {book}
     { skip$ }
     { format.editors output }
   if$
-  format.address.publisher.date output
   format.volume output
   format.number output
+  format.address.publisher.date output
   format.note output
   format.url output
   fin.entry
@@ -2020,11 +2533,11 @@ FUNCTION {electronic}
   if.url.alt.interword.spacing
   format.authors output
   name.or.dash
-  format.date.electronic output
   format.article.title.electronic output
   format.howpublished "howpublished" bibinfo.check output
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
+  format.date.electronic output
   format.note output
   format.url output
   fin.entry
@@ -2043,11 +2556,11 @@ FUNCTION {inbook}
   name.or.dash
   format.book.title.edition output
   format.series output
-  format.address.publisher.date output
   format.volume output
   format.number output
   format.chapter output
   format.pages output
+  format.address.publisher.date output
   format.note output
   format.url output
   fin.entry
@@ -2064,11 +2577,11 @@ FUNCTION {incollection}
   format.in.booktitle.edition "booktitle" output.warn
   format.series output
   format.editors output
-  format.address.publisher.date.nowarn output
   format.volume output
   format.number output
   format.chapter output
   format.pages output
+  format.address.publisher.date.nowarn output
   format.note output
   format.url output
   fin.entry
@@ -2086,15 +2599,16 @@ FUNCTION {inproceedings}
   format.series output
   format.editors output
   format.volume output
+  format.doi output
   format.number output
+  format.paper output
+  format.pages output
   publisher empty$
     { format.address.organization.date output }
     { format.organization "organization" bibinfo.check output
       format.address.publisher.date output
     }
   if$
-  format.paper output
-  format.pages output
   format.note output
   format.url output
   fin.entry
@@ -2108,7 +2622,7 @@ FUNCTION {manual}
   format.authors output
   name.or.dash
   format.book.title.edition "title" output.warn
-  format.howpublished "howpublished" bibinfo.check output 
+  format.howpublished "howpublished" bibinfo.check output
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
   format.date output
@@ -2142,7 +2656,7 @@ FUNCTION {misc}
   format.authors output
   name.or.dash
   format.article.title output
-  format.howpublished "howpublished" bibinfo.check output 
+  format.howpublished "howpublished" bibinfo.check output
   format.organization "organization" bibinfo.check output
   format.address "address" bibinfo.check output
   format.pages output
@@ -2234,7 +2748,7 @@ FUNCTION {standard}
   format.authors output
   name.or.dash
   format.book.title "title" output.warn
-  format.howpublished "howpublished" bibinfo.check output 
+  format.howpublished "howpublished" bibinfo.check output
   format.organization.institution.standard.type.number output
   format.revision output
   format.date output
@@ -2251,7 +2765,7 @@ FUNCTION {techreport}
   format.authors "author" output.warn
   name.or.dash
   format.article.title "title" output.warn
-  format.howpublished "howpublished" bibinfo.check output 
+  format.howpublished "howpublished" bibinfo.check output
   format.institution "institution" bibinfo.warn output
   format.address "address" bibinfo.check output
   format.tech.report.number output.nonnull
@@ -2376,7 +2890,7 @@ FUNCTION {IEEEtranBSTCTL}
 
 
   num.names.shown.with.forced.et.al max.num.names.before.forced.et.al >
-    { "CTLnames_show_etal cannot be greater than CTLmax_names_forced_etal in " cite$ * warning$ 
+    { "CTLnames_show_etal cannot be greater than CTLmax_names_forced_etal in " cite$ * warning$
       max.num.names.before.forced.et.al 'num.names.shown.with.forced.et.al :=
     }
     { skip$ }

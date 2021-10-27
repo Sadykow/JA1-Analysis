@@ -8,7 +8,7 @@ The new ensemble optimisation algorithm is based on the combination of Nadam~\ci
 
 %
 %
-The Nadam optimiser extends the Adam, Algorithm~\ref{alg:nadam}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
+The Nadam optimiser extends the Adam, \mbox{Algorithm~\ref{alg:nadam}}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Nesterov Adaptive Moment Estimation (Nadam) optimisation}
     \begin{algorithmic}[1]
@@ -40,7 +40,7 @@ Line~\ref{alg:Nadam-Line} and~\ref{alg:Nadam-Line-update} add additional calcula
 
 %
 %
-The second algorithm~\ref{alg:adamax} in the ensemble sequence is AdaMax, Algorithm~\cite{kingma_adam_2017}, another modification of the Adam.
+The second \mbox{Algorithm~\ref{alg:adamax}} in the ensemble sequence is AdaMax, \mbox{Algorithm~\cite{kingma_adam_2017}}, another modification of the Adam.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Adaptive Moment Estimation based on the infinity norm (Adamax)}
     \begin{algorithmic}[1]
@@ -75,7 +75,7 @@ Although, Xiao et al.~\cite{xiao_accurate_2019} selection of AdaMax is defined b
 %Remarks made by Xiao justifies the usage of Ensemble algorithm. How would I reprase it into something shorter}\\
 %\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
 %\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
-The proposed Ensamble algorithm combines both methods for single GRU training, Algorithm~\ref{alg:ENS}.
+The proposed Ensamble algorithm combines both methods for single GRU training, \mbox{Algorithm~\ref{alg:ENS}}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Ensemble optimisation training process}
         \begin{algorithmic}[1]
@@ -101,7 +101,7 @@ The following algorithm describes the adapted version of the Ensemble algorithm,
 
 %
 %
-Table~\ref{tab:ensemble-params} higlights hyper parameters selected by Xiao et al.~\cite{xiao_accurate_2019}.
+\mbox{Table~\ref{tab:ensemble-params}} higlights hyper parameters selected by Xiao et al.~\cite{xiao_accurate_2019}.
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.3}
     \caption{Ensemble, specific parameters}

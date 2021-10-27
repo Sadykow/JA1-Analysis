@@ -5,7 +5,7 @@
 As discussed in the introduction, the purpose of the work is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
 Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors, all models were implemented based on the provided information.
 All missing aspects were assumed based on ML's standard methods at the time of their writing.
-Deriving from Table~\ref{tab:review}, Table~\ref{tab:experiment} compiles models, which will be evaluated in this work.
+Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
 It provides details of 7 different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
 
 %
@@ -20,7 +20,7 @@ Finally, "Extension" defines the model's specific detail, which distinguishes it
 %
 %
 Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
-\begin{enumerate}
+\begin{enumerate}[1)]
     \item Data shape for each state type
     \item Model structure and difference between GRU and LSTM
     \item Each optimisation algorithm and hyper-parameters selection
@@ -59,11 +59,17 @@ Thus the specifics of each algorithmic aspect will be defined further~\ref{subse
 Recurrent Neural Network is a subclass of NN, proven effective in weather or stock prices forecasting.
 This method learns by recognising a pattern within sequential data input, thus predicting the future outcome.
 It makes the following approach applicable to almost any type of time series dependant problem~\cite{anton_battery_2013}.
-Classical RNN consists primarily of three layers, represented in Figure~\ref{fig:RNN-structure}.
+Classical RNN consists primarily of three layers, represented in \mbox{Figure~\ref{fig:RNN-structure}}.
 The two vectors or matrices define the Input and Output Layers.
-The general description of a single input X and an output Y samples are represented by Equations~\ref{eq:xy-matrix}.
+The general description of a single input X and an output Y samples are represented by \mbox{Equations~\ref{eq:xy-matrix}}.
 $V, I, T, SoC$ represent Voltage (V), Current (A), Temperature (\textdegree{}C) as input features, and percentage of State of Charge (between 0 and 1) as output.
 All samples are equally time distributed, and the t represents the number of input time steps at a time.
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\columnwidth]{II_Body/images/SoC-RNN.png}
+    \caption{Universal structure of RNN for SoC estimation.}
+    \label{fig:RNN-structure}
+\end{figure}
 \begin{equation}
     \textbf{X} \left (n  \right ) = 
     \begin{Bmatrix}
@@ -80,9 +86,9 @@ All samples are equally time distributed, and the t represents the number of inp
 
 %
 %
-For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per Figure~\ref{fig:Windowing3f}, where $s$ represents the step between each window, less than the number of input time steps.
+For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per \mbox{Figure~\ref{fig:Windowing3f}}, where $s$ represents the step between each window, less than the number of input time steps.
 The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
-Figure~\ref{fig:chemali-accuracy} plots his findings in an accuracy plot over a size of time windows.
+\mbox{Figure~\ref{fig:chemali-accuracy}} plots his findings in an accuracy plot over a size of time windows.
 The shape demonstrates the root square polynomial, which indicates infinite growth towards zero.
 Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
@@ -125,12 +131,6 @@ It is important to note that the normalisation values of mean and standard devia
 %
 The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle (less or around 20\% of the entire set).
 Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{II_Body/images/SoC-RNN.png}
-    \caption{Universal structure of RNN for SoC estimation.}
-    \label{fig:RNN-structure}
-\end{figure}
 \begin{landscape}
     \begin{figure}[ht]
         \centering
@@ -144,7 +144,7 @@ Final tests for a model performance were conducted against an entire set of two 
 %   Model Structure
 %
 \subsection{Model structure} \label{subsec:structure}
-The general summary model structure is represented in Figure~\ref{fig:RNN-structure}, with three feature inputs and a single output.
+The general summary model structure is represented in \mbox{Figure~\ref{fig:RNN-structure}}, with three feature inputs and a single output.
 The number of hidden layers will be dependant on the authors' implementation.
 Since the output consists of only a single sample, it is defined by a fully connected layer - a dense layer with a single neuron.
 In case if the article did not specify the number of neurons per layer, the following equations has been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
@@ -177,7 +177,7 @@ In case if the article did not specify the number of neurons per layer, the foll
 %
 There are several activation functions for those layers widely used in machine learning libraries for time series problems~\cite{amidi_cs_2018}.
 For the SoC prediction problem, all authors used the same function.
-It also was experimentally confirmed that the best one for all hidden layers is the hyperbolic tangent function, Equation~\ref{eq:tanh}.
+It also was experimentally confirmed that the best one for all hidden layers is the hyperbolic tangent function, \mbox{Equation~\ref{eq:tanh}}.
 The output layer does not use the same logic, and no activation gets applied.
 A dropout layer technique with a 20\% cut-off has been applied to all hidden layers to prevent data overfitting over long training periods.
 \begin{equation}

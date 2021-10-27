@@ -1,6 +1,6 @@
 \subsubsection{Adam and Robust Online Adam}
 The most commonly and by default used in Time-series prediction is Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
-The Algorithm~\ref{alg:Adam} highlights the steps required to update model weights and bias as per the source.
+The \mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias as per the source.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Adaptive Moment Estimation (Adam) optimisation}
   \begin{algorithmic}[1]
@@ -24,11 +24,10 @@ The Algorithm~\ref{alg:Adam} highlights the steps required to update model weigh
 \end{algorithm}
 On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, which is referred to as fuzz factor.
 
-
 %
 %
 Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam, Line~\ref{alg:Adam-Line-2Moment}.
-Adding the direct influence of loss function to the gradient update adds an online calculation to regular $Adam$ correction, Algorithm~\ref{alg:RoAdam}.
+Adding the direct influence of loss function to the gradient update adds an online calculation to regular $Adam$ correction, \mbox{Algorithm~\ref{alg:RoAdam}}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Robust Online Adaptive Moment Estimation (RoAdam) optimisation}
   \begin{algorithmic}[1]
@@ -53,7 +52,7 @@ Adding the direct influence of loss function to the gradient update adds an onli
   \end{algorithmic}
   \label{alg:RoAdam}
 \end{algorithm}
-Table~\ref{tab:adam-params} highlights method-specific parameter selection for the optimiser.
+\mbox{Table~\ref{tab:adam-params}} highlights method-specific parameter selection for the optimiser.
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
   \caption{Adam, specific parameters}
@@ -77,7 +76,15 @@ Table~\ref{tab:adam-params} highlights method-specific parameter selection for t
 %
 The framework library contained no inbuild implementation of the Robust optimiser.
 Instead, it was implemented from the first principle and overwriting the model training procedure.
+%
+% IF
+\ifthenelse {\boolean{thesis}}
+%
+% THEN
+{
 The code itself can be located in Appendix~\ref{app:RoAdam}.
+}
+{}
 Unlike initial variables $m$, and $v$ of the Adam algorithm, which are set as a matrix of zeros, the $d$ variable in the RoAdam is set to start with ones.
 In addition, the algorithm is dependant on the loss calculation and not every framework supports it.
 The previous loss result has to be preserved into the next iteration.

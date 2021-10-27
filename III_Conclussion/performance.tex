@@ -1,10 +1,20 @@
 The work offered several implementations of Machine Learning algorithms for State of Charge Estimation over A123 batteries.
-The computation of the accuracies, recently summarised in Tables~\ref{tab:acc-results1} and~\ref{tab:acc-results2}, has involved multi-device calculations.
+The computation of the accuracies, recently summarised in \mbox{Tables~\ref{tab:acc-results1} and~\ref{tab:acc-results2}}, has involved multi-device calculations.
 The measurement has been performed over the entire dataset of each profile.
 Therefore, a synchronisation strategy has been attempted to speed up the process and keep devices temperature safe.
 Fans at 45-50\% duty cycle kept temperatures within 45-52 degrees range.
 A small timeout to switch between sample intensive datasets allowed GPUs to cool off between model models.
-Figure~\ref{fig:device_compute} demonstrates the paralysation mechanism for a single model, where flops and the total number of parameters are determined using the script in Appendix~\ref{app:flops}.
+%
+% IF
+\ifthenelse {\boolean{thesis}}
+%
+% THEN
+{
+\mbox{Figure~\ref{fig:device_compute}} demonstrates the paralysation mechanism for a single model, where flops and the total number of parameters are determined using the script in Appendix~\ref{app:flops}.
+}
+{
+\mbox{Figure~\ref{fig:device_compute}} demonstrates the paralysation mechanism for a single model.
+}
 Since the CPU has the lowest compute rating, it attempted only a single dataset, while 2 GPUs handled between 6-8 sets together. 
 
 %
@@ -12,7 +22,7 @@ Since the CPU has the lowest compute rating, it attempted only a single dataset,
 Since the end goal is to deploy an electric vehicle to run processing online, there have been several attempts to measure performance on a few categories of embedded devices.
 By itself, Stateful models are not supported by TFLite.
 Thus, a single attempt to make a Custom Stateful stateless model test is time inefficient, and those seemed unreasonable.
-Instead, six models were broke down into five foundation implementations and performance profiled, Table~\ref{tab:speed}.
+Instead, six models were broke down into five foundation implementations and performance profiled, \mbox{Table~\ref{tab:speed}}.
 Calculation of accuracies performed with 20 attempts average and offset calculation with mean of the difference between maximum and minimum.
 As a result, Coral TPU has an advantage over Raspberrypi since the core is dedicated to run tensor computations, despite Pi's latest hardware release.
 The android selection only proved how time-consuming usage of ML model on relatively old CPU could be, but in a proper synchronised manner and without rapid consumption, such devices still have their usage in such application.

@@ -1,8 +1,27 @@
-\documentclass[fleqn,12pt]{olplainarticle}
+\documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
+% \documentclass[journal]{IEEEtranTIE}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{picinpar}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{flushend}
+\usepackage[latin1]{inputenc}
+\usepackage{colortbl}
+\usepackage{soul}
+\usepackage{multirow}
+\usepackage{pifont}
+\usepackage{color}
+\usepackage{alltt}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumerate}
+\usepackage{siunitx}
+\usepackage{breakurl}
+\usepackage{epstopdf}
+\usepackage{pbox}
+
 % Adds SVG Support out of cls file
 \usepackage{svg}
-% Merge multiple references into 1
-\usepackage[noadjust]{cite}
 
 % Double line spacing
 % \usepackage{setspace}
@@ -10,7 +29,6 @@
 %\linespread{2pc}
 
 % Fancy table related trick
-\usepackage{multirow}
 \usepackage{tikz}
 \usepackage{makecell}
 \def\chk{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
@@ -61,22 +79,41 @@
 \newboolean{thesis}
 \setboolean{thesis}{false}
 
+\begin{document}
 \title{Practical review of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles.}
+\author{
+	\vskip 1em
+	
+	Marat (Matt) Sadykov, \emph{Student Membership},
+	Sam Haines, \emph{Student Membership},
+	\\ A/Prof David Holmes, \emph{Membership}
+    and A/Prof Geoff Walker, \emph{Membership}
 
-\author[1]{Mr Marat (Matt) Sadykov}
-\author[2]{Asoc/Pr David Holmes}
-\author[3]{Asoc/Pr Geoff Walker}
-%\author[4]{\\Dr Mark Broadmeadow}
+	\thanks{
+	
+		Manuscript received Month xx, 2xxx; revised Month xx, xxxx; accepted Month x, xxxx.
+		This work was supported in part by the xxx Department of xxx under Grant  (sponsor and financial support acknowledgment goes here).
+		
+		(Authors' names and affiliation) First A. Author1 and Second B. Author2 are with the xxx Department, University of xxx, City, Zip code, Country, on leave from the National Institute for xxx, City, Zip code, Country (e-mail: author@domain.com). 
+		
+		Third C. Author3 is with the National Institute of xxx, City, Zip code, Country (corresponding author to provide phone: xxx-xxx-xxxx; fax: xxx-xxx-xxxx; e-mail: author@ domain.gov).
+	}
+}
+\maketitle
 
-\affil[1]{Queensland University of Technology}
-%\affil[2]{Address of second author}
+\begin{abstract}
+    \textbf{
+    \input{I_Introduction/Abstract}
+    }
+\end{abstract}
+
 %
 % IF
 \ifthenelse {\boolean{thesis}}
 %
 % THEN
 {
-\keywords{
+\begin{IEEEkeywords}
     Adaptive Moment Estimation (Adam),
     Adaptive Moment Estimation based on the infinity norm (Adamax),
     Attention Layer,
@@ -94,32 +131,27 @@
     Tensor Processing Unit (TPU),
     TensorFlow (TF),
     Time-Series Machine Learning
-    }
+\end{IEEEkeywords}
 }
 %
 % ELSE
 {
-%\keywords{Driving schedulers, Gradient Recurrent Unit (GRU), Long Short-Term Memory (LSTM), Optimisers, State of Charge (SOC) estimation, Time-Series Machine Learning}
-\keywords{
+\begin{IEEEkeywords}
     Driving schedulers,
     Optimisers,
     Recurrent Neural Networks (RNNs),
     State of Charge (SOC) estimation,
     Time-Series Machine Learning
-    }
+\end{IEEEkeywords}
 }
 
-\begin{abstract}
-    \textbf{
-    \input{I_Introduction/Abstract}
-    }
-\end{abstract}
+\markboth{IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS}%
+{}
 
-\begin{document}
+\definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{greenhtml}{rgb}{0.0, 0.5, 0.0}
 
-\flushbottom
-\maketitle
-\thispagestyle{empty}
 %%% Introduction
 \section{Introduction} \label{sec:Introduction}
 \input{./I_Introduction/Intro}
@@ -148,7 +180,7 @@
 \input{./III_Conclussion/articleConclussion}
 \input{./III_Conclussion/acknowledgements}
 
-
+\bibliographystyle{IEEEtranTIE}
 \bibliography{
     ../Z-References/References,
     I_Introduction/BibIntro,
@@ -157,11 +189,19 @@
     II_Body/GRU/BibGRU,
     II_Body/Optimisers/BibOpt.bib
 }
+%
+% IF
+\ifthenelse {\boolean{thesis}}
+%
+% THEN
+{
 \clearpage
-\appendix
+\appendices
 \section{Appendix A: Robust Adam implementation}  \label{app:RoAdam}
 \input{../X-Appendix/AppendixE}
 \clearpage
 \section{Appendix B: Getting Number of Flops from TF2.4}  \label{app:flops}
 \input{../X-Appendix/AppendixF}
+}
+{}
 \end{document}

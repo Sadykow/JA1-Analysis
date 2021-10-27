@@ -1,13 +1,13 @@
-Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
-Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
-Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
+\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
+\mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 
 %
 %
 Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers.
 To determine the actual performance, it will require multiple trained models over a single implementation to average performance results and make a clear statement.
 Models \#1 and \#2 give an illusion of an advantage to one model over another.
-However, the accuracy plots in Figures~\ref{fig:Model-1losses} and ~\ref{fig:Model-2losses} indicate how error degrades with time for both models.
+However, the accuracy plots in \mbox{Figures~\ref{fig:Model-1losses} and ~\ref{fig:Model-2losses}} indicate how error degrades with time for both models.
 The advantage of one over another is a simple matter of randomness in the initial training results.
 The attention layer may not significantly boost the training or accuracy, but it gave a good foundation for further improvements and modifications.
 Since the SoC estimation is not a pure number based behaviour but also a matter of physical, electrical properties, manual adjustment weights, losses or data itself will not bring valuable results.
@@ -17,14 +17,14 @@ For example, the sigmoid function selection in the model output minimises the po
 %
 %
 The best performance with Stateful models can be achieved through using a separate training process for charge and discharge. 
-Subfigure~\ref{subfig:Model-4res-DSTtr} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
-The other two training were performed with discharge sets only, Subfigures~\ref{subfig:Model-4res-UStr}, \ref{subfig:Model-4res-FUDStr}.
+\mbox{Subfigure~\ref{subfig:Model-4res-DSTtr}} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
+The other two training were performed with discharge sets only, \mbox{Subfigures~\ref{subfig:Model-4res-UStr}, \ref{subfig:Model-4res-FUDStr}}.
 Stateful models can not be validated using traditional means of accurate measurement.
-Table~\ref{tab:acc-results2} for Model \#4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
+\mbox{Table~\ref{tab:acc-results2}} for Model \#4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
 
 %
 %
-The advantage of modifying optimisers is better observed on the accuracy plots, Figure~\ref{fig:Model-2losses} and ~\ref{fig:Model-5losses}.
+The advantage of modifying optimisers is better observed on the accuracy plots, \mbox{Figure~\ref{fig:Model-2losses} and ~\ref{fig:Model-5losses}}.
 Model \#2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.
 Similar to Model \#5, which had a small learning rate, but modified parameter update with direct involvement of the loss values.
 An early termination over \#5 and \#6 is a result of overfitting or apparent stability in the accuracy.
