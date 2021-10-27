@@ -12,6 +12,7 @@
 % Fancy table related trick
 \usepackage{multirow}
 \usepackage{tikz}
+\usepackage{makecell}
 \def\chk{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 
 % Python code
@@ -55,6 +56,11 @@
 % lscape.sty Produce landscape pages in a (mainly) portrait document.
 \usepackage{pdflscape}
 
+% Adding if execution to define between thesis and article
+\usepackage{ifthen}
+\newboolean{thesis}
+\setboolean{thesis}{false}
+
 \title{Practical review of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles.}
 
 \author[1]{Mr Marat (Matt) Sadykov}
@@ -64,26 +70,48 @@
 
 \affil[1]{Queensland University of Technology}
 %\affil[2]{Address of second author}
-
-\keywords{Lithium-Ion battery (Li-Ion), State of Charge (SOC), Time-Series Machine Learning, Chip-on-Board (CoB), Electric Vehicle (EV), Recurrent Neural Networks (RNN), Long Short-Term Memory (LSTM), Attention Layer, Gradient Recurrent Unit (GRU), Stochastic Gradient Descent with Momentum (SGDw/M), Adaptive Moment Estimation (Adam), Nesterov Adaptive Moment Estimation (Nadam), Robust Online Adaptive Moment Estimation (RoAdam), Adaptive Moment Estimation based on the infinity norm (Adamax), TensorFlow (TF), Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4)}
+%
+% IF
+\ifthenelse {\boolean{thesis}}
+%
+% THEN
+{
+\keywords{
+    Adaptive Moment Estimation (Adam),
+    Adaptive Moment Estimation based on the infinity norm (Adamax),
+    Attention Layer,
+    Chip-on-Board (CoB),
+    Electric Vehicle (EV),
+    Gradient Recurrent Unit (GRU),
+    Lithium-Ion battery (Li-Ion),
+    Long Short-Term Memory (LSTM),
+    Nesterov Adaptive Moment Estimation (Nadam),
+    Raspberry Pi 4 (R-Pi4),
+    Recurrent Neural Networks (RNN),
+    Robust Online Adaptive Moment Estimation (RoAdam),
+    State of Charge (SOC) estimation,
+    Stochastic Gradient Descent with Momentum (SGDw/M),
+    Tensor Processing Unit (TPU),
+    TensorFlow (TF),
+    Time-Series Machine Learning
+    }
+}
+%
+% ELSE
+{
+%\keywords{Driving schedulers, Gradient Recurrent Unit (GRU), Long Short-Term Memory (LSTM), Optimisers, State of Charge (SOC) estimation, Time-Series Machine Learning}
+\keywords{
+    Driving schedulers,
+    Optimisers,
+    Recurrent Neural Networks (RNNs),
+    State of Charge (SOC) estimation,
+    Time-Series Machine Learning
+    }
+}
 
 \begin{abstract}
     \textbf{
-State of Charge (SoC) estimation is critical for battery management in any battery-based electrical system.
-It acts as a criterion, which justifies the amount of energy left in a single or pack of cells and how long they can supply power, for example, the endurance of electric vehicles before subsequent charging.
-The ability to estimate a correct SoC and manage consumption accordingly, not only to prolong the time between charges but also the general health of the battery, in the long run, became vital for any electrical grid.
-The most common way of estimating batteries charge without direct physical intervention is battery modelling.
-By clearing defining specific constant parameters like internal resistance and capacitance and training over sensory data of battery voltage and current consumption, it is possible to simulate battery behaviour.
-However, while some methods reasonably estimate the charge percentage, the battery losses created by Coulombic efficiency can create unpredictable behaviour with different impacts.
-The Machine Learning models tend to estimate parameters themselves through the long process of training based on statistical data of battery utilisation, rather than constant definitions.
-The Recurrent Neural Network (RNN) treats Coulombic efficiency as part of the system by considering a short period of samples rather than single readings.
-Since the wide usage of Machine Learning in many applications, there have been multiple attempts to estimate the State of Charge using Neural Nets with battery sensory data, such as Voltage, Current and Temperature.
-Those methods attempted multiple model training techniques to minimise the discrepancy in available readings caused by general sensory inaccuracy and develop the best possible SoC estimator, derived from Coulomb Counting with battery testing machine.
-Although it does not match actual Electric Vehicle driving, the technique validation methodology makes a reasonable way of evaluating the most efficient and low-resource consuming method.
-Through the long process of critical analyses, implementation, review and comparison of the already published RNN models over multiple drive cycles, the most promising methods ended up being a Stateless model with an approximate 5-minute long history of samples, trained on LSTM model with robust adaptive Online gradient learning algorithm (RoAdam) as optimiser.
-The Root Mean Squared accuracy of such models tends to be around 3.64\% against the datasets, which were not involved in the training process.
-All models went through a cross-validation process over multiple datasets, and some were tested on few embedded solutions, which can be integrated into electrical circuitry of any type.
-As a result of the research, several weaknesses have been identified during reviews, such as incorrect or inefficient weight distribution across input parameters and lack of accuracy as opposed to general RNN models in other scenarios.
+    \input{I_Introduction/Abstract}
     }
 \end{abstract}
 
@@ -121,71 +149,6 @@ As a result of the research, several weaknesses have been identified during revi
 \input{./III_Conclussion/acknowledgements}
 
 
-% \section*{Methods and Materials}
-
-% Guidelines can be included for standard research article sections, such as this one.
-
-% \section*{Some \LaTeX{} Examples}
-% \label{sec:examples}
-
-% Use section and subsection commands to organize your document. \LaTeX{} handles all the formatting and numbering automatically. Use ref and label commands for cross-references.
-
-% \subsection*{Figures and Tables}
-    
-%     Use the table and tabular commands for basic tables --- see Table~\ref{tab:widgets}, for example. You can upload a figure (JPEG, PNG or PDF) using the project menu. To include it in your document, use the includegraphics command as in the code for Figure~\ref{fig:view} below.
-    
-%     % \begin{figure}[ht]
-%     %     \centering
-%     %     \includegraphics[width=0.7\linewidth]{frog}
-%     %     \caption{An example image of a frog.}
-%     %     \label{fig:view}
-%     % \end{figure}
-    
-%     \begin{table}[ht]
-%         \centering
-%         \begin{tabular}{l|r}
-%             Item & Quantity \\\hline
-%             Candles & 4 \\
-%             Fork handles & ?  
-%         \end{tabular}
-%         \caption{\label{tab:widgets}An example table.}
-%     \end{table}
-
-% \subsection*{Citations}
-
-%     LaTeX formats citations and references automatically using the bibliography records in your .bib file, which you can edit via the project menu. Use the cite command for an inline citation, like \cite{lees2010theoretical}, and the citep command for a citation in parentheses \citep{lees2010theoretical}.
-
-% \subsection*{Mathematics}
-
-%     \LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-%     $$S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-%           = \frac{1}{n}\sum_{i}^{n} X_i$$
-%     denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
-
-% \subsection*{Lists}
-
-%     You can make lists with automatic numbering \dots
-
-% \begin{enumerate}[noitemsep] 
-%     \item Like this,
-%     \item and like this.
-% \end{enumerate}
-% \dots or bullet points \dots
-% \begin{itemize}[noitemsep] 
-%     \item Like this,
-%     \item and like this.
-% \end{itemize}
-% \dots or with words and descriptions \dots
-% \begin{description}
-%     \item[Word] Definition
-%     \item[Concept] Explanation
-%     \item[Idea] Text
-% \end{description}
-
-% \section*{Acknowledgments}
-
-%     Additional information can be given in the template, such as to not include funder information in the acknowledgments section.
-
 \bibliography{
     ../Z-References/References,
     I_Introduction/BibIntro,
@@ -194,9 +157,11 @@ As a result of the research, several weaknesses have been identified during revi
     II_Body/GRU/BibGRU,
     II_Body/Optimisers/BibOpt.bib
 }
+\clearpage
 \appendix
 \section{Appendix A: Robust Adam implementation}  \label{app:RoAdam}
 \input{../X-Appendix/AppendixE}
+\clearpage
 \section{Appendix B: Getting Number of Flops from TF2.4}  \label{app:flops}
 \input{../X-Appendix/AppendixF}
 \end{document}

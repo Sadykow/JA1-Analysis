@@ -1,16 +1,5 @@
 \subsubsection{Classic Stochastic Gradient and Momentum Stochastic Gradient algorithm}
 One of the simplest methods used to optimise the model is the Stochastic Gradient Descent (SGD), Algorithm~\ref{alg:SGD}.
-The SGD Optimiser utilised a simple gradient update with a learning rate.
-Unlike improved versions, this algorithm has the potential of missing optimum value.
-The extension of SGD, Algorithm~\ref{alg:SGDwM}, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
-To improve accuracy, Jiao introduced noise to the data to be able to capture more variant information.
-Due to the amount of data provided and comparison with other methods, noise variance will not be used in this implementation.
-
-%
-%
-Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
-% \vspace{1pt}
-% \hspace{-3pt}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent (SGD) optimisation}
   \begin{algorithmic}[1]
@@ -28,6 +17,9 @@ Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
   \end{algorithmic}
   \label{alg:SGD}
 \end{algorithm}
+The SGD Optimiser utilised a simple gradient update with a learning rate.
+Unlike improved versions, this algorithm has the potential of missing optimum value.
+The extension of SGD, Algorithm~\ref{alg:SGDwM}, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}
   \begin{algorithmic}[1]
@@ -40,22 +32,32 @@ Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
     \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
-    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ Moment Calculation \label{alg:SGDwM-Line-Moment}}
+    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ Moment Calculation\label{alg:SGDwM-Line-Moment}}
     \STATE $W_t \gets W_{t-1} - \alpha m_t $  \COMMENT{Update parameters}
     \ENDWHILE
   \end{algorithmic}
   \label{alg:SGDwM}
 \end{algorithm}
+
+%
+%
+To improve accuracy, Jiao introduced noise to the data to be able to capture more variant information.
+Due to the amount of data provided and comparison with other methods, noise variance will not be used in this implementation.
+Table~\ref{tab:params-jiao} provides parameters selection for the optimiser.
 \begin{table}[ht]
-    \centering
+    \renewcommand{\arraystretch}{1.3}
     \caption{Hyper-Parameters as per Jiao et al.~\cite{jiao_gru-rnn_2020}}
+    \centering
     \label{tab:params-jiao}
-    \begin{tabular}{ p{6.0cm} p{1.5cm} p{1.5cm}   }
-        \hline
+    \resizebox{\columnwidth}{!}{
+    \begin{tabular}{ l c c }
+      \hline\hline \\[-3mm]
         Method     & $\alpha$ & $\beta_1 $  \\
         \hline
         SGDw/M
                 & $0.001$ & $0.8$  \\% 0.0000001
-        \hline
+        \hline\hline
     \end{tabular}
+    }
 \end{table}
+\newpage

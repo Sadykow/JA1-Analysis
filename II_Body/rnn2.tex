@@ -20,35 +20,38 @@ Finally, "Extension" defines the model's specific detail, which distinguishes it
 %
 %
 Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
-\begin{itemize}
+\begin{enumerate}
     \item Data shape for each state type
     \item Model structure and difference between GRU and LSTM
     \item Each optimisation algorithm and hyper-parameters selection
-\end{itemize}
-\begin{center}
-    \begin{table}[h]
+\end{enumerate}
+\begin{table*}[h]
+    \renewcommand{\arraystretch}{1.3}
     \caption{Testing models summary.}
+    \centering
     \label{tab:experiment}
-\begin{tabular}{p{0.4cm}|p{3.4cm}|p{1.3cm}|p{1.0cm}|p{1.2cm}|p{1.5cm}|p{1.5cm}|p{3.0cm}}
-    \hline
-    \multirow{2}{ 4em }{№} &
-    \multirow{2}{ 4em }{Structure \& Cells} &
-    \multirow{2}{ 4em }{State$-$ } &
-    \multicolumn{4}{ c|}{Optimiser Learning Rate} &
-    \multirow{2}{ 4em }{Extension} \\
-    \cline{4-7}
-      &                       &         & Adam  & Nadam & SGDw/M & AdaMax &           \\
-    \hline
-    1 & 1 $\times$ LSTM (500) & $-$less & 0.001 &       &        &        &           \\
-    2 & 1 $\times$ GRU (560)  & $-$less &       & 0.001 &        & 0.0005 & Ensemble  \\
-    3 & 1 $\times$ LSTM (520) & $-$less & 0.001 &       &        &        & Attention \\
-    4 & 2 $\times$ GRU (60)   & $-$ful  &       &       & 0.001  &        & Momentum (0.3)\\
-    5 & 1 $\times$ GRU (500)  & $-$less & 0.0001 &       &        &        & RoAdam\\
-    6 & 2 $\times$ LSTM (250)   & $-$less  & 0.001 &       &        &        &           \\
-    \hline
-\end{tabular}
-    \end{table}
-\end{center}
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{l|l|c|c|c|c|c|l}
+        \hline\hline \\[-4mm]
+        \multirow{2}{ 4em }{\#} &
+        \multirow{2}{ 4em }{Structure \& Cells} &
+        \multirow{2}{ 4em }{State$-$ } &
+        \multicolumn{4}{ c|}{Optimiser Learning Rate} &
+        \multirow{2}{ 4em }{Extension} \\
+        \cline{4-7}
+        &                       &         & Adam  & Nadam & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} & AdaMax &           \\
+        \hline
+        1 & 1 $\times$ LSTM (500) & $-$less & 0.001 &       &        &        &           \\
+        2 & 1 $\times$ GRU (560)  & $-$less &       & 0.001 &        & 0.0005 & Ensemble  \\
+        3 & 1 $\times$ LSTM (520) & $-$less & 0.001 &       &        &        & Attention \\
+        4 & 2 $\times$ GRU (60)   & $-$ful  &       &       & 0.001  &        & Momentum (0.3)\\
+        5 & 1 $\times$ GRU (500)  & $-$less & 0.0001 &       &        &        & RoAdam\\
+        6 & 2 $\times$ LSTM (250)   & $-$less  & 0.001 &       &        &        &           \\
+        \hline\hline
+    \end{tabular}
+    }
+\end{table*}
+
 
 %
 %
@@ -88,7 +91,7 @@ For example, 12 datasets of discharge process with similar Voltage, Current and 
 The statefulness of a model preserves the state at index $i$ to the same index in the next batch~\cite{zhu_statefulnes_tfdocs_2020}.
 \begin{figure}[htbp]
     \centering
-    \includesvg[width=0.55\linewidth]{II_Body/images/chemali_accuracy.svg}
+    \includesvg[width=\linewidth]{II_Body/images/chemali_accuracy.svg}
     \caption{SoC estimation accuracy of LSTM-RNN with various network depths in time by Chemali et al.~\cite{Chemali2017} in plot representation.}
     \label{fig:chemali-accuracy}
 \end{figure}

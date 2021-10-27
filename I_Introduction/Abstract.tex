@@ -1,0 +1,34 @@
+%
+% IF
+\ifthenelse {\boolean{thesis}}
+%
+% THEN
+{
+State of Charge (SoC) estimation is critical for battery management in any battery-based electrical system.
+It acts as a criterion, which justifies the amount of energy left in a single or pack of cells and how long they can supply power, for example, the endurance of electric vehicles before subsequent charging.
+The ability to estimate a correct SoC and manage consumption accordingly, not only to prolong the time between charges but also the general health of the battery, in the long run, became vital for any electrical grid.
+The most common way of estimating batteries charge without direct physical intervention is battery modelling.
+It is possible to simulate battery behaviour by defining specific constant parameters like internal resistance and capacitance and training over sensory data of battery voltage and current consumption.
+However, while some methods reasonably estimate the charge percentage, the battery losses created by Coulombic efficiency can create unpredictable behaviour with different impacts.
+The Machine Learning models tend to estimate parameters themselves through the long process of training based on statistical data of battery utilisation, rather than constant definitions.
+The Recurrent Neural Network (RNN) treats Coulombic efficiency as part of the system by considering a short period of samples rather than single readings.
+Since the wide usage of Machine Learning in many applications, there have been multiple attempts to estimate the State of Charge using Neural Nets with battery sensory data, such as Voltage, Current and Temperature.
+Those methods attempted multiple model training techniques to minimise the discrepancy in available readings caused by general sensory inaccuracy and develop the best possible SoC estimator, derived from Coulomb Counting with battery testing machine.
+Although it does not match actual Electric Vehicle driving, the technique validation methodology makes a reasonable way of evaluating the most efficient and low-resource consuming method.
+Through the long process of critical analyses, implementation, review and comparison of the already published RNN models over multiple drive cycles, the most promising methods ended up being a Stateless model with an approximate 5-minute long history of samples, trained on LSTM model with robust adaptive Online gradient learning algorithm (RoAdam) as optimiser.
+The Root Mean Squared accuracy of such models tends to be around 3.64\% against the datasets, which were not involved in the training process.
+All models went through a cross-validation process over multiple datasets, and some were tested on a few embedded solutions, which can be integrated into electrical circuitry of any type.
+As a result of the research, several weaknesses have been identified during reviews, such as incorrect or inefficient weight distribution across input parameters and lack of accuracy as opposed to general RNN models in other scenarios.
+}
+%
+% ELSE
+{
+State of Charge (SoC) estimation is critical for battery management in any battery-based electrical system.
+It represents the amount of energy left in a cell or pack of cells and how long they can supply power.
+An accurate charge percentage, without any discrepancies, allows battery management system (BMS) further enhancement of accumulator utilisation, allowing higher endurance drain or prolonging overall utilisation for more cycles.
+There have been numerous attempts to determine SoC without physical intervention, such as battery modelling.
+Since commonly batteries have non-linear characteristics, the statistical-based replaces the traditional system model.
+In the present paper, a Recurrent Neural Network (RNN) practical usability investigation has been conducted to determine the best-suited method for Electric vehicles (EV).
+Through implementation from the source and cross-validation testing with several driving scenarios of Lithium-Ion batteries, several models have been assessed on efficiency and drawbacks against simulations of different driving conditions.
+The results highlight the percentage accuracy in the average of 3.64\% of Root Mean Squared Error, several drawbacks of the overall implementation and propose potential solutions for further improvement.
+}

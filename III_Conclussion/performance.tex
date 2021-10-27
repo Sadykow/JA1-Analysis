@@ -19,17 +19,19 @@ The android selection only proved how time-consuming usage of ML model on relati
 % Steady Voltage consumption over USB Port stable around 5.03V for all devices. Coral TPU steady current - 0.07A. Keep those details for the Ch5 if asked.
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.60\linewidth]{II_Body/images/Accuracy_Compute.png}
+    \includegraphics[width=\columnwidth]{II_Body/images/Accuracy_Compute.png}
     % \includesvg[width=\linewidth]{II_Body/images/Accuracy_Compute_10.svg}
-    \caption{Accuracy computation using a single model trained on different proflies separately. The timing examples were taken from Model №5 computation process.}
+    \caption{Accuracy computation using a single model trained on different proflies separately. The timing examples were taken from Model \#5 computation process.}
     \label{fig:device_compute}
 \end{figure}
-\begin{table}[ht]
+\begin{table*}[ht]
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Model performance results across multiple embedded devices.}
     \centering
-    \caption{Model performance results across multiple devices..}
     \label{tab:speed}
-    \begin{tabular}{c c c |c c c}
-        \hline
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{l c c |c c c}
+        \hline\hline \\[-4mm]
         Structure                &Total params& flop/it & Coral TPU (ms) & R-Pi4 (ms)      & Android (ms) \\
         \hline
         1 $\times$ LSTM(500)     & 1,008,501  & 2.0G & 227.9$\pm$17.2 & 2021.6$\pm$164.9 & 4058.7$\pm$45.0 \\% 4048.0$\pm$69.0 \\   %FLOPs:2,018,005
@@ -40,6 +42,7 @@ The android selection only proved how time-consuming usage of ML model on relati
         1 $\times$ GRU(500)      & 758,001    & 1.5G & 140.8$\pm$24.7 & 1816.1$\pm$129.1 & 3227.5$\pm$37.5 \\%3241.7$\pm$32.5 \\  % FLOPs:1,516,503
         2 $\times$ LSTM(250)     & 504,201    & 1.1G & 102.2$\pm$16.3 & 1802.6$\pm$131.1 & 2494.4$\pm$34.0 \\%2454.4$\pm$33.0 \\   % FLOPs:1,109,409
 %        1 $\times$ Layer \& Dense& 3,369      &     & 2.35$\pm$0.25  & 3.15$\pm$0.85 & 6.3*\\
-        \hline
+        \hline\hline
     \end{tabular}
-\end{table}
+    }
+\end{table*}

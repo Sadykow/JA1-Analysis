@@ -6,7 +6,7 @@ Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses} refer to the best mod
 %
 Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers.
 To determine the actual performance, it will require multiple trained models over a single implementation to average performance results and make a clear statement.
-Models №1 and №2 give an illusion of an advantage to one model over another.
+Models \#1 and \#2 give an illusion of an advantage to one model over another.
 However, the accuracy plots in Figures~\ref{fig:Model-1losses} and ~\ref{fig:Model-2losses} indicate how error degrades with time for both models.
 The advantage of one over another is a simple matter of randomness in the initial training results.
 The attention layer may not significantly boost the training or accuracy, but it gave a good foundation for further improvements and modifications.
@@ -20,14 +20,14 @@ The best performance with Stateful models can be achieved through using a separa
 Subfigure~\ref{subfig:Model-4res-DSTtr} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
 The other two training were performed with discharge sets only, Subfigures~\ref{subfig:Model-4res-UStr}, \ref{subfig:Model-4res-FUDStr}.
 Stateful models can not be validated using traditional means of accurate measurement.
-Table~\ref{tab:acc-results2} for Model №4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
+Table~\ref{tab:acc-results2} for Model \#4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
 
 %
 %
 The advantage of modifying optimisers is better observed on the accuracy plots, Figure~\ref{fig:Model-2losses} and ~\ref{fig:Model-5losses}.
-Model №2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.
-Similar to Model №5, which had a small learning rate, but modified parameter update with direct involvement of the loss values.
-An early termination over №5 and №6 is a result of overfitting or apparent stability in the accuracy.
+Model \#2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.
+Similar to Model \#5, which had a small learning rate, but modified parameter update with direct involvement of the loss values.
+An early termination over \#5 and \#6 is a result of overfitting or apparent stability in the accuracy.
 With the number of samples, which the training process went through and based on the RMSE plot, there was a little need for repeated training over the same data repeatedly, as proven in the first several models.
 
 %

@@ -87,20 +87,21 @@ Table~\ref{tab:review} summarises the most common methods applied to SoC estimat
 The model type highlights a primary path in structuring a Neural Net model.
 The statefulness defines the input method, where stateless uses a fixed size of input samples per each feature and statefully apply each time sample at a time for all features one by one.
 Optimiser selection sets the algorithm for the learning process from one of the following methods: Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
-\begin{center}
-    \begin{table}[h]
+\begin{table*}[h]
+    \renewcommand{\arraystretch}{1.3}
     \caption{Reviewed papers implementation summary.}
+    \centering
     \label{tab:review}
-\begin{tabular}{p{2.0cm}|p{0.8cm}|p{1.0cm}|p{0.8cm}|p{0.8cm}|p{1.0cm}|p{1.0cm}|p{0.9cm}|p{0.7cm}|p{0.7cm}|p{2.1cm}}
-    %\multicolumn{12}{c}{Unknown yet table} \\
-    \hline
+\resizebox{\textwidth}{!}{
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|l}
+    \hline\hline \\[-4mm]
     \multicolumn{1}{ c }{} & 
     \multicolumn{2}{|c|}{Model} & 
     \multicolumn{2}{ c|}{State-} & 
     \multicolumn{5}{ c|}{Optimiser} &
     \multirow{2}{ 4em }{Extension} \\
     \cline{1-4} \cline{5-10}
-    Ref & GRU  & LSTM & -less & -ful & Adam & Nadam & SGD & AM & DE &           \\
+    Reference source & GRU  & LSTM & -less & -ful & Adam & Nadam & SGD & AdaMax & DE\footnote{Differential Evolution} & \\
     \hline
     Song~\cite{song_lithium-ion_2018}
         & \chk &      &       & \chk  & \chk &       &     &    &    & 4 Layers  \\
@@ -116,10 +117,10 @@ Optimiser selection sets the algorithm for the learning process from one of the 
         & \chk &      & \chk  &       & \chk &       &     &     &   & Robust    \\
     Zhang~\cite{zhang_deep_2020}
         &      & \chk & \chk  &       &      & \chk  &     &     &   & Online    \\
-    \hline
+    \hline\hline
 \end{tabular}
-    \end{table}
-\end{center}
+}
+\end{table*}
 
 %
 %
