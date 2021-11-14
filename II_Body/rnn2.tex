@@ -1,30 +1,13 @@
-%
-%   Managing input data
-%
-\subsection{Managing input data} \label{subsec:RNN}
+% %! Remove or reallocate that part beginning or second part or write new with DST, US06 and FUDS.
+% Several attempts to introduce an online procedure for models performance measurement have been integrated into the training process to solve this problem.
+% By not being limited to the battery testing machine's table data, i.e. the validation mechanism to tune an NN model based on batteries data during actual battery cycling, researchers attempted to generalise the fitting process as best as hardware allowed~\cite{zhang_deep_2020}.
+% This method brings the model learning process closer to real-time battery utilisation without adding modelling complexity.
+% \subsection{Managing input data} \label{subsec:RNN}
 As discussed in the introduction, the purpose of the work is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
 Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors, all models were implemented based on the provided information.
 All missing aspects were assumed based on ML's standard methods at the time of their writing.
 Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
 It provides details of 7 different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
-
-%
-%
-The structure and cell type define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
-The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
-Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
-The optimiser selection was based on the derivative calculation algorithms only.
-Other alternatives, like differential evolution, are beyond the scope of research.
-Finally, "Extension" defines the model's specific detail, which distinguishes it against the others.
-
-%
-%
-Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
-\begin{enumerate}[1)]
-    \item Data shape for each state type
-    \item Model structure and difference between GRU and LSTM
-    \item Each optimisation algorithm and hyper-parameters selection
-\end{enumerate}
 \begin{table*}[h]
     \renewcommand{\arraystretch}{1.3}
     \caption{Testing models summary.}
@@ -52,6 +35,23 @@ Thus the specifics of each algorithmic aspect will be defined further~\ref{subse
     }
 \end{table*}
 
+%
+%
+The structure and cell type define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
+The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
+Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
+The optimiser selection was based on the derivative calculation algorithms only.
+Other alternatives, like differential evolution, are beyond the scope of research.
+Finally, "Extension" defines the model's specific detail, which distinguishes it against the others.
+
+%
+%
+Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
+\begin{enumerate}[1)]
+    \item Data shape for each state type
+    \item Model structure and difference between GRU and LSTM
+    \item Each optimisation algorithm and hyper-parameters selection
+\end{enumerate}
 
 %
 %
@@ -87,14 +87,16 @@ All samples are equally time distributed, and the t represents the number of inp
 %
 %
 For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per \mbox{Figure~\ref{fig:Windowing3f}}, where $s$ represents the step between each window, less than the number of input time steps.
+Both stateful and stateless methods tend to fail by underestimating the input samples' impact and their length.
+Chemali et al.~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy the model produced and the longer it took to compute.
+The results of the research have been plotted on \mbox{Figure~\ref{fig:chemali-accuracy}}, outlining the root square parabola behaviour of size of the history against error in the prediction.
 The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
-\mbox{Figure~\ref{fig:chemali-accuracy}} plots his findings in an accuracy plot over a size of time windows.
-The shape demonstrates the root square polynomial, which indicates infinite growth towards zero.
 Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
 The state reset for stateful models happens at the end of every dataset, allowing a batching mechanism to speed up the training process.
 For example, 12 datasets of discharge process with similar Voltage, Current and the State of Charge, but different temperatures at a time $t$ can be treated as a single batch.
 The statefulness of a model preserves the state at index $i$ to the same index in the next batch~\cite{zhu_statefulnes_tfdocs_2020}.
+In addition, the normalisation technique by mean and standard deviation of all three input features has been applied to speed up the fitting process.
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/chemali_accuracy.svg}
@@ -125,21 +127,16 @@ Values were rounded to 2 decimal places and kept in the range of 0 and 1 using m
 Since there is no way to directly obtain the battery's accurate charge practically during a run, output SoC is excluded from the time-series model's input feature, unlike any classic examples of usage Time-Series estimations.
 The trainable model has to distribute weights across inputs and still develop a charge's close estimate.
 All input samples were taken through normalisation by the mean and standard deviation across all input files with the same values, simplifying model weights acquiring and speeding up the training process.
-It is important to note that the normalisation values of mean and standard deviation from a training dataset are applied to both validation and testings sets.
-
-%
-%
-The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle (less or around 20\% of the entire set).
-Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
+It is important to note that the normalisation values of mean and standard deviation from a training dataset are applied to validation and testings sets.
 \begin{landscape}
     \begin{figure}[ht]
         \centering
-        % \includegraphics[width=0.9\linewidth]{II_Body/images/Windowing3D-3.jpg}
         \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
         \caption{Data Windowing scheme. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from actual implementation. Initial index $i$ was kept as a value close to the beginning of the data, around zero.}
         \label{fig:Windowing3f}
     \end{figure}
 \end{landscape}
+
 %
 %   Model Structure
 %
@@ -147,7 +144,7 @@ Final tests for a model performance were conducted against an entire set of two 
 The general summary model structure is represented in \mbox{Figure~\ref{fig:RNN-structure}}, with three feature inputs and a single output.
 The number of hidden layers will be dependant on the authors' implementation.
 Since the output consists of only a single sample, it is defined by a fully connected layer - a dense layer with a single neuron.
-In case if the article did not specify the number of neurons per layer, the following equations has been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
+In case if the article did not specify the number of neurons per layer, the following equations have been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
 \begin{equation}
     \begin{split}
         N_h &= \frac{N_s}{ a \left(N_i+N_o \right)} \ \ OR \ \ N_h = \frac{2}{3}\left(N_i+N_o \right) \\
@@ -186,16 +183,15 @@ A dropout layer technique with a 20\% cut-off has been applied to all hidden lay
 \end{equation}
 %
 %
-%The common usage of Dense layer in this paper is the Output Layer with no activation functions and with single neuron representing single output SoC value.
-%To apply multiple different without overcompicating neurons a multiple bunch of layers with different or the same number of neurons or activations functions gets applied.
-%The more Hidden layers network contains - the deeper and computationally complex a network becomes, which also referred as Deep Neural Networks. 
-
+%The common usage of the Dense layer in this paper is the Output Layer with no activation functions and a single-neuron representing a single output SoC value.
+%To apply multiple different without overcomplicating neurons, multiple layers with different or the same number of neurons or activations functions are applied.
+%The more Hidden layers network contains - the deeper and computationally complex a network becomes, also referred to as Deep Neural Networks. 
 % Choosing the number of neurons for a first Hidden Layer does not have a golden rule.
-% For this article, following formula helps to make a good initial estimate based on Number samples, Inout and Output.\\
+% For this article, the following formula helps to make a good initial estimate based on Number samples, Input and Output.\\
 % \textbf{Equation}\\
-% A common practice is to narrow each following Neurons by 2 from previous one, to make a more accurate capture.
-% To avoid overfitting data, except for data normalization and Input sample shuffeling in stateles models, a Dropout technue gets applied.
-% Tensorflow has an intermnal implementation of Dropoout for GRU and LSTM layers. A value of 0.2 (20\%) applied to all RNN layers to minimizze overfitting possibility.
+% A common practice is to narrow each following Neurons by two from the previous one, to make a more accurate capture.
+% To avoid overfitting data, except for data normalization and Input sample shuffling in stateless models, a Dropout technique gets applied.
+% Tensorflow has an internal implementation of Dropout for GRU and LSTM layers. A value of 0.2 (20\%) was applied to all RNN layers to minimize overfitting possibility.
 
 %
 % Requires editing below
@@ -205,29 +201,28 @@ The problem is called vanishing gradient when the value to update network weight
 Long-term dependencies do not get captured since layers with a slight gradient do not significantly affect the system due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
 The more complicated structures of neurons tend to solve that problem.
 % The gradient is the value used to update Neural Networks’ weight.
-%"Therefore, layers that get a small gradient do not learn and they cause the network to have short-term memory."
+%"Therefore, layers that get a small gradient do not learn, and they cause the network to have short-term memory."
 % https://www.bioinf.jku.at/publications/older/2304.pdf
-%"With gradient based learning methods the current error signals has to 'flow back in time' over the feedback connections to past inputs for building up an adequate input storage. Long-term dependancies are hard to learn because of insufficient weight changes."
+%"With gradient-based learning methods, the current error signals has to 'flow back in time' over the feedback connections to past inputs for building up adequate input storage. Long-term dependencies are hard to learn because of insufficient weight changes."
 
 %
 %
 There are two commonly used Recurrent Neural Network, which utilises memory cells: Gated Recurrent Unit (GRU) and Long Short-Term Memory (LSTM) with possible extensions implemented by articles' authors.
 The GRU implementation will be used as a stateful technique by preserving a state from batch to batch with a single sample at a time.
 The LSTM will take a stateless approach, providing a fixed number of timestamps at a time.
-%Implementation of the model based on simple RNN using multi layer Dense(X) networks.~\cite{lees2010theoretical}
-%A very basic version of Recurrent Neural Network consist of very basic layers with some amount of neurons.
-
+%Implementation of the model based on simple RNN using multi-layer Dense(X) networks.~\cite{lees2010theoretical}
+% a basic version of Recurrent Neural Network consists of fundamental layers with some amount of neurons.
 % \subsubsection{Implementation}
-%     The input data for a network has been created using Windowing technique, where \textbf{216k} sample of battery data, consisting of State Of Charge only were separated on 500 sample windows.
-%     As a results, model outputs a single sample as SoC at next Time Step. Using Tensorflow library and calculating number of Neurons using recomended formula \\
+%     The input data for a network has been created using Windowing technique, where \textbf{216k} sample of battery data, consisting of State Of Charge only, were separated on 500 sample windows.
+%     As a result, the model outputs a single sample as SoC at the next Time Step. Using Tensorflow library and calculating number of Neurons using recommended formula \\
 %     \textbf{THIS IS THE BEST PLACE FOR IT}. No other places suites as much.
-%     The strcuture of the model ha\subsection{Training and Validation}
+%     The structure of the model ha\subsection{Training and Validation}
 
 %s the following form. (Few Dense Layers+Dropount).
-%     A Dropout layer has been used to prevent data overfitting. The selection of activation functions has been done through the properties of the data, which model has to fit in and multiple trials.
+%     A Dropout layer has been used to prevent data overfitting. The selection of activation functions has been made through the data properties, which model has to fit in multiple trials.
 % \subsubsection{Observation}
-%     A simple Recurrent Neural Network has proven itself effective with simple Linear problems. However, with battery state of charge it is unable to capture complicated features like transition between Discharge and Charge or process of Constant-Voltage Constant-Current charging. In the application of battery utilisation inside Electrical Vehichle, this approach can be used only with some additional logic, such as Kalman Filters.
-%     The best approach is to introduce more information about battery state and use more complicated version of Time Series capable to memorise feature with time, such as LSTM~\ref{sec:LSTM} and GRU~\ref{sec:GRU}.
-%     The results of the prediction discussed in Section~\ref{sec:results}.
+%     A simple Recurrent Neural Network has proven itself effective with simple Linear problems. However, with the battery state of charge, it cannot capture complicated features like the transition between Discharge and Charge or the process of Constant-Voltage Constant-Current charging. In applying battery utilisation inside Electrical Vehicle, this approach can be used only with some additional logic, such as Kalman Filters.
+%     The best approach is to introduce more information about battery state and use a more complicated version of Time Series capable of memorising features with time, such as LSTM~\ref{sec: LSTM} and GRU~\ref{sec: GRU}.
+    % The results of the prediction discussed in Section~\ref{sec:results}.
 %\subsection{Stateful Gradient Recurrent Unit (GRU) Algorithms and Implementations} \label{subsec:GRU}
 %\input{./II_Body/LSTM/lstm-attention}

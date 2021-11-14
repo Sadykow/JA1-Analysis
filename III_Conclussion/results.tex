@@ -1,3 +1,19 @@
+Since it is a common practice for temperatures on the battery inside EV to spike from 20 ambient degrees to the limit of 60, all temperature ranges were used together to train each model.
+The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set).
+This led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
+The following section demonstrates the comparison of the models trained on each individual and then tested against the entire dataset of all three profiles, including the trained one.
+Unlike stateful models, all stateless examples were trained using both charge and discharge cycles together.
+
+%
+%
+Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
+The metrics were reported using the equations outlined in the \mbox{Subsubsection~\ref{subsub:losses}}.
+Figures were generated during the training process for each iteration of the training process, from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
+After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing to assess the efficiency of the learning process.
+
+%
+%
+\subsection{Accuracy overview}
 \mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
 \mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
 \mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
@@ -9,7 +25,7 @@ To determine the actual performance, it will require multiple trained models ove
 Models \#1 and \#2 give an illusion of an advantage to one model over another.
 However, the accuracy plots in \mbox{Figures~\ref{fig:Model-1losses} and ~\ref{fig:Model-2losses}} indicate how error degrades with time for both models.
 The advantage of one over another is a simple matter of randomness in the initial training results.
-The attention layer may not significantly boost the training or accuracy, but it gave a good foundation for further improvements and modifications.
+The attention layer may not significantly boost the training or accuracy, but it gives a good foundation for further improvements and modifications.
 Since the SoC estimation is not a pure number based behaviour but also a matter of physical, electrical properties, manual adjustment weights, losses or data itself will not bring valuable results.
 Further research and adjustments must be made using a similar principle to improve the training procedure with augmented models. 
 For example, the sigmoid function selection in the model output minimises the possibility of going over 100\% or 0\% of charge.
@@ -33,5 +49,5 @@ With the number of samples, which the training process went through and based on
 %
 %
 Overall, there is an obvious advantage in training a model over a single profile and then testing against similar scenarios, for example, creating a model that fits a single drive's driving behaviour over specific driving scenarios.
-However, it will suffer from inaccuracies if models will be placed under other conditions without a post-training process with new data.
+However, it will suffer from inaccuracies if models are placed under other conditions without a post-training process with new data.
 Comparison of the validation data act as a determined prove.

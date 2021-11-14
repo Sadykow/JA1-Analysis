@@ -1,5 +1,5 @@
-\documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
-% \documentclass[journal]{IEEEtranTIE}
+% \documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
+\documentclass[journal]{IEEEtranTIE}
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{picinpar}
@@ -43,12 +43,6 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-%New colors defined below
-\definecolor{codegreen}{rgb}{0,0.6,0}
-\definecolor{codegray}{rgb}{0.5,0.5,0.5}
-\definecolor{codepurple}{rgb}{0.58,0,0.82}
-\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
-
 %Code listing style named "mystyle"
 \lstdefinestyle{mystyle}{
   backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
@@ -79,15 +73,18 @@
 \newboolean{thesis}
 \setboolean{thesis}{false}
 
+% Intext plus-minux
+\usepackage{textcomp}
+
 \begin{document}
 \title{Practical review of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles.}
 \author{
 	\vskip 1em
 	
-	Marat (Matt) Sadykov, \emph{Student Membership},
-	Sam Haines, \emph{Student Membership},
-	\\ A/Prof David Holmes, \emph{Membership}
-    and A/Prof Geoff Walker, \emph{Membership}
+	Marat Sadykov, \ % \emph{Student Membership},
+	Sam Haines,% \emph{Student Membership},
+	\\ A/Prof David Holmes, \emph{Principal Research Supervisor} and 
+    \\ A/Prof Geoff Walker, \emph{Associate Research Supervisor}
 
 	\thanks{
 	
@@ -148,6 +145,11 @@
 \markboth{IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS}%
 {}
 
+%New colors defined below
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
 \definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
 \definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
 \definecolor{greenhtml}{rgb}{0.0, 0.5, 0.0}
@@ -171,7 +173,6 @@
 \input{./II_Body/hardware}
 %%% Conclusion
 \section{Performance and Results}\label{sec:results}
-\subsection{Accuracy overview}
 \input{./III_Conclussion/results}
 \input{./III_Conclussion/figures} % Inputing fugures
 \subsection{Hardware performcene overview}
