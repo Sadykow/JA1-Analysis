@@ -27,6 +27,7 @@ Calculation of accuracies performed with 20 attempts average and offset calculat
 As a result, Coral TPU has an advantage over Raspberrypi since the core is dedicated to run tensor computations, despite Pi's latest hardware release.
 The android selection only proved how time-consuming usage of ML model on relatively old CPU could be, but in a proper synchronised manner and without rapid consumption, such devices still have their usage in such application.
 % Steady Voltage consumption over USB Port stable around 5.03V for all devices. Coral TPU steady current - 0.07A. Keep those details for the Ch5 if asked.
+\textcolor{red}{\textbf{When Testing validation process  with plot generation was performen on TPU deices using TFLite, the accuracy degradation and overall accuracy against entire dataset was calculated using GPUs and CPU.}}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\columnwidth]{II_Body/images/Accuracy_Compute.png}

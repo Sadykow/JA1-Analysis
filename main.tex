@@ -83,8 +83,9 @@
 	
 	Marat Sadykov, \ % \emph{Student Membership},
 	Sam Haines,% \emph{Student Membership},
-	\\ A/Prof David Holmes, \emph{Principal Research Supervisor} and 
-    \\ A/Prof Geoff Walker, \emph{Associate Research Supervisor}
+	\\ A/Prof David Holmes, \emph{Principal Research Supervisor},
+    \\ A/Prof Geoff Walker, \emph{Associate Research Supervisor} and
+    \\ Dr Mark Broadmeadow, \emph{Techinical Supervisor}
 
 	\thanks{
 	
@@ -157,26 +158,31 @@
 %%% Introduction
 \section{Introduction} \label{sec:Introduction}
 \input{./I_Introduction/Intro}
-%%% Body
-\section{Time-series models implementation} \label{sec:Body}
+%%% Methodology
+\section{Methodology} \label{sec:Meth}
+\input{./II_Body/Methodology}
+    \input{./II_Body/b_data}
+    \input{./II_Body/d_gen}
+    \input{./II_Body/t_model}
+    \input{./II_Body/hardware}
+%%% Implementation
+\section{Machine Learning approach evaluated} \label{sec:Body}
 \input{./II_Body/rnn2}
     \input{./II_Body/GRU/gru}
     \input{./II_Body/LSTM/lstm}
-\subsection{Optimisers} \label{subsec:optimisers}
-\input{./II_Body/Optimisers/optimisers}
-    \input{./II_Body/Optimisers/SGDwM}
-    \input{./II_Body/Optimisers/adam}
-    \input{./II_Body/Optimisers/ensemble}
-\subsection{Battery Data for training and validation} \label{subsec:b_data}
-\input{./II_Body/b_data}
-\subsection{Hardware and Software} \label{subsec:soft}
-\input{./II_Body/hardware}
+    \subsection{Optimisers} \label{subsec:optimisers}
+    \input{./II_Body/Optimisers/optimisers}
+        \input{./II_Body/Optimisers/SGDwM}
+        \input{./II_Body/Optimisers/adam}
+        \input{./II_Body/Optimisers/ensemble}
 %%% Conclusion
 \section{Performance and Results}\label{sec:results}
 \input{./III_Conclussion/results}
-\input{./III_Conclussion/figures} % Inputing fugures
-\subsection{Hardware performcene overview}
-\input{./III_Conclussion/performance}
+\input{./III_Conclussion/fig_history}
+\input{./III_Conclussion/figures} %! Separate figures and comment all by 1 for writing help.
+\input{./III_Conclussion/tab_accuracies}
+    \subsection{Hardware performcene overview}
+    \input{./III_Conclussion/performance}
 \section{Conclusion} \label{sec:conclussion}
 \input{./III_Conclussion/articleConclussion}
 \input{./III_Conclussion/acknowledgements}

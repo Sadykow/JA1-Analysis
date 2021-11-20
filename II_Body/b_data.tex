@@ -1,4 +1,4 @@
-% Battery Data for training and validation
+\subsection{Battery Data for training and validation} \label{subsec:b_data}
 Model training has been conducted over Lithium-Ion battery cycling data obtained by the Battery Research Group of the Center for Advanced Life
 Cycle Engineering (CALCE) Group at University of Maryland~\cite{noauthor_calce_2017} in 2012.
 According to the attached paper, the battery cycling has been conducted with Arbin BT2000 tester machine and controlled with official Arbins Mits Pro Software (v4.27)~\cite{xing_state_2014}.
@@ -15,14 +15,7 @@ The temperature steps 10 degrees with a tolerance of around 0.5-1 degrees.
 This results in 66763 and 8200 samples for training and validation over the same profile.
 Each method went through a single cycling profile and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020} research.
 The final testing has been conducted over two cycles of 25\textdegree{}C and 30\textdegree{}C samples for each of the two remaining profiles, leading to 16510 number of samples.
-\begin{equation}
-    \begin{split}
-        \hat{SoC} &= MinMax(C-D)\ \ or \\
-        \hat{SoC} &= \frac{\int_{t_0}^{t_n} I(t)dt} {C_{N}} = \frac{\int_{t_0}^{t_n} I(t)dt} {2.3*3600} \\
-        SoC &= \frac{round(100\times\hat{SoC})}{100}
-        \label{eq:SoC-calc}
-    \end{split}
-\end{equation}
+
 \begin{table}[ht]
     \renewcommand{\arraystretch}{1.3}
     \caption{Battery characteristics}
@@ -41,96 +34,3 @@ The final testing has been conducted over two cycles of 25\textdegree{}C and 30\
     \end{tabular}
     }
 \end{table}
-\subsubsection{Losses}~\label{subsub:losses}
-\mbox{Table~\ref{tab:losses}} summarises the loss functions, which has been applied to each tested model.
-Some equations were extracted directly from papers; others were written based on their definition and internal library implementation.
-The goal of the loss function is to calculate the error between model prediction and the actual value.
-The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
-The purpose of the table is only to provide the implementation references, which has been assumed during the programming of each published article based model.
-\begin{table*}[htbp]
-    \renewcommand{\arraystretch}{1.3}
-    \caption{Model's loss functions}
-    \centering
-    \label{tab:losses}
-    \resizebox{\linewidth}{!}{
-    \begin{tabular}{ l l c }
-        \hline\hline \\[-3mm]
-        Function Name & Articles & Equation \\ 
-        \hline
-        Absolute Error & Song \textit{et al.}~\cite{song_lithium-ion_2018} & $|SoC_t-\hat{SoC_t}|$ \\
-        \hline
-        -- & \makecell[l]{Chemal \textit{et al.}\cite{Chemali2017},\\Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020}} & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ \\
-        \hline
-        Mean Average Percentage Error & Mamo \textit{et al.}~\cite{mamo_long_2020} & $\frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-        \hline
-        -- & Xiao \textit{et al.}~\cite{xiao_accurate_2019} & $\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}{N}$ \\
-        \hline
-        Mean Average Squared Error & \makecell[l]{Javid \textit{et al.}~\cite{javid_adaptive_2020},\\Zhang \textit{et al.}~\cite{zhang_deep_2020}} & $\sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ \\
-        \hline\hline
-    \end{tabular}
-    }
-\end{table*}
-
-% $ L = \sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ ~\cite{Chemali2017},~\cite{jiao_gru-rnn_2020} \\
-% $ L = \sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ ~\cite{javid_adaptive_2020}~\cite{zhang_deep_2020} \\
-% $ L = (\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2)N$~\cite{xiao_accurate_2019} \\
-% $ L = |SoC_t-\hat{SoC_t}|$ \\
-% $ L = \frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$~\cite{mamo_long_2020} \\
-\subsubsection{Metrics}
-% \textcolor{red}{Generally, Losses start form 0, metrics from 1. Articles which did overwise were assumed to be mistaken.}
-% \textcolor{red}{Similar to loses and reasons why we have chosen those as out criterias.} \\
-Metrics functions act as user evaluation criteria to assess the performance of the trained model during both fitting and validation processes.
-Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations from \mbox{Table~\ref{tab:metrics}}.
-Thus, the same criteria will be used for the final comparison between models' efficiency in the results section.
-\begin{table}[htbp]
-    \renewcommand{\arraystretch}{1.3}
-    \caption{Model's metrics functions}
-    \centering
-    \label{tab:metrics}
-    \resizebox{\columnwidth}{!}{
-    \begin{tabular}{l c}
-        \hline\hline \\[-3mm]
-        Function Name & Equation \\ 
-        \hline
-        Mean Average Error &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
-        % \hline
-        % Mean Average Percentage Error & $\frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-        \hline
-        Root Mean Square Error & $ \sqrt{\frac{1}{N}\sum\limits^N_{t=1} \left(SoC_t-\hat{SoC_t} \right)^2}$ \\
-        \hline
-        $R^2$ : $M_{SoC}$ is the mean SoC & $1-\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}
-                {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ \\
-        \hline\hline
-        % Error : Not decided if useful yet & $ \frac{SoC_t-\hat{SoC_5}}{SoC_t}$
-    \end{tabular}
-    }
-\end{table}
-% \ebd{table}
-% $MAE = \frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
-% $MAPE = \frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-% $RMSE = \sqrt{\frac{1}{N}\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}$ \\
-% $R^2 = 1-\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}
-%               {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ - $M_{SoC}$ is the mean SoC \\
-% $Error = \frac{SoC_t-\hat{SoC_5}}{SoC_t}$ - Not decided yet
-% \subsubsection{Callbacks}
-% For stateless model, the method for reseting a State of model has been derived with Callback function of:
-% Another Algorithm. \\
-% \begin{lstlisting}[language=Python]
-% class ResetCallback(tf.keras.callbacks.Callback):
-%     reset_steps : int = 500
-%     i_counter   : int = 0
-%     def __init__(self):
-%         self.i_counter = 0
-
-%     def on_batch_begin(self, batch, logs=None):
-%         if (self.i_counter % self.reset_steps) == 0:
-%             self.model.reset_states()
-%             self.i_counter = 0
-%         self.i_counter += 1
-% \end{lstlisting}
-% \begin{enumerate}
-%     \item Checkpoint saving only the best one based on smalest rmse
-%     \item Tensorboard tmp folder
-%     \item Early stopping is applyable
-%     \item Procedure of training epoch by epoch or algorithm for offline and online.
-% \end{enumerate}

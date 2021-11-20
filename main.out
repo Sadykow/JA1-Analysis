@@ -1,23 +1,29 @@
 \BOOKMARK [1][-]{section.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.2}{Time-series models implementation}{}% 2
-\BOOKMARK [2][-]{subsection.2.1}{Dataset description and generator}{section.2}% 3
-\BOOKMARK [2][-]{subsection.2.2}{Model structure}{section.2}% 4
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Gated Recurrent Unit based models}{subsection.2.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Long-Short Term Memory based models}{subsection.2.2}% 6
-\BOOKMARK [3][-]{subsubsection.2.2.3}{Attention Layer}{subsection.2.2}% 7
-\BOOKMARK [2][-]{subsection.2.3}{Optimisers}{section.2}% 8
-\BOOKMARK [3][-]{subsubsection.2.3.1}{Classic Stochastic Gradient and Momentum Stochastic Gradient algorithm}{subsection.2.3}% 9
-\BOOKMARK [3][-]{subsubsection.2.3.2}{Adam and Robust Online Adam}{subsection.2.3}% 10
-\BOOKMARK [3][-]{subsubsection.2.3.3}{Ensemble optimisation with Nadam and AdaMax}{subsection.2.3}% 11
-\BOOKMARK [2][-]{subsection.2.4}{Battery Data for training and validation}{section.2}% 12
-\BOOKMARK [3][-]{subsubsection.2.4.1}{Losses}{subsection.2.4}% 13
-\BOOKMARK [3][-]{subsubsection.2.4.2}{Metrics}{subsection.2.4}% 14
-\BOOKMARK [2][-]{subsection.2.5}{Hardware and Software}{section.2}% 15
-\BOOKMARK [3][-]{subsubsection.2.5.1}{Model training Framework}{subsection.2.5}% 16
-\BOOKMARK [3][-]{subsubsection.2.5.2}{Embedded devices for performance measurements}{subsection.2.5}% 17
-\BOOKMARK [1][-]{section.3}{Performance and Results}{}% 18
-\BOOKMARK [2][-]{subsection.3.1}{Accuracy overview}{section.3}% 19
-\BOOKMARK [2][-]{subsection.3.2}{Hardware performcene overview}{section.3}% 20
-\BOOKMARK [1][-]{section.4}{Conclusion}{}% 21
-\BOOKMARK [1][-]{section.5}{Acknowledgements}{}% 22
-\BOOKMARK [1][-]{section*.31}{References}{}% 23
+\BOOKMARK [1][-]{section.2}{Methodology}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Types of ML model for evaluation}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Battery Data for training and validation}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Dataset description and generator}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Training, validation and testing procedure}{section.2}% 6
+\BOOKMARK [3][-]{subsubsection.2.4.1}{Losses}{subsection.2.4}% 7
+\BOOKMARK [3][-]{subsubsection.2.4.2}{Metrics}{subsection.2.4}% 8
+\BOOKMARK [3][-]{subsubsection.2.4.3}{Callbacks}{subsection.2.4}% 9
+\BOOKMARK [3][-]{subsubsection.2.4.4}{Training and validation Loop??}{subsection.2.4}% 10
+\BOOKMARK [3][-]{subsubsection.2.4.5}{Testing procedures??}{subsection.2.4}% 11
+\BOOKMARK [2][-]{subsection.2.5}{Hardware and Software}{section.2}% 12
+\BOOKMARK [3][-]{subsubsection.2.5.1}{Model training Framework}{subsection.2.5}% 13
+\BOOKMARK [3][-]{subsubsection.2.5.2}{Embedded devices for performance measurements}{subsection.2.5}% 14
+\BOOKMARK [1][-]{section.3}{Machine Learning approach evaluated}{}% 15
+\BOOKMARK [2][-]{subsection.3.1}{Model structure}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Gated Recurrent Unit based models}{subsection.3.1}% 17
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Long-Short Term Memory based models}{subsection.3.1}% 18
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Attention Layer}{subsection.3.1}% 19
+\BOOKMARK [2][-]{subsection.3.2}{Optimisers}{section.3}% 20
+\BOOKMARK [3][-]{subsubsection.3.2.1}{Classic Stochastic Gradient and Momentum Stochastic Gradient algorithm}{subsection.3.2}% 21
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Adam and Robust Online Adam}{subsection.3.2}% 22
+\BOOKMARK [3][-]{subsubsection.3.2.3}{Ensemble optimisation with Nadam and AdaMax}{subsection.3.2}% 23
+\BOOKMARK [1][-]{section.4}{Performance and Results}{}% 24
+\BOOKMARK [2][-]{subsection.4.1}{Accuracy overview}{section.4}% 25
+\BOOKMARK [2][-]{subsection.4.2}{Hardware performcene overview}{section.4}% 26
+\BOOKMARK [1][-]{section.5}{Conclusion}{}% 27
+\BOOKMARK [1][-]{section.6}{Acknowledgements}{}% 28
+\BOOKMARK [1][-]{section*.20}{References}{}% 29
