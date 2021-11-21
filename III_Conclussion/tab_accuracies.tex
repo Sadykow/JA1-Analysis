@@ -1,40 +1,40 @@
-\begin{table*}[htbp]
-    \renewcommand{\arraystretch}{1.3}
-    \caption{Accuracy result summary - part 1.}
-    \centering
-    \label{tab:acc-results1}
-\resizebox{\linewidth}{!}{
-\begin{tabular}{ c c c c c c c }
-    \hline\hline \\[-3mm]
-    Model \# & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
-    \hline
-     & DST  & \makecell{DST\\US06\\FUDS} & Both 
-                                & \makecell{2.49\\2.50\\2.53} & \makecell{3.48\\3.55\\3.57} & \makecell{98.61\\95.51\\98.50} \\
-    \#1%Chemali \textit{et al.}~\cite{Chemali2017} 
-     & US06 & \makecell{US06\\DST\\FUDS} & Both 
-                                & \makecell{2.57\\2.95\\2.77} & \makecell{3.66\\4.02\\3.90} & \makecell{98.43\\98.15\\98.21} \\
-     & FUDS & \makecell{FUDS\\DST\\US06} & Both
-                                & \makecell{2.35\\3.67\\2.41} & \makecell{3.14\\5.04\\3.20} & \makecell{98.84\\97.10\\98.79} \\
-    \hline
-     & DST  & \makecell{DST\\US06\\FUDS} & Both 
-                                & \makecell{2.68\\5.42\\5.59} & \makecell{3.61\\8.32\\8.59} & \makecell{98.51\\92.72\\91.32} \\
-    \#2%Xioa \textit{et al.}~\cite{xiao_accurate_2019}
-     & US06 & \makecell{US06\\DST\\FUDS} & Both 
-                                & \makecell{4.11\\5.93\\4.42} & \makecell{5.21\\7.49\\5.71} & \makecell{96.77\\95.51\\96.16} \\
-     & FUDS & \makecell{FUDS\\DST\\US06} & Both 
-                                & \makecell{3.66\\5.98\\3.71} & \makecell{4.96\\7.79\\5.04} & \makecell{97.11\\93.08\\96.98} \\ % 
-    \hline
-     & DST  & \makecell{DST\\US06\\FUDS} & Both 
-                                & \makecell{3.75\\2.97\\3.20} & \makecell{5.75\\3.61\\3.95} & \makecell{97.42\\98.48\\98.17} \\
-    \#3%Mamo \textit{et al.}~\cite{mamo_long_2020} 
-     & US06 & \makecell{US06\\DST\\FUDS} & Both 
-                                & \makecell{3.81\\4.91\\3.88} & \makecell{4.89\\6.14\\4.92} & \makecell{97.22\\95.70\\97.15} \\
-     & FUDS & \makecell{FUDS\\DST\\US06} & Both 
-                                & \makecell{2.70\\5.27\\2.73} & \makecell{3.54\\6.93\\3.62} & \makecell{95.69\\94.52\\98.48} \\ % 64571872354
-    \hline\hline
-\end{tabular}
-}
-\end{table*}
+% \begin{table*}[htbp]
+%     \renewcommand{\arraystretch}{1.3}
+%     \caption{Accuracy result summary - part 1.}
+%     \centering
+%     \label{tab:acc-results1}
+% \resizebox{\linewidth}{!}{
+% \begin{tabular}{ c c c c c c c }
+%     \hline\hline \\[-3mm]
+%     Model \# & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
+%     \hline
+%      & DST  & \makecell{DST\\US06\\FUDS} & Both 
+%                                 & \makecell{2.49\\2.50\\2.53} & \makecell{3.48\\3.55\\3.57} & \makecell{98.61\\95.51\\98.50} \\
+%     \#1%Chemali \textit{et al.}~\cite{Chemali2017} 
+%      & US06 & \makecell{US06\\DST\\FUDS} & Both 
+%                                 & \makecell{2.57\\2.95\\2.77} & \makecell{3.66\\4.02\\3.90} & \makecell{98.43\\98.15\\98.21} \\
+%      & FUDS & \makecell{FUDS\\DST\\US06} & Both
+%                                 & \makecell{2.35\\3.67\\2.41} & \makecell{3.14\\5.04\\3.20} & \makecell{98.84\\97.10\\98.79} \\
+%     \hline
+%      & DST  & \makecell{DST\\US06\\FUDS} & Both 
+%                                 & \makecell{2.68\\5.42\\5.59} & \makecell{3.61\\8.32\\8.59} & \makecell{98.51\\92.72\\91.32} \\
+%     \#2%Xioa \textit{et al.}~\cite{xiao_accurate_2019}
+%      & US06 & \makecell{US06\\DST\\FUDS} & Both 
+%                                 & \makecell{4.11\\5.93\\4.42} & \makecell{5.21\\7.49\\5.71} & \makecell{96.77\\95.51\\96.16} \\
+%      & FUDS & \makecell{FUDS\\DST\\US06} & Both 
+%                                 & \makecell{3.66\\5.98\\3.71} & \makecell{4.96\\7.79\\5.04} & \makecell{97.11\\93.08\\96.98} \\ % 
+%     \hline
+%      & DST  & \makecell{DST\\US06\\FUDS} & Both 
+%                                 & \makecell{3.75\\2.97\\3.20} & \makecell{5.75\\3.61\\3.95} & \makecell{97.42\\98.48\\98.17} \\
+%     \#3%Mamo \textit{et al.}~\cite{mamo_long_2020} 
+%      & US06 & \makecell{US06\\DST\\FUDS} & Both 
+%                                 & \makecell{3.81\\4.91\\3.88} & \makecell{4.89\\6.14\\4.92} & \makecell{97.22\\95.70\\97.15} \\
+%      & FUDS & \makecell{FUDS\\DST\\US06} & Both 
+%                                 & \makecell{2.70\\5.27\\2.73} & \makecell{3.54\\6.93\\3.62} & \makecell{95.69\\94.52\\98.48} \\ % 64571872354
+%     \hline\hline
+% \end{tabular}
+% }
+% \end{table*}
 
 %    \hline
 %     & DST  & DST US06 FUDS & Both & 5c 1A 1B & 5c 1A 1B & 5c 1A 1B \\

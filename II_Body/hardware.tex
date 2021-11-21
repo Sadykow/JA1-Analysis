@@ -1,6 +1,20 @@
 \subsection{Hardware and Software} \label{subsec:soft}
-This section will outline hardware and applied software details, which were used in the research process.
+This subsection will outline hardware and applied software details, which were used in the research process.
 It intended to provide necessary outlines to support further research and allow repeating the experiment with different conditions.
+
+%
+%
+\subsubsection{Embedded devices for performance measurements}
+Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4), and an Android-based smartphone.
+Coral TPU produced by Google has limited specifications information, but the software setup has provided two libraries for average and maximum clock frequency computation.
+Raspberry Pi 4 powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
+The Operating System was selected with a beta version of Raspbian 64 (aarch64).
+The selection of Android devices depended on the highest percentage distribution.
+An Octa-core Cortex-A53 with 3GB RAM seemed the most commonly used at a time.
+The inbuilt chipset is Mediatek MT6753 (28 nm) with Android version 6.
+
+%
+%
 \subsubsection{Model training Framework}
 The framework for Machine Learning has been Tensorflow 2.4.0 with Python 3.9.1 compiled from source using Bazel 3.1.0.
 An additional package with Addons 0.18 for $R^2$ and Probability 0.13 for Differential Evoltions algorithms has been compiled from the source and added to the main framework.
@@ -8,7 +22,7 @@ Tensorboard is used to observe progress as it goes and keep records to analyze t
 
 %
 %
-Initial model training and validation has been performed on a Desktop machine with Intel CPU and Graphical Processor with Compute Capability Score of 7.5. The version of CUDA library for GPU computation has been used of version 11.1 from the beginning of the research.
+Overal model training, validation and testing against other 2 profiles has been performed on a Desktop machine with Intel CPU and Graphical Processor with Compute Capability Score of 7.5. The version of CUDA library for GPU computation has been used of version 11.1 from the beginning of the research.
 The final tests on the embedded devices were performed using the Tensorflow Lite Runtime library of version 2.5.0.
 %
 % Attention Layer has been reimplemented from provided source code.%\textcolor{red}{Good luck finding the link}
@@ -27,14 +41,7 @@ The final tests on the embedded devices were performed using the Tensorflow Lite
 %         Tensorflow-2.2.0 & 3.8.* & gcc 7.3.1 & Bazel 2.0.0 & CPU & 3.98MHz*
 %     \end{tabular}
 % \end{table}
-\subsubsection{Embedded devices for performance measurements}
-Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4), and an Android-based smartphone.
-Coral TPU produced by Google has limited specifications information, but the software setup has provided two libraries for average and maximum clock frequency computation.
-Raspberry Pi 4 powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
-The Operating System was selected with a beta version of Raspbian 64 (aarch64).
-The selection of Android devices depended on the highest percentage distribution.
-An Octa-core Cortex-A53 with 3GB RAM seemed the most commonly used at a time.
-The inbuilt chipset is Mediatek MT6753 (28 nm) with Android version 6.
+
 
 
 %Table information collected as per datasheet. \\

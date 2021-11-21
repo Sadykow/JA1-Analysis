@@ -1,22 +1,39 @@
-The process of training machine leearning model always consists of 4 primary steps:
+The following section will describe the methodology of evaluation analysis of the reviewed methods, data sources and build pipelines, procedures for training, validation and testing, and final error calculation.
+The process of training machine learning model always consists of 4 primary steps:
 \begin{itemize}
-    \item Model type selection \\
-    \item Obtaining battery samples \\
-    \item Data preprocessing and management \\
-    \item Training, validation and testing \\
-    \item Model deployment \\
+    \item Datasample obtain and parsing\\
+    \item Creating a data pipeline for consistent input and outputs\\
+    \item Training validation and testing procedures\\
+    \item Calculate final accuracy\\
 \end{itemize}
-This methodology will overview each step in the critical analysis.
-\subsection{Types of ML model for evaluation}
-In order to identify the best candidate for integration to electric vehicle, this article will attempt to prototype a Neural Network model from already existing methods and deploy on potential low-power Machine Learning powered devices for final testing.
-One of the objective is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
+% \begin{itemize}
+%     \item Model type selection \\
+%     \item Obtaining battery samples \\
+%     \item Data preprocessing and management \\
+%     \item Training, validation and testing \\
+%     \item Model deployment \\
+% \end{itemize}
+% This section will define each step for future reference, which each model will go through.
+
+%
+%
+% \subsection{Types of ML model for evaluation}
+In order to identify the best candidate for integration to an electric vehicle, this article will attempt to prototype a Neural Network model from already existing methods and deploy it on potential low-power Machine Learning powered devices for final testing.
+One of the objectives is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
 Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
 It provides details of six different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
 All of them were implemented as faithfully as possible to the original published versions.
 All missing aspects were assumed based on ML's standard methods at the time of their writing.
 \begin{table*}[h]
     \renewcommand{\arraystretch}{1.3}
-    \caption{Testing models summary.}
+    \caption{
+        The structure and number of units define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
+        The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
+        % Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
+        The optimiser selection was based on the derivative calculation algorithms only.
+        % Other alternatives, like differential evolution, are beyond the scope of research.
+        Extensions define the model's specific detail, which distinguishes it against the others.
+    }
     \centering
     \label{tab:experiment}
     \resizebox{\textwidth}{!}{
@@ -60,16 +77,16 @@ All missing aspects were assumed based on ML's standard methods at the time of t
 % This method brings the model learning process closer to real-time battery utilisation without adding modelling complexity.
 % \subsection{Managing input data} \label{subsec:RNN}
 % Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors, all models were implemented based on the provided information.
-
 %
 %
-The structure and cell type define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
-The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
-Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
-The optimiser selection was based on the derivative calculation algorithms only.
-Other alternatives, like differential evolution, are beyond the scope of research.
-Finally, "Extension" defines the model's specific detail, which distinguishes it against the others.
-
+%
+% The structure and number of units define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
+% The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
+% Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
+% The optimiser selection was based on the derivative calculation algorithms only.
+% Other alternatives, like differential evolution, are beyond the scope of research.
+% Finally, "Extension" defines the model's specific detail, which distinguishes it against the others.
+%
 %
 %
 % Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
