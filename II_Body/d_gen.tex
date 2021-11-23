@@ -3,10 +3,12 @@ Recurrent Neural Network is a subclass of NN, proven effective in weather or sto
 This method learns by recognising a pattern within sequential data input, thus predicting the future outcome.
 It makes the following approach applicable to almost any type of time series dependant problem~\cite{anton_battery_2013}.
 % The two vectors or matrices define the Input and Output Layers.
-Two vectors or matrices have define inputs and outputs of a model.
-The general description of a single input \textbf{X} \mbox{Equations~\ref{eq:x-matrix}} and an output \textbf{Y} \mbox{Equations~\ref{eq:y-matrix}} samples are represented below.
+Two vectors or matrices have defined inputs and outputs of a model.
+The general description of a single input \textbf{X} is in \mbox{Equations~\ref{eq:x-matrix}} and an output \textbf{Y} on the \mbox{Equations~\ref{eq:y-matrix}}.
 $V, I, T, SoC$ represent Voltage (V), Current (A), Temperature (\textdegree{}C) as input features, and percentage of State of Charge (between 0 and 1) as output.
 All samples are equally time distributed, and the t represents the number of input time steps at a time.
+Since the sampling rate during the charging process is less than during discharge, the missing step times were resampled.
+Considering the characteristic of Constant Current and Constant Voltage charging, this workaround should not cause any training issues.
 \begin{equation}
     \textbf{X} \left (n  \right ) =
     \begin{Bmatrix}
@@ -42,13 +44,12 @@ Any more significant matrices will lead to an increase in computation time but a
 %
 %
 For dataset generation of training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per \mbox{Figure~\ref{fig:Windowing3f}}.
-This figures makes an example of the stateless model input data visualisation, where the step between each window $s$ is less than the number of input time steps.
+These figures make an example of the stateless model input data visualisation, where the step between each window $s$ is less than the number of input time steps.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
-The state reset for stateful models happens at the end of every dataset, allowing a batching mechanism to speed up the training process.
+The state reset for stateful models happens at the end of every cycle, allowing a batching mechanism to speed up the training process.
 For example, 12 datasets of discharge process with similar Voltage, Current and the State of Charge, but different temperatures at a time $t$ can be treated as a single batch.
 The statefulness of a model preserves the state at index $i$ to the same index in the next batch~\cite{zhu_statefulnes_tfdocs_2020}.
-In addition, the normalisation technique by mean and standard deviation of all three input features has been applied to speed up the fitting process.
-
+In addition, the normalisation technique by the mean and standard deviation based on entire training data only of all three input features has been applied to speed up the fitting process.
 %%%
 % For the process of training for Stateful models speeding up, all data can be separated by batches \textit{b}, for each batch representing a different temperature category, creating a 4-dimensional matrix.
 % \textit{f} defines the number of features as per Voltage, Current and Temperature.
@@ -68,9 +69,9 @@ In addition, the normalisation technique by mean and standard deviation of all t
 
 %
 %
-The value of SoC has been calculated from the difference between charge and discharge capacity.
-Values were rounded to 2 decimal places and kept in the range of 0 and 1 using min-max normalisation to reduce error in estimation.
-Since there is no way to directly obtain the battery's accurate charge practically during a run, output SoC is excluded from the time-series model's input feature, unlike any classic examples of usage Time-Series estimations.
-The trainable model has to distribute weights across inputs and still develop a charge's close estimate.
-All input samples were taken through normalisation by the mean and standard deviation across all input files with the same values, simplifying model weights acquiring and speeding up the training process.
-It is important to note that the normalisation values of mean and standard deviation from a training dataset are applied to validation and testings sets.
+%The value of SoC has been calculated from the difference between charge and discharge capacity.
+%Values were rounded to 2 decimal places and kept in the range of 0 and 1 using min-max normalisation to reduce error in estimation.
+%Since there is no way to directly obtain the battery's accurate charge practically during a run, output SoC is excluded from the time-series model's input feature, unlike any classic examples of usage Time-Series estimations.
+%The trainable model has to distribute weights across inputs and still develop a charge's close estimate.
+%All input samples were taken through normalisation by the mean and standard deviation across all input files with the same values, simplifying model weights acquiring and speeding up the training process.
+%It is important to note that the normalisation values of mean and standard deviation from a training dataset are applied to validation and testings sets.

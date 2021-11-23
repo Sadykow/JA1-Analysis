@@ -12,6 +12,54 @@ Figures were generated during the training process for each iteration of the tra
 After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing to assess the efficiency of the learning process.
 
 %
+%%%%%%%%%%%%%%%%%%55
+\subsection{Each accuracy to add}
+Model 1: US06 and FUDS has shown good accuracies, but the training has not been very smooth unlike with DST.
+However, the US06 made the best result in capturing both features.
+By analysung Table 1, US06 and FUDS can capture each other behavior, but not the DST.
+In this sense, DST may seems better feature, but Figure 7.b proves that model des not predict middle flat area.
+
+%
+%
+Model 2: Adding another layer only added discrepancy in overall prediction and only lead to better but slover training.
+
+%
+%
+Model 3 Adding attention layer made an improvement on the FUDS training and better fir on Figure 9.i.
+Although, it had promessing start by the training accuracyy, this techniques has a mean to maje model better rather than just adding more layers to the model.
+
+%
+%
+Model 4: Statefull techniques have been a promessing approach but only to very specific scenario.
+By itself, it will take long time to achieve accuracy desired.
+However, training 2 models sperately for charge and discharge or use it additional technique on short prediction, for example during acceleration events - it has a means for existems.
+
+%
+%
+Model 5: 1,3 mdeol applied modification to the structure directly and 4th one indirectly. (2nd one did not, read again).
+There as (2?) and 5 improves optimisation steps, leading to better accuracy in all testing.
+RoAdam allowed faster convergences to the optimal accuracy and generaly achioeved better results by Table 2.
+
+%
+%
+\subsection{Discussion to add}
+Acubs as comparison to model 1.
+Separating to multiple layers to the same amount of untis did not lead to improvements.
+It was the fastest what achieved the lowest training accuracy, but without affecting learning rate, model could not achieve capturing the other trens.
+
+%
+%
+This all shown that model not able to capture middle area.
+However, combining all 3 techniques into single model may lead to accurate results.
+
+%
+%
+Model 1,5,6 may be matter of randomness, more that just technique eficiency.
+DST generally faster singe profile itsekf is very easy to handle.
++ Model 4 had no means to perform test on entire set of both profiles.
+%%%%%%%%%%%%%%%%%%%%
+%% PUT both writing and the results from. After you do thatm compare the results as discussion. Expplicitly interpreter that.
+%
 %
 \subsection{******}
 \mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.

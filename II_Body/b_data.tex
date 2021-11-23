@@ -1,6 +1,5 @@
 \subsection{Battery Data for training and validation} \label{subsec:b_data}
-Model training has been conducted over Lithium-Ion battery cycling data obtained by the Battery Research Group of the Center for Advanced Life
-Cycle Engineering (CALCE) Group at University of Maryland~\cite{noauthor_calce_2017} in 2012.
+Model training has been conducted over Lithium-Ion battery cycling data obtained by the Battery Research Group of the Center for Advanced Life Cycle Engineering (CALCE) Group at the University of Maryland~\cite{noauthor_calce_2017} in 2012.
 According to the attached paper, the battery cycling has been conducted with Arbin BT2000 tester machine and controlled with official Arbins Mits Pro Software (v4.27)~\cite{xing_state_2014}.
 \textcolor{red}{\textbf{The value of charge across 25 degrees have not matched with battery testing of the similar cells, conducted during research with freshly bought M1-B series cells.
 Despite their similarities, indicating that they have been using in a series of two cells with doubled current or have been through more than 1000 cycles.}}
@@ -27,19 +26,18 @@ Despite their similarities, indicating that they have been using in a series of 
 
 %
 %
-The Battery Cycling data in a Battery testing chamber were stored as Excel spreadsheets over temperature range 0\textdegree{}C and 50\textdegree{}C degrees.
+The Battery Cycling data over 2 Li-Ion cells were stored as Excel spreadsheets over temperature range 0\textdegree{}C and 50\textdegree{}C degrees, with 10 degrees step and tolerance of around 0.5-1\textdegree{}C, including ambient 25\textdegree{}C.
 Each testing cycle contains three testing profiles: Dynamic stress test (DST), (US06) and the Federal urban driving schedule (FUDS).
-The temperature steps 10 degrees with a tolerance of around 0.5-1 degrees.
 \textcolor{red}{\textbf{The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since this is the most common temperature range, which custom build electric vehicle by QUT motorsport has been experiencing during endurance runs.}}
-This results in 66763 and 8200 samples for training and validation over the same profile.
-Each method went through a single cycling profile and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020} research.
-The final testing has been conducted over two cycles of 25\textdegree{}C and 30\textdegree{}C samples for each of the two remaining profiles, leading to 16510 samples.
+It results in 66763 and 8200 samples for training and validation over the one profile of two different cells.
+Each method went through a single cycling profile training and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020} research example.
+The final performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to 16510 testing samples.
 
 %
 %%%
 Like in any battery usage scenario, the State of Charge has not been provided in the CALCE data.
-However, Arbin machine does store both in and out capacitanes as separate arrays.
-The SoC value can calculated from the difference between Charge and Discharge Capacities in $Ah$.
+However, the Arbin machine stores both in and out capacitances as separate arrays, along with the applied current.
+The SoC value can be calculated from the difference between Charge and Discharge Capacities in $Ah$.
 % The \textit{MinMax} algorithm allows adjustment the minimum and maximum point of the SoC to be within bound 0 and 100\%.
 % \begin{equation}
 %     \begin{split}
@@ -61,5 +59,5 @@ The final expected value gets rounded by two decimal places in all scenarios to 
         \label{eq:SoC-round}
     \end{split}
 \end{equation}
-Optionally, all calculated SoC can be adjusted using MinMax scaler algorithm.
-For the purpose of the methodology unification with other authors, it will not be used in the current research since the quality of the tested batteries cannot be verified.
+Optionally, all calculated SoC can be adjusted using \textit{MinMax} scaler algorithm.
+For the purpose of the methodology unification with other authors, it will not be used in the current research since the quality and age of the tested batteries cannot be verified.
