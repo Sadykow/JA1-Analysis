@@ -28,22 +28,23 @@ All missing aspects were assumed based on ML's standard methods at the time of t
     \centering
     \label{tab:experiment}
     \resizebox{\textwidth}{!}{
-    \begin{tabular}{l|l|l|c|c|c|c|l}
+    \begin{tabular}{l|l|l|c|c|c|c|c|l}
         \hline\hline \\[-4mm]
         \multirow{2}{ 1em }{\#} &
         \multirow{2}{ 7em }{Structure \& Number of Units} &
         \multirow{2}{ 4em }{State$-$ } &
         \multicolumn{4}{ c|}{Optimiser Learning Rate} &
+        \multirow{2}{ 4em }{Loss Function} & 
         \multirow{2}{ 4em }{Extension} \\
         \cline{4-7}
-        &                       &         & Adam  & Nadam & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} & AdaMax &           \\
+        &                       &         & Adam  & Nadam & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} & AdaMax &           &  \\
         \hline
-        1 & 1 $\times$ LSTM (500) & $-$less & 0.001 &       &        &        &           \\
-        2 & 1 $\times$ GRU (560)  & $-$less &       & 0.001 &        & 0.0005 & Ensemble  \\
-        3 & 1 $\times$ LSTM (520) & $-$less & 0.001 &       &        &        & Attention \\
-        4 & 2 $\times$ GRU (60)   & $-$ful  &       &       & 0.001  &        & Momentum (0.3)\\
-        5 & 1 $\times$ GRU (500)  & $-$less & 0.0001 &      &        &        & RoAdam    \\
-        6 & 2 $\times$ LSTM (250) & $-$less & 0.001 &       &        &        &           \\
+        1 & 1 $\times$ LSTM (500) & $-$less & 0.001 &       &        &        & \multirow{3}{*}{$\frac{1}{N}\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2$} & \\
+        2 & 1 $\times$ GRU (560)  & $-$less &       & 0.001 &        & 0.0005 &  & Ensemble \\
+        3 & 1 $\times$ LSTM (520) & $-$less & 0.001 &       &        &        &  & Attention \\
+        4 & 2 $\times$ GRU (60)   & $-$ful  &       &       & 0.001  &        & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ & Momentum (0.3) \\
+        5 & 1 $\times$ GRU (500)  & $-$less & 0.0001 &      &        &        & \multirow{2}{*}{$\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$} & RoAdam \\
+        6 & 2 $\times$ LSTM (250) & $-$less & 0.001 &       &        &        &  &  \\
         \hline\hline
     \end{tabular}
     }

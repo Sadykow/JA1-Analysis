@@ -1,10 +1,10 @@
 \subsection{Hardware and Software} \label{subsec:soft}
-This subsection will outline hardware and applied software details, which were used in the research process.
-It intended to provide necessary outlines to support further research and allow repeating the experiment with different conditions.
+% This subsection will outline hardware and applied software details, which were used in the research process.
+% It intended to provide necessary outlines to support further research and allow repeating the experiment with different conditions.
 
 %
 %
-\subsubsection{Embedded devices for performance measurements}
+% \subsubsection{Embedded devices for performance measurements}
 Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4), and an Android-based smartphone.
 Coral TPU produced by Google has limited specifications information, but the software setup has provided two libraries for average and maximum clock frequency computation.
 Raspberry Pi 4 powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
@@ -15,15 +15,36 @@ The inbuilt chipset is Mediatek MT6753 (28 nm) with Android version 6.
 
 %
 %
-\subsubsection{Model training Framework}
+% \subsubsection{Model training Framework}
 The framework for Machine Learning has been Tensorflow 2.4.0 with Python 3.9.1 compiled from source using Bazel 3.1.0.
 An additional package with Addons 0.18 for $R^2$ and Probability 0.13 for Differential Evoltions algorithms has been compiled from the source and added to the main framework.
-Tensorboard is used to observe progress as it goes and keep records to analyze training later. It also made an excellent initial tool for model profiling and performance measure.
+Tensorboard is used to observe progress as it goes and keep records to analyse training later. It also made an excellent initial tool for model profiling and performance measure.
 
 %
 %
-Overal model training, validation and testing against other 2 profiles has been performed on a Desktop machine with Intel CPU and Graphical Processor with Compute Capability Score of 7.5. The version of CUDA library for GPU computation has been used of version 11.1 from the beginning of the research.
-The final tests on the embedded devices were performed using the Tensorflow Lite Runtime library of version 2.5.0.
+End of the training testing of each model, except Model \#4, has been performed on the Coral TPU device with TensorFlow-Lite Runtime library version 2.5.0.
+Every model has been trained and converted to its' TFLite version for validating the ability to be suitable for deployment.
+At the current stage and version of the Tensorflow, the Stateful models have not been supported for lite version conversion.
+Final model testing against the entire set of all three profiles has been performed on a Desktop machine with Intel CPU and two Graphical Processors with Compute Capability Score of 7.5.
+The version of CUDA library for GPU computation has been used of version 11.1 from the beginning of the research.
+%
+% IF
+\ifthenelse {\boolean{thesis}}
+%
+% THEN
+{
+\mbox{Figure~\ref{fig:device_compute}} demonstrates the paralysation mechanism for a single model, where flops and the total number of parameters are determined using the script in Appendix~\ref{app:flops}.
+}
+{
+\mbox{Figure~\ref{fig:device_compute}} demonstrates the paralysation mechanism for a single model version final testing, with three trained versions for each profile.
+}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\columnwidth]{II_Body/images/Accuracy_Compute.png}
+    % \includesvg[width=\linewidth]{II_Body/images/Accuracy_Compute_10.svg}
+    \caption{Accuracy computation using a single model trained on different proflies separately. The timing examples were taken from Model \#5 computation process.}
+    \label{fig:device_compute}
+\end{figure}
 %
 % Attention Layer has been reimplemented from provided source code.%\textcolor{red}{Good luck finding the link}
 % Robust Adam was also implemented from the source; what should I do with that now?

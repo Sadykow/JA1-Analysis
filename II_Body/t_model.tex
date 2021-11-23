@@ -1,86 +1,30 @@
 \subsection{Model training, validation and testing metrics functions}
-Following training procedure will be cinducted similar to evaluation by Mamo \textit{et al.}~\cite{mamo_long_2020}.
+Following training procedure will be connducted similar to evaluation by Mamo \textit{et al.}~\cite{mamo_long_2020}.
 Each model will undertake the same training, validation and testing procedure to evaluate the best technique and performance.
-Training and validation over each ineration/epoch will be peroformed on a single driving profile, but two different cells.
-This way intended in order not to corelate training and validation data samples.
-The testing stage performed on two cycles of the other driving profile to validate overall capture.
+Training and validation over each iteration/epoch will be performed on a single driving profile but two different cells.
+It intended not to correlate training and validation data samples.
+The testing stage was performed on two cycles of the other driving profile to validate overall capture.
 
 %
 %
-To start, model will be fitted on the training set of input windows for a single selected driving profile.
+Every model will be fitted on the training set of input windows for a single selected driving profile.
 After each set, a validation on the similar cell at ambient temperature will be performed to get initial model performance.
-The validation set is creaed from unseen data to report the acuracy of the training process only.
-The training will be performed until predefined loss function achieves accuracy of bellow 2,4\% or achieve maximum possible accuracy without overfitting.
-The learning steps will not be affected by the overfitting process and each failure will be preloaded with previos succesfully trained model and repeat training several times.
+The validation set is created from unseen data of another to report the accuracy of the training process only.
+The training itself will be performed until the predefined loss function gets the error bellow 2,4\% or achieve maximum possible accuracy without overfitting.
+The learning steps will not be affected by the overfitting process, and each failure will be preloaded with previous successfully trained model and repeated training several times.
 %
-Testing perform against 2 cycles of each unsued driving profiles using one of the available embedded devices, capable for Machine Learning.
-The intension was to verefy that model will be capable to be used at low power devices and still meet necessary performance requirenments.
+Testing performance against two cycles of each unsued driving profile using one of the available embedded devices capable of Machine Learning.
+The intention was to verify that models will be capable of being used at low power devices and still meet necessary performance requirements.
 %
-So called cross-valudation mechanisim, the profile will be switched to another and perform exactly the same training, validation and testing steps.
-Each result is summarised into a table and reported based on metrics valuues.
-
-Based on the progressive error degradation, a final iteration for the discussion will be based on a lowest training and validation error.
-After, the successfull model will be taken through entire unseen dataset to calculate overall accuracy against entire remaining sets.
-Following plot demonstrates how multi-processing unit testing process is performed for all 3 driving profiles over single model. 
+So-called cross-validation mechanism, the profile will be switched to another and perform precisely the same training, validation and testing steps.
+Each result is summarised into a table and reported based on metrics values.
+%
+Based on the progressive error degradation, a final iteration for the discussion will be based on the lowest training and validation error.
+After, the successful model will be taken through the entire unseen dataset to calculate overall accuracy against two remaining profiles.
+% Following plot demonstrates how multi-processing unit testing process is performed for all 3 driving profiles over single model. 
 
 %
 Test procedure performed on 2 cycles of each profiles but at different temperature to asses how perseprive model is to capture average and high temperature at which accumulator may end up.
-%
-% IF
-\ifthenelse {\boolean{thesis}}
-%
-% THEN
-{
-\mbox{Figure~\ref{fig:device_compute}} demonstrates the paralysation mechanism for a single model, where flops and the total number of parameters are determined using the script in Appendix~\ref{app:flops}.
-}
-{
-\mbox{Figure~\ref{fig:device_compute}} demonstrates the paralysation mechanism for a single model.
-}
-% \begin{table*}[htbp]
-    %     \renewcommand{\arraystretch}{1.3}
-    %     \caption{Accuracy result summary - part 2.}
-    %     \centering
-    %     \label{tab:acc-results2}
-    % \resizebox{\linewidth}{!}{
-    % \begin{tabular}{ c c c c c c c }
-    %     \hline\hline \\[-3mm]
-    %     Model \# & Training  & Testing & Charge or Disharge & MSE(\%) & RMSE(\%) & $R^{2}$(\%) \\
-    %     \hline
-    %      & DST  & \makecell{DST\\US06\\FUDS} & Both 
-    %                     & \makecell{5.89*\\5.46*\\7.61*} & \makecell{8.87*\\7.84*\\10.64*} & \makecell{90.91*\\92.68*\\86.45*} \\
-    %     \#4%Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020} 
-    %      & US06 & \makecell{US06\\DST\\FUDS} & Discharge 
-    %                     & \makecell{6.39*\\7.23*\\8.78*} & \makecell{8.35*\\9.68*\\12.33*} & \makecell{91.61*\\88.86*\\81.48*} \\
-    %      & FUDS & \makecell{FUDS\\DST\\US06} & Discharge 
-    %                     & \makecell{12.83*\\12.64*\\8.73*} & \makecell{16.02*\\15.68*\\11.71*} & \makecell{67.99*\\71.58*\\83.82*} \\
-    %     \hline
-    %      & DST  & \makecell{DST\\US06\\FUDS} & Both 
-    %                     & \makecell{1.94\\2.60\\2.60} & \makecell{2.87\\3.64\\3.64} & \makecell{99.06\\98.42\\98.44} \\
-    %      \#5%Javid \textit{et al.}~\cite{javid_adaptive_2020} 
-    %      & US06 & \makecell{US06\\DST\\FUDS} & Both 
-    %                     & \makecell{4.04\\5.42\\4.38} & \makecell{5.39\\7.02\\6.01} & \makecell{96.56\\94.37\\95.75} \\
-    %      & FUDS & \makecell{FUDS\\DST\\US06} & Both 
-    %                     & \makecell{2.13\\4.98\\2.17} & \makecell{3.28\\6.75\\3.34} & \makecell{98.73\\94.80\\98.68} \\
-    %     \hline
-    %      & DST  & \makecell{DST\\US06\\FUDS} & Both
-    %                     & \makecell{6.06\\6.22\\6.16} & \makecell{8.09\\8.29\\8.21} & \makecell{92.38\\91.99\\92.20} \\
-    %     \#6%Zhang \textit{et al.}~\cite{zhang_deep_2020} 
-    %      & US06 & \makecell{US06\\DST\\FUDS} & Both 
-    %                     & \makecell{5.85\\5.96\\5.98} & \makecell{7.30\\7.42\\7.72} & \makecell{93.76\\93.72\\93.52} \\
-    %      & FUDS & \makecell{FUDS\\DST\\US06} & Both 
-    %                     & \makecell{3.09\\6.40\\3.13} & \makecell{4.59\\8.25\\4.65} & \makecell{97.52\\92.24\\97.46} \\
-    %     \hline\hline
-    % \end{tabular}
-    % }
-    % \end{table*}
-\begin{figure}[ht]
-    \centering
-    \includegraphics[width=\columnwidth]{II_Body/images/Accuracy_Compute.png}
-    % \includesvg[width=\linewidth]{II_Body/images/Accuracy_Compute_10.svg}
-    \caption{Accuracy computation using a single model trained on different proflies separately. The timing examples were taken from Model \#5 computation process.}
-    \label{fig:device_compute}
-\end{figure}
-
 
 %
 %
@@ -102,29 +46,29 @@ Some equations were extracted directly from papers; others were written based on
 The goal of the loss function is to calculate the error between model prediction and the actual value.
 The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
 The purpose of the table is only to provide the implementation references, which has been assumed during the programming of each published article based model.
-\begin{table*}[htbp]
-    \renewcommand{\arraystretch}{1.3}
-    \caption{Model's loss functions}
-    \centering
-    \label{tab:losses}
-    \resizebox{\linewidth}{!}{
-    \begin{tabular}{ l l l c }
-        \hline\hline \\[-3mm]
-        Function Name & Method used in & Source articles & Equation \\ 
-        \hline
-        Absolute Error & & Song \textit{et al.}~\cite{song_lithium-ion_2018} & $|SoC_t-\hat{SoC_t}|$ \\
-        \hline
-        -- &\#1 \#4 & \makecell[l]{Chemal \textit{et al.}\cite{Chemali2017},\\Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020}} & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ \\
-        \hline
-        \makecell[l]{Mean Average\\ Percentage Error} &\#3 & Mamo \textit{et al.}~\cite{mamo_long_2020} & $\frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
-        \hline
-        -- &\#2 & Xiao \textit{et al.}~\cite{xiao_accurate_2019} & $\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}{N}$ \\
-        \hline
-        \makecell[l]{Mean Average\\ Squared Error} &\#5 \#6 & \makecell[l]{Javid \textit{et al.}~\cite{javid_adaptive_2020},\\Zhang \textit{et al.}~\cite{zhang_deep_2020}} & $\sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ \\
-        \hline\hline
-    \end{tabular}
-    }
-\end{table*}
+% \begin{table*}[htbp]
+%     \renewcommand{\arraystretch}{1.3}
+%     \caption{Model's loss functions}
+%     \centering
+%     \label{tab:losses}
+%     \resizebox{\linewidth}{!}{
+%     \begin{tabular}{ l l l c }
+%         \hline\hline \\[-3mm]
+%         Function Name & Method used in & Source articles & Equation \\ 
+%         \hline
+%         Absolute Error & & Song \textit{et al.}~\cite{song_lithium-ion_2018} & $|SoC_t-\hat{SoC_t}|$ \\
+%         \hline
+%         -- &\#1 \#4 & \makecell[l]{Chemal \textit{et al.}\cite{Chemali2017},\\Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020}} & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ \\
+%         \hline
+%         \makecell[l]{Mean Average\\ Percentage Error} &\#3 & Mamo \textit{et al.}~\cite{mamo_long_2020} & $\frac{100}{N}\sum\limits^N_{t=0}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
+%         \hline
+%         -- &\#2 & Xiao \textit{et al.}~\cite{xiao_accurate_2019} & $\frac{\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2}{N}$ \\
+%         \hline
+%         \makecell[l]{Mean Average\\ Squared Error} &\#5 \#6 & \makecell[l]{Javid \textit{et al.}~\cite{javid_adaptive_2020},\\Zhang \textit{et al.}~\cite{zhang_deep_2020}} & $\sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ \\
+%         \hline\hline
+%     \end{tabular}
+%     }
+% \end{table*}
 
 % $ L = \sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ ~\cite{Chemali2017},~\cite{jiao_gru-rnn_2020} \\
 % $ L = \sum\limits^N_{t=0} \sqrt{\frac{1}{n} (SoC_t-\hat{SoC_t})^2}$ ~\cite{javid_adaptive_2020}~\cite{zhang_deep_2020} \\
@@ -195,7 +139,7 @@ Thus, the same criteria will be used for the final comparison between models' ef
         \hline\hline \\[-3mm]
         Function Name & Equation \\ 
         \hline
-        \makecell[l]{Mean Average\\ Error} &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
+        \makecell[l]{Mean Absolute\\ Error} &  $\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$ \\
         % \hline
         % Mean Average Percentage Error & $\frac{100}{N}\sum\limits^N_{t=1}|\frac{SoC_t-\hat{SoC_t}}{SoC_t}|$ \\
         \hline
