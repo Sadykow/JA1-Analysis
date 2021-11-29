@@ -2,30 +2,30 @@
 The methods evaluation procedures will be connducted similar to Mamo \textit{et al.}~\cite{mamo_long_2020} research.
 They will undertake the same training, validation and testing procedure to determine the best technique and performance.
 %
-To start, every model will be fitted on the training set of input windows for a single selected driving profile.
+Firstly, every model will be fitted on the training set of input windows for a single selected driving profile.
 After each set, a validation on the similar but another cell at ambient 25\textdegree{}C temperature will be performed to get initial model performance.
 Those samples were taken from unseen data to report the accuracy and asses general behaviour capture of the training process only.
 %
 Both training and validation over each iteration/epoch will be performed on a single same driving profile but two different cells.
 %It intended not to correlate training and validation data samples.
 %
-The training will be run until the predefined loss function gets the error below 2,4\% or achieves maximum possible accuracy until overfit happens.
-The potential overfitting will not impact the learning steps, and each failure will be replaced with a previous successfully trained model and repeated several times.
+The training will run until the predefined loss function gets the error below 2,4\% or achieves maximum possible accuracy until overfit happens.
+The potential overfitting will not impact the learning step, and each failure will be replaced with a previous successfully trained model and repeated several times to minise the chance of random error.
 
 %
 %
-When, the testing stage was performed on two cycles of the other driving profiles to validate overall capture.
-Testing performance against two cycles of each unsued schedulers using one of the available embedded devices capable of Machine Learning computation.
-The intention was to verify the models capability of being used at low power devices and still meet necessary performance requirements.
+Secondly, the testing stage was performed on two cycles of the other driving profiles to validate overall capture.
+Testing performance measured against two cycles of each unsued scheduler using one of the available embedded devices capable of Machine Learning computation.
+The intention was to verify the model's capability of being used at low power devices and still meet necessary performance requirements.
 %
 Using cross-validation mechanism, the profile will be switched to another and performed precisely the same training, validation and testing steps.
-Overal, this mechanism will output three models per each method and nine figures outlaning training and validation learning accuracies.
+Overall, this mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
 %
-Based on the progressive error degradation, a final iteration for the this plot and discussion will be based on the lowest training and validation error.
+Based on the progressive error degradation, a final iteration for this plot and discussion will be based on the lowest training and validation error.
 %
 Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where actual State of Charge compared with prediction.
 The filled area below the plot captures the error difference between two lines.
-For visualisation purposes RMS error was scaled by two for most of the methods, which ended up to be on the Equation~\ref{eq:rms-error}.
+For better visualsation, standard RMS equation has been scaled by two for most of the methods, as per the Equation~\ref{eq:rms-error}.
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
     \centering
@@ -44,16 +44,16 @@ Each result is summarised into a table and reported based on metrics values.
 
 %
 %
-Lastly, after completing all models training, which results to the total of 18 produced models, each will undertake overall assesment.
-All 18 outputs will taken through entire training set of three driving profiles from a another cell, which was not part of the training.
-It is expected that the lowest error will be against a dataset, which model was trained on, that is why it was placed as a first record in the final comparsion table.
+Finally, after completing all models training, which results in 18 produced models, each will undertake an overall assessment.
+All outputs will be taken through the entire training set of three driving profiles from another cell, which was not part of the early training at all.
+It is expected that the lowest error will be against a dataset, which the model was trained on.
+That is why it was placed as a first record in the final comparison table.
 % The report is based on the metrics, which were initially defined for training purposes.
 % Following plot demonstrates how multi-processing unit testing process is performed for all three driving profiles over a single model. 
 %
 % \subsubsection{Losses}~\label{subsub:losses}
 
-\textbf{For better visualsation, standard RMS equation has been replaced with following. No division by 2. Scaled for better visualisation. Squared used to absolute difference}
-\mbox{Table~\ref{tab:experiment}} contains a separate column for every loss functions, which has been applied to each tested model.
+\mbox{Table~\ref{tab:experiment}} contains a separate column for every loss function, which has been applied to each tested model.
 Some equations were extracted directly from papers; others were written based on their definition and internal library implementation.
 The goal of the loss function is to calculate the error between model prediction and the actual value.
 The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
