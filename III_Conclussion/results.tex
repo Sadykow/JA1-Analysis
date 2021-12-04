@@ -1,19 +1,24 @@
 Since it is a common practice for temperatures on the battery inside EV to spike from 20 ambient degrees to the limit of 60, all temperature ranges were used together to train each model.
 The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set).
-This led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
-The following section demonstrates the comparison of the models trained on each individual and then tested against the entire dataset of all three profiles, including the trained one.
-Unlike stateful models, all stateless examples were trained using both charge and discharge cycles together.
+This approach led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
+The following section compares the models trained on each individual and then tested against the entire dataset of all three profiles but of a different cell.
+Unlike stateful models, all stateless examples were trained using charge and discharge cycles.
 
 %
 %
-Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
-The metrics were reported using the equations outlined in the \mbox{Subsubsection~\ref{subsub:losses}}.
-Figures were generated during the training process for each iteration of the training process, from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
+% Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
+The metrics were reported using the equations outlined in the \mbox{Table~\ref{tab:metrics}}.
+Figures were generated during each iteration of the training process, from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
 After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing to assess the efficiency of the learning process.
 
 %
+%
 %%%%%%%%%%%%%%%%%%55
-\subsection{Each accuracy to add}
+\subsection{Models results overview}
+Implementation of several different variations of time-series modells allowed to analysise multiple path of evolment machine learning techniques in State of Charge estimation.
+Review of the resulted accurtacy helps make areasonable justifaction for further esearch
+
+
 Model 1: US06 and FUDS has shown good accuracies, but the training has not been very smooth unlike with DST.
 However, the US06 made the best result in capturing both features.
 By analysung Table 1, US06 and FUDS can capture each other behavior, but not the DST.

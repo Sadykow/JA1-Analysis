@@ -25,7 +25,7 @@ Based on the progressive error degradation, a final iteration for this plot and 
 %
 Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where actual State of Charge compared with prediction.
 The filled area below the plot captures the error difference between two lines.
-For better visualsation, standard RMS equation has been scaled by two for most of the methods, as per the Equation~\ref{eq:rms-error}.
+For better visualsation, standard RMS equation has been scaled by two for most of the methods, as per the Equation~\ref{eq:abs-error}.
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
     \centering
@@ -34,8 +34,8 @@ For better visualsation, standard RMS equation has been scaled by two for most o
     \label{fig:plot_demo}
 \end{figure}
 \begin{equation}
-    \textbf{RMS error}  = \sqrt{(Actual-Prediction)^2}
-    \label{eq:rms-error}
+    \textbf{ABS error}  = \sqrt{(Actual-Prediction)^2}
+    \label{eq:abs-error}
 \end{equation}
 %%%%%%
 Test procedure performed on two cycles of each profile but at a different temperature to assess how perceptive model is to capture average and high temperature at which accumulator may end up.
