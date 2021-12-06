@@ -13,42 +13,106 @@ After completing the predefined amount of epochs, each metric was recorded in a 
 
 %
 %
-%%%%%%%%%%%%%%%%%%55
+\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
+\mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
+
+%
+%
 \subsection{Models results overview}
-Implementation of several different variations of time-series modells allowed to analysise multiple path of evolment machine learning techniques in State of Charge estimation.
-Review of the resulted accurtacy helps make areasonable justifaction for further esearch
-
-
-Model 1: US06 and FUDS has shown good accuracies, but the training has not been very smooth unlike with DST.
-However, the US06 made the best result in capturing both features.
-By analysung Table 1, US06 and FUDS can capture each other behavior, but not the DST.
-In this sense, DST may seems better feature, but Figure 7.b proves that model des not predict middle flat area.
+Implementation of several different variations of time-series modells allowed to analysise multiple path of evolution of machine learning techniques in State of Charge estimation in the past three years.
+Review of the resulted accuracy helps make a reasonable justification for further research.
 
 %
 %
-Model 2: Adding another layer only added discrepancy in overall prediction and only lead to better but slover training.
+Model \#1 has been based on the most simple and oldest research from 2017, made by Chemali \textit{et al.}~\cite{Chemali2017}.
+It utilised the simplest model structure with a single layer and no complicated cell structure or optimiser manipulation.
+By the results of the general accuracy overview at Table~\ref{tab:acc-results1}, it has the most stable accuracy results across three different profiles in comparison to the models.
+It can be justified by the longest training time to reach the lowest error.
+This model has shown good accuracies on US06 and FUDS datasets, but the training has not been very smooth, unlike with DST, as per Figure~\ref{fig:Model-1losses}.
+By analysing Figure~\ref{fig:Model-1res}, the DST had the worst results in capturing general behaviour. Subfigure~\ref{subfig:Model-1res-DSTvsFUDS} illustrates the area plot, with the highest peaks in comparison to other plots.
+\textbf{Capturing the middle area of the charge, where voltage remains stable most of the time, is not very easy, and DST may not be the best model for it.}
+Contrary to DST, the US06 made the best result in capturing both features.
+By analysing Table~\ref{tab:acc-results1}, US06 and FUDS results for Model \#1 can capture each other behaviour, but not the DST.
 
 %
 %
-Model 3 Adding attention layer made an improvement on the FUDS training and better fir on Figure 9.i.
-Although, it had promessing start by the training accuracyy, this techniques has a mean to maje model better rather than just adding more layers to the model.
+Model \#2 was an attempt to move from an old LSTM to a recently developed GPU type of cell.
+Measuring the impact of such migration is not feasible.
+However, it utilised two different optimisers for pre-tuning and fine-tuning phases.
+The transition happened after a third of the maximum allowed iterations, which in some cases lead to high accuracy spikes on the training process, seen in Figure~\ref{fig:Model-2losses}.
+The pre-tuning phase might have decreased the time to achieve the optimal results, but considering the number of input samples used - the difference is not noticeable between the LSTM and GPU types of models.
+Lowering the learning rate and switching the optimiser led to a much stable learning curve but did not bring any improved prediction results.
+Despite that training went smoother, except for minor anomalies on the FUDS training as per Model~\ref{fig:Model-2res}, the overall behaviour capture across profiles did not improve.
+\textcolor{red}{Matt:DO I even need to share with my thoughts and refer to Table with potential why results became worse?}
 
 %
 %
-Model 4: Statefull techniques have been a promessing approach but only to very specific scenario.
-By itself, it will take long time to achieve accuracy desired.
-However, training 2 models sperately for charge and discharge or use it additional technique on short prediction, for example during acceleration events - it has a means for existems.
+Adding the attention layer as per Model \# 3 did not make an overall improvement system improvement, but it definitely produced much smoother outputs.
+The prediction is less variant, which is more expectable behaviour referring to a state of charge.
+In the SoC prediction, the less fluctuation model produces - the better usability it has.
+Model \#3 was able to achieve the lowest error twice faster but also went to overfit without learning step adjustment, as per Figure~\ref{fig:Model-3losses}.
+It was able to make a reasonably good capture of all three profiles with US06 profiles.
+Then as the FUDS model became much smoother in training with attention layer, but still has difficulty in capturing 50\% charge in the testing scenarios on subfigure~\ref{subfig:Model-3res-FUDSvsUS}. 
+% made an improvement on the FUDS training and better fir on Figure 9.i.
+% Although, it had promessing start by the training accuracyy, the technique of adding more modefied functional has a means to make model better rather than just adding more layers to the model.
+% Instable, variet, noisy
 
 %
 %
-Model 5: 1,3 mdeol applied modification to the structure directly and 4th one indirectly. (2nd one did not, read again).
-There as (2?) and 5 improves optimisation steps, leading to better accuracy in all testing.
-RoAdam allowed faster convergences to the optimal accuracy and generaly achioeved better results by Table 2.
+Unlike other methods, Model \#4 utilised a stateful technique for the data input pipeline.
+Despite that, it has a promising approach but only in specific scenarios.
+For example, the training over DST has been conducted with both charge and discharge together, reseting the model at the end of the cycle, as per subfigure~\ref{subfig:Model-4res-DSTvsDST}.
+Having a charge in the system added a complexity in capture, but the error had a stable degradation over time as per Figure~\ref{fig:Model-4losses}.
+However, it had to cut of early, since training thereshold never been reached.
+This was attempted to be fixed on US06 and FUDS based models, applying only discharge process.
+However, it did not bring much of the improvements, and only made charge prediction to be more accurate in comparison to DST.
+For the general behavior capture, stateful model are not suited by themself only.
+However, training two models sperately for both charge and discharge or use it additional technique on short prediction, for example during acceleration events - stateful model has usable applications.
 
 %
+%
+Similarly to the second method, Model \#3 applied different optimiser.
+However, additional complexity to other processing introduced better overall accuracy Table~\ref{tab:acc-results2}, as reported by Javid \textit{et al.}~\cite{javid_adaptive_2020}.
+All three models experianced better training convergence in a shorter time, as per Figure~\ref{}.
+However, the difficulty in capruting middle are of a charge still preserved.
+% Model 5: 1,3 mdeol applied modification to the structure directly and 4th one indirectly. (2nd one did not, read again).
+% There as (2?) and 5 improves optimisation steps, leading to better accuracy in all testing.
+% RoAdam allowed faster convergences to the optimal accuracy and generaly achioeved better results by Table 2.
+
+%
+%
+Model \#6 applied additional LSTM layer with separated neurons, to test better capturing.
+However, the result did not bring better error or faster convergence.
+In some cases, like wi\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
+\mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 %
 \subsection{Discussion to add}
+After analysing all 6 models, there are several comparison, which can be derived from them.
+Model \#1 and \#6 have teseted two approaches of neurons handeling, either at single or dividing between mupliple layers.
+As a results, there were no significant advantage unless there are more modifications to multilayer sequantial model to make.
+There as Model \#3, introduced additional custom computation, without extra memory cells, leading to a smoother output.
+
+%
+%
+Model \#2 and \#5 approach the convergense with optimisers modification.
+The ensemble way used two algorithms to speed up the long process of locating local minimum, and second algorithm to tune up closer to it with a smaller learning step.
+However, the modified Adam version with direct impact of the loss function improved the result drastically.
+The performance profiling has not beeing conducted to asses how kfsdj;kfj;
+
+%
+%! [Refer to the bottom dicussion of stateful model]
+Model \#4 was the only one, which used stateful model for training and testing.
+Since, every time-series model is stateful internally, the difference is in the moment of the model reset.
+It is more convinient for State of CHarge scenarion to work with short burst of data, rather than attempt to preserve very long dependancies in a single run, and be limited to initial conditions.
+
+%
+%
+Generally DST is bad for capturing as shown on all plots, which was expected initially. Although there was a chance that Dynamic stress test may act as a middle ground between Urban and highway driving.
 Acubs as comparison to model 1.
+However, the US06 acted as a better model, due to AAA!!!!
+
 Separating to multiple layers to the same amount of untis did not lead to improvements.
 It was the fastest what achieved the lowest training accuracy, but without affecting learning rate, model could not achieve capturing the other trens.
 
@@ -66,11 +130,7 @@ DST generally faster singe profile itsekf is very easy to handle.
 %% PUT both writing and the results from. After you do thatm compare the results as discussion. Expplicitly interpreter that.
 %
 %
-\subsection{******}
-\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
-\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
-\mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
-
+% \subsection{******}
 %
 %
 Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers.
@@ -86,7 +146,7 @@ For example, the sigmoid function selection in the model output minimises the po
 %
 %
 The best performance with Stateful models can be achieved through using a separate training process for charge and discharge. 
-\mbox{Subfigure~\ref{subfig:Model-4res-DSTtr}} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
+\mbox{Subfigure~\ref{subfig:Model-4res-DSTvsDST}} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
 The other two training were performed with discharge sets only, \mbox{Subfigures~\ref{subfig:Model-4res-UStr}, \ref{subfig:Model-4res-FUDStr}}.
 Stateful models can not be validated using traditional means of accurate measurement.
 \mbox{Table~\ref{tab:acc-results2}} for Model \#4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
