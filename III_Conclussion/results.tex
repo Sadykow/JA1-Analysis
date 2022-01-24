@@ -49,7 +49,7 @@ Despite that training went smoother, except for minor anomalies on the FUDS trai
 %
 %
 Adding the attention layer as per Model \# 3 did not make an overall improvement system improvement, but it produced much smoother outputs.
-The prediction is minor variant, more expectable behaviour referring to a state of charge.
+The prediction has a lesser variant and more expectable behaviour referring to a state of charge.
 The less fluctuation model produces in the SoC prediction, the better usability it has.
 Model \#3 was able to achieve the lowest error twice faster but also went to overfit without learning step adjustment, as per Figure~\ref{fig:Model-3losses}.
 It could make a reasonably good capture of all three profiles with US06 profiles.
@@ -64,9 +64,9 @@ Unlike other methods, Model \#4 utilised a stateful technique for the data input
 Despite that, it has a promising approach but only in specific scenarios.
 For example, the training over DST has been conducted with both charge and discharge together, resetting the model at the end of the cycle, as per subfigure~\ref{subfig:Model-4res-DSTvsDST}.
 Having a charge in the system added complexity in the capture, but the error had a stable degradation over time as per Figure~\ref{fig:Model-4losses}.
-However, it had to be cut off early, since training threshold has not been reached in the set limit.
+However, it had to be cut off early since the training threshold had not been reached in the set limit.
 It was attempted to be fixed on US06 and FUDS based models, applying only the discharge process.
-However, it did not bring much of the improvements and only made charge prediction more accurate comparedto DST.
+However, it did not bring much improvement and only made charge prediction more accurate than DST.
 For the general behaviour capture, stateful models are not suited by themself only.
 However, training two models separately for both charge and discharge or use it additional techniques on short prediction, for example, during acceleration events - the stateful model has usable applications.
 
@@ -74,8 +74,8 @@ However, training two models separately for both charge and discharge or use it 
 %
 Similarly to the second method, Model \#5 applied a different optimiser.
 However, additional complexity to other processing introduced better overall accuracy Table~\ref{tab:acc-results2}, as reported by Javid \textit{et al.}~\cite{javid_adaptive_2020}.
-All three models experienced better training convergence in a shorter time, as per Figure~\ref{}.
-However, the difficulty in capturing middle of a charge is still preserved.
+All three models experienced better training convergence in a shorter time, as per Figure~\ref{fig:Model-5losses}.
+However, the difficulty in capturing the middle of a charge is still preserved.
 % Model 5: 1,3 mdeol applied modification to the structure directly and 4th one indirectly. (2nd one did not, read again).
 % There as (2?) and 5 improves optimisation steps, leading to better accuracy in all testing.
 % RoAdam allowed faster convergences to the optimal accuracy and generaly achioeved better results by Table 2.
@@ -92,59 +92,38 @@ In some cases, like wi\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-
 %
 \subsection{Discussion to add}
 After analysing all six models, there are several comparisons, which can be derived from them.
-Model \#1 and \#6 have tested two approaches of neuron handling, either at single or dividing between multiple layers.
-As a result, there was no significant advantage unless there were more modifications to the multilayer sequential model.
-There as Model \#3 introduced additional custom computation without extra memory cells, leading to a smoother output.
-
-%
-%
-Model \#2 and \#5 approach the convergence with optimisers modification.
-The ensemble used two algorithms to speed up the long process of locating local minimum and the second algorithm to tune up closer to it with an adjusted learning step.
-However, the modified Adam version with a direct impact of the loss function improved the result drastically.
-The performance profiling has not beeing conducted to asses how kfsdj;kfj; blin I am exossed!!!!1 AAAAA
-
-%
-%! [Refer to the bottom dicussion of stateful model]
-Model \#4 was the only one, which used stateful model for training and testing.
-Since, every time-series model is stateful internally, the difference is in the moment of the model reset.
-It is more convinient for State of CHarge scenarion to work with short burst of data, rather than attempt to preserve very long dependancies in a single run, and be limited to initial conditions.
-
-%
-%
-Generally DST is bad for capturing as shown on all plots, which was expected initially. Although there was a chance that Dynamic stress test may act as a middle ground between Urban and highway driving.
-Acubs as comparison to model 1.
-However, the US06 acted as a better model, due to AAA!!!!
-
-Separating to multiple layers to the same amount of untis did not lead to improvements.
-It was the fastest what achieved the lowest training accuracy, but without affecting learning rate, model could not achieve capturing the other trens.
-
-%
-%
-This all shown that model not able to capture middle area.
-However, combining all 3 techniques into single model may lead to accurate results.
-
-%
-%
-Model 1,5,6 may be matter of randomness, more that just technique eficiency.
-DST generally faster singe profile itsekf is very easy to handle.
-+ Model 4 had no means to perform test on entire set of both profiles.
-%%%%%%%%%%%%%%%%%%%%
-%% PUT both writing and the results from. After you do thatm compare the results as discussion. Expplicitly interpreter that.
-%
-%
-% \subsection{******}
-%
-%
 Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers.
 To determine the actual performance, it will require multiple trained models over a single implementation to average performance results and make a clear statement.
 Models \#1 and \#2 give an illusion of an advantage to one model over another.
 However, the accuracy plots in \mbox{Figures~\ref{fig:Model-1losses} and ~\ref{fig:Model-2losses}} indicate how error degrades with time for both models.
 The advantage of one over another is a simple matter of randomness in the initial training results.
+
+%
+%
+Model \#1 and \#6 have tested two approaches of neuron handling, either at single or dividing between multiple layers.
+As a result, there was no significant advantage unless there were more modifications to the multilayer sequential model.
+There as Model \#3 introduced additional custom computation without extra memory cells, leading to a smoother output.
 The attention layer may not significantly boost the training or accuracy, but it gives a good foundation for further improvements and modifications.
 Since the SoC estimation is not a pure number based behaviour but also a matter of physical, electrical properties, manual adjustment weights, losses or data itself will not bring valuable results.
 Further research and adjustments must be made using a similar principle to improve the training procedure with augmented models. 
 For example, the sigmoid function selection in the model output minimises the possibility of going over 100\% or 0\% of charge.
 
+%
+%
+Model \#2 and \#5 approach the convergence with optimisers modification.
+The ensemble used two algorithms to speed up the long process of locating local minimum and the second algorithm to tune up closer to it with an adjusted learning step.
+However, the modified Adam version with a direct impact with the loss ratio improved the result drastically.
+The advantage of modifying optimisers is better observed on the accuracy plots, \mbox{Figure~\ref{fig:Model-2losses} and ~\ref{fig:Model-5losses}}.
+Model \#2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.
+Similar to Model \#5, which had a small learning rate, but modified parameter update with direct involvement of the loss values.
+An early termination over \#5 and \#6 is a result of overfitting or apparent stability in the accuracy.
+With the number of samples, which the training process went through and based on the RMSE plot, there was a little need for repeated training over the same data repeatedly, as proven in the first several models.
+
+%
+%! [Refer to the bottom dicussion of stateful model]
+Model \#4 was the only one, which used a stateful model for training and testing.
+\textbf{Since every time-series model has a stateful internally, the difference is in the point of the model's reset.}
+It is more convenient for the State of Charge scenario to work with a short burst of data rather than attempt to preserve very long dependencies in a single run and be dependent to initial conditions.
 %
 %
 The best performance with Stateful models can be achieved through using a separate training process for charge and discharge. 
@@ -155,12 +134,30 @@ Stateful models can not be validated using traditional means of accurate measure
 
 %
 %
-The advantage of modifying optimisers is better observed on the accuracy plots, \mbox{Figure~\ref{fig:Model-2losses} and ~\ref{fig:Model-5losses}}.
-Model \#2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.
-Similar to Model \#5, which had a small learning rate, but modified parameter update with direct involvement of the loss values.
-An early termination over \#5 and \#6 is a result of overfitting or apparent stability in the accuracy.
-With the number of samples, which the training process went through and based on the RMSE plot, there was a little need for repeated training over the same data repeatedly, as proven in the first several models.
-
+% Generally DST is bad for capturing as shown on all plots, which was expected initially. Although there was a chance that Dynamic stress test may act as a middle ground between Urban and highway driving.
+% Acubs as comparison to model 1.
+% However, the US06 acted as a better model, due to AAA!!!!
+%
+% Separating to multiple layers to the same amount of untis did not lead to improvements.
+% It was the fastest what achieved the lowest training accuracy, but without affecting learning rate, model could not achieve capturing the other trens.
+%
+%
+%
+% This all shown that model not able to capture middle area.
+% However, combining all 3 techniques into single model may lead to accurate results.
+%
+%
+%
+% Model 1,5,6 may be matter of randomness, more that just technique eficiency.
+% DST generally faster singe profile itsekf is very easy to handle.
+% + Model 4 had no means to perform test on entire set of both profiles.
+%%%%%%%%%%%%%%%%%%%%
+%% PUT both writing and the results from. After you do thatm compare the results as discussion. Expplicitly interpreter that.
+%
+%
+% \subsection{******}
+%
+% 
 %
 %
 Overall, there is an obvious advantage in training a model over a single profile and then testing against similar scenarios, for example, creating a model that fits a single drive's driving behaviour over specific driving scenarios.

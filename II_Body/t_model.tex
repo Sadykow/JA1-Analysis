@@ -24,8 +24,7 @@ Overall, this mechanism will output three models per method and nine figures out
 Based on the progressive error degradation, a final iteration for this plot and discussion will be based on the lowest training and validation error.
 %
 Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where actual State of Charge compared with prediction.
-The filled area below the plot captures the error difference between two lines.
-For better visualsation, standard RMS equation has been scaled by two for most of the methods, as per the Equation~\ref{eq:abs-error}.
+The filled area below the plot captures the error Absolute Error Difference between two lines, as per the Equation~\ref{eq:abs-error}.
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
     \centering
