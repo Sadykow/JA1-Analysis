@@ -23,23 +23,22 @@ As a result of the research, several weaknesses have been identified during revi
 %
 % ELSE
 {
-\begin{itemize}
-    \item Intro statement (Application of State of Charge or Batteries)
-    \item What SoC stands for?
-    \item What or how it has been done already?
-    \item In the present paper - Investigate best ML method as a replacement to already existing ones.
-    \item How is it going to be conducted. (2-3 sentences).
-    \item What was the final conclusion or finding. That neither of them are effective and further investigation is required to be certain of safety usage inside a car.
-\end{itemize}
-
+% \begin{itemize}
+%     \item Intro statement (Application of State of Charge or Batteries)
+%     \item What SoC stands for?
+%     \item What or how it has been done already?
+%     \item In the present paper - Investigate best ML method as a replacement to already existing ones.
+%     \item How is it going to be conducted. (2-3 sentences).
+%     \item What was the final conclusion or finding. That neither of them are effective and further investigation is required to be certain of safety usage inside a car.
+% \end{itemize}
 State of Charge (SoC) estimation is a crucial property for a Lithium-Ion battery in any electrical system.
 An accurate charge percentage, without any discrepancies, allows battery management system (BMS) further enhancement of accumulator usage, allowing higher endurance drain or prolonging overall utilisation for more cycles.
 There have been numerous attempts to determine SoC without physical intervention, such as battery modelling.
-Since commonly batteries have non-linear characteristics, the statistical-based Machine Learning methods has the potential to replace the traditional model.
+Since batteries commonly have non-linear characteristics, the statistical-based Machine Learning methods have the potential to replace the traditional model.
 In the present paper, a Recurrent Neural Network (RNN) practical usability investigation has been conducted to determine the best-suited method for Electric vehicles (EV).
 Through implementation from the multiple published source and cross-validation testing with several driving scenarios of Lithium-Ion batteries, several models have been assessed on efficiency and drawbacks.% against simulations of different driving conditions.
 Each method will be examined by applied techniques, highlighting its' implementation and attempts to implement from the available framework as close as possible to the source with available battery data.
 The results highlight the percentage accuracy in the average of 3.64\% of Root Mean Squared Error, several drawbacks of the overall implementation and propose potential solutions for further improvement.
-Every implemented model had a similar drawback of poor capturing the middle area of a charge, applying higher weight on a voltage rather than current.
-The combination of investigated techniques in a single custom model could be better suited to improve accuracy further.
+Every implemented model had a similar drawback of poor capturing of the middle area of a charge, applying higher weight on a voltage rather than current.
+The combined techniques in a single custom model could be better suited to improve accuracy further.
 }

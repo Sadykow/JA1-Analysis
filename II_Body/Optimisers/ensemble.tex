@@ -1,12 +1,15 @@
-\subsubsection{Ensemble optimisation with Nadam and AdaMax}
-The Adam algorithm remains the most commonly used optimiser.
-The reason behind changing it to another lies within two potential issues.
-The first is the training converges, which may not happen at all~\cite{reddi_convergence_2019}.
-The second is the chance of missing the optimal solution~\cite{wilson_marginal_2017}.
-Xioa et al.~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address those issues.
-The new ensemble optimisation algorithm is based on the combination of Nadam~\cite{dozat_nadam_2016} and the AdaMax~\cite{kingma_adam_2017} at certain moments of training.
-
+%  Ensemble optimisation
+% Explanation
 %
+\subsubsection{Ensemble optimisation with Nesterov Momentum Adam and AdaMax}
+The Adam algorithm remains the most commonly used optimiser.
+The reason behind changing it to another lie in two potential issues.
+The first is if the training converges, which may not happen at all~\cite{reddi_convergence_2019}.
+The second is if the optimal solution gets frequently missed at large learning steps~\cite{wilson_marginal_2017}.
+Xioa et al.~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address those issues.
+The new ensemble optimisation algorithm is based on the combination of Nesterov Momentum Adam (Nadam)~\cite{dozat_nadam_2016} and the AdaMax~\cite{kingma_adam_2017} at certain moments of training.
+
+% Nadam advantage over Adam
 %
 The Nadam optimiser extends the Adam, \mbox{Algorithm~\ref{alg:nadam}}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
@@ -36,9 +39,9 @@ The Nadam optimiser extends the Adam, \mbox{Algorithm~\ref{alg:nadam}}, which im
     \label{alg:nadam}
 \end{algorithm}
 Line~\ref{alg:Nadam-Line} and~\ref{alg:Nadam-Line-update} add additional calculations involving gradient and parameters update, intending to improve convergence speed.
-% \textcolor{red}{Another error. This time with SQRT. According to Adam and source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that corrected.}
+% \textcolor{red}{Another error. This time with SQRT. According to Adam and the source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected it. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that was corrected.}
 
-%
+% AdaMax advantages over Adam
 %
 The second \mbox{Algorithm~\ref{alg:adamax}} in the ensemble sequence is AdaMax, \mbox{Algorithm~\cite{kingma_adam_2017}}, another modification of the Adam.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
@@ -76,12 +79,16 @@ Although, Xiao et al.~\cite{xiao_accurate_2019} selection of AdaMax is defined b
 %\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
 %\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
 The proposed Ensamble algorithm combines both methods for single GRU training, \mbox{Algorithm~\ref{alg:ENS}}.
+It describes the adapted version of the Ensemble algorithm, used by the model training procedures, with Nadam for pre-training and AdaMax for fine-tuning phases.
+From the results of Xiao et al.~\cite{xiao_accurate_2019} work $<p_{1}$ and $<p_{2}$ had the same 100 number of epochs.
+This scenario will use the value of $<p_{2}$ at the moment model reaches an overfit with the first phase.
+The value of the learning rate will be set to the minimum possible, defined by the research.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Ensemble optimisation training process}
         \begin{algorithmic}[1]
             % \STATE \textbf{Input:} Data sample with shape=(1,500,1,3) 
             % \STATE \textbf{Output:} Predicted SoC shape=(1,1,1)
-            \STATE Setup model. Split total number of epoch by 30\% to $p_{1}$ and $p_{2}$
+            \STATE Setup model. Split total number of epoch by 30\% to $p_{1}$ and $p_{2}$ or until model overfits at $p_{2}$
             \STATE Initialise parameters
             \WHILE{epoch  $<p_{1}$:}
                 \IF{epoch $<p_{2}$:}
@@ -91,12 +98,11 @@ The proposed Ensamble algorithm combines both methods for single GRU training, \
                     \STATE \COMMENT{pass if already compiled with AdaMax}
                     \STATE compile model with AdaMax parameters. \COMMENT{fine-tuning phase}
                 \ENDIF
-                \STATE train for single epoch
+                \STATE train for a single epoch
             \ENDWHILE
         \end{algorithmic}
     \label{alg:ENS}
 \end{algorithm}
-The following algorithm describes the adapted version of the Ensemble algorithm, used by the model training procedures, with Nadam for pre-training and AdaMax for fine-tuning phases.
 %\textcolor{red}{Descibe what shape has been used. Single sample, history length, batch size (if applicable), features number}
 
 %

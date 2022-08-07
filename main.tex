@@ -156,25 +156,26 @@
 \definecolor{greenhtml}{rgb}{0.0, 0.5, 0.0}
 
 %%% Introduction
-\section{Introduction} \label{sec:Introduction}
-\input{./I_Introduction/Intro}
-%%% Methodology
-\section{Methodology} \label{sec:Meth}
-\input{./II_Body/Methodology/Methodology}
-    \input{./II_Body/Methodology/b_data}
-    \input{./II_Body/Methodology/d_gen}
-    \input{./II_Body/Methodology/t_model}
-    \input{./II_Body/Methodology/hardware}
-    \input{./II_Body/Methodology/l_rate}
-    \input{./II_Body/Methodology/training}
-    \begin{landscape}
-        \begin{figure}[ht]
-            \centering
-            \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
-            \caption{Data Windowing scheme. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from actual implementation. Initial index $i$ was kept as a value close to the beginning of the data, around zero.}
-            \label{fig:Windowing3f}
-        \end{figure}
-    \end{landscape}
+% \section{Introduction} \label{sec:Introduction}
+% \input{./I_Introduction/Intro}
+% \section{ThesisIntro} \label{sec:thesisIntroduction}
+% \input{./I_Introduction/ThesisIntro}
+% %%% Methodology
+% \section{Methodology} \label{sec:Meth}
+% \input{./II_Body/Methodology/Methodology}
+%     \input{./II_Body/Methodology/b_data}
+%     \input{./II_Body/Methodology/d_gen}
+%     \input{./II_Body/Methodology/l_rate}
+%     \input{./II_Body/Methodology/t_model}
+%     \input{./II_Body/Methodology/hardware}    
+%     \begin{landscape}
+%         \begin{figure}[ht]
+%             \centering
+%             \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
+%             \caption{Data Windowing scheme at 1Hz sampling rate. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from the actual implementation. Initial index $i$ was kept as a value close to the beginning of the data, around zero.}
+%             \label{fig:Windowing3f}
+%         \end{figure}
+%     \end{landscape}
 %%% Implementation
 \section{Machine Learning approach evaluated} \label{sec:Body}
 \input{./II_Body/RNN2}
@@ -186,16 +187,16 @@
         \input{./II_Body/Optimisers/adam}
         \input{./II_Body/Optimisers/ensemble}
 %%% Conclusion
-\section{Performance and Results}\label{sec:results}
-\input{./III_Conclussion/results}
-\input{./III_Conclussion/fig_history}
-\input{./III_Conclussion/figures} %! Separate figures and comment all by 1 for writing help.
-\input{./III_Conclussion/tab_accuracies}
-    \subsection{Hardware performcene overview}
-    \input{./III_Conclussion/performance}
-\section{Conclusion} \label{sec:conclussion}
-\input{./III_Conclussion/articleConclussion}
-\input{./III_Conclussion/acknowledgements}
+% \section{Performance and Results}\label{sec:results}
+% \input{./III_Conclussion/results}
+% \input{./III_Conclussion/fig_history}
+% \input{./III_Conclussion/figures} %! Separate figures and comment all by 1 for writing help.
+% \input{./III_Conclussion/tab_accuracies}
+%     \subsection{Hardware performcene overview}
+%     \input{./III_Conclussion/performance}
+% \section{Conclusion} \label{sec:conclussion}
+% \input{./III_Conclussion/articleConclussion}
+% \input{./III_Conclussion/acknowledgements}
 
 \bibliographystyle{IEEEtranTIE}
 \bibliography{
