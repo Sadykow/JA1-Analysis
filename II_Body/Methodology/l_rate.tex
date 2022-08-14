@@ -7,9 +7,32 @@ A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:expe
 
 % Recovery from faults.
 %
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{II_Body/images/history-bad.svg}
+      \caption{Model training process with no rollbacks}
+      \label{subfig:no-rollback}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{II_Body/images/history-good.svg}
+      \caption{Model training process with a rollback if current error higher than previous.}
+      \label{subfig:rollback}
+  \end{subfigure}
+  \caption{Training process comparison with and without having a recovery algorithm.}
+  \label{fig:rollback}
+\end{figure}
 As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
-Therefore, a stepping learning rate algorithm has been used for every optimiser over the number of epochs the model went through.
-Considering that all attempts to train the estimator tended to overfit, the value has been reduced by half each time model attempted to recover from overshoot.
+Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course.
+However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
+The best approach to save time and produce reliable results was to enforce a model to carry on the selected course.
+Since each model undergoes multiple attempts, there are good chances to explore multiple different fitting scenarios rather than jumping between them.
+Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
+While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
+Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot.
 However, it did not affect the follow-up training, meaning that the learning rate always followed the stick degradation curve as per Figure~\ref{fig:l_rate_progress}.
 Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
 Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
@@ -70,7 +93,7 @@ Each model made three attempts per profile, resulting in a total of 135 trained 
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{ l l r r r r r}
       \hline\hline \\[-3mm]
-      $ index $ & L$x$N & $size $ & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & \textbf{avr MAE}\\
+      $ index $ & $L$x$N$ & $size $ & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & \textbf{avr MAE}\\
       \hline
       10        & 3x131 & 0.17    & 2112.38& $-3.7*10^{-4}$       & 3.5                & \textbf{2.5137} \\
       11        & 3x262 & 0.63    & 2304.04& $-1.9*10^{-3}$       & 4.7                & \textbf{2.8515} \\
@@ -89,7 +112,7 @@ Each model made three attempts per profile, resulting in a total of 135 trained 
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{ l l r r r r r}
       \hline\hline \\[-3mm]
-      $ index $ & L$x$N & \textbf{size} & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & $avr MAE$\\
+      $ index $ & $L$x$N$ & \textbf{size} & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & $avr MAE$\\
       \hline
       10        & 3x131 & \textbf{0.17} & 2112.38& $-3.7*10^{-4}$       & 3.5                & 2.5137 \\
        5        & 2x131 & \textbf{0.22} & 1429.48& $-1.6*10^{-5}$       & 4.4                & 3.0304 \\
