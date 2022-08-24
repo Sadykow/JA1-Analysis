@@ -1,26 +1,29 @@
-The following section will describe the methodology of evaluation analysis of the reviewed methods, data sources and built pipelines, procedures for training, validation and testing, and final error calculation.
-The process of training machine learning model usually consists of 4 primary steps:
-\begin{itemize}
-    \item Data samples obtain and parsing\\
-    \item Creating a data pipeline for consistent input and outputs\\
-    \item Training validation and testing procedures\\
-    \item Calculate final accuracy\\
-\end{itemize}
-
+% Intro to section with usual ML process outline.
 %
+The following section will describe the methodology of evaluation analysis of the reviewed methods, data sources and built pipelines, procedures for training, validation and testing, and final error calculation.
+% The process of training machine learning model usually consists of 4 primary steps:
+% \begin{itemize}
+%     \item Data samples obtain and parsing\\
+%     \item Creating a data pipeline for consistent input and outputs\\
+%     \item Training validation and testing procedures\\
+%     \item Calculate final accuracy\\
+% \end{itemize}
+
+% Purpose of the article. Prototype existing models on low-power devices.
 % \subsection{Types of ML model for evaluation}
-In order to identify the best candidate for integration to an electric vehicle, this article will attempt to prototype a Neural Network model from already existing methods and deploy it on potential low-power Machine Learning powered devices for final testing.
+In order to identify the best candidate for integration into electric vehicles battery management system, this section will attempt to prototype a Neural Network model from existing methods and deploy it on potential low-power Machine Learning powered devices for final testing.
 One of the objectives is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
 Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
 It provides details of six different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
 All of them were implemented as faithfully as possible to the original published versions.
-All missing aspects were assumed based on ML's standard methods at the time of their writing.
+All missing aspects were assumed based on ML's standard methods at their writing time.
 \begin{table*}[h]
     \renewcommand{\arraystretch}{1.3}
     \caption{
-        The structure defines the number of layers and amount of neurons of a particular RNN type.
-        The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
-        % Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
+        % The structure defines the number of layers and amount of neurons of a particular RNN type.
+        The type highlights the RNN structure, which will be used in the cells.
+        % The statefulness parameter describes the model's ability to preserve its' current state for the next set of input parameters.
+        % Based on that, the input amount of samples becomes flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
         The optimiser selection was based on the derivative calculation algorithms only.
         % Other alternatives, like differential evolution, are beyond the scope of research.
         Extensions define the model's specific technique, which distinguishes it against the others.
@@ -28,30 +31,30 @@ All missing aspects were assumed based on ML's standard methods at the time of t
     \centering
     \label{tab:experiment}
     \resizebox{\textwidth}{!}{
-    \begin{tabular}{l|l|l|c|c|c|c|c|l}
+    % \begin{tabular}{l|l|l|c|c|c|c|l}
+    \begin{tabular}{l|l|c|c|c|c|l}
         \hline\hline \\[-4mm]
         \multirow{2}{ 1em }{\#} &
-        \multirow{2}{ 7em }{Structure \& Number of Units} &
-        \multirow{2}{ 4em }{State$-$ } &
+        \multirow{2}{ 7em }{Type} &
+        % \multirow{2}{ 4em }{State$-$ } &
         \multicolumn{4}{ c|}{Optimiser Learning Rate} &
-        \multirow{2}{ 4em }{\textcolor{red}{Loss - TO BE REMOVED}} & 
         \multirow{2}{ 4em }{Extension} \\
-        \cline{4-7}
-        &                       &         & Adam  & Nadam & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} & AdaMax &           &  \\
+        \cline{3-6}
+        &                       & Adam  & Nadam & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} & AdaMax &           \\
         \hline
-        1 & 1 $\times$ LSTM (500) & $-$less & 0.001 &       &        &        & \multirow{3}{*}{$\frac{1}{N}\sum\limits^N_{t=1}(SoC_t-\hat{SoC_t})^2$} & \\
-        2 & 1 $\times$ GRU (560)  & $-$less &       & 0.001 &        & 0.0005 &  & Ensemble \\
-        3 & 1 $\times$ LSTM (520) & $-$less & 0.001 &       &        &        &  & Attention \\
-        4 & 2 $\times$ GRU (60)   & $-$ful  &       &       & 0.001  &        & $\sum\limits^N_{t=0} \frac{1}{2} (SoC_t-\hat{SoC_t})^2$ & Momentum (0.3) \\
-        5 & 1 $\times$ GRU (500)  & $-$less & 0.001 &      &        &        & \multirow{2}{*}{$\frac{1}{N}\sum\limits^N_{t=1} |SoC_t-\hat{SoC_t}|$} & RoAdam \\
-        6 & 2 $\times$ LSTM (250) & $-$less & 0.0001 &       &        &        &  &  \\
+        1 & LSTM~\cite{Chemali2017} & 0.001 &       &        &        &  \\
+        2 & GRU &       & 0.001 &        & 0.0005 & Ensemble~\cite{xiao_accurate_2019} \\
+        3 & LSTM & 0.001 &       &        &        & Attention~\cite{mamo_long_2020} \\
+        %4 & 2 $\times$ GRU (60)   & $-$ful  &       &       & 0.001  &        &  \\
+        4 & GRU  & 0.001 &       &        &        & RoAdam~\cite{javid_adaptive_2020} \\
+        5 & LSTM & & 0.0001 & ~\cite{}       &        &  \\
         \hline\hline
     \end{tabular}
     }
 \end{table*}
 
 %
-% Must start with general methodology
+% Must start with the general methodology
 % \begin{itemize}
 %     \item 6 models
 %     \item Data used
@@ -59,22 +62,22 @@ All missing aspects were assumed based on ML's standard methods at the time of t
 % \end{itemize}
 % It is the objective if this papaer \\
 % tested in this study were impl,emented as faithfully as possible to the original published versions.
-% Unlike SoC which scaled to percentage view Error was preserved in the initial for to avoid overlapping with charge plots.
-% It's intention only to visaulise reagion of affected by the error, on full y-axis scale from 0 to 100\%.
+% Unlike SoC which scaled to percentage view, Error was preserved in the initial form to avoid overlapping with charge plots.
+% It is intended only to visualise the region affected by the error on a full y-axis scale from 0 to 100\%.
 
 % \\\\\\
 % %! Remove or reallocate that part beginning or second part or write new with DST, US06 and FUDS.
-% Several attempts to introduce an online procedure for models performance measurement have been integrated into the training process to solve this problem.
-% By not being limited to the battery testing machine's table data, i.e. the validation mechanism to tune an NN model based on batteries data during actual battery cycling, researchers attempted to generalise the fitting process as best as hardware allowed~\cite{zhang_deep_2020}.
+% Several attempts to introduce an online procedure for model performance measurement have been integrated into the training process to solve this problem.
+% By not being limited to the battery testing machine's table data, i.e. the validation mechanism to tune an NN model based on battery data during actual battery cycling, researchers attempted to generalise the fitting process as best as hardware allowed~\cite{zhang_deep_2020}.
 % This method brings the model learning process closer to real-time battery utilisation without adding modelling complexity.
 % \subsection{Managing input data} \label{subsec:RNN}
-% Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors, all models were implemented based on the provided information.
+% Although the perfect replication was impossible due to a lack of details and actual battery data used by different authors. All models were implemented based on the provided information.
 %
 %
 %
 % The structure and number of units define the number of layers of particular cell types with the total number of neurons evenly shared across layers.
-% The statefulness parameter describes the model ability to preserve its' current state for the next set of input parameters.
-% Based on that, the input amount of samples become flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
+% The statefulness parameter describes the model's ability to preserve its' current state for the next set of input parameters.
+% Based on that, the input amount of samples becomes flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
 % The optimiser selection was based on the derivative calculation algorithms only.
 % Other alternatives, like differential evolution, are beyond the scope of research.
 % Finally, "Extension" defines the model's specific detail, which distinguishes it against the others.
@@ -84,6 +87,6 @@ All missing aspects were assumed based on ML's standard methods at the time of t
 % Thus the specifics of each algorithmic aspect will be defined further~\ref{subsec:dataset},~\ref{subsec:structure}:
 % \begin{enumerate}[1)]
 %     \item Data shape for each state type
-%     \item Model structure and difference between GRU and LSTM
+%     \item Model structure and the difference between GRU and LSTM
 %     \item Each optimisation algorithm and hyper-parameters selection
 % \end{enumerate}

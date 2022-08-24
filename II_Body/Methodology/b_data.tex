@@ -1,8 +1,10 @@
 \subsection{Battery Data for training and validation} \label{subsec:b_data}
+% Battery data description and overview. **Table III**
+%
 Model training has been conducted over Lithium-Ion battery cycling data obtained by the Battery Research Group of the Center for Advanced Life Cycle Engineering (CALCE) Group at the University of Maryland~\cite{noauthor_calce_2017} in 2012.
-According to the attached paper, the battery cycling has been conducted with Arbin BT2000 tester machine and controlled with official Arbins Mits Pro Software (v4.27)~\cite{xing_state_2014}.
-\textcolor{red}{\textbf{The value of charge across 25 degrees have not matched with battery testing of the similar cells, conducted during research with freshly bought M1-B series cells.
-Despite their similarities, indicating that they have been using in a series of two cells with doubled current or have been through more than 1000 cycles.}}
+According to the attached paper, the battery cycling has been conducted with an Arbin BT2000 tester machine and controlled with official Arbins Mits Pro Software (v4.27)~\cite{xing_state_2014}.
+\textcolor{red}{\textbf{The value of charge across has not matched with battery testing of the similar cells conducted during research with freshly bought M1-B series cells.
+Despite their similarities, they have been used in a series of two cells with doubled current or through more than 1000 cycles.}}
 \mbox{Table~\ref{tab:battery}} highlights selected battery characteristics directly from datasheet~\cite{noauthor_anr26650m1a}.
 \begin{table}[ht]
     \renewcommand{\arraystretch}{1.3}
@@ -24,22 +26,24 @@ Despite their similarities, indicating that they have been using in a series of 
     }
 \end{table}
 
-%
+% How to work with battery data and which were selected.
 %
 The Battery Cycling data over 2 Li-Ion cells were stored as Excel spreadsheets over temperature range 0\textdegree{}C and 50\textdegree{}C degrees, with 10 degrees step and tolerance of around 0.5-1\textdegree{}C, including ambient 25\textdegree{}C.
 Each testing cycle contains three testing profiles: Dynamic stress test (DST), (US06) and the Federal urban driving schedule (FUDS).
-\textcolor{red}{\textbf{The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since this is the most common temperature range, which custom build electric vehicle by QUT motorsport has been experiencing during endurance runs.}}
-It results in 66763 and 8200 samples for training and validation over the one profile of two different cells.
+Each cycle consists of charge and discharge parts, with a sampling rate of 4Hz and 1Hz.
+Charging parts have been linearly interpolated to match the data sampling rate without additional random noise due to insignificant impact.
+\textcolor{red}{\textbf{The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since this is the most common temperature range that custom builds electric vehicle by QUT motorsport has been experiencing during endurance runs.}}
+It results in \textbf{66763* and 8200*} samples for training and validation over the one profile of two different cells.
 Each method went through a single cycling profile training and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020} research example.
 The performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to 16510 testing samples.
 After compleating three models per profile for every evaluated method, the overall performance calculation has been conducted against all samples of the second cell, making a good performance capture for any possible driving conditions.
 
+% State of charge calculation with equations.
 %
-%%%
 Like in any battery usage scenario, the State of Charge has not been provided in the CALCE data.
 However, the Arbin machine stores both in and out capacitances as separate arrays, along with the applied current.
 The SoC value can be calculated from the difference between Charge and Discharge Capacities in $Ah$.
-% The \textit{MinMax} algorithm allows adjustment the minimum and maximum point of the SoC to be within bound 0 and 100\%.
+% The \textit{MinMax} algorithm allows adjustment of the minimum and maximum point of the SoC to be within bounds 0 and 100\%.
 % \begin{equation}
 %     \begin{split}
 %         \hat{SoC} &= MinMax(C-D)
@@ -53,12 +57,12 @@ The resulted trend can be validated with Coulomb Counting where Nominal Capacity
         \label{eq:SoC-calc}
     \end{split}
 \end{equation}
-The final expected value gets rounded by two decimal places in all scenarios to simplify training and testing processes, as per Equation~\ref{eq:SoC-round}. 
+The final expected value gets rounded by two decimal places in all scenarios to simplify training and testing processes, as per Equation~\ref{eq:SoC-round}.
 \begin{equation}
     \begin{split}
         SoC &= \frac{round(100\times\hat{SoC})}{100}
         \label{eq:SoC-round}
     \end{split}
 \end{equation}
-Optionally, all calculated SoC can be adjusted using \textit{MinMax} scaler algorithm.
-For the purpose of the methodology unification with other authors, it will not be used in the current research since the quality and age of the tested batteries cannot be verified.
+Optionally, all calculated SoC can be adjusted using \textit{MinMax} scaler algorithm to set bounds between 0-100\%.
+%%%% The methodology unification with other authors will not be used in the current research since the quality and age of the tested batteries cannot be verified.

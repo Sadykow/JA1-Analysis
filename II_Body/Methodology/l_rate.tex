@@ -1,26 +1,45 @@
 \subsection{Hyper-parameters selection} \label{subsec:l-rate}
-% MEthods and their optomisers
+% Methods and their optimisers
 %
-The reviewed articles tended to use constant hyper-parameters values for models and optimisers, including learning rate.
-However, each selected different values based on experiments and observations, somewhere in the range 0.001, the standard framework provided, down to 0.0005(0.0001) to make a smooth stepping and minimise potential missing the optimum minimum.
+The reviewed articles used constant hyper-parameters values for models and optimisers, including learning rate.
+However, each selected different values based on experiments and observations, somewhere in the range of 0.001, the standard framework provided, down to 0.0005(0.0001) to make a smooth stepping and minimise potential missing the optimum minimum.
 A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:experiment}}.
 
-%! Add two figures comparing how model jumps off the minimul into another
-%! Move to the reasoning how it behaves
-%!
 % Recovery from faults.
 %
-%! Add a figure from another models which has no such jumps from time
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{II_Body/images/history-bad.svg}
+      \caption{Model training process with no rollbacks}
+      \label{subfig:no-rollback}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{II_Body/images/history-good.svg}
+      \caption{Model training process with a rollback if current error higher than previous.}
+      \label{subfig:rollback}
+  \end{subfigure}
+  \caption{Training process comparison with and without having a recovery algorithm.}
+  \label{fig:rollback}
+\end{figure}
 As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
-Therefore, a stepping learning rate algorithm has been used for every optimiser over the number of epochs the model went through.
-Considering that all attempts to train the estimator tended to overfit, the value has been reduced by half each time model attempted to recover from overshoot.
+Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course.
+However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
+The best approach to save time and produce reliable results was to enforce a model to carry on the selected course.
+Since each model undergoes multiple attempts, there are good chances to explore multiple different fitting scenarios rather than jumping between them.
+Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
+While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
+Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot.
 However, it did not affect the follow-up training, meaning that the learning rate always followed the stick degradation curve as per Figure~\ref{fig:l_rate_progress}.
 Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
 Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
 \begin{figure}[ht]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/l_rate.svg}
-    \caption{Learning rate degradation.\textcolor{red}{Sizing is bad for JA, need to decrase scaling}}
+    \caption{Learning rate degradation.\textcolor{red}{Sizing is bad for JA, need to decrease scaling}}
     \label{fig:l_rate_progress}
 \end{figure}
 
@@ -54,11 +73,53 @@ None have provided any reasoning for the selections or results from other attemp
 The least time-consuming method evaluated the most promising combination of the number of layers and neurons to create the best similar circumstances for all methods.
 The most promising candidates were taken through a dozen similar attempts to get an average result and produce several selection criteria for later use.
 
-% Evaluation process of layers and neurons to get best set
+% The Evaluation process of layers and neurons to get the best set
 %
 The ranges between 1 to 3 layers and incremental combinations of neurons from 131 to 524 were used to determine the most optimum solution.
 Any values higher or lower did not provide worthy outputs.
 In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
 For example, three layers at 131 neurons would represent each LSTM or GRU layer containing only 43.
-As a result, the following Table, sorted by applicable criteria, has been selected.
-Each model made three attempts per each profile, resulting in a total of 135 trained models to evaluate.
+As a result, the following Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}, sorted by applicable criteria, has been selected.
+Each model made three attempts per profile, resulting in a total of 135 trained models to evaluate.
+
+%
+%
+\textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
+\begin{table}[htbp]
+  \renewcommand{\arraystretch}{1.3}
+  \caption{Hyper-params selection - Sorted by Average MAE}
+  \centering
+  \label{tab:param-search1}
+  \resizebox{\columnwidth}{!}{
+  \begin{tabular}{ l l r r r r r}
+      \hline\hline \\[-3mm]
+      $ index $ & $L$x$N$ & $size $ & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & \textbf{avr MAE}\\
+      \hline
+      10        & 3x131 & 0.17    & 2112.38& $-3.7*10^{-4}$       & 3.5                & \textbf{2.5137} \\
+      11        & 3x262 & 0.63    & 2304.04& $-1.9*10^{-3}$       & 4.7                & \textbf{2.8515} \\
+       6        & 2x262 & 0.85    & 1670.61& $-4.2*10^{-4}$       & 4.3                & \textbf{2.8789} \\
+       5        & 2x131 & 0.22    & 1429.47& $-1.6*10^{-5}$       & 4.4                & \textbf{3.0303} \\
+       7        & 2x524 & 3.33    & 1990.49& $7.30*10^{-5}$       & 3.7                & \textbf{3.0303} \\
+      \hline\hline
+  \end{tabular}
+  }
+\end{table}
+\begin{table}[htbp]
+  \renewcommand{\arraystretch}{1.3}
+  \caption{Hyper-params selection - Sorted by lightest}
+  \centering
+  \label{tab:param-search2}
+  \resizebox{\columnwidth}{!}{
+  \begin{tabular}{ l l r r r r r}
+      \hline\hline \\[-3mm]
+      $ index $ & $L$x$N$ & \textbf{size} & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & $avr MAE$\\
+      \hline
+      10        & 3x131 & \textbf{0.17} & 2112.38& $-3.7*10^{-4}$       & 3.5                & 2.5137 \\
+       5        & 2x131 & \textbf{0.22} & 1429.48& $-1.6*10^{-5}$       & 4.4                & 3.0304 \\
+       0        & 1x131 & \textbf{0.30} &  846.73& $-2.1*10^{-3}$       & 6.9                & 3.7015 \\
+      11        & 3x262 & \textbf{0.64} & 2304.04& $-2.0*10^{-3}$       & 4.7                & 2.8515 \\
+       6        & 2x262 & \textbf{0.85} & 1670.61& $-4.3*10^{-4}$       & 4.3                & 2.8789 \\
+      \hline\hline
+  \end{tabular}
+  }
+\end{table}

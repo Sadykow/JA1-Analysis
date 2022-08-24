@@ -1,4 +1,7 @@
-\subsubsection{Classic Stochastic Gradient and Momentum Stochastic Gradient algorithm}
+%  Classic Stochastic Gradient Descent
+% Explanation
+%
+\subsubsection{Classic and Momentum Stochastic Gradient Descent algorithms}
 One of the simplest methods used to optimise the model is the Stochastic Gradient Descent (SGD), \mbox{Algorithm~\ref{alg:SGD}}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent (SGD) optimisation}
@@ -18,8 +21,10 @@ One of the simplest methods used to optimise the model is the Stochastic Gradien
   \label{alg:SGD}
 \end{algorithm}
 The SGD Optimiser utilised a simple gradient update with a learning rate.
-Unlike improved versions, this algorithm has the potential of missing optimum value.
+% uses less calculations and achieves results slower* Higher chances not to achieve the minimum
+% Unlike improved versions, this algorithm has the potential of missing optimum value.
 The extension of SGD, Algorithm~\ref{alg:SGDwM}, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
+It increases the performance of the algorithm by improving convergence speed in comparison to the classical version.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}
   \begin{algorithmic}[1]
@@ -39,10 +44,10 @@ The extension of SGD, Algorithm~\ref{alg:SGDwM}, which Jiao et al.~\cite{jiao_gr
   \label{alg:SGDwM}
 \end{algorithm}
 
+% Noising the data
 %
-%
-To improve accuracy, Jiao introduced noise to the data to be able to capture more variant information.
-Due to the amount of data provided and comparison with other methods, noise variance will not be used in this implementation.
+% To improve accuracy, Jiao introduced noise to the data to be able to capture more variant information.
+% Due to the amount of data provided and comparison with other methods, noise variance will not be used in this implementation.
 % \mbox{Table~\ref{tab:params-jiao}} provides parameters selection for the optimiser.
 % \begin{table}[ht]
 %     \renewcommand{\arraystretch}{1.3}

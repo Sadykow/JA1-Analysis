@@ -1,7 +1,9 @@
-The optimisation algorithm aims to define a way to minimise the difference between model prediction and actual values, using one of the selected Loss functions, refer to \mbox{Table~\ref{tab:experiment} for each applied equation}.
+The optimisation algorithm aims to define a way to achieve the minimal difference between model prediction and actual values, using Mean Average Error (MAE) equation as a loss function, \mbox{Table~\ref{tab:experiment}}.
 The following section breaks down several methods selected by chosen authors in the growing complexity.
 % \subsection{Types of optimisers}
-The selection of the optimiser defines how fast the model will achieve the local minimum.
-Different algorithms utilised several improvements to achieve an optimum result more quickly and avoid overfitting.
+% The selection of the optimiser defines how fast the model will achieve the local minimum.
+Different algorithms utilised several improvements to achieve an optimum result quicker and avoid overfitting.
+However, there is no certain universal best choice to get the best result.
+For the State of Charge estimation, the research intended to attempt multiple algorithms and determine if there is the best choice for the time-series charge cycling problem.
 All models share the same parameter, the learning rate $\alpha$, which acts as a step to update predictions.
 

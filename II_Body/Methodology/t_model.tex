@@ -1,29 +1,68 @@
 \subsection{Model training, validation and testing metrics functions}
+% The evaluation process, how it is done and what it meant to achieve
+%
 The methods evaluation procedures will be connducted similar to Mamo \textit{et al.}~\cite{mamo_long_2020} research.
 They will undertake the same training, validation and testing procedure to determine the best technique and performance.
-%
-Firstly, every model will be fitted on the training set of input windows for a single selected driving profile.
-After each set, a validation on the similar but another cell at ambient 25\textdegree{}C temperature will be performed to get initial model performance.
-Those samples were taken from unseen data to report the accuracy and asses general behaviour capture of the training process only.
-%
-Both training and validation over each iteration/epoch will be performed on a single same driving profile but two different cells.
-%It intended not to correlate training and validation data samples.
-%
-The training will run until the predefined loss function gets the error below 2,4\% or achieves maximum possible accuracy until overfit happens.
-The potential overfitting will not impact the learning step, and each failure will be replaced with a previous successfully trained model and repeated several times to minise the chance of random error.
+Each training stage has been written from the first principle to focus on performance gain and implementation of published methods.
+It allows flexibility in modifying the training and evaluation procedures to come up with objective comparison criteria.
+A single training iteration consists of several stages involving several performances and quality checks to ensure that training only keeps improving over time until the optimum is achieved, not running out of epochs.
 
+% Save/load process to avoid overfitting early
 %
+After a single epoch run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to deal with potential overfitting.
+If improvements are observed, the checkpoint gets saved, and the model undertakes a follow-up evaluation.
+Otherwise, the model will be loaded from the previous epoch and undertake another attempt with an updated hyper-parameter.
+Within 10 to 30 attempts, the models tended to continue learning there as, by the time of reaching around 50, models start to overfit with no potential for recovery and error between 3-6\%.
+
+% Testing procedures explanation and reasoning
 %
-Secondly, the testing stage was performed on two cycles of the other driving profiles to validate overall capture.
-Testing performance measured against two cycles of each unsued scheduler using one of the available embedded devices capable of Machine Learning computation.
+First, it is verified against a single cycle at 25\textdegree{}C to confirm the general fitting process.
+After, it gets tested against two other cycles, assessing the general capture of State of Charge cycling under different conditions.
+The better results, the more objective model becomes in unseen conditions.
+An additional test against another battery takes place to verify the models' behaviour and the possibility for further improvement with new samples.
+For this investigation, verifying with a single cycle at 25 degrees was the primary criteria assessment.
+Due to the potential assumption that a model inside an electric vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
+The results from two other sample tests confirm that estimations are still rational within State of Charge behaviour boundaries.
+If the model reaches the optimum state, then there are no more accuracy improvements and hyper-parameter to adjust, the training process will be stopped and undertake the final evaluation against the entire training set against all three profiles.
+Algorith~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
+\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+    \caption{Training procedure}
+        \begin{algorithmic}[1]
+            \STATE Setup model. Define optimiser and metrics.
+            \STATE Initialise parameters with initial learning rate at 0.001
+            \STATE Set prev\_error 1
+            \WHILE{epoch  $<$100:}
+                \STATE Train model, get gradients and apply optimiser
+                \IF{ error $<$ prev\_error:}
+                    \WHILE{attempt  $<$ 50:}
+                        \STATE Load previous successful model
+                        \STATE Reduce learning rate by half
+                        \STATE Train model, get gradients and apply optimiser
+                        \IF{ error $>$ prev\_error:}
+                            \STATE Break the loop. Update error. Save state.
+                        \ENDIF
+                    \ENDWHILE
+                \ELSE
+                    \STATE Update error. Save state.
+                    \STATE Update learning rate based on the scheduler.
+                \ENDIF
+                \STATE Validate model on 25\textdegree{}C cycler.
+                \STATE Test on two other profiles.
+                \STATE Test on a different cell.
+            \ENDWHILE
+            \STATE Record overall results against entire training datasets
+        \end{algorithmic}
+    \label{alg:training}
+\end{algorithm}
+
+% Accuracy evaluation explanation with drawings
+%
+Testing performance gets measured against two cycles of each unsued scheduler using one of the available embedded devices capable of Machine Learning computation.
 The intention was to verify the model's capability of being used at low power devices and still meet necessary performance requirements.
-%
-Using cross-validation mechanism, the profile will be switched to another and performed precisely the same training, validation and testing steps.
-Overall, this mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
-%
-Based on the progressive error degradation, a final iteration for this plot and discussion will be based on the lowest training and validation error.
-%
-Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where actual State of Charge compared with prediction.
+The profile will be switched to another and perform the same training, validation and testing steps.
+This mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
+Based on the progressive accuracy increase, a final iteration for this plot and discussion will be based on the lowest training and validation error.
+Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where the actual State of Charge is compared with prediction.
 The filled area below the plot captures the error Absolute Error Difference between two lines, as per the Equation~\ref{eq:abs-error}.
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
@@ -37,26 +76,25 @@ The filled area below the plot captures the error Absolute Error Difference betw
     \label{eq:abs-error}
 \end{equation}
 %%%%%%
-Test procedure performed on two cycles of each profile but at a different temperature to assess how perceptive model is to capture average and high temperature at which accumulator may end up.
+Test procedure performed on two cycles of each profile but at a different temperature to assess how perceptive the model is to capture average and high temperature at which accumulator may end up.
 Each result is summarised into a table and reported based on metrics values.
 %%%%%%
-
 %
 %
-Finally, after completing all models training, which results in 18 produced models, each will undertake an overall assessment.
-All outputs will be taken through the entire training set of three driving profiles from another cell, which was not part of the early training at all.
-It is expected that the lowest error will be against a dataset, which the model was trained on.
-That is why it was placed as a first record in the final comparison table.
+% Finally, after completing all training, which results in 18 produced models, each will undertake an overall assessment.
+% All outputs will be taken through the entire training set of three driving profiles from another cell, which was not part of the early training at all.
+% It is expected that the lowest error will be against a dataset, which the model was trained on.
+% That is why it was placed as a first record in the final comparison table.
 % The report is based on the metrics, which were initially defined for training purposes.
-% Following plot demonstrates how multi-processing unit testing process is performed for all three driving profiles over a single model. 
+% Following plot demonstrates how the multi-processing unit testing process is performed for all three driving profiles over a single model. 
 %
 % \subsubsection{Losses}~\label{subsub:losses}
 
-\mbox{Table~\ref{tab:experiment}} contains a separate column for every loss function, which has been applied to each tested model.
-Some equations were extracted directly from papers; others were written based on their definition and internal library implementation.
-The goal of the loss function is to calculate the error between model prediction and the actual value.
-The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
-The purpose of the table is only to provide the implementation references, which has been assumed during the programming of each published article based model.
+%\mbox{Table~\ref{tab:experiment}} contains a separate column for every loss function, which has been applied to each tested model.
+%Some equations were extracted directly from papers; others were written based on their definition and internal library implementation.
+%The goal of the loss function is to calculate the error between model prediction and the actual value.
+%The efficiencies and impact of each equation are hard to determine and are not the investigation's goal.
+%The purpose of the table is only to provide the implementation references, which have been assumed during the programming of each published article-based model.
 % \begin{table*}[htbp]
 %     \renewcommand{\arraystretch}{1.3}
 %     \caption{Model's loss functions}
@@ -95,7 +133,7 @@ The purpose of the table is only to provide the implementation references, which
 %               {\sum\limits^N_{t=1}(SoC_t-M_{SoC})^2}$ - $M_{SoC}$ is the mean SoC \\
 % $Error = \frac{SoC_t-\hat{SoC_5}}{SoC_t}$ - Not decided yet
 % \subsubsection{Callbacks}
-% For stateless model, the method for reseting a State of model has been derived with Callback function of:
+% For the stateless model, the method for resetting a State of the model has been derived with the Callback function of:
 % Another Algorithm. \\
 % \begin{lstlisting}[language=Python]
 % class ResetCallback(tf.keras.callbacks.Callback):
@@ -136,7 +174,10 @@ The purpose of the table is only to provide the implementation references, which
 %
 % \subsubsection{Metrics}
 % \textcolor{red}{Generally, Losses start form 0, metrics from 1. Articles which did overwise were assumed to be mistaken.}
-% \textcolor{red}{Similar to loses and reasons why we have chosen those as out criterias.} \\
+% \textcolor{red}{Similar to loses and reasons why we have chosen those as our criteria.} \\
+
+% Metrics functions used through out the research
+%
 Metrics functions act as user evaluation criteria to assess the performance of the trained model during both fitting and validation processes.
 Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations from \mbox{Table~\ref{tab:metrics}}.
 Thus, the same criteria will be used for the final comparison between models' efficiency against each other.
@@ -164,3 +205,7 @@ Thus, the same criteria will be used for the final comparison between models' ef
     }
 \end{table}
 
+% Concluding purpose of the training and ultimate goad of getting so creative
+%
+Overall, the primary criteria of the research are the ability to fit the training data, avoiding overfits, constant reasonably short retraining potential, susceptibility to undetermined conditions and final memory and processing usage.
+Ultimately, all models will be compared with their successes and falts to determine a path for potential improvement.
