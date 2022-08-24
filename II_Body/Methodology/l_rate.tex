@@ -5,8 +5,12 @@ The reviewed articles tended to use constant hyper-parameters values for models 
 However, each selected different values based on experiments and observations, somewhere in the range 0.001, the standard framework provided, down to 0.0005(0.0001) to make a smooth stepping and minimise potential missing the optimum minimum.
 A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:experiment}}.
 
+%! Add two figures comparing how model jumps off the minimul into another
+%! Move to the reasoning how it behaves
+%!
 % Recovery from faults.
 %
+%! Add a figure from another models which has no such jumps from time
 As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
 Therefore, a stepping learning rate algorithm has been used for every optimiser over the number of epochs the model went through.
 Considering that all attempts to train the estimator tended to overfit, the value has been reduced by half each time model attempted to recover from overshoot.
