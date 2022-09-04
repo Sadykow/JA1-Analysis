@@ -22,14 +22,14 @@ Examples include Fuzzy Logic~\cite{malkhandi_fuzzy_2006}, Support Vector Machine
 %
 While some model-based methods, such as the equivalent circuit model, are simple to implement within a BMS, many cannot correctly capture batteries' complex multi-dependant behaviour~\cite{6953745}.
 %Others are limited to offline simulation due to high complexity and computation requirements, therefore not suited to an onboard BMS.
-Direct measurement estimation is limited to sensor accuracy and affected by losses created by Coulombic efficiencies~\cite{Smith_2010} where some portion of charge gets transferred to heat or affected by battery ageing that is not captured.
+Direct measurement estimation is limited to sensor accuracy and affected by losses created by Coulombic efficiencies~\cite{Smith_2010} where some portion of charge gets transferred to heat or is affected by battery ageing that is not captured.
 %Additionally, the measured voltage depends on whether the battery is in use or has been on rest for a given time.
 %An accurate SoC estimation model has to implement a way to accommodate battery losses and sensor readings.
 %If model-based methods treat as constant values, then in real scenarios, they can be significantly limited to sensor inaccuracy, environmental and internal battery temperature, or ageing.
 %In contrast, Neural Network methods can accommodate losses as they can capture complex phenomenological behaviours~\cite{bengio_learning_1994}.
 %
 %Smart BMSs, which incorporate some method of ML, use only sensory data~\cite{zhang_deep_2020} and do not require batteries' physical property~\cite{zhang_deep_2020}.
-In contrast, Machine Learning are known to be able to establish relationships in complicated and multi-dimensional non-linear systems~\cite{hansen_support_2005,anton_battery_2013,he_state_2014}.
+In contrast, Machine Learning is known to be able to establish relationships in complicated and multi-dimensional non-linear systems~\cite{hansen_support_2005,anton_battery_2013,he_state_2014}.
 This characteristic shows excellent potential to account for battery losses due to Coulumbic efficiency.
 Some researchers used the support vector machine-based methods to estimate SoC using voltage, current, and temperature inputs~\cite{hansen_support_2005,anton_battery_2013}.
 Data were obtained from a driving schedule profile on a battery cycler, and the end error estimation was achieved as less than 6\%~\cite{he_state_2014}.
@@ -54,14 +54,14 @@ That can be achieved with stateful models, which continuously preserve the predi
 
 %
 %
-One of the first attempts to train an RNN model to predict the state of charge is to train in several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.
+Based on reviewed articles, one of the first attempts to train an RNN model to predict the state of charge was to train in several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.
 Then, others attempted to generalise battery behaviour to multiple usage scenarios, leading to higher Root Mean Squared Error.~\cite{mamo_long_2020}.
 For instance, by comparing similar procedures of testing from Song et al.~\cite{song_lithium-ion_2018} and Mamo et al.~\cite{mamo_long_2020} who conducted their research methods but used different validation mechanisms, it can be seen how accuracy error doubles if testing performs at a different temperature or untrained driving profile.
-By selecting same drive cycles at closely similar temperature, Song et al.~\cite{song_lithium-ion_2018} accuracy acchieved rougly 0.735\% error, then as Mamo et al.~\cite{mamo_long_2020} reported 1.2533\% at best.
-This can be explained that most researchers used a single driving profile, but with an entire available temperature range for training and then a portion of handpicked temperatures for validation and accuracy report.
-Such behaviour is less realistic to the actual scenario since during a single acceleration event, the battery goes through ambient temperature to the maximum allowed within several seconds, and its' usage depends on the condition of a road and the driver's experience.
-Mamo et al.~\cite{mamo_long_2020} attempted to generalise this behaviour by using the addition layer construction technique to make a model be appliable to any driving condition and more realistic scenario.
-There has been little research to validate the performance of different Machine Learning techniques to extrapolate ideal laboratory batter cycling conditions of early collected data to an electric vehicle behaviour.
+By selecting the same drive cycles at closely similar temperature, Song et al.~\cite{song_lithium-ion_2018} accuracy acchieved rougly 0.735\% error, then as Mamo et al.~\cite{mamo_long_2020} reported 1.2533\% at best.
+This can be explained by the fact that most researchers used a single driving profile, but with an entire available temperature range for training and then a portion of handpicked temperatures for validation and accuracy reporting.
+Such an approach does not necessarily represent a realistic EV usage scenario well since during a single acceleration event, the battery goes through ambient temperature to the maximum allowed within several seconds, and its' usage depends on the condition of a road and the driver's experience.
+Mamo et al.~\cite{mamo_long_2020} attempted to generalise this behaviour by using the addition layer construction technique to make a model be appliable to any driving condition.
+There has been little research to validate the performance of different Machine Learning techniques to extrapolate ideal laboratory battery cycling conditions of early collected data, to an electric vehicle behaviour.
 %% (Include one of the sections)
 % After identifying the most optimal input preferences without significant effect on the performance, one of the further developments applies changes to the structure of GRU or LSTM by adding additional layers (Attention or Extra Dense layers)~\cite{mamo_long_2020, jiao_gru-rnn_2020}.
 % Another way is to change the optimisation process to achieve similar accuracy faster (i. e., adding a Momentum algorithm to the Stochastic Gradient Optimisations process or replacing gradient calculations with statistical)~\cite{xiao_accurate_2019, javid_adaptive_2020}.
@@ -69,7 +69,7 @@ There has been little research to validate the performance of different Machine 
 % As a result, they met to achieve faster accuracy using similar training approaches. 
 However, after identifying the most optimal input preferences, some researchers applied changes to the structure of models by adding additional layers (Attention or Extra Dense layers~\cite{mamo_long_2020, jiao_gru-rnn_2020}) or modified optimisers (i. e., adding a Momentum algorithm to the Stochastic Gradient Optimisations process~\cite{xiao_accurate_2019}) to enhance the speed of the training process further and achieve the lowest error.
 \mbox{Table~\ref{tab:review}} summarises the most common methods applied to SoC estimation, highlighting the model cell type, structure to define input sample type, optimiser selection, and additional features introduced by authors to improve predictions.
-\textcolor{red}{\textbf{Matt: I moved most of the details about the table to caption. However, since this paragraph and the next were swapped, I had to do my best to avoid driving profile mentioning where possible. Perhaps we should consider swapping them back or some sentences.}}
+% \textcolor{red}{\textbf{Matt: I moved most of the details about the table to caption. However, since this paragraph and the next were swapped, I had to do my best to avoid driving profile mentioning where possible. Perhaps we should consider swapping them back or some sentences.}}
 \begin{table*}[h]
     \renewcommand{\arraystretch}{1.3}
     \caption{Reviewed papers implementation summary.
@@ -115,7 +115,7 @@ However, after identifying the most optimal input preferences, some researchers 
 In most published testing of ML methods applied to SoC, experiments on battery cycling data were conducted on different cell types.
 Most used table data of real-time sensory results from battery cyclers to validate efficiencies generated using different current schedulers (driving profiles)~\cite{Chemali2017,song_lithium-ion_2018,mamo_long_2020,jiao_gru-rnn_2020,xiao_accurate_2019}.
 %An equally time-based sample of current consumption acts as an input to the battery cycler, intended to recreate a stress test on a battery or human driving behaviour.
-There are three the most commonly used in the research of this area: Dynamic Stress Test (DST) for a variable power discharge mode, aggressive Highway Drive Schedule (US06) and Federal-Urban Driving Scheduler (FUDS) for nominal driving scenarios.
+Three profiles are most commonly used in the research in this area: Dynamic Stress Test (DST) for a variable power discharge mode, aggressive Highway Drive Schedule (US06) and Federal-Urban Driving Scheduler (FUDS) for nominal driving scenarios~\cite{xiao_accurate_2019,javid_adaptive_2020,mamo_long_2020}.
 Unlike some general simple static discharge processes, which commonly appear in other battery-based tools, driving profiles include some amount of regenerative driving to simulate the actual application of the battery for an electric vehicle.
 %
 % Mamo et al.~\cite{mamo_long_2020} conducted experiments by validating the RNN model performance by training one driving profile and testing against the other two.
@@ -167,6 +167,15 @@ It should help develop a methodology to further extrapolate offline trained meth
 The A123 Lithium-Ion battery data with three typical driving profiles, obtained from the University of Maryland 2012~\cite{noauthor_calce_2017} cycling experiment, will act as training and testing samples.
 Each method will be validated through those samples (either DST, US06 or FUDS driving profiles) and tested against the robustness and accuracy of estimation of the State of Charge of batteries in the other two unseen schedulers.
 %
-The remaining sections are organised as follows: all methodology with details regarding training procedure and hyper-parameters selection outlined in Section~\ref{sec:Meth}, with processing data in Subsection~\ref{subsec:b_data} and testing hardware in Subsection~\ref{subsec:soft}.
+\textcolor{blue}{\textit{
+Since there has been no comparison between which RNN type or driving profile impacts State of Charge estimation for both charge and discharge cycles, this article aims to identify the most viable and optimum method for custom build Electric vehicles.***
+Sometimes, multiple published models presented results relying only on a dicharge cycles, describing the efficincy of modeling on a single battery or in an ideal lab environment~\cite{xia_state_2018,javid_adaptive_2020,jiao_gru-rnn_2020,mamo_long_2020,zhang_deep_2020}.
+However, long overnight charge cycles and regenerative breaking burst charges are equally crucial for the SoC percentage in the context of Electric vehicles' battery utilisation at prolonged usage and influence models' weight and biasses. ***
+This article will focus on the accuracy of SoC prediction based on the model training from charge and discharge cycles across various temperatures.
+}}
+% ~\cite{Chemali2017,}
+%
+%
+The remaining sections are organised as follows: all methodology with details regarding training procedure and hyper-parameters selection outlined in Section~\ref{sec:Meth}, with processing data in Subsection~\ref{subsec:b_data}.
 Every detail on algorithms and optimisers is written in Section~\ref{sec:Body}, where Subsection~\ref{subsec:structure} separates all details for each GRU and LSTM method, and Subsection~\ref{subsec:optimisers} breaks down every applied optimising algorithm.
 Section~\ref{sec:conclussion} gives the results of implementation and performance characteristics and concludes the critical analysis.

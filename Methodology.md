@@ -36,17 +36,6 @@ in this temperature range? Or is the range different between testing and trainin
 > (1) P39, Figure 3.2. (JA: Figure 4) What is the sampling rate? I assume that it’s 1 Hz, but it would be good to state this.
 > > Explanation kept, 1Hz mentioning under capture of the page big plot added
 
-### Hyper-parameters selection
-1) Methods and their optimisers
-
-2) Recovery from faults.
-
-3) Betas and Epsilon instead on every optimiser page
-
-4) Layers and neurons
-
-5) The Evaluation process of layers and neurons to get the best set
-
 ### Model training, validation and testing metrics functions
 1) The evaluation process, how it is done and what it meant to achieve
 
@@ -60,7 +49,18 @@ in this temperature range? Or is the range different between testing and trainin
 
 5) Metrics functions **Table IV**
 
-6) Concluding purpose of the training and ultimate goad of getting so creative
+6) Concluding purpose of the training and ultimate goal of getting so creative
+### Hyper-parameters selection
+1) Methods and their optimisers
+
+2) Recovery from faults.
+
+3) Betas and Epsilon instead on every optimiser page
+
+4) Layers and neurons
+
+5) The Evaluation process of layers and neurons to get the best set
+
 
 
 ### Hardware and Software

@@ -1,4 +1,4 @@
-\subsection{Model training, validation and testing metrics functions}
+\subsection{Model training, validation and testing metrics functions} \label{subsec:t_model}
 % The evaluation process, how it is done and what it meant to achieve
 %
 The methods evaluation procedures will be connducted similar to Mamo \textit{et al.}~\cite{mamo_long_2020} research.
@@ -9,11 +9,12 @@ A single training iteration consists of several stages involving several perform
 
 % Save/load process to avoid overfitting early
 %
-After a single epoch run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to deal with potential overfitting.
-If improvements are observed, the checkpoint gets saved, and the model undertakes a follow-up evaluation.
-Otherwise, the model will be loaded from the previous epoch and undertake another attempt with an updated hyper-parameter.
-Within 10 to 30 attempts, the models tended to continue learning there as, by the time of reaching around 50, models start to overfit with no potential for recovery and error between 3-6\%.
-
+\textcolor{blue}{
+After a single epoch run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting.
+If an improvement is observed, the model will be saved as a checkpoint if it requires a rollback, and the model continues to undertake a follow-up evaluation.
+Otherwise, the model will be rolled to the previous checkpoint and undertake another attempt with a half-reduced current learning rate.
+Within 10 to 30 attempts, models recover and continue learning there as, by the time of reaching around 50, they start to show NaN results with no potential for recovery, with an error between 3-6\%.
+}
 % Testing procedures explanation and reasoning
 %
 First, it is verified against a single cycle at 25\textdegree{}C to confirm the general fitting process.
@@ -58,12 +59,12 @@ Algorith~\ref{alg:training} provides the pseudocode summary for the primary trai
 % Accuracy evaluation explanation with drawings
 %
 Testing performance gets measured against two cycles of each unsued scheduler using one of the available embedded devices capable of Machine Learning computation.
-The intention was to verify the model's capability of being used at low power devices and still meet necessary performance requirements.
+The intention was to verify the model's capability of being used on low-power devices and still meet necessary performance requirements.
 The profile will be switched to another and perform the same training, validation and testing steps.
 This mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
 Based on the progressive accuracy increase, a final iteration for this plot and discussion will be based on the lowest training and validation error.
 Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where the actual State of Charge is compared with prediction.
-The filled area below the plot captures the error Absolute Error Difference between two lines, as per the Equation~\ref{eq:abs-error}.
+The filled area below the plot captures the error Absolute Error Difference between two lines, as per Equation~\ref{eq:abs-error}.
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
     \centering

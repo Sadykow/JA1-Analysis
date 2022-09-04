@@ -38,12 +38,15 @@ Considering the characteristic of Constant Current and Constant Voltage charging
 \end{figure}
 % For dataset generation for training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per \mbox{Figure~\ref{fig:Windowing3f}}, where $s$ represents the step between each window, less than the number of input time steps.
 % \if{thesis}
-\textcolor{red}{This paragraph is repeated in the ThesisIntro. Must be surrounded with IF statement}
-Both stateful and stateless methods rely on input samples' quality and length.
-Chemali et al.~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy the model produced and the longer it took to compute.
-The results of the research have been plotted on \mbox{Figure~\ref{fig:chemali-accuracy}}, outlining the root square parabola behaviour of size of the history against error in the prediction.
-The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
-Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
+\ifthenelse {\boolean{thesis}} {
+    
+} {
+    Both stateful and stateless methods rely on input samples' quality and length.
+    Chemali et al.~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy the model produced and the longer it took to compute.
+    The results of the research have been plotted on \mbox{Figure~\ref{fig:chemali-accuracy}}, outlining the root square parabola behaviour of size of the history against error in the prediction.
+    The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
+    Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
+}
 
 % Windowing technique, batching and normalisation. **Figure 4**
 %

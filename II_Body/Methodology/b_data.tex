@@ -2,9 +2,9 @@
 % Battery data description and overview. **Table III**
 %
 Model training has been conducted over Lithium-Ion battery cycling data obtained by the Battery Research Group of the Center for Advanced Life Cycle Engineering (CALCE) Group at the University of Maryland~\cite{noauthor_calce_2017} in 2012.
-According to the attached paper, the battery cycling has been conducted with an Arbin BT2000 tester machine and controlled with official Arbins Mits Pro Software (v4.27)~\cite{xing_state_2014}.
-\textcolor{red}{\textbf{The value of charge across has not matched with battery testing of the similar cells conducted during research with freshly bought M1-B series cells.
-Despite their similarities, they have been used in a series of two cells with doubled current or through more than 1000 cycles.}}
+According to the associated paper, the battery cycling has been conducted with an Arbin BT2000 tester machine and controlled with official Arbins Mits Pro Software (v4.27)~\cite{xing_state_2014}.
+% \textcolor{red}{\textbf{The value of charge has not matched with battery testing of the similar cells conducted during this research with freshly bought M1-B series cells.
+% Despite their small difference, the CALCE most likely used a series of two cells with either doubled current or 1000 cycles used batteries before publishing the data with reduced capacity.}}
 \mbox{Table~\ref{tab:battery}} highlights selected battery characteristics directly from datasheet~\cite{noauthor_anr26650m1a}.
 \begin{table}[ht]
     \renewcommand{\arraystretch}{1.3}
@@ -29,14 +29,39 @@ Despite their similarities, they have been used in a series of two cells with do
 % How to work with battery data and which were selected.
 %
 The Battery Cycling data over 2 Li-Ion cells were stored as Excel spreadsheets over temperature range 0\textdegree{}C and 50\textdegree{}C degrees, with 10 degrees step and tolerance of around 0.5-1\textdegree{}C, including ambient 25\textdegree{}C.
-Each testing cycle contains three testing profiles: Dynamic stress test (DST), (US06) and the Federal urban driving schedule (FUDS).
+Each testing cycle contains three profiles, distinguished by their current consumption, emulating a stress test or driving scenarios, Figure~\ref{fig:current-profs}: Dynamic stress test (DST) - subfigure~\ref{subfig:profs-DST}, Highway (US06) - subfigure~\ref{subfig:profs-US} and the Federal urban driving schedules (FUDS) - subfigure~\ref{subfig:profs-FUDS}.
 Each cycle consists of charge and discharge parts, with a sampling rate of 4Hz and 1Hz.
 Charging parts have been linearly interpolated to match the data sampling rate without additional random noise due to insignificant impact.
-\textcolor{red}{\textbf{The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since this is the most common temperature range that custom builds electric vehicle by QUT motorsport has been experiencing during endurance runs.}}
-It results in \textbf{66763* and 8200*} samples for training and validation over the one profile of two different cells.
-Each method went through a single cycling profile training and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020} research example.
-The performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to 16510 testing samples.
-After compleating three models per profile for every evaluated method, the overall performance calculation has been conducted against all samples of the second cell, making a good performance capture for any possible driving conditions.
+The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since this is the most common temperature range for EVs involved in our research.
+It results in 58613 and 12171 samples for training and validation over the one profile of two different cells.
+Each model from \mbox{Table~\ref{tab:experiment}} was trained on a single drive cycle profile and was tested against the other two, as per Mamo et al.~\cite{mamo_long_2020}.
+The performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to a total of 47022 testing samples.
+% After compleating three models per profile for every evaluated method, the overall performance calculation has been conducted against all samples of all three profiles, making a good performance capture for any possible driving conditions.
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[b]{\columnwidth}
+        \centering
+        \includesvg[width=\linewidth]{II_Body/images/Current-DST.svg}
+        \caption{Dynamic Stress Test (DST)}
+        \label{subfig:profs-DST}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{\columnwidth}
+        \centering
+        \includesvg[width=\linewidth]{II_Body/images/Current-US06.svg}
+        \caption{Highway driving schedule (US06)}
+        \label{subfig:profs-US}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{\columnwidth}
+        \centering
+        \includesvg[width=\linewidth]{II_Body/images/Current-FUDS.svg}
+        \caption{Federal urban driving schedule (FUDS)}
+        \label{subfig:profs-FUDS}
+    \end{subfigure}
+    \caption{Current consumptions of three battery testing profiles, emulating Constant-Current-Constant-Voltage charge and regenerative discharge until cells reached top or bottom cut-offs.}
+    \label{fig:current-profs}
+\end{figure}
 
 % State of charge calculation with equations.
 %
@@ -53,16 +78,27 @@ The SoC value can be calculated from the difference between Charge and Discharge
 The resulted trend can be validated with Coulomb Counting where Nominal Capacity $C_{N}$ converted to seconds, by \mbox{Equation~\ref{eq:SoC-calc}}.
 \begin{equation}
     \begin{split}
-        \hat{SoC} &= \frac{\int_{t_0}^{t_n} I(t)dt} {C_{N}} = \frac{\int_{t_0}^{t_n} I(t)dt} {2.3*3600} \\
+        % \hat{SoC} &= \frac{\int_{t_0}^{t_n} I(t)dt} {C_{N}} = \frac{\int_{t_0}^{t_n} I(t)dt} {2.3*3600} \\
+        \hat{SoC} &= \frac{\int_{t_0}^{t_n} I(t)dt} {C_{N}} = \frac{\int_{t_0}^{t_n} I(t)dt} {(2.3*3600)As} \\
         \label{eq:SoC-calc}
     \end{split}
 \end{equation}
-The final expected value gets rounded by two decimal places in all scenarios to simplify training and testing processes, as per Equation~\ref{eq:SoC-round}.
-\begin{equation}
-    \begin{split}
-        SoC &= \frac{round(100\times\hat{SoC})}{100}
-        \label{eq:SoC-round}
-    \end{split}
-\end{equation}
-Optionally, all calculated SoC can be adjusted using \textit{MinMax} scaler algorithm to set bounds between 0-100\%.
+The final expected value gets rounded by two decimal places in all scenarios to simplify training and testing processes.
+% , as per Equation~\ref{eq:SoC-round}.
+% \begin{equation}
+%     \begin{split}
+%         SoC &= \frac{int(100\times\hat{SoC})}{100}
+%         \label{eq:SoC-round}
+%     \end{split}
+% \end{equation}
+%! Elaborate that at different temperatures, which produces above 100%
+% Optionally, all calculated SoC can be adjusted using \textit{MinMax} scaler algorithm to set bounds between 0-100\%, \mbox{Equation~\ref{eq:MinMax}}.
+% \begin{equation}
+%     \begin{split}
+%         SoC_{0\%} + \frac{ \left(SoC - \min \left( SoC \right)\right) \left( SoC_{100\%} - SoC_{0\%} \right) }
+%                          { \max \left( SoC \right) - \min \left( SoC \right)} \\
+%     \end{split}
+%     \label{eq:MinMax}
+% \end{equation}
+
 %%%% The methodology unification with other authors will not be used in the current research since the quality and age of the tested batteries cannot be verified.
