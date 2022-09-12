@@ -1,13 +1,33 @@
+## Performance and Results
+# Intro paragraph
+1) Introduction to the section, data and parameters.
+
+2) Metrics references
+
+3) Intro to the hyper-parameters calculation and tables.
+
+4) Intro to the tables of results of the models.
+
+# Hyper-parameters evaluation
+
+# Models results overview
+
+# Observations and discussions
+
 > P53, “Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers. To determine the actual performance, it will require multiple trained models over a single implementation to average performance results and make a clear statement.“, so why not do this?
+> > Because it would take hell of 4-6 months, depending how lucky I am. After all, that's what we did.
 
 > P53, “The advantage of one over another is a simple matter of randomness in the initial training results. The attention layer may not significantly boost the training or accuracy, but it gave a good foundation for further improvements and modifications. “, given the random variation that is acknowledged by the authors, and the lack of multiple trials, how can you say that the attention layers gives a “good foundation for further improvements and modifications.”?
 > > That is why it is "foundation", an idea which we can move towards, rather idiotically guess hyper-parames.
 
 > P53, “Since the SoC estimation is not a pure number based behaviour but also a matter of physical, electrical properties, manual adjustment weights, losses or data itself will not bring valuable results “, what is meant here by “manual adjustment”? Do you mean manually adjusting model weights and biases outside of back-prop? (which would make no sense) Or do you mean manual adjustment of the architecture?
+> > Manually adjusting architecture, just like attention layer did. After all, that's what we did, added another layer of computation to the training process.
 
 > P53, “Further research and adjustments must be made using a similar principle to improve the trainingprocedure with augmented models“, similar to what?
+> > I was refering to the hyperparameters, which we also did.
 
 > P53, “For example, the sigmoid function selection in the model output minimises the possibility of going over 100% or 0% of charge.“, it doesn’t just minimise it, it makes any result outside those bounds impossible
+> > yes, we added it long before that.
 
 > P53, “The best performance with Stateful models can be achieved through using a separate training process for charge and discharge“, what is meant by “separate training process” here?
 > > One model for charge only, another for discharge only
@@ -16,6 +36,7 @@
 > > Because I was lazy to implement it from first principal. I still am. We got rid of Statefull models
 
 > P53-4, “able 3.10 for Model №4 takes results from a single cycle only, same as 3.9, since there is no straightforward way to validate across all cycles (marked with ∗ symbol) “, why? Is this is due to the model being stateful, using a custom training loop where you manually reset the state when appropriate and handling data shuffling yourself can easily fix this issue.
+> > Stateful Model 4 was removed completely. It is easier to ignore it, rather waise more time implementing.
 
 > P54, “Model №2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.”, was this observed consistently, or was this just a lucky training run? Model No 2 also has a different architecture, so is the improvement the result of the optimiser or the network?
 
@@ -24,10 +45,13 @@
 > P54, “ Comparison of the validation data act as a determined prove“, unclear
 
 > P54, “3.3.2 Hardware performcene overview” -> “3.3.2 Hardware performance overview”
+> > Removed completely
 
 > P56, Table 3.10, Why is No 4, when trained on US06 and FUDS only getting discharge data? This isn’t the case for any other experiment, so why is this the case here?
+> > not any more
 
 > P55-56, Table 3.9 and 3.10 are hard to read. Consider using colours, bold font, underlines or similar to highlight the best result (or best few is using colour)
+> > It was made from Mamo's published example. Since it is indeed harder to read, table will be redrawen.
 
 > P57-62, Figure 3.6-3.11 are hard to compare. Consider grouping by experiment as all models are run on the
 same train/test configurations, or omit the RMS error from the plot and just show all systems for a given

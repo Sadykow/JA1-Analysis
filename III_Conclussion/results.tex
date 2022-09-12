@@ -1,16 +1,49 @@
-%!%%%%%%%%%%%%%%%%%%%%%%% TOBE ADDRESSED SOMEWHERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The Evaluation process of layers and neurons to get the best set
-%
-The ranges between 1 to 3 layers and incremental combinations of neurons from 131 to 524 were used to determine the most optimum solution.
-Any values higher or lower did not provide worthy outputs.
-In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
-For example, three layers at 131 neurons would represent each LSTM or GRU layer containing only 43.
-As a result, the following Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}, sorted by applicable criteria, has been selected.
-Each model made three attempts per profile, resulting in a total of 135 trained models to evaluate.
+Since it is common for temperatures in the accumulator inside an EV to spike from ambient 20 degrees to the limit of 60, all temperature ranges were used together to train each model.
+The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set).
+This approach led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
+The following section compares the models trained on each individual and then tests against the entire dataset of all three profiles.
+All examples were trained using charge and discharge cycles and an initially predetermined set of hyperparameters to make an objective comparison.
 
 %
 %
-\textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
+% Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
+The metrics were reported using the equations outlined in the \mbox{Table~\ref{tab:metrics}}.
+Figures were generated during each iteration of the training process from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
+After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing assessment of the efficiency of the learning process.
+
+% The Evaluation process of layers and neurons to get the best set
+%
+The hyperparameters selection process based on evaluating the best set of layers and neurons for all research models has been determined and recorded before the primary training process.
+\mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} based on the average of three attempts per each current profile has been produced, sorted by applicable criteria and used through the rest of the experiments.
+The lowest mean average error and relative memory size were selected as primary research aspects.
+It is important to note that those parameters are not universally applicable to any other kind of battery or telemetries from electric vehicles.
+The set of hyperparameters may have been a good one for applicable data in this research.
+However, that evaluation would have to be repeated for other batteries or deployments with car endurance records.
+
+%
+%
+\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
+\mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
+
+%
+%
+\subsection{Hyperparameters evaluation}
+The ranges between 1 to 3 layers and incremental combinations of neurons from 131 to 1572 were used to determine the most optimum set of hyperparameters for all models to work with.
+Any values higher or lower of both parameters did not provide worthy outputs, therefore, has been amended from the research.
+In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
+For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
+%%%%%%%%%%%%%%%
+Training simple LSTM models with Adam optimiser for three current profiles three times resulted in a total of 135 trained models.
+They all can be summarised in 15 different sets of hyperparameters to compare.
+\mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} report the average results of the five best models based on the lowest average training error and occupied memory space in a compressed state in ??? (MB).
+The time in seconds highlights the duration of training over a single epoch.
+For online training on a low-power device, it could be considered as an essential factor, sacrificing some amount of accuracy, but not in this research.
+The angle of inclination is a line fit to the average error training over time, starting from the second epoch until the end of the training.
+It reports the trend of the model performance, where alpha represents the angle and c the hights.
+In the tables below, the negative \textbf{revesersed tangent?} represents the error degradation, there as the positive a clear overfit.
+As a result, a model with index 10 with three layers and a total of 131 neurons (43 per layer) has been selected as the main researched hyperparameter for all follow-up models.
+% \textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
   \caption{Hyper-params selection - Sorted by Average MAE}
@@ -19,13 +52,13 @@ Each model made three attempts per profile, resulting in a total of 135 trained 
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{ l l r r r r r}
       \hline\hline \\[-3mm]
-      $ index $ & $L$x$N$ & $size $ & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & \textbf{avr MAE}\\
+      $ index $ & $L$x$N$ & $size $ & $time(s)$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & \textbf{avr MAE}\\
       \hline
-      10        & 3x131 & 0.17    & 2112.38& $-3.7*10^{-4}$       & 3.5                & \textbf{2.5137} \\
-      11        & 3x262 & 0.63    & 2304.04& $-1.9*10^{-3}$       & 4.7                & \textbf{2.8515} \\
-       6        & 2x262 & 0.85    & 1670.61& $-4.2*10^{-4}$       & 4.3                & \textbf{2.8789} \\
-       5        & 2x131 & 0.22    & 1429.47& $-1.6*10^{-5}$       & 4.4                & \textbf{3.0303} \\
-       7        & 2x524 & 3.33    & 1990.49& $7.30*10^{-5}$       & 3.7                & \textbf{3.0303} \\
+      10        & 3x131   & 0.17    & 2112.38   & $-3.7*10^{-4}$       & 3.5                & \textbf{2.5137} \\
+      11        & 3x262   & 0.63    & 2304.04   & $-1.9*10^{-3}$       & 4.7                & \textbf{2.8515} \\
+       6        & 2x262   & 0.85    & 1670.61   & $-4.2*10^{-4}$       & 4.3                & \textbf{2.8789} \\
+       5        & 2x131   & 0.22    & 1429.47   & $-1.6*10^{-5}$       & 4.4                & \textbf{3.0303} \\
+       7        & 2x524   & 3.33    & 1990.49   & $7.30*10^{-5}$       & 3.7                & \textbf{3.0303} \\
       \hline\hline
   \end{tabular}
   }
@@ -38,52 +71,34 @@ Each model made three attempts per profile, resulting in a total of 135 trained 
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{ l l r r r r r}
       \hline\hline \\[-3mm]
-      $ index $ & $L$x$N$ & \textbf{size} & $time$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & $avr MAE$\\
+      $ index $ & $L$x$N$ & \textbf{size} & $time(s)$ & $ tanh^{-1} (alpha)$ & hight(c) $10^{-2}$ & $avr MAE$\\
       \hline
-      10        & 3x131 & \textbf{0.17} & 2112.38& $-3.7*10^{-4}$       & 3.5                & 2.5137 \\
-       5        & 2x131 & \textbf{0.22} & 1429.48& $-1.6*10^{-5}$       & 4.4                & 3.0304 \\
-       0        & 1x131 & \textbf{0.30} &  846.73& $-2.1*10^{-3}$       & 6.9                & 3.7015 \\
-      11        & 3x262 & \textbf{0.64} & 2304.04& $-2.0*10^{-3}$       & 4.7                & 2.8515 \\
-       6        & 2x262 & \textbf{0.85} & 1670.61& $-4.3*10^{-4}$       & 4.3                & 2.8789 \\
+      10        & 3x131   & \textbf{0.17} & 2112.38   & $-3.7*10^{-4}$       & 3.5                & 2.5137   \\
+       5        & 2x131   & \textbf{0.22} & 1429.48   & $-1.6*10^{-5}$       & 4.4                & 3.0304   \\
+       0        & 1x131   & \textbf{0.30} &  846.73   & $-2.1*10^{-3}$       & 6.9                & 3.7015   \\
+      11        & 3x262   & \textbf{0.64} & 2304.04   & $-2.0*10^{-3}$       & 4.7                & 2.8515   \\
+       6        & 2x262   & \textbf{0.85} & 1670.61   & $-4.3*10^{-4}$       & 4.3                & 2.8789   \\
       \hline\hline
   \end{tabular}
   }
 \end{table}
-%!%%%%%%%%%%%%%%%%%%%%%%% TOBE ADDRESSED SOMEWHERE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Since it is a common practice for temperatures on the battery inside EV to spike from 20 ambient degrees to the limit of 60, all temperature ranges were used together to train each model.
-The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set).
-This approach led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
-The following section compares the models trained on each individual and then tested against the entire dataset of all three profiles but of a different cell.
-All stateless examples were trained using charge and discharge cycles unlike stateful models.
-
-%
-%
-% Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
-The metrics were reported using the equations outlined in the \mbox{Table~\ref{tab:metrics}}.
-Figures were generated during each iteration of the training process from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
-After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing to assess the efficiency of the learning process.
-
-%
-%
-\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
-\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-6res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
-\mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 
 %
 %
 \subsection{Models results overview}
-Implementation of several different variations of time-series modells allowed to analysise multiple path of evolution of machine learning techniques in State of Charge estimation in the past three years.
-Review of the resulted accuracy helps make a reasonable justification for further research.
+Implementation of several variations of time-series models allowed analysis of multiple paths of evolution of machine learning techniques in State of Charge estimation over the past three years.
+A review of the resulting pros and cons, accuracies and complexity helps make a reasonable justification for further improvements.
 
 %
 %
 Model \#1 has been based on the most simple and oldest research from 2017, made by Chemali \textit{et al.}~\cite{Chemali2017}.
-It utilised the simplest model structure with a single layer and no complicated cell structure or optimiser manipulation.
-By the results of the general accuracy overview at Table~\ref{tab:acc-results1}, it has the most stable accuracy results across three different profiles in comparison to the models.
+It utilised the simplest model structure with a single layer and no complicated cell modifications or optimiser enhancements.
+Based on Table~\ref{tab:acc-results1}, it has the most stable accuracy across three different profiles compared to the others.
 It can be justified by the longest training time to reach the lowest error.
 This model has shown good accuracies on US06 and FUDS datasets, but the training has not been very smooth, unlike with DST, as per Figure~\ref{fig:Model-1losses}.
-By analysing Figure~\ref{fig:Model-1res}, the DST had the worst results in capturing general behaviour. Subfigure~\ref{subfig:Model-1res-DSTvsFUDS} illustrates the area plot, with the highest peaks in comparison to other plots.
-\textbf{Capturing the middle area of charge, where voltage remains stable most of the time, is not very easy, and DST may not be the best model for it.}
+By analysing Figure~\ref{fig:Model-1res}, the DST had the worst results in capturing general behaviour.
+Subfigure~\ref{subfig:Model-1res-DSTvsFUDS} illustrates the area plot with the highest peaks compared to other plots.
+\textbf{Capturing the middle area of charge, where voltage remains stable most of the time, is difficult, and DST may not be the best model for it.}
 Contrary to DST, the US06 made the best result in capturing both features.
 By analysing Table~\ref{tab:acc-results1}, US06 and FUDS results for Model \#1 can capture each other behaviour, but not the DST.
 
@@ -91,23 +106,23 @@ By analysing Table~\ref{tab:acc-results1}, US06 and FUDS results for Model \#1 c
 %
 Model \#2 was an attempt to move from an old LSTM to a recently developed GPU type of cell.
 Measuring the impact of such migration is not feasible.
-However, it utilised two different optimisers for pre-tuning and fine-tuning phases.
-The transition happened after a third of the maximum allowed iterations, which in some cases lead to high accuracy spikes on the training process, seen in Figure~\ref{fig:Model-2losses}.
-The pre-tuning phase might have decreased the time to achieve the optimal results, but considering the number of input samples used - the difference is not noticeable between the LSTM and GPU types of models.
-Lowering the learning rate and switching the optimiser led to a much stable learning curve but did not bring any improved prediction results.
-Despite that training went smoother, except for minor anomalies on the FUDS training as per Model~\ref{fig:Model-2res}, the overall behaviour capture across profiles did not improve.
-\textcolor{red}{Matt:DO I even need to share with my thoughts and refer to Table with potential why results became worse? I don't have an answer myself yet}
+However, it utilised two different optimisers for the pre and fine-tuning phases.
+The transition happened after a third of the maximum allowed iterations, which in some cases led to high accuracy spikes in the training process, as seen in Figure~\ref{fig:Model-2losses}.
+The pre-tuning phase might have decreased the time to achieve the optimal results, but considering the number of input samples used - the difference is not noticeable between the LSTM and GPU models.
+Lowering the learning rate and switching the optimiser led to a much more stable learning curve but did not bring any improved prediction results.
+Despite that, training went smoother, except for minor anomalies on the FUDS training as per Model~\ref{fig:Model-2res}, the overall behaviour capture across profiles did not improve.
+%\textcolor{red}{Matt: Do I even need to share my thoughts and refer to Table with potential why results worsened? I don't have an answer myself yet}
 
 %
 %
 Adding the attention layer as per Model \# 3 did not make an overall improvement system improvement, but it produced much smoother outputs.
 The prediction has a lesser variant and more expectable behaviour referring to a state of charge.
-The less fluctuation model produces in the SoC prediction, the better usability it has.
+The less fluctuation model produces in the SoC prediction, the better its usability.
 Model \#3 was able to achieve the lowest error twice faster but also went to overfit without learning step adjustment, as per Figure~\ref{fig:Model-3losses}.
 It could make a reasonably good capture of all three profiles with US06 profiles.
 Then as the FUDS model became much smoother in training with the attention layer, but still has difficulty in capturing 50\% charge in the testing scenarios on subfigure~\ref{subfig:Model-3res-FUDSvsUS}. 
-% made an improvement on the FUDS training and better fir on Figure 9.i.
-% Although, it had promessing start by the training accuracyy, the technique of adding more modefied functional has a means to make model better rather than just adding more layers to the model.
+% improved on the FUDS training and better fir on Figure 9.i.
+% Although it had a promising start by the training accuracy, the technique of adding more modified functional as a means to make the model better rather than just adding more layers to the model.
 % Instable, variet, noisy
 
 %
@@ -115,9 +130,9 @@ Then as the FUDS model became much smoother in training with the attention layer
 Unlike other methods, Model \#4 utilised a stateful technique for the data input pipeline.
 Despite that, it has a promising approach but only in specific scenarios.
 For example, the training over DST has been conducted with both charge and discharge together, resetting the model at the end of the cycle, as per subfigure~\ref{subfig:Model-4res-DSTvsDST}.
-Having a charge in the system added complexity in the capture, but the error had a stable degradation over time as per Figure~\ref{fig:Model-4losses}.
-However, it had to be cut off early since the training threshold had not been reached in the set limit.
-It was attempted to be fixed on US06 and FUDS based models, applying only the discharge process.
+Having a charge in the system added complexity to the capture, but the error had a stable degradation over time as per Figure~\ref{fig:Model-4losses}.
+However, it had to be cut off early since the training threshold had not reached the set limit.
+It was attempted to be fixed on US06 and FUDS-based models, applying only to the discharge process.
 However, it did not bring much improvement and only made charge prediction more accurate than DST.
 For the general behaviour capture, stateful models are not suited by themself only.
 However, training two models separately for both charge and discharge or use it additional techniques on short prediction, for example, during acceleration events - the stateful model has usable applications.
@@ -128,8 +143,8 @@ Similarly to the second method, Model \#5 applied a different optimiser.
 However, additional complexity to other processing introduced better overall accuracy Table~\ref{tab:acc-results2}, as reported by Javid \textit{et al.}~\cite{javid_adaptive_2020}.
 All three models experienced better training convergence in a shorter time, as per Figure~\ref{fig:Model-5losses}.
 However, the difficulty in capturing the middle of a charge is still preserved.
-% Model 5: 1,3 mdeol applied modification to the structure directly and 4th one indirectly. (2nd one did not, read again).
-% There as (2?) and 5 improves optimisation steps, leading to better accuracy in all testing.
+% Model 5: 1,3 model applied modification to the structure directly and fourth one indirectly. (2nd one did not, read again).
+% There as (2?) and 5 improve optimisation steps, leading to better accuracy in all testing.
 % RoAdam allowed faster convergences to the optimal accuracy and generaly achioeved better results by Table 2.
 
 %
@@ -142,13 +157,13 @@ In some cases, like wi\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-
 
 %
 %
-\subsection{Discussion to add}
-After analysing all six models, there are several comparisons, which can be derived from them.
+\subsection{Observations and discussions}
+After analysing all six models, several comparisons can be derived from them.
 Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers.
 To determine the actual performance, it will require multiple trained models over a single implementation to average performance results and make a clear statement.
 Models \#1 and \#2 give an illusion of an advantage to one model over another.
 However, the accuracy plots in \mbox{Figures~\ref{fig:Model-1losses} and ~\ref{fig:Model-2losses}} indicate how error degrades with time for both models.
-The advantage of one over another is a simple matter of randomness in the initial training results.
+One advantage over another is a simple matter of randomness in the initial training results.
 
 %
 %
@@ -156,33 +171,33 @@ Model \#1 and \#6 have tested two approaches of neuron handling, either at singl
 As a result, there was no significant advantage unless there were more modifications to the multilayer sequential model.
 There as Model \#3 introduced additional custom computation without extra memory cells, leading to a smoother output.
 The attention layer may not significantly boost the training or accuracy, but it gives a good foundation for further improvements and modifications.
-Since the SoC estimation is not a pure number based behaviour but also a matter of physical, electrical properties, manual adjustment weights, losses or data itself will not bring valuable results.
+Since the SoC estimation is not a pure number-based behaviour but also a matter of physical and electrical properties, manual adjustment weights, losses or data itself will not bring valuable results.
 Further research and adjustments must be made using a similar principle to improve the training procedure with augmented models. 
 For example, the sigmoid function selection in the model output minimises the possibility of going over 100\% or 0\% of charge.
 
 %
 %
 Model \#2 and \#5 approach the convergence with optimisers modification.
-The ensemble used two algorithms to speed up the long process of locating local minimum and the second algorithm to tune up closer to it with an adjusted learning step.
-However, the modified Adam version with a direct impact with the loss ratio improved the result drastically.
+The ensemble used two algorithms to speed up the long process of locating the local minimum and the second to tune up closer to it with an adjusted learning step.
+However, the modified Adam version directly impacting the loss ratio improved the result drastically.
 The advantage of modifying optimisers is better observed on the accuracy plots, \mbox{Figure~\ref{fig:Model-2losses} and ~\ref{fig:Model-5losses}}.
-Model \#2 had better results in avoiding overfitting since it used two optimisers for quick adjustment and tuning.
+Model \#2 had better-avoided overfitting since it used two optimisers for quick adjustment and tuning.
 Similar to Model \#5, which had a small learning rate, but modified parameter update with direct involvement of the loss values.
 An early termination over \#5 and \#6 is a result of overfitting or apparent stability in the accuracy.
-With the number of samples, which the training process went through and based on the RMSE plot, there was a little need for repeated training over the same data repeatedly, as proven in the first several models.
+With the number of samples that the training process went through and based on the RMSE plot, there was little need for repeated training over the same data, as proven in the first several models.
 
 %
 %! [Refer to the bottom dicussion of stateful model]
-Model \#4 was the only one, which used a stateful model for training and testing.
-\textbf{Since every time-series model has a stateful internally, the difference is in the point of the model's reset.}
-It is more convenient for the State of Charge scenario to work with a short burst of data rather than attempt to preserve very long dependencies in a single run and be dependent to initial conditions.
-%
-%
-The best performance with Stateful models can be achieved through using a separate training process for charge and discharge. 
-\mbox{Subfigure~\ref{subfig:Model-4res-DSTvsDST}} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
-The other two training were performed with discharge sets only, \mbox{Subfigures~\ref{subfig:Model-4res-UStr}, \ref{subfig:Model-4res-FUDStr}}.
-Stateful models can not be validated using traditional means of accurate measurement.
-\mbox{Table~\ref{tab:acc-results2}} for Model \#4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
+% Model \#4 was the only one, which used a stateful model for training and testing.
+% \textbf{Since every time-series model has a stateful internally, the difference is in the point of the model's reset.}
+% It is more convenient for the State of Charge scenario to work with a short burst of data rather than attempt to preserve very long dependencies in a single run and be dependent to initial conditions.
+% %
+% %
+% The best performance with Stateful models can be achieved through using a separate training process for charge and discharge. 
+% \mbox{Subfigure~\ref{subfig:Model-4res-DSTvsDST}} demonstrates training over DST, which sufferers from high error in both charge and discharge process.
+% The other two training were performed with discharge sets only, \mbox{Subfigures~\ref{subfig:Model-4res-UStr}, \ref{subfig:Model-4res-FUDStr}}.
+% Stateful models can not be validated using traditional means of accurate measurement.
+% \mbox{Table~\ref{tab:acc-results2}} for Model \#4 takes results from a single cycle only, same as~\ref{fig:Model-4res}, since there is no straightforward way to validate across all cycles (marked with $*$ symbol).
 
 %
 %
@@ -212,6 +227,6 @@ Stateful models can not be validated using traditional means of accurate measure
 % 
 %
 %
-Overall, there is an obvious advantage in training a model over a single profile and then testing against similar scenarios, for example, creating a model that fits a single drive's driving behaviour over specific driving scenarios.
-However, it will suffer from inaccuracies if models are placed under other conditions without a post-training process with new data.
-Comparison of the validation data act as a determined prove.
+Overall, there is an obvious advantage in training a model over a single profile and testing against similar scenarios, for example, creating a model that fits a single drive's driving behaviour over specific driving scenarios.
+However, if models are placed under other conditions without a post-training process with new data, they will suffer from inaccuracies.
+Comparison of the validation data act as a determining proof.
