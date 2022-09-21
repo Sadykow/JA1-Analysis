@@ -1,50 +1,93 @@
-Since it is common for temperatures in the accumulator inside an EV to spike from ambient 20 degrees to the limit of 60, all temperature ranges were used together to train each model.
-The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set).
+% Intro paragraph with init conditions of data and params
+%
+Since it is common for temperatures in the EVs' accumulator to spike from ambient 20 degrees to the limit of 60, all temperature ranges were used together to train each model.
+The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set) from another two.
 This approach led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
 The following section compares the models trained on each individual and then tests against the entire dataset of all three profiles.
-All examples were trained using charge and discharge cycles and an initially predetermined set of hyperparameters to make an objective comparison.
+All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters. %% to make an objective comparison.
 
+% Metrics references
 %
-%
-% Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
+%%Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
 The metrics were reported using the equations outlined in the \mbox{Table~\ref{tab:metrics}}.
 Figures were generated during each iteration of the training process from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
 After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing assessment of the efficiency of the learning process.
 
-% The Evaluation process of layers and neurons to get the best set
+% Intro to the hyper-parameters calculation, the Evaluation process of layers and neurons to get the best set
 %
 The hyperparameters selection process based on evaluating the best set of layers and neurons for all research models has been determined and recorded before the primary training process.
 \mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} based on the average of three attempts per each current profile has been produced, sorted by applicable criteria and used through the rest of the experiments.
 The lowest mean average error and relative memory size were selected as primary research aspects.
 It is important to note that those parameters are not universally applicable to any other kind of battery or telemetries from electric vehicles.
-The set of hyperparameters may have been a good one for applicable data in this research.
+The set of hyperparameters may have been promising for the data in this research.
 However, that evaluation would have to be repeated for other batteries or deployments with car endurance records.
 
 %
 %
-\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+\mbox{Two tables, \ref{tab:acc-results1} and \ref{}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
 \mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-5res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
 % \mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 
+\subsection{Average evaluations and Hyperparameters}
 %
+% Average 10 attempts with accuracy calculus.
+During prelimery work, the research attempted training many models of the same type to a case with a best fitting line.
+One of cases was to use a set seed number for all models.
+However, determining a case from an infinite number of possibility equaly effective for all models is the least effective method.
+Therefore, taking an average results of multiple attempt to smoothen results of history and SoC prediction has been created.
+Figure~\ref{fig:Model-DEMO} represents the difference between a single an multiple averaged models, as well as the general spread.
+Subfigure~\ref{subfig:Model-DEMO-10} demonstrates how 10 different models, each potentially minimised toward a single minimal, do get spreaded from each other, producing variable results.
+Subfigures~\ref{subfig:Model-DEMO-1} and~\ref{subfig:Model-DEMO-avr} shows comparison between randomly selected single  and averaged model history results.
+Due to least trendines plots and clear convergenence or divergence directions, the method proven to be the most objective results.
+Nan values were ignored on the cases of longer history***
+Similar method has been applied to all SoC plots for all models
+%Several evaluation possibilities were tested. In the end, average of 10 provided the most objective results to overview.
+%\textcolor{red}{Show plot of 1, then all 10 and average taken.}
+\begin{figure*}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.325\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO1-history-FUDS-mae.svg}
+      \caption{Single model history for training and testing}
+      \label{subfig:Model-DEMO-1}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.325\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO2-history-FUDS-mae.svg}
+      \caption{All 10 attempts of histories on a single plot for training and testing}
+      \label{subfig:Model-DEMO-10}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.325\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO3-history-FUDS-mae.svg}
+      \caption{Average of 10 attempts of histories for training and testing}
+      \label{subfig:Model-DEMO-avr}
+  \end{subfigure}
+  \caption{Results averaging demonstration}
+  \label{fig:Model-DEMO}
+\end{figure*}
+
 %
-\subsection{Hyperparameters evaluation}
-The ranges between 1 to 3 layers and incremental combinations of neurons from 131 to 1572 were used to determine the most optimum set of hyperparameters for all models to work with.
+%! Hyperparameters results, rollback and learning rate
+%! 135  Models to asses. That is why only average of 3 attempts was used. Average MAE was calculated from the Average of each individual profile.
+The ranges between 1-3 layers and incremental combinations of neurons from 131-1572 were used to determine the most optimum set of hyperparameters for all models to work with.
 Any values higher or lower of both parameters did not provide worthy outputs, therefore, has been amended from the research.
 In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
 For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
 %%%%%%%%%%%%%%%
 Training simple LSTM models with Adam optimiser for three current profiles three times resulted in a total of 135 trained models.
 They all can be summarised in 15 different sets of hyperparameters to compare.
-\mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} report the average results of the five best models based on the lowest average training error and occupied memory space in a compressed state in MegaBytes (MB).
+\mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} report the average results of the five best models based on the lowest average training error of all three profiles and occupied memory space in a compressed state in MegaBytes (MB).
 The time in seconds highlights the duration of training over a single epoch.
 For online training on a low-power device, it could be considered as an essential factor, sacrificing some amount of accuracy, but not in this research.
 The angle of inclination is a line fit to the average error training over time, starting from the second epoch until the end of the training.
-It can be determined either by visual examination of the average training curve of all attempts or through a simple line fitting, where negative or positive reversed tangent of angle alpha will represent converges or divergence and constant C the height of the curve or average error.
+It can be determined either by visually examining the average training curve of all attempts or through a simple line fitting, where negative or positive reversed tangent of angle alpha will represent converges or divergence and constant C the height of the curve or average error.
 %
-% It reports the trend of the model performance, where alpha represents the angle and c the hights.
+% It reports the trend of the model performance, where alpha represents the angle and c the heights.
 % In the tables below, the negative \textbf{revesersed tangent?} represents the error degradation, there as the positive a clear overfit.
-As a result, a model with index 10 with three layers and a total of 131 neurons (43 per layer) has been selected as the main researched hyperparameter for all follow-up models.
+As a result, a model with index 10 with three layers and a total of 131 neurons (43 per layer) has been selected as the main researched hyperparameters combination for all follow-up models.
 % \textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
@@ -88,9 +131,11 @@ As a result, a model with index 10 with three layers and a total of 131 neurons 
 %
 %
 \subsection{Models results overview}
+%! 150  Models to work with
 Implementation of several variations of time-series models allowed analysis of multiple paths of evolution of machine learning techniques in State of Charge estimation over the past three years.
 A review of the resulting pros and cons, accuracies and complexity helps make a reasonable justification for further improvements.
 Based on the summary of accuracies across entire training sets of all three profiles Table~\ref{tab:acc-results1}, the Highway way driving achieved the highest error on validation and testing against either profile for all models.
+In total, 150 models have been produced, recorded and evaluated.
 Further observation will focus primarily on DST and FUDS-based models and their efficiency at generalising each-others and US06 profiles.
 The set of figures~\ref{fig:Model-1res}-\ref{fig:Model-4res} and early mentioned Table will act as two primary sources of the results for further overview and discussion.
 
@@ -175,10 +220,14 @@ Generally, it took 2-5 attempts to return to the initially targeted minimum.
 %
 \textbf{Model 5 Placeholder. The importance of the simplest optimiser does not mean better or more engineering efficiency if it takes 100+ epochs to achieve results. In general, it has the least steep learning curve in comparison to others} \\
 Model 5 implemented the most straightforward case to verify the efficiency of standardly used Adam optimisers.
-Also, it acts as an indication to explore the cell types' limitations and where they are failing***.
-Model \#5 is an indicator of the areas ML models have difficulties capturing.
+Also, it acts as an indication to explore the cell types' limitations and what areas are harder to capture.
+% Model \#5 is an indicator of the areas ML models have difficulties capturing.
 Those are the charge above 30\%, some degree between 90-80\% of discharge and below 50\%.
 Those areas distinguish the most different temperatures, causing difficulties in capturing all of them.
+It produced the lowest accuracy for DST and FUDS, but managed to get the best fit for US06 and capture FUDS.
+\textcolor{red}{It is hard to provide any justification, given that average testing history curve only diverges with every epoch.
+Due to its' slow fitting process, due to use of inly a single minimal, it could be assumed that majority of the models were focused on a single minimal, without diving too deep to the optimal.
+Therefore capturing both high trendies cases.}
 % Model \#6 applied an additional LSTM layer with separated neurons to test better capturing.
 % However, the result did not bring better error or faster convergence.
 % In some cases, like wi\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
@@ -188,6 +237,9 @@ Those areas distinguish the most different temperatures, causing difficulties in
 %
 %
 \subsection{Observations and discussions}
+%! Which is best at reproducing itself? (4) Furthest fit
+%! Which is best for real scenarios? 1 - Since it does not go too far into minimum, experiancing overfit with other models.
+%! Which drive cycles is best to train? DST trained models
 %
 %
 The initial methodology tested the impact of the neurons and layers on the model's accuracy to fit battery data.
@@ -199,7 +251,7 @@ Doubling the number of neurons per layer may triple an occupied space without an
 %
 After analysing all five models, several comparisons can be derived from them.
 Despite multiple tests over two cell types, there is no apparent advantage in using LSTM or GRU layers.
-Two versions of Model 1 with LSTM and GRU were tested to determine the impact of cell type.
+Two versions of Model \#1 with LSTM and GRU were tested to determine the impact of cell type.
 Both models tended to achieve the same accuracy but at different times.
 GRU generally achieves the optimum after 7-10 epochs, without the potential to recover, unlike LSTM. % after 50 learning rate degradations.
 The size of GRU was 30kB lower than LSTM, which is explained by a lower number of gates per neuron.
@@ -215,6 +267,7 @@ The first one demonstrated the speed at which a model achieves the optimum accur
 Since the Adam optimiser is inbuilt of SGD, it leads to an increased speed in the fitting process.
 The RoAdam introduced additional variables and equations to impact the learning process directly via loss value.
 It prolonged the training process without hitting an early overfit, improving the capture on the more complex profiles, like FUDS, giving no significant impact on DST. 
+\textbf{Therefore, it can be concluded that RoAdam optimiser is the best at capturing complex current behavior***}
 
 %
 %
@@ -294,6 +347,7 @@ Although it had a promising start by the training accuracy, the technique of add
 Voltage evolution during charge and discharge cycles is a primary source of characterising the behaviour of the State of Charge.
 Therefore, distinguishing the flat region of the voltage of 3.3V (around 70-30\% of discharge) creates difficulties for an ML model in the least apparent current consumption cases, such as FUDS, due to Voltage Drops via Internal Resistance of a battery.
 The better models' capability to identify their trained profile, the worse they become in characterising the others.
+\textbf{That is why, the Model \#1 with a general optimiser probably can be considred as the best genral use combination, since it does not go too far into achiving lowest minimum and not experiancing overfit with other models.}
 % \textbf{Capturing the middle area of charge, where flat-region of the voltage remains stable most of the time, is difficult, and DST may not be the best for isolated case.}
 %
 \textcolor{red}{However, the comparison Figure~\ref{fig:Model-1res} against tabled results creates a false impression that FUDS does a better training to capture other profiles in an isolated case, the table contradicts that in the overall FUDSs doubles the error on other profiles, as opposed to DSTs.}

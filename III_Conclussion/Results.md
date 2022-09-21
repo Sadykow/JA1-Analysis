@@ -1,16 +1,46 @@
 ## Performance and Results
 # Intro paragraph
-1) Introduction to the section, data and parameters.
+1) Intro paragraph with init conditions of data and params.
 
 2) Metrics references
 
-3) Intro to the hyper-parameters calculation and tables.
+3) Intro to the hyper-parameters calculation, the Evaluation process of layers and neurons to get the best set
 
 4) Intro to the tables of results of the models.
 
 # Hyper-parameters evaluation
+1) Details of split, criteria to select and resulted selection.
 
 # Models results overview
+1) Intro. Review techniques in the past 3 years.
+
+2) Model 1 - Chemali2017
+    2.1) Simple structure, old LSTM. (1lx500n)
+    2.2) Adam optimiser
+    2.3) 1-(D-C) or 3-D temp ranges
+    2.4) Did not overfit or went too far into minumal
+
+3) Model 2 - BinXiao2020
+    3.1) Simple structure, new GRU.
+    3.2) Ensemple - Nadam(0.001)+Adamax(0.0005) optimiser
+    3.3) 1-D only???
+
+4) Model 3 - TadeleMamo2020
+    3.1) LSTM+Attention
+    3.2) Differential Evolution, we used ADAM
+    3.3) Training on 2 profiles - test on 1
+
+5) Model 4 - GaleretJavid202?
+    3.1) GRU
+    3.2) Non published optimiser RoAdam
+    3.3) Was implemented on two frameworks to verify that behavior matches.
+
+6) Model 5 - MengJiao2020
+    3.1) LSTM 
+    3.2) SGD
+    3.3) Identify regions of strugellling to describe
+
+    
 
 # Observations and discussions
 
