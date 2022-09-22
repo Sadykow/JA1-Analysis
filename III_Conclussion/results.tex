@@ -31,16 +31,17 @@ However, that evaluation would have to be repeated for other batteries or deploy
 \subsection{Average evaluations and Hyperparameters}
 %
 % Average 10 attempts with accuracy calculus.
-During prelimery work, the research attempted training many models of the same type to a case with a best fitting line.
-One of cases was to use a set seed number for all models.
-However, determining a case from an infinite number of possibility equaly effective for all models is the least effective method.
-Therefore, taking an average results of multiple attempt to smoothen results of history and SoC prediction has been created.
-Figure~\ref{fig:Model-DEMO} represents the difference between a single an multiple averaged models, as well as the general spread.
-Subfigure~\ref{subfig:Model-DEMO-10} demonstrates how 10 different models, each potentially minimised toward a single minimal, do get spreaded from each other, producing variable results.
+During preliminary work, the research attempted to train many models of the same type to produce a best-fitting line.
+Due to MLs' stochastic nature, the training results had a huge variance, similar to Subfigure~\ref{subfig:Model-DEMO-10}.
+The Earliest attempt to unify all models was the application of the same set seed number for all models.
+However, determining a case from an infinite number of possibilities to produce equally effective models is the least effective method.
+Therefore, an average result of multiple attempts to smoothen history and SoC prediction curves has been introduced.
+Figure~\ref{fig:Model-DEMO} represents the difference between single and multiple averaged models and the general spread.
+Subfigure~\ref{subfig:Model-DEMO-10} demonstrates how ten different models, each potentially minimised toward a single minimal, get spread from each other, producing variable results.
 Subfigures~\ref{subfig:Model-DEMO-1} and~\ref{subfig:Model-DEMO-avr} shows comparison between randomly selected single  and averaged model history results.
-Due to least trendines plots and clear convergenence or divergence directions, the method proven to be the most objective results.
-Nan values were ignored on the cases of longer history***
-Similar method has been applied to all SoC plots for all models
+Due to the most trendiness plots and apparent convergence or divergence inclination, the method has proven to be the most objective result.
+Nan values were ignored in the cases of prolonged history.
+The same method has been applied to all SoC plots for all models, reported further.
 %Several evaluation possibilities were tested. In the end, average of 10 provided the most objective results to overview.
 %\textcolor{red}{Show plot of 1, then all 10 and average taken.}
 \begin{figure*}[htbp]
@@ -77,7 +78,8 @@ Any values higher or lower of both parameters did not provide worthy outputs, th
 In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
 For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
 %%%%%%%%%%%%%%%
-Training simple LSTM models with Adam optimiser for three current profiles three times resulted in a total of 135 trained models.
+Training simple LSTM models with Adam optimiser for three current profiles three times only resulted in a total of 135 trained models.
+% because 180 models are too much to bare
 They all can be summarised in 15 different sets of hyperparameters to compare.
 \mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} report the average results of the five best models based on the lowest average training error of all three profiles and occupied memory space in a compressed state in MegaBytes (MB).
 The time in seconds highlights the duration of training over a single epoch.
@@ -149,7 +151,7 @@ While they utilised from 1 to 3 temperature ranges, the modification of the hype
 However, with 2-3 times increased complexity of the input data, due to training on charge and discharge across five temperature ranges, the miss-accuracy only trippled, remaining below 5\% of an error.
 Based on Table~\ref{tab:acc-results1}, it has the most stable convergence across three different profiles compared to the other attempts.
 %!---It can be justified by the longest training time to reach the lowest error.
-This model has not shown good accuracies on US06 and FUDS datasets, unlike with DST, due to the general simplicity of current behaviour.
+This model has not shown good accuracies on US06 and FUDS datasets, unlike with DST, due to the general simplicity of profiles' current behaviour.
 %!---Contrary to DST, the US06 made the best result in capturing both features.
 %!---By analysing Table~\ref{tab:acc-results1}, US06 and FUDS results for Model \#1 can capture each other behaviour, but not the DST.
 
@@ -158,7 +160,7 @@ This model has not shown good accuracies on US06 and FUDS datasets, unlike with 
 %
 \textbf{TOBE Updated with values upon readiness.}
 Model \#2 was an attempt to move from an old LSTM to a recently developed GPU type of cell.
-Both Adam and Nadam optimisers by themselves ran for half less epoch than LSTM, but achieved similar accuracies.
+Both Adam and Nadam optimisers by themselves ran for half less epoch on GRU cell type than LSTM, but achieved similar accuracies.
 Embedding an additional optimiser with the same learning rate scheduling for fine-tuning purposes doubled and tripled the training time.
 % However, it utilised two different optimisers for the pre and fine-tuning phases.
 % The transition happened after a third of the maximum allowed iterations, which in some cases led to high accuracy spikes in the training process, as seen in Figure~\ref{fig:Model-2losses}.
@@ -218,16 +220,23 @@ Generally, it took 2-5 attempts to return to the initially targeted minimum.
 
 %
 %
-\textbf{Model 5 Placeholder. The importance of the simplest optimiser does not mean better or more engineering efficiency if it takes 100+ epochs to achieve results. In general, it has the least steep learning curve in comparison to others} \\
-Model 5 implemented the most straightforward case to verify the efficiency of standardly used Adam optimisers.
-Also, it acts as an indication to explore the cell types' limitations and what areas are harder to capture.
+\textcolor{red}{Model 5 Placeholder. The importance of the simplest optimiser does not mean better or more engineering efficiency if it takes 100+ epochs to achieve results. In general, it has the least steep learning curve in comparison to others} \\
+Model 5 implemented the most straightforward case to compare the efficiency of standardly used Adam optimisers and outline the bottom line for optimisers.
+Also, it acts as an indication to explore the ML models' limitations and what areas of a State of Charge curve are harder to capture.
 % Model \#5 is an indicator of the areas ML models have difficulties capturing.
-Those are the charge above 30\%, some degree between 90-80\% of discharge and below 50\%.
-Those areas distinguish the most different temperatures, causing difficulties in capturing all of them.
-It produced the lowest accuracy for DST and FUDS, but managed to get the best fit for US06 and capture FUDS.
-\textcolor{red}{It is hard to provide any justification, given that average testing history curve only diverges with every epoch.
-Due to its' slow fitting process, due to use of inly a single minimal, it could be assumed that majority of the models were focused on a single minimal, without diving too deep to the optimal.
-Therefore capturing both high trendies cases.}
+Based on the SoC prediction absolute error area plots for DST and FUDS, Figure~\ref{fig:Model-5res}, the charge above 30\%, some degree between 90-80\% of discharge and below 50\% creates the highest discrepancies in the prediction.
+Similar areas could have been observed on previously mentioned models, with a lesser degree of miss accuracy.
+Those behaviours outline the effect of temperatures on the SoCs curves, causing problems for models to characterise them all together.
+However, Model \#5 has proven to be the most effective in capturing US06 above all others.
+Considering the general divergence of the testing curve and the MAE of the training approaching only an overall 1\%, it could be assumed that all attempts were less lickely to overfit the given data.
+%It produced the lowest accuracy for DST and FUDS, but managed to get the best fit for US06 and capture FUDS.
+\textcolor{red}{
+It is hard to justify, given that the average testing history curve only diverges with every epoch.
+Due to its' slow fitting process, assumingly, they reach only a single minimum.
+The models were focused on a single minimal without diving too deep into the optimal solutions.
+%Therefore capturing both high trendies cases.
+Despite that, considering the overall performance of the training process and results, it proves that Adam is a far superior optimisation strategy.
+}
 % Model \#6 applied an additional LSTM layer with separated neurons to test better capturing.
 % However, the result did not bring better error or faster convergence.
 % In some cases, like wi\mbox{Two tables, \ref{tab:acc-results1} and \ref{tab:acc-results2}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
@@ -344,29 +353,34 @@ Although it had a promising start by the training accuracy, the technique of add
 % 
 %
 %
-Voltage evolution during charge and discharge cycles is a primary source of characterising the behaviour of the State of Charge.
+Voltage evolution during charge and discharge cycles is a primary source of characterising the behaviour of the State of Charge, as the current defines the direction and intensity.
 Therefore, distinguishing the flat region of the voltage of 3.3V (around 70-30\% of discharge) creates difficulties for an ML model in the least apparent current consumption cases, such as FUDS, due to Voltage Drops via Internal Resistance of a battery.
 The better models' capability to identify their trained profile, the worse they become in characterising the others.
-\textbf{That is why, the Model \#1 with a general optimiser probably can be considred as the best genral use combination, since it does not go too far into achiving lowest minimum and not experiancing overfit with other models.}
+\textcolor{red}{
+That is why Model \#1 can be considered the best general use combination of cell type and optimiser since it does not go too far into achieving the lowest minimum, unlike Model \#5, and not experiencing overfit with other models.
+}
 % \textbf{Capturing the middle area of charge, where flat-region of the voltage remains stable most of the time, is difficult, and DST may not be the best for isolated case.}
 %
-\textcolor{red}{However, the comparison Figure~\ref{fig:Model-1res} against tabled results creates a false impression that FUDS does a better training to capture other profiles in an isolated case, the table contradicts that in the overall FUDSs doubles the error on other profiles, as opposed to DSTs.}
-\textcolor{blue}{However, by analysing Figure~\ref{fig:Model-1res}, the DST had the best results in capturing the general behaviour of all three profiles due to its' simplicity and repentance in the current consumption, roughly 365 seconds per each subcycle, as opposed to 600 and 1400 for US06 and FUDS.}
-Subfigure~\ref{subfig:Model-1res-DSTvsFUDS} illustrates the area plot with the highest peaks compared to other plots.
+\textcolor{red}{The comparison Figure~\ref{fig:Model-1res} against tabled results creates a false impression that FUDS does a better training to capture other profiles in an isolated case, the table contradicts that in the overall FUDSs doubles the error on other profiles, as opposed to DSTs.}
+..OR..
+\textcolor{blue}{By analysing Figure~\ref{fig:Model-1res}, the DST had the best results in capturing the general behaviour of all three profiles due to its' simplicity and repentance in the current consumption, roughly 365 seconds per each subcycle, as opposed to 600 and 1400 for US06 and FUDS.}
+Subfigure~\ref{subfig:Model-1res-DSTvsFUDS} illustrates the area plot with the highest peaks compared to other figures.
 \textcolor{red}{It achieved the best capture of other profiles but not the best at validation.
 Meaning that without reaching the lowest optimum error due to a simpler optimiser, it did not lose the capture of either profile for all 30 training cases.}
 Generally, DST is bad for capturing, as shown on all plots across SoC prediction on validation.
 %Although there was a chance that the Dynamic stress test may act as a middle ground between Urban and highway driving.
-Although, that offset from it, which can be observed across all models, makes a better characterisation of the SoC curve since the top and bottom percentage of the charge remains the same yet is capable of characterising all temperature ranges and profiles within 95-97\% accuracy.
-Such results make a good start for a shipped ML-based SoC model, which will later receive online training to fit the usability scenario.
+Although, that offset from the actual line during discharge, which can be observed across all models, makes a better characterisation of the SoC curve since the top and bottom percentage of the charge remains the same yet is capable of characterising all temperature ranges and profiles within 95-97\% accuracy.
+Such results make a DST pre-trained ML-based SoC model for deployment, which will later receive online training to fit the usability scenario, such as EVs.
 
 %
 %
 Since the SoC estimation is not a pure number-based behaviour but also a matter of physical and electrical properties, manual adjustment weights, losses or data itself will not bring valuable results.
 Further research and adjustments must be made using a similar principle to improve the training procedure with augmented models. 
-Such as the rollback feature, which has proven to be adequate to keep researched models within close range of epoch to calculate average, as well as reduce the time to training all 135??.
-\textbf{The techniques of determining optimal hyperparameters, efficient data selection and management, along with a promising direction toward further improvement, will assist in the development of a universal SoC estimation model.}
+Such as the rollback feature, which has proven to be adequate to keep researched models within close range of epoch to calculate the average, as well as the training time reduction of all 285 models.
+\textbf{The techniques of determining optimal hyperparameters, efficient data selection and management, along with a promising direction toward further improvement, will assist in the development of a universal SoC estimation model in the future.}
 
+%
+%
 Overall, there is an obvious advantage in training a model over a single profile and testing against similar scenarios, for example, creating a model that fits a single drive's driving behaviour over specific driving scenarios.
 However, models placed under other conditions without a post-training process with new data will suffer from inaccuracies in the estimation.
 It is doubtful that one of those models will be efficient in a different condition or with another battery, despite its' age.
