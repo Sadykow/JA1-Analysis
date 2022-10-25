@@ -54,13 +54,13 @@ That can be achieved with stateful models, which continuously preserve the predi
 
 %
 %
-Based on reviewed articles, one of the first attempts to train an RNN model to predict the state of charge was to train in several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.
-Then, others attempted to generalise battery behaviour to multiple usage scenarios, leading to higher Root Mean Squared Error.~\cite{mamo_long_2020}.
+Based on reviewed articles, one of the first attempts to train an RNN model to predict the state of charge was to feed several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.
+Then, others attempted to generalise battery behaviour to multiple usage scenarios, leading to higher Root Mean Squared Error, but broader application.~\cite{mamo_long_2020}.
 For instance, by comparing similar procedures of testing from Song et al.~\cite{song_lithium-ion_2018} and Mamo et al.~\cite{mamo_long_2020} who conducted their research methods but used different validation mechanisms, it can be seen how accuracy error doubles if testing performs at a different temperature or untrained driving profile.
 By selecting the same drive cycles at closely similar temperature, Song et al.~\cite{song_lithium-ion_2018} accuracy acchieved rougly 0.735\% error, then as Mamo et al.~\cite{mamo_long_2020} reported 1.2533\% at best.
 This can be explained by the fact that most researchers used a single driving profile, but with an entire available temperature range for training and then a portion of handpicked temperatures for validation and accuracy reporting.
-Such an approach does not necessarily represent a realistic EV usage scenario well since during a single acceleration event, the battery goes through ambient temperature to the maximum allowed within several seconds, and its' usage depends on the condition of a road and the driver's experience.
-Mamo et al.~\cite{mamo_long_2020} attempted to generalise this behaviour by using the addition layer construction technique to make a model be appliable to any driving condition.
+Such an approach does not necessarily represent a realistic EV usage scenario well since during a single acceleration event, the battery goes through ambient temperature to the maximum allowed within several seconds, and its' usage depends on the road conditions and the driver's experience.
+Mamo et al.~\cite{mamo_long_2020} attempted to generalise this behaviour by using the addition layer construction technique to make a model applicable to any driving condition.
 There has been little research to validate the performance of different Machine Learning techniques to extrapolate ideal laboratory battery cycling conditions of early collected data, to an electric vehicle behaviour.
 %% (Include one of the sections)
 % After identifying the most optimal input preferences without significant effect on the performance, one of the further developments applies changes to the structure of GRU or LSTM by adding additional layers (Attention or Extra Dense layers)~\cite{mamo_long_2020, jiao_gru-rnn_2020}.
@@ -110,7 +110,7 @@ However, after identifying the most optimal input preferences, some researchers 
 }
 \end{table*}
 
-% Although experiments which involved extrapolation of ideal laboratory conditions with accurate sensory to real-world conditions, worth different environmental characteristics or sensory interference - is not currently available.
+% Although experiments which involved extrapolation of ideal laboratory conditions with accurate sensory to real-world conditions, worth different environmental characteristics or sensory interference - are not currently available.
 %
 In most published testing of ML methods applied to SoC, experiments on battery cycling data were conducted on different cell types.
 Most used table data of real-time sensory results from battery cyclers to validate efficiencies generated using different current schedulers (driving profiles)~\cite{Chemali2017,song_lithium-ion_2018,mamo_long_2020,jiao_gru-rnn_2020,xiao_accurate_2019}.

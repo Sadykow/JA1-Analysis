@@ -4,8 +4,8 @@
 % Purpose of the article. Prototype existing models on low-power devices.
 % \subsection{Types of ML model for evaluation}
 To identify the best candidate for integration into an electric vehicles battery management system, the methodology evaluation section will attempt to prototype a Neural Network model from existing methods and deploy it on potential low-power Machine Learning powered devices for final testing.
-One of the objectives is to analyse several different RNN models, measure the performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
-Building on the variaents of ML used for SoC estimation from the literature~\mbox{Table~\ref{tab:review}}, the models, to be investiaged in this work are given,~\mbox{Table~\ref{tab:experiment}}.
+One of the objectives is to analyse several different RNN models, measure their performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
+Building on the variaents of ML used for SoC estimation from the literature~\mbox{Table~\ref{tab:review}}, the models to be investiaged in this work are given in~\mbox{Table~\ref{tab:experiment}}.
 % Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
 It provides details of six different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
 All of them were implemented as faithfully as possible to the original published versions.
@@ -13,13 +13,13 @@ Any details on implementation not present in the original published papers were 
 \textcolor{blue}{
 The selection criteria for the review were based on an unordinary approach to the problem compared to standard framework examples, learning what directions have been attempted and determining promising methods for further research and enhancement.
 }
-%\textcolor{red}{How were they selected/chosen?? -- Attempting to improve already existing methods with additional compuation or experiments, which does not follow common ML methods, written in the framework documentation.}
+%\textcolor{red}{How were they selected/chosen?? -- Attempting to improve already existing methods with additional computation or experiments, which does not follow common ML methods, written in the framework documentation.}
 \begin{table}[h]
     \renewcommand{\arraystretch}{1.3}
     \caption{
         % The structure defines the number of layers and amount of neurons of a particular RNN type.
         The type highlights the RNN structure, which will be used in the cells.
-        % The statefulness parameter describes the model's ability to preserve its' current state for the next set of input parameters.
+        % The statefulness parameter describes the model's ability to preserve its current state for the next set of input parameters.
         % Based on that, the input amount of samples becomes flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
         The optimiser selection was based on the derivative calculation algorithms only.
         % Other alternatives, like differential evolution, are beyond the scope of research.

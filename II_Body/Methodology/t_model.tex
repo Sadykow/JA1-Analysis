@@ -1,5 +1,5 @@
 \subsection{Model training, validation and testing metrics functions} \label{subsec:t_model}
-% The evaluation process, how it is done and what it meant to achieve
+% The evaluation process, how it is done and what it means to achieve
 %
 The methods evaluation procedures will be connducted similar to Mamo \textit{et al.}~\cite{mamo_long_2020} research.
 They will undertake the same training, validation and testing procedure to determine the best technique and performance.
@@ -9,23 +9,23 @@ A single training iteration consists of several stages involving several perform
 
 % Save/load process to avoid overfitting early
 %
+Algorith~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
 \textcolor{blue}{
-After a single epoch run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting.
-If an improvement is observed, the model will be saved as a checkpoint if it requires a rollback, and the model continues to undertake a follow-up evaluation.
+After a model setup, initial parameters definition and a single epoch run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting at Alg.~\ref{alg:training} line~\ref{alg:training-check}.
+If an improvement is observed, the model will be saved as a checkpoint if it requires a rollback, and the model continues to undertake a follow-up evaluation, Alg.~\ref{alg:training} line~\ref{alg:training-succes}.
 Otherwise, the model will be rolled to the previous checkpoint and undertake another attempt with a half-reduced current learning rate.
-Within 10 to 30 attempts, models recover and continue learning there as, by the time of reaching around 50, they start to show NaN results with no potential for recovery, with an error between 3-6\%.
+Within 10 to 30 attempts, models recover and continue learning there as, by the time of reaching around 50, they start to show NaN results with no potential for recovery, with an error between 3-6\%, Alg.~\ref{alg:training} lines~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}.
 }
 % Testing procedures explanation and reasoning
 %
-First, it is verified against a single cycle at 25\textdegree{}C to confirm the general fitting process.
-After, it gets tested against two other cycles, assessing the general capture of State of Charge cycling under different conditions.
+After training is concluded and improvement has been observed, it is verified against a single cycle at 25\textdegree{}C to confirm the general fitting process and produce an output for later use during performance averaging, Alg.~\ref{alg:training} line~\ref{alg:training-valid}.
+Then, it gets tested against two other cycles, assessing the general capture of the State of Charge cycling under different conditions, Alg.~\ref{alg:training} line~\ref{alg:training-test}.
 The better results, the more objective model becomes in unseen conditions.
-An additional test against another battery takes place to verify the models' behaviour and the possibility for further improvement with new samples.
+An additional test against another battery takes place to verify the models' behaviour and the possibility for further improvement with new samples, which will not be part of performance measurements or discussion.
 For this investigation, verifying with a single cycle at 25 degrees was the primary criteria assessment.
 Due to the potential assumption that a model inside an electric vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
 The results from two other sample tests confirm that estimations are still rational within State of Charge behaviour boundaries.
-If the model reaches the optimum state, then there are no more accuracy improvements and hyper-parameter to adjust, the training process will be stopped and undertake the final evaluation against the entire training set against all three profiles.
-Algorith~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
+If the model reaches the optimum state, then there are no more accuracy improvements and hyper-parameter to adjust, the training process will be stopped and undertake the final evaluation against the entire training set with all three profiles, Alg.~\ref{alg:training} line~\ref{alg:training-end}.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Training procedure}
         \begin{algorithmic}[1]
@@ -34,24 +34,24 @@ Algorith~\ref{alg:training} provides the pseudocode summary for the primary trai
             \STATE Set prev\_error 1
             \WHILE{epoch  $<$100:}
                 \STATE Train model, get gradients and apply optimiser
-                \IF{ error $<$ prev\_error:}
+                \IF{ error $<$ prev\_error:}    \label{alg:training-check}
                     \WHILE{attempt  $<$ 50:}
-                        \STATE Load previous successful model
+                        \STATE Load previous successful model   \label{alg:training-recovery-start}
                         \STATE Reduce learning rate by half
                         \STATE Train model, get gradients and apply optimiser
                         \IF{ error $>$ prev\_error:}
-                            \STATE Break the loop. Update error. Save state.
+                            \STATE Break the loop. Update error. Save state. \label{alg:training-recovery-end}
                         \ENDIF
                     \ENDWHILE
                 \ELSE
-                    \STATE Update error. Save state.
+                    \STATE Update error. Save state. \label{alg:training-succes}
                     \STATE Update learning rate based on the scheduler.
                 \ENDIF
-                \STATE Validate model on 25\textdegree{}C cycler.
-                \STATE Test on two other profiles.
+                \STATE Validate model on 25\textdegree{}C cycler.   \label{alg:training-valid}
+                \STATE Test on two other profiles. \label{alg:training-test}
                 \STATE Test on a different cell.
             \ENDWHILE
-            \STATE Record overall results against entire training datasets
+            \STATE Record overall results against entire training datasets. \label{alg:training-end}
         \end{algorithmic}
     \label{alg:training}
 \end{algorithm}
@@ -59,12 +59,16 @@ Algorith~\ref{alg:training} provides the pseudocode summary for the primary trai
 % Accuracy evaluation explanation with drawings
 %
 Testing performance gets measured against two cycles of each unsued scheduler using one of the available embedded devices capable of Machine Learning computation.
-The intention was to verify the model's capability of being used on low-power devices and still meet necessary performance requirements.
+The intention was to verify the model's capability to be used on low-power devices and still meet necessary performance requirements.
 The profile will be switched to another and perform the same training, validation and testing steps.
 This mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
 Based on the progressive accuracy increase, a final iteration for this plot and discussion will be based on the lowest training and validation error.
 Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where the actual State of Charge is compared with prediction.
 The filled area below the plot captures the error Absolute Error Difference between two lines, as per Equation~\ref{eq:abs-error}.
+%%%%%%
+Test procedure performed on two cycles of each profile but at a different temperature to assess how perceptive the model is to capture average and high heat spikes at which accumulator may end up.
+Each result is summarised into a table and reported based on metrics values.
+%%%%%%
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
     \centering
@@ -76,10 +80,6 @@ The filled area below the plot captures the error Absolute Error Difference betw
     \textbf{ABS error}  = \sqrt{(Actual-Prediction)^2}
     \label{eq:abs-error}
 \end{equation}
-%%%%%%
-Test procedure performed on two cycles of each profile but at a different temperature to assess how perceptive the model is to capture average and high temperature at which accumulator may end up.
-Each result is summarised into a table and reported based on metrics values.
-%%%%%%
 %
 %
 % Finally, after completing all training, which results in 18 produced models, each will undertake an overall assessment.
@@ -181,7 +181,7 @@ Each result is summarised into a table and reported based on metrics values.
 %
 Metrics functions act as user evaluation criteria to assess the performance of the trained model during both fitting and validation processes.
 Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations from \mbox{Table~\ref{tab:metrics}}.
-Thus, the same criteria will be used for the final comparison between models' efficiency against each other.
+Thus, the same criteria will be used to compare the models' efficiency against each other.
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.3}
     \caption{Model's metrics functions}
@@ -209,4 +209,4 @@ Thus, the same criteria will be used for the final comparison between models' ef
 % Concluding purpose of the training and ultimate goad of getting so creative
 %
 Overall, the primary criteria of the research are the ability to fit the training data, avoiding overfits, constant reasonably short retraining potential, susceptibility to undetermined conditions and final memory and processing usage.
-Ultimately, all models will be compared with their successes and falts to determine a path for potential improvement.
+Ultimately, all models will be compared with their successes and faults to determine a path for potential improvement.

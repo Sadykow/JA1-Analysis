@@ -1,5 +1,5 @@
-\documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
-% \documentclass[journal]{IEEEtranTIE}
+% \documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
+\documentclass[journal]{IEEEtranTIE}
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{picinpar}
@@ -20,7 +20,7 @@
 \usepackage{epstopdf}
 \usepackage{pbox}
 
-% Adds SVG Support out of cls file
+% Adds SVG Support out of SVG file
 \usepackage{svg}
 
 % Double line spacing
@@ -43,7 +43,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
-%Code listing style named "mystyle"
+%Code listing style
 \lstdefinestyle{mystyle}{
   backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
   keywordstyle=\color{magenta},
@@ -62,10 +62,10 @@
   tabsize=2
 }
 
-%"mystyle" code listing set
+%style code listing set
 \lstset{style=mystyle}
 
-% lscape.sty Produce landscape pages in a (mainly) portrait document.
+% Produce landscape pages in a (mainly) portrait document.
 \usepackage{pdflscape}
 
 % Adding if execution to define between thesis and article
@@ -73,7 +73,7 @@
 \newboolean{thesis}
 \setboolean{thesis}{false}
 
-% Intext plus-minux
+% Intext plus-minus
 \usepackage{textcomp}
 
 \begin{document}
@@ -89,8 +89,8 @@
 
 	\thanks{
 	
-		Manuscript received Month xx, 2xxx; revised Month xx, xxxx; accepted Month x, xxxx.
-		This work was supported in part by the xxx Department of xxx under Grant  (sponsor and financial support acknowledgment goes here).
+		Manuscript received Month xx, 2xxx; revised Month xx, XXXX; accepted Month x, XXXX.
+		This work was supported in part by the xxx Department of xxx under Grant  (sponsor and financial support acknowledgement go here).
 		
 		(Authors' names and affiliation) First A. Author1 and Second B. Author2 are with the xxx Department, University of xxx, City, Zip code, Country, on leave from the National Institute for xxx, City, Zip code, Country (e-mail: author@domain.com). 
 		
@@ -172,33 +172,33 @@
         \begin{figure}[ht]
             \centering
             \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
-            \caption{Data Windowing scheme at 1Hz sampling rate. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from the actual implementation. Initial index $i$ was kept as a value close to the beginning of the data, around zero.}
+            \caption{Data Windowing scheme at 1Hz sampling rate. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from the actual implementation. The initial index $i$ was kept as a value close to the beginning of the data, around zero.}
             \label{fig:Windowing3f}
         \end{figure}
     \end{landscape}
 %%% Implementation
 \section{Prelimery algorithmic evaluation} \label{sec:Body}
-\input{./II_Body/RNN2}
-    \input{./II_Body/GRU/gru}
-    \input{./II_Body/LSTM/lstm}
-    \subsection{Optimisers} \label{subsec:optimisers}
-    \input{./II_Body/Optimisers/optimisers}
-        \input{./II_Body/Optimisers/SGDwM}
-        \input{./II_Body/Optimisers/adam}
-        \input{./II_Body/Optimisers/ensemble}
+% \input{./II_Body/RNN2}
+%     \input{./II_Body/GRU/gru}
+%     \input{./II_Body/LSTM/lstm}
+%     \subsection{Optimisers} \label{subsec:optimisers}
+%     \input{./II_Body/Optimisers/optimisers}
+%         \input{./II_Body/Optimisers/SGDwM}
+%         \input{./II_Body/Optimisers/adam}
+%         \input{./II_Body/Optimisers/ensemble}
 %%% Conclusion
 \section{Performance and Results}\label{sec:results}
+%%% \input{./III_Conclussion/fig_history}
+%%% \input{./III_Conclussion/figures} %! Separate figures and comments all by 1 for writing help.
+%%% \input{./III_Conclussion/tab_accuracies}  
 \input{./III_Conclussion/results}
-% \input{./III_Conclussion/fig_history}
-% \input{./III_Conclussion/figures} %! Separate figures and comment all by 1 for writing help.
-% \input{./III_Conclussion/tab_accuracies}  
-\input{./III_Conclussion/tab_accuracies_new}
-\input{./III_Conclussion/figures_new}
-%     \subsection{Hardware performcene overview}
-    % \input{./III_Conclussion/performance}
-% \section{Conclusion} \label{sec:conclussion}
-% \input{./III_Conclussion/articleConclussion}
-% \input{./III_Conclussion/acknowledgements}
+% \input{./III_Conclussion/tab_accuracies_new}
+% \input{./III_Conclussion/figures_new}
+%%     \subsection{Hardware performance overview}
+    %% \input{./III_Conclussion/performance}
+\section{Conclusion} \label{sec:conclussion}
+\input{./III_Conclussion/articleConclussion}
+\input{./III_Conclussion/acknowledgements}
 
 \bibliographystyle{IEEEtranTIE}
 \bibliography{

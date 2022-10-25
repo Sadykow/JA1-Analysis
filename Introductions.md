@@ -1,7 +1,7 @@
 ### Introduction (article)
-1) Importance of the Electric Vehicles and their battery problem.
+1) Importance of Electric Vehicles and their battery problem.
 2) The state of Charge, methods and its' value on BMS.
-Comparison between traditional methods and ML-based estimations.
+3) Comparison between traditional methods and ML-based estimations.
 4) What has been done in the area of RNN for battery characterisation
 5) Results from other authors and how good reports are
 6) Types of data they all deal with. DST, US ...
