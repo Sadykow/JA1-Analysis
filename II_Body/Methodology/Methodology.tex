@@ -3,45 +3,8 @@
 %The following section will describe the methodology of evaluation analysis of the reviewed methods, data sources and built pipelines, procedures for training, validation and testing, and final error calculation. \\
 % Purpose of the article. Prototype existing models on low-power devices.
 % \subsection{Types of ML model for evaluation}
-To identify the best candidate for integration into an electric vehicles battery management system, the methodology evaluation section will attempt to prototype a Neural Network model from existing methods and deploy it on potential low-power Machine Learning powered devices for final testing.
-One of the objectives is to analyse several different RNN models, measure their performance, and determine the most promising direction for further enhancing Neural Network models' integration into an embedded device.
-Building on the variaents of ML used for SoC estimation from the literature~\mbox{Table~\ref{tab:review}}, the models to be investiaged in this work are given in~\mbox{Table~\ref{tab:experiment}}.
-% Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
-It provides details of six different implementations, which vary in structure and learning process but share the same training, validation, testing and performance measurement procedures.
-All of them were implemented as faithfully as possible to the original published versions.
-Any details on implementation not present in the original published papers were assumed based on ML's standard methods at their writing time.
-\textcolor{blue}{
-The selection criteria for the review were based on an unordinary approach to the problem compared to standard framework examples, learning what directions have been attempted and determining promising methods for further research and enhancement.
-}
-%\textcolor{red}{How were they selected/chosen?? -- Attempting to improve already existing methods with additional computation or experiments, which does not follow common ML methods, written in the framework documentation.}
-\begin{table}[h]
-    \renewcommand{\arraystretch}{1.3}
-    \caption{
-        % The structure defines the number of layers and amount of neurons of a particular RNN type.
-        The type highlights the RNN structure, which will be used in the cells.
-        % The statefulness parameter describes the model's ability to preserve its current state for the next set of input parameters.
-        % Based on that, the input amount of samples becomes flexible by the requirement of adding only a single sample at a time upon their arrival, instead of waiting until the fixed amount has accumulated into a fixed-size time window.
-        The optimiser selection was based on the derivative calculation algorithms only.
-        % Other alternatives, like differential evolution, are beyond the scope of research.
-        Extensions define the model's specific technique, distinguishing it from the others.
-        }
-        \centering
-        \label{tab:experiment}
-        \resizebox{\columnwidth}{!}{
-    \begin{tabular}{c l c r}
-        \hline\hline \\[-4mm]
-        \# & Type & Extension & Optimiser  \\
-        \hline
-        1 & LSTM~\cite{Chemali2017} &                 & Adam   \\
-        2 & GRU  & Ensemble~\cite{xiao_accurate_2019} & Nadam \& AdaMax \\
-        3 & LSTM & Attention~\cite{mamo_long_2020}    & Adam \\
-        4 & GRU  &                                    & RoAdam~\cite{javid_adaptive_2020} \\
-        5 & LSTM &                                    & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} \\
-        \hline\hline
-    \end{tabular}
-    }
-\end{table}
-
+The methodology evaluation section will attempt to prototype and deploy a Neural Network model from existing methods to identify the best candidate for integration into an electric vehicle's battery management system.
+One of the objectives is to analyse several different RNN models, measure their performance, and determine the most promising direction for further enhancing the integration of a Neural Network model into an accumulator inside an EV.
 % Roadmap
 %
 % \textbf{ROADMAP: Explain sections}
@@ -55,13 +18,13 @@ The selection criteria for the review were based on an unordinary approach to th
 %         \item learning rate 
 %     \end{itemize}
 % \end{itemize}
-\textcolor{blue}{
-Subsection~\ref{subsec:b_data} will cover the origin of the battery data, what they represent, its' type, properties, size and usability in the model preparation.
-Like any other model preparation, subsection~\ref{subsec:t_model} will cover the cross-validation process, involving data split between training, validation and testing datasets and data augmentation for an ML model to work.
-Subsection~\ref{subsec:l-rate} will cover the hyper-parameters, which models will share through the training process to achieve the optimum results.
-To make all researched models have equal opportunities to prove themselves, a set of parameters will first be investigated and reported as the best suited for battery management system purposes before diving into specific implementations.
-Finally, subsection~\ref{subsec:dataset} summarises and sets up the starting point shared across all models through the entire research process.
-}
+% \textcolor{blue}{
+% Subsection~\ref{subsec:b_data} will cover the origin of the battery data, what they represent, its' type, properties, size and usability in the model preparation.
+% Like any other model preparation, subsection~\ref{subsec:t_model} will cover the cross-validation process, involving data split between training, validation and testing datasets and data augmentation for an ML model to work.
+% Subsection~\ref{subsec:l-rate} will cover the hyper-parameters, which models will share through the training process to achieve the optimum results.
+% To make all researched models have equal opportunities to prove themselves, a set of parameters will first be investigated and reported as the best suited for battery management system purposes before diving into specific implementations.
+% Finally, subsection~\ref{subsec:dataset} summarises and sets up the starting point shared across all models through the entire research process.
+% }
 
 %
 % Must start with the general methodology

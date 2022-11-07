@@ -2,29 +2,29 @@
 % Explanation
 %
 \subsubsection{Classic and Momentum Stochastic Gradient Descent algorithms}
-One of the simplest methods used to optimise the model is the Stochastic Gradient Descent (SGD), \mbox{Algorithm~\ref{alg:SGD}}.
-\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
-  \caption{Stochastic Gradient Descent (SGD) optimisation}
-  \begin{algorithmic}[1]
-    \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
-    \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
-    \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
-    \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
-    \STATE Define Loss function: $L$ \\
-           Get hyperparameters: $\alpha$
-    \WHILE{$W_t \text{ not converge}$}
-    \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
-    \STATE $W_t \gets W_{t-1} - \alpha g_t $ \COMMENT{Update parameters}
-    \ENDWHILE
-  \end{algorithmic}
-  \label{alg:SGD}
-\end{algorithm}
-The SGD Optimiser utilised a simple gradient update with a learning rate.
-% uses less calculations and achieves results slower* Higher chances not to achieve the minimum
+One of the simplest methods to optimise the model is the Stochastic Gradient Descent (SGD). %, \mbox{Algorithm~\ref{alg:SGD}}.
+% \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+%   \caption{Stochastic Gradient Descent (SGD) optimisation}
+%   \begin{algorithmic}[1]
+%     \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
+%     \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
+%     \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
+%     \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
+%     \STATE Define Loss function: $L$ \\
+%            Get hyperparameters: $\alpha$
+%     \WHILE{$W_t \text{ not converge}$}
+%     \STATE $t \gets t+1$
+%     \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
+%     \STATE $W_t \gets W_{t-1} - \alpha g_t $ \COMMENT{Update parameters}
+%     \ENDWHILE
+%   \end{algorithmic}
+%   \label{alg:SGD}
+% \end{algorithm}
+The SGD Optimiser utilised a simple gradient update with a learning rate, Ag~\ref{alg:SGDwM}, Ln~\ref{alg:SGDwM-Line-Gradient}.
+% uses fewer calculations and achieves results slower* Higher chances of not achieving the minimum
 % Unlike improved versions, this algorithm has the potential of missing optimum value.
-The extension of SGD, Algorithm~\ref{alg:SGDwM}, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Line~\ref{alg:SGDwM-Line-Moment}.
-It increases the performance of the algorithm by improving convergence speed in comparison to the classical version.
+The extension of SGD, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Ag~\ref{alg:SGDwM}, Ln~\ref{alg:SGDwM-Line-Moment}.
+It increases the algorithm's performance by improving convergence speed compared to the classical version.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}
   \begin{algorithmic}[1]
@@ -36,7 +36,7 @@ It increases the performance of the algorithm by improving convergence speed in 
            Get hyperparameters: $\alpha, \beta_1$
     \WHILE{$W_t \text{ not converge}$}
     \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
+    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient \label{alg:SGDwM-Line-Gradient}}
     \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ Moment Calculation\label{alg:SGDwM-Line-Moment}}
     \STATE $W_t \gets W_{t-1} - \alpha m_t $  \COMMENT{Update parameters}
     \ENDWHILE

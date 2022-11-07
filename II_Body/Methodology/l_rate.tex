@@ -1,6 +1,7 @@
 \subsection{Hyperparameters selection} \label{subsec:l-rate}
 % Methods and their optimisers
 %
+%! Five stated models
 The reviewed articles used constant hyperparameters values for models and optimisers, including learning rate.
 However, each selected different values based on experiments and observations, somewhere in the range of 0.001, the standard framework provided, down to 0.0005(0.0001), to make a smooth stepping and minimise potential missing the optimum minimum.
 A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:experiment}}.
@@ -36,6 +37,8 @@ Considering that all attempts to train the estimator eventually tended to overfi
 However, it did not affect the follow-up training, meaning that the learning rate always followed the stick degradation curve as per Figure~\ref{fig:l_rate_progress}.
 Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
 Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
+%! Put a phudo code for sheduler degradation.
+
 \begin{figure}[ht]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/l_rate.svg}
@@ -45,7 +48,7 @@ Once the model fails to improve the accuracy, it is considered the most optimum 
 
 % Betas and Epsilon instead on every optimiser page
 %
-The betas and epsilon did not go through any similar optimisation process due to a lack of documented training attempts to improve fitting over State of Charge estimation on Lithium-Ion batteries.
+The betas and epsilon optimisers' constants did not go through any similar optimisation process due to a lack of documented training attempts to improve fitting over State of Charge estimation on Lithium-Ion batteries.
 As a result, they were kept constant for all trained models, except SGD with Momentum as per \mbox{Table~\ref{tab:uni-hyperparams}}.
 Since Stochastic Gradient Descent does not use any other hyper-parameters except learning rate and single beta constant, its' value was set to $\beta_1 = 0.8$
 \begin{table}[htbp]
@@ -72,3 +75,8 @@ All reviewed articles used a constant number of layers and neurons to conduct th
 None have provided any reasoning for the selections or results from other attempted experiments without changing the technique.
 The least time-consuming method evaluated the most promising combination of the number of layers and neurons to create the best similar circumstances for all methods.
 The most promising candidates were taken through a dozen similar attempts to get an average result and produce several selection criteria for later use.
+
+5 ML is stochastict thongs. A such, to get repeateable you need to account for statistical, to account we have implementt an avering methods, where each model trained 10 times and resulted averaged to provide significant statistical criteria (representative) as opposite to random fluctions/
+As an example of this methods FUDS has been used, showing a spread....
+
+%! Table witj model and asociated metho at the begginig or the end of the 3rd section.

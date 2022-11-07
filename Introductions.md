@@ -3,8 +3,11 @@
 2) The state of Charge, methods and its' value on BMS.
 3) Comparison between traditional methods and ML-based estimations.
 4) What has been done in the area of RNN for battery characterisation
+   1) We going to use RNN to explode those methods.
 5) Results from other authors and how good reports are
+   1) GRU and LSTM and who used it.
 6) Types of data they all deal with. DST, US ...
+   1) SHow how data was used by other. SOme did discharge, others mixed and why we need to use like full charge and regenerative charge. Follow idea, arefer to athors.
 7) Purpose of this paper and how will it go.
 ### Introduction (thesis)
 1) Introduce a chapter describing LSTM and GRU, publications to review and accurate comparison.
