@@ -23,22 +23,53 @@ A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:expe
       \caption{Model training process with a rollback if current error higher than previous.}
       \label{subfig:rollback}
   \end{subfigure}
-  \caption{Training process comparison with and without having a recovery algorithm.}
+  \caption{Training process comparison with and without having a recovery algorithm. \textcolor{red}{I forgot, what was I supposed to change here?}}
   \label{fig:rollback}
 \end{figure}
-As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
-Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course.
+% As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
+Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course, Equation~\ref{eq:scheduler}.
+The implementation is equivalent to a \textit{linspace} function, where every epoch's learning rate $\hat{\alpha}$ gets calculated through \textit{start} and \textit{stop} variables, indicating boundaries of the rates' degradation, with $\Delta$ decrement through a total of \textit{N} number of iterations inclusive, and known $\alpha$ value.
 However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
-The best approach to save time and produce reliable results was to enforce a model to carry on the selected course.
-Since each model undergoes multiple attempts, there are good chances to explore multiple different fitting scenarios rather than jumping between them.
+The best approach identified in this work to save time and produce reliable results has been to enforce a model to stick toward a single minimum.
+Since each model undergoes multiple attempts, there are good chances to explore a variety of different fitting scenarios rather than jumping between several minimal.
 Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
 While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
-Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot.
+Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot, Equation~\ref{eq:scheduler}.
 However, it did not affect the follow-up training, meaning that the learning rate always followed the stick degradation curve as per Figure~\ref{fig:l_rate_progress}.
 Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
 Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
-%! Put a phudo code for sheduler degradation.
-
+% Put a pseudo code for scheduler degradation.
+% elif type == 'linear':
+%   return linspace(0.001, 0.0001, 100)[epoch]
+%   step = (stop - start) / (num - 1)
+% for i in range(num):
+%   yield start + step * i
+% \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
+%   \caption{Linear Scheduler implementation. Equivalent of \textit{linspace()} fn}
+%   \begin{algorithmic}[1]
+%     \STATE \textbf{Starting value} \\ $start\gets \textit{initial Learning rate}$\\
+%     \STATE \textbf{End Value} \\ $stop\gets \textit{final Learning rate}$\\
+%     \STATE \textbf{Number of iterations/Epochs} \\ $N = \textit{Epochs}$\\
+%     \STATE \textbf{Calculate step between starting and end values, \\ including final learning rate} \\ $step = (stop - start) / (N - 1)$\\
+%     \WHILE{$epoch \leq N$}
+%     \STATE $\alpha \gets start + step * epoch$ \\ \COMMENT{Yield learning rate to an optimiser}
+%     \ENDWHILE
+%   \end{algorithmic}
+%   \label{alg:scheduler}
+% \end{algorithm}
+%! alpha_1 = alpha + delta
+%! Define delta degradation of learning rate
+%! Delta wash chosen to go from init to end. Decrement.
+\begin{equation}
+  \begin{split}
+      IF \ AN \ & OVERVFIT: \\
+      \hat{\alpha} &= \frac{\alpha }{2} \\
+      ELSE: & \\
+      \Delta &= \frac{stop - start}{N-1} \\
+      \hat{\alpha} &= \alpha + \Delta \times epoch \\
+      \label{eq:scheduler}
+  \end{split}
+\end{equation}
 \begin{figure}[ht]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/l_rate.svg}
@@ -49,8 +80,9 @@ Once the model fails to improve the accuracy, it is considered the most optimum 
 % Betas and Epsilon instead on every optimiser page
 %
 The betas and epsilon optimisers' constants did not go through any similar optimisation process due to a lack of documented training attempts to improve fitting over State of Charge estimation on Lithium-Ion batteries.
-As a result, they were kept constant for all trained models, except SGD with Momentum as per \mbox{Table~\ref{tab:uni-hyperparams}}.
-Since Stochastic Gradient Descent does not use any other hyper-parameters except learning rate and single beta constant, its' value was set to $\beta_1 = 0.8$
+As a result, they were kept constant for all trained models except SGDw/M.
+Since Stochastic Gradient Descent does not use any other hyper-parameters except learning rate and single beta constant, its' value was set to $\beta_1 = 0.8$.
+\textcolor{red}{Sheduler and remaining hyper-params - \mbox{Table~\ref{tab:uni-hyperparams}}}
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
   \caption{Optimisers Hyper-Parameters}
@@ -63,7 +95,7 @@ Since Stochastic Gradient Descent does not use any other hyper-parameters except
       \hline
       Linear         &  &  &  & \\% 0.0000001
       Scheduler      & $0.9$ & $0.999$ & $0.999$ &$10^{-8}$ \\% 0.0000001
-      (0.001-0.0005) &  &  &  & \\% 0.0000001
+      (0.001-0.0001) &  &  &  & \\% 0.0000001
       \hline\hline
   \end{tabular}
   }
@@ -71,12 +103,7 @@ Since Stochastic Gradient Descent does not use any other hyper-parameters except
 
 % Layers and neurons
 %
-All reviewed articles used a constant number of layers and neurons to conduct the experiments.
-None have provided any reasoning for the selections or results from other attempted experiments without changing the technique.
+The work performed by other authors from Table~\ref{tab:review} uses a constant number of layers and neurons to conduct the experiments.
+Only a few have provided reasoning for the selections or results from other attempted experiments without changing the technique~\cite{jiao_gru-rnn_2020,mamo_long_2020}.
 The least time-consuming method evaluated the most promising combination of the number of layers and neurons to create the best similar circumstances for all methods.
 The most promising candidates were taken through a dozen similar attempts to get an average result and produce several selection criteria for later use.
-
-5 ML is stochastict thongs. A such, to get repeateable you need to account for statistical, to account we have implementt an avering methods, where each model trained 10 times and resulted averaged to provide significant statistical criteria (representative) as opposite to random fluctions/
-As an example of this methods FUDS has been used, showing a spread....
-
-%! Table witj model and asociated metho at the begginig or the end of the 3rd section.

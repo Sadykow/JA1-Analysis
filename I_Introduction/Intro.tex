@@ -12,7 +12,7 @@ The development of effective methods for State-of-Charge (SoC) estimation remain
 Various techniques to estimate the SoC have been developed to enhance battery usage.
 The ability to determine the state of a battery or a battery system is a required function for an advanced Battery Management System (BMS).
 Those techniques can be classified into three primary categories~\cite{ali_towards_2019,ng_enhanced_2009,robust_SoC,6953745}: direct measurement, model-based methods, and computer intelligence or Machine Learning (ML).
-Direct measurements methods take readings from batteries relying on sensors, such as open circuit Voltage, internal resistance, or current readings over set periods (i.e. Coulomb Counting)~\cite{ng_enhanced_2009,robust_SoC}.
+Direct measurements method takes readings from batteries relying on sensors, such as open circuit Voltage, internal resistance, or current readings over set periods (i.e. Coulomb Counting)~\cite{ng_enhanced_2009,robust_SoC}.
 Model-based methods recreate battery behaviour and use sensor inputs to calculate results from a pre-defined model~\cite{6953745}.
 Computer intelligence techniques enhance such models with additional data.
 Those data-driven calculations aim to improve model estimation by fitting to an actual behaviour observation.
@@ -20,9 +20,9 @@ Examples include Fuzzy Logic~\cite{malkhandi_fuzzy_2006}, Support Vector Machine
 
 %
 %
-While some model-based methods, such as the equivalent circuit model, are simple to implement within a BMS, many cannot correctly capture a batteries' complex multi-dependant behaviour~\cite{6953745}.
+While some model-based methods, such as the equivalent circuit model, are simple to implement within a BMS, many cannot correctly capture a battery's complex multi-dependant behaviour~\cite{6953745}.
 %Others are limited to offline simulation due to high complexity and computation requirements, therefore not suited to an onboard BMS.
-Direct measurement estimation is limited to sensor accuracy and affected by losses created by Coulombic efficiencies~\cite{Smith_2010} where some portion of charge gets transferred to heat or is affected by battery ageing that is not captured.
+Direct measurement estimation is limited to sensor accuracy and is affected by losses created by Coulombic efficiencies~\cite{Smith_2010} where some portion of charge gets transferred to heat or is affected by battery ageing that is not captured.
 %Additionally, the measured voltage depends on whether the battery is in use or has been on rest for a given time.
 %An accurate SoC estimation model has to implement a way to accommodate battery losses and sensor readings.
 %If model-based methods treat as constant values, then in real scenarios, they can be significantly limited to sensor inaccuracy, environmental and internal battery temperature, or ageing.
@@ -44,7 +44,7 @@ The effectiveness of RNNs in time-series dependant problems has been shown using
 Over the past years, the RNN approach has found multiple applications for SoC estimation.
 The most recent attempt to determine the Li-Ion battery's remaining useful life was with the implementation of the Gradient Recurrent Unit (GRU) models~\cite{song_lithium-ion_2018,javid_adaptive_2020,xiao_accurate_2019,jiao_gru-rnn_2020}.
 The earliest approach utilised a battery charge's regression nature only using stateless models~\cite{song_lithium-ion_2018,jiao_gru-rnn_2020,xiao_accurate_2019} \textcolor{red}{when input impact is not preserved for further predictions}.
-% non-connected predictions, allowing to be used any time, independemtly from previos results or inputs.
+% non-connected predictions, allowing to be used at any time, independently from previous results or inputs.
 Later, some approaches introduced additional parameters to support the NN learning process~\cite{mamo_long_2020,jiao_gru-rnn_2020,javid_adaptive_2020}.
 Besides good convergence, these models can determine critical events, like the time before complete charge depletion or overcharge.
 However, the wide application has been limited due to the need for the initial state as an input feature.
@@ -64,7 +64,7 @@ That can be achieved with stateful models, which continuously preserve the predi
 Based on reviewed articles, one of the first attempts to train an RNN model to predict the state of charge was to feed several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.
 Then, others attempted to generalise battery behaviour to multiple usage scenarios, leading to higher Root Mean Squared Error, but broader application.~\cite{mamo_long_2020}.
 For instance, by comparing similar procedures of testing from Song et al.~\cite{song_lithium-ion_2018} and Mamo et al.~\cite{mamo_long_2020} who conducted their research methods but used different validation mechanisms, it can be seen how accuracy error doubles if testing performs at a different temperature or untrained driving profile.
-By selecting the same drive cycles at closely similar temperature, Song et al.~\cite{song_lithium-ion_2018} accuracy acchieved rougly 0.735\% error, then as Mamo et al.~\cite{mamo_long_2020} reported 1.2533\% at best.
+By selecting the same drive cycles at a closely similar temperature, Song et al.~\cite{song_lithium-ion_2018} accuracy achieved roughly 0.735\% error, then as Mamo et al.~\cite{mamo_long_2020} reported 1.2533\% at best.
 This can be explained by the fact that most researchers used a single driving profile, but with an entire available temperature range for training and then a portion of handpicked temperatures for validation and accuracy reporting.
 Such an approach does not necessarily represent a realistic EV usage scenario well since during a single acceleration event, the battery goes through ambient temperature to the maximum allowed within several seconds, and its' usage depends on the road conditions and the driver's experience.
 Mamo et al.~\cite{mamo_long_2020} attempted to generalise this behaviour by using the addition layer construction technique to make a model applicable to any driving condition.
@@ -119,22 +119,22 @@ However, after identifying the most optimal input preferences, some researchers 
 % Although experiments which involved extrapolation of ideal laboratory conditions with accurate sensory to real-world conditions, worth different environmental characteristics or sensory interference - are not currently available.
 %
 In most published testing of ML methods applied to SoC, experiments on battery cycling data were conducted on different cell types.
-Most used table data of real-time sensory results from battery cyclers to validate efficiencies generated using different current schedulers (driving profiles)~\cite{Chemali2017,song_lithium-ion_2018,mamo_long_2020,jiao_gru-rnn_2020,xiao_accurate_2019}.
+Most used table data of real-time sensory results from battery cyclers to validate efficiencies generated using different current schedulers (driving profiles)~\cite{Chemali2017,song_lithium-ion_2018,mamo_long_2020,xiao_accurate_2019}.
 %An equally time-based sample of current consumption acts as an input to the battery cycler, intended to recreate a stress test on a battery or human driving behaviour.
 Three profiles are most commonly used in the research in this area: Dynamic Stress Test (DST) for a variable power discharge mode, aggressive Highway Drive Schedule (US06) and Federal-Urban Driving Scheduler (FUDS) for nominal driving scenarios~\cite{xiao_accurate_2019,javid_adaptive_2020,mamo_long_2020}.
-\textcolor{yellow}{TODO: Distribute references by whoever uses them.}
 Unlike some general simple static discharge processes, which commonly appear in other battery-based tools, driving profiles include some amount of regenerative driving to simulate the actual application of the battery for an electric vehicle.
+There were several applications for those data, involving focusing the fitting process on battery discharge only~\cite{song_lithium-ion_2018,mamo_long_2020,jiao_gru-rnn_2020,javid_adaptive_2020}, capturing complete charge-discharge cycle~\cite{Chemali2017}, multiple combinations at various temperatures or profiles~\cite{xiao_accurate_2019,mamo_long_2020,Chemali2017,javid_adaptive_2020}, the impact of data samples ammount~\cite{song_lithium-ion_2018} and cross-validation of all three current profiles against each other~\cite{mamo_long_2020}.
 %
 % Mamo et al.~\cite{mamo_long_2020} conducted experiments by validating the RNN model performance by training one driving profile and testing against the other two.
 % The results showed doubled higher Root Mean Squared Error, as opposed to training and validation over single driving profiles as per experiments by Xiao et al.~\cite{xiao_accurate_2019}.
 %
-\textcolor{red}{Follow the enumaeration}
-\begin{enumerate}
-    \item only discharge [ref, ref, ref]
-    \item charge-discharge
-    \item multiple of cycles
-    \item Limits of one cycle, benefits of multiple, examples to compare to
-\end{enumerate}
+% \textcolor{red}{Follow the enumaeration}
+% \begin{enumerate}
+%     \item only discharge~\cite{song_lithium-ion_2018,mamo_long_2020,jiao_gru-rnn_2020,javid_adaptive_2020}
+%     \item charge-discharge~\cite{Chemali2017}
+%     \item multiple of cycles, like temps or profiles~\cite{xiao_accurate_2019,mamo_long_2020,Chemali2017,javid_adaptive_2020}
+%     \item Limits of one cycle, benefits of multiple or length of it,  examples to compare to~\cite{mamo_long_2020,song_lithium-ion_2018}
+% \end{enumerate}
 Identifying the best-suited method for a specific condition, like driving an EV, is one of the crucial steps for machine learning engineering.
 It requires a carefully defined methodology, which characterises researched conditions as close as possible, and experimental results from multiple models with applicable techniques and the lowest errors.
 By comparing implementation and results from different sources and testing accuracy and performance against multiple driving conditions at various temperatures from ambient to maximum possible, it is possible to select the best machine learning technique, which can be integrated directly into an Electric vehicle and safely used either on tight city roads or long high-speed highways.
@@ -144,7 +144,7 @@ By comparing implementation and results from different sources and testing accur
 % Usage of a single profile's battery cycling data may not validate ML methods' efficiency in driving an electric vehicle.
 % The inability to determine the charge's current state during EV driving makes the online learning process inapplicable.
 % Even with other SoC estimation technique usage, the computational complexity of training any NN is complicated to fit on a low-power device.
-% An offline trained model had the advantage of insignificant resource consumption during the prediction stage, making it a prefered way for an EV.
+% An offline-trained model had the advantage of insignificant resource consumption during the prediction stage, making it a prefered way for an EV.
 % All further model testing will be applied through varying battery cycling profiles to capture the influence of data type to model efficiency.
 %
 % (No point)
@@ -170,7 +170,7 @@ By comparing implementation and results from different sources and testing accur
 % ------------------------------------------------------------------------ \\
 %
 %
-% This paper investigates, implements and compares extended memory-based models of RNN to predict the State of Charge and additional built-on over-time techniques to select the most effective and least resource requiring onboard-based computations appliable within Electrical Vehicles.
+% This paper investigates, implements and compares extended memory-based models of RNN to predict the State of Charge and additional built-on over-time techniques to select the most effective and least resource-requiring onboard-based computations applicable within Electrical Vehicles.
 This paper investigates, implements, and compares extended memory-based models of RNN to predict the State of Charge and additional built-on over-time techniques to select the most suitable practical application for EV use with combinations of different profiles.
 Each subset will contain implementation from various key references changing either structure of the models or learning approaches.
 It should help develop a methodology to further extrapolate offline trained methods from the lab condition to the road drive tests.
@@ -183,7 +183,7 @@ Each method will be validated through those samples (either DST, US06 or FUDS dr
 %!Research gap and novelty
 \textcolor{blue}{\textit{
 Since there has been no comparison between which RNN type or driving profile impacts State of Charge estimation for both charge and discharge cycles, this article aims to identify the most viable and optimum method for custom build Electric vehicles.***
-Sometimes, multiple published models presented results relying only on a dicharge cycles, describing the efficincy of modeling on a single battery or in an ideal lab environment~\cite{xia_state_2018,javid_adaptive_2020,jiao_gru-rnn_2020,mamo_long_2020,zhang_deep_2020}.
+Sometimes, multiple published models presented results relying only on discharge cycles, describing the efficiency of modelling on a single battery or in an ideal lab environment~\cite{xia_state_2018,javid_adaptive_2020,jiao_gru-rnn_2020,mamo_long_2020,zhang_deep_2020}.
 However, long overnight charge cycles and regenerative breaking burst charges are equally crucial for the SoC percentage in the context of Electric vehicles' battery utilisation at prolonged usage and influence models' weight and biasses. ***
 This article will focus on the accuracy of SoC prediction based on the model training from charge and discharge cycles across various temperatures.
 }}

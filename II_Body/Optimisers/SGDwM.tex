@@ -20,10 +20,11 @@ One of the simplest methods to optimise the model is the Stochastic Gradient Des
 %   \end{algorithmic}
 %   \label{alg:SGD}
 % \end{algorithm}
-The SGD Optimiser utilised a simple gradient update with a learning rate, Ag~\ref{alg:SGDwM}, Ln~\ref{alg:SGDwM-Line-Gradient}.
+The SGD Optimiser utilised a simple gradient update with a learning rate, \mbox{Ag~\ref{alg:SGDwM}, Ln~\ref{alg:SGDwM-Line-Gradient}}.
 % uses fewer calculations and achieves results slower* Higher chances of not achieving the minimum
 % Unlike improved versions, this algorithm has the potential of missing optimum value.
-The extension of SGD, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, Ag~\ref{alg:SGDwM}, Ln~\ref{alg:SGDwM-Line-Moment}.
+The extension of SGD, which Jiao et al.~\cite{jiao_gru-rnn_2020} used, applies to classical SGD a single momentum calculation, \mbox{Ag~\ref{alg:SGDwM}, Ln~\ref{alg:SGDwM-Line-Moment}}.
+In the text, it is referred to as Stochastic Gradient Descent with Momentum (SGDw/M).
 It increases the algorithm's performance by improving convergence speed compared to the classical version.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Stochastic Gradient Descent with Momentum optimisation}

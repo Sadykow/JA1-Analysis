@@ -4,7 +4,7 @@
 \subsubsection{Classic and Robust Online Adaptive Moment Estimation}
 The most commonly and by default used in Time-series prediction is Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
 The \mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias as per the source.
-In addition to a second $\beta$ constant at~\ref{alg:Adam-Line-2Moment} used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
+In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg:Adam-Line-2Moment}} used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
 % On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Adaptive Moment Estimation (Adam) optimisation}
@@ -30,7 +30,7 @@ In addition to a second $\beta$ constant at~\ref{alg:Adam-Line-2Moment} used for
 
 % Extension with Robust Online
 %
-Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam \mbox{Algorithm~\ref{alg:RoAdam}}, Line~\ref{alg:RoAdam-Line-Online}, along with third $\beta$ constant at Line~\ref{alg:RoAdam-Line-3Moment}.
+Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam (RoAdam) \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Online}}, along with third $\beta$ constant at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-3Moment}}.
 Adding the direct influence of a loss function to the gradient update adds an online calculus to regular $Adam$ correction.
 The framework library contained no inbuild implementation of the Robust optimiser.
 Instead, it was implemented from the first principle and overwriting the model training procedure.
@@ -87,8 +87,8 @@ Instead, it was implemented from the first principle and overwriting the model t
 The code itself can be located in Appendix~\ref{app:RoAdam}.
 }
 {}
-Unlike initial variables, $m$, and $v$ of the Adam algorithm, which get set as matrices of zeros, the $d$ variable in the RoAdam is initialised with ones, Line~\ref{alg:RoAdam-Line-Vars}.
+Unlike initial variables, $m$, and $v$ of the Adam algorithm, which get set as matrices of zeros, the $d$ variable in the RoAdam is initialised with ones, \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Vars}}.
 In addition, the algorithm depends on the loss calculation during parameters evaluation and not every framework supports it with in-built functionality.
 The previous loss result has to be preserved in the next iteration.
-The initial loss value must be set above zero per the algorithm to avoid a zero-division error, Line~\ref{alg:RoAdam-Line-Loss}.
-% Optimiser implementation from the first principle remains the most viable option for the current version of TensorFlow, there as PyTorch already has the variation inbuilt to the standard library.
+The initial loss value must be set above zero per the algorithm to avoid a zero-division error, \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Loss}}.
+% Optimiser implementation from the first principle remains the most viable option for the current version of TensorFlow, there as PyTorch already has the variation inbuilt into the standard library.

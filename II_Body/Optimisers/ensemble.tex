@@ -9,9 +9,11 @@ The second is if the optimal solution gets frequently missed at large learning s
 Xioa et al.~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address those issues.
 The new ensemble optimisation algorithm is based on the combination of Nesterov Momentum Adam (Nadam)~\cite{dozat_nadam_2016} and the AdaMax~\cite{kingma_adam_2017} at certain moments of training.
 
-% Nadam advantage over Adam
+% Nadam's advantage over Adam
 %
 The Nadam optimiser extends the Adam, \mbox{Algorithm~\ref{alg:nadam}}, which implements the Nesterov momentum~\cite{dozat_nadam_2016}.
+\mbox{Ag~\ref{alg:nadam}, Ln~\ref{alg:Nadam-Line} and Ln~\ref{alg:Nadam-Line-update}} add additional calculations involving gradient and parameters update, intending to improve convergence speed.
+% \textcolor{red}{Another error. This time with SQRT. According to Adam and the source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao also corrected it. I am sticking with whatever I have at TF. There is no $\beta_i$ and no $\beta_2$ in the second moment update equation. All of that was corrected.}
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Nesterov Adaptive Moment Estimation (Nadam) optimisation}
     \begin{algorithmic}[1]
@@ -38,12 +40,12 @@ The Nadam optimiser extends the Adam, \mbox{Algorithm~\ref{alg:nadam}}, which im
     \end{algorithmic}
     \label{alg:nadam}
 \end{algorithm}
-Line~\ref{alg:Nadam-Line} and~\ref{alg:Nadam-Line-update} add additional calculations involving gradient and parameters update, intending to improve convergence speed.
-% \textcolor{red}{Another error. This time with SQRT. According to Adam and the source code in TF for Nadam, epsilon is not inside sqrt(). Although the original article stands otherwise, Xiao noticed that too and corrected it. I am sticking with whatever I have at TF. There is not $\beta_i$ and not $\beta_2$ in second moment update equation. All of that was corrected.}
 
 % AdaMax advantages over Adam
 %
-The second \mbox{Algorithm~\ref{alg:adamax}} in the ensemble sequence is AdaMax, \mbox{Algorithm~\cite{kingma_adam_2017}}, another modification of the Adam.
+The second \mbox{Algorithm~\ref{alg:adamax}} in the ensemble sequence is AdaMax~\cite{kingma_adam_2017}, another modification of the Adam.
+The second-order moment on \mbox{Ag~\ref{alg:adamax}, Ln~\ref{alg:AdaMax-Line}} gets replaced with the infinity norm of the moment.
+As a result, Xiao et al.~\cite{xiao_accurate_2019} considered AdaMax to have a stable weight updating rule and be used in the fine-tuning phase since its' advantage lies in the reduction of gradient fluctuation. 
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Adaptive Moment Estimation based on the infinity norm (Adamax)}
     \begin{algorithmic}[1]
@@ -64,20 +66,18 @@ The second \mbox{Algorithm~\ref{alg:adamax}} in the ensemble sequence is AdaMax,
     \end{algorithmic}
     \label{alg:adamax}
 \end{algorithm}
-The second-order moment on Line~\ref{alg:AdaMax-Line} gets replaced with the infinity norm of the moment.
-As a result, Xiao et al.~\cite{xiao_accurate_2019} considered AdaMax to have a stable weight updating rule and used in the fine-tuning phase since its' advantage lies in the reduction of gradient fluctuation. 
 
 %
 %
 Xiao et al.~\cite{xiao_accurate_2019} considered separating the training process into two stages: pre-training and fine-tuning.
-Based on his observations: "The purpose of the pre-training phase is to endow GRU model with the appropriate parameters to capture inherent features of the training samples.
+Based on his observations: "The purpose of the pre-training phase is to endow the GRU model with the appropriate parameters to capture inherent features of the training samples.
 The Nadam algorithm uses adaptive learning rates and approximates the gradient using the Nesterov momentum, thereby ensuring fast convergence of the pre-training process."~\cite{xiao_accurate_2019}
 The selection of the second algorithm is trivial.
 Although, Xiao et al.~\cite{xiao_accurate_2019} selection of AdaMax is defined by fast-convergence to a more stable value for further parameter adjustment.
-% \textcolor{red}{I'll be cursed. No, epsilon does. In the tensorflow implementation epsilons added to the vt. Corrected formula added, but commented out. \\
-%Remarks made by Xiao justifies the usage of Ensemble algorithm. How would I reprase it into something shorter}\\
-%\textit{Remark 1:} The purpose of the pre-training phase os to endow GRU model with the approppriate parameters to capture inherent featires of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient by means of the Nesteriv momentum, thereby ensuring fast convergence of the pre0training process.
-%\textit{Remark 2:} The purpose of the fine-tuning phase is to furher adjust the parameters to achieve greater accuracy by means of the AdaMax algorithm, which converges to a more stable value. \\ \\
+% \textcolor{red}{I'll be cursed. No, epsilon does. In the TensorFlow implementation, epsilons are added to the vt. Corrected formula added, but commented out. \\
+%Remarks made by Xiao justify the usage of the Ensemble algorithm. How would I reprase it into something shorter}\\
+%\textit{Remark 1:} The purpose of the pre-training phase os to endow the GRU model with the appropriate parameters to capture the inherent features of the training samples. The Nadam algorithm uses adaptive learning rates and approximates the gradient through the Nesterov momentum, ensuring fast convergence of the pre0training process.
+%\textit{Remark 2:} The purpose of the fine-tuning phase is to adjust the parameters further to achieve greater accuracy using the AdaMax algorithm, which converges to a more stable value. \\ \\
 The proposed Ensamble algorithm combines both methods for single GRU training, \mbox{Algorithm~\ref{alg:ENS}}.
 It describes the adapted version of the Ensemble algorithm, used by the model training procedures, with Nadam for pre-training and AdaMax for fine-tuning phases.
 From the results of Xiao et al.~\cite{xiao_accurate_2019} work $<p_{1}$ and $<p_{2}$ had the same 100 number of epochs.

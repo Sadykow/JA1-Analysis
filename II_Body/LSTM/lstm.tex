@@ -1,7 +1,7 @@
 %  Long-Short Term Memory based
 % Definition of the LSTM
 %
-\subsubsection{Long-Short Term Memory based models} \label{subsub:lstm}
+\subsubsection{Long-Short Term Memory (LSTM) based models} \label{subsub:lstm}
 The most commonly used in the Time-series Machine learning modelling is the Long Short-Term Memory Cell~\cite{LSTM_Hochreiter1997}.
 Like GRU, LSTM models preserve long-term dependencies in the extended data sequences.
 For its' ten years of existence, it became the most widely used type of RNN in those applications.
@@ -54,7 +54,7 @@ The $c_t$ represents the cell state at a timestamp.
 %  Attention Layer
 % Introduction and origins of attention usage
 %
-\subsubsection{Attention Layer}
+\subsubsection{LSTM with Attention Layer}
 The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve LSTM structure by introducing additional techniques into the default layer of the training model. 
 They added Attention Layer~\cite{yang_hierarchical_2016} between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
 \mbox{Figure~\ref{fig:attention}} summarises the model structure, and \mbox{Equations~\ref{eq:AttentionWithContext}} and~\ref{eq:Addition} define the internal logic between hidden layers and output.

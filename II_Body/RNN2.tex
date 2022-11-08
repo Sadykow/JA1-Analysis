@@ -26,15 +26,16 @@ In addition, every optimiser will be discussed in the growing complexity to visu
         \centering
         \label{tab:experiment}
         \resizebox{\columnwidth}{!}{
-    \begin{tabular}{c l c r}
+    \begin{tabular}{c l r}
         \hline\hline \\[-4mm]
-        \# & Type & Extension & Optimiser  \\
+        \# & Type                 & Optimiser  \\
         \hline
-        1 & LSTM~\cite{Chemali2017} &                 & Adam   \\
-        2 & GRU  & Ensemble~\cite{xiao_accurate_2019} & Nadam \& AdaMax \\
-        3 & LSTM & Attention~\cite{mamo_long_2020}    & Adam \\
-        4 & GRU  &                                    & RoAdam~\cite{javid_adaptive_2020} \\
-        5 & LSTM &                                    & SGDw/M\footnote{Stochastic Gradient Descent with Momentum} \\
+        1  & LSTM                 & Adam   \\
+        2  & GRU                  &  Ensemble \\
+           &                      & (Nadam \& AdaMax) \\
+        3  & LSTM + Attention     & Adam \\
+        4  & GRU                  & RoAdam \\
+        5  & LSTM                 & SGDw/M \\
         \hline\hline
     \end{tabular}
     }
@@ -45,14 +46,14 @@ In addition, every optimiser will be discussed in the growing complexity to visu
 %
 \subsection{Model structure and implementation} \label{subsec:structure}
 The general summary model structure is represented in \mbox{Figure~\ref{fig:RNN-structure}}, with three feature inputs and a single output.
-The most efficient number of layers and hidden neurons for the State of Charge estimation application was determined to be 3, with 43 per each.
+%? The most efficient number of layers and hidden neurons for the State of Charge estimation application was determined to be 3, with 43 per each.
 Since the output consists of only a single sample, it is defined by a fully connected layer - a dense layer with a single neuron.
-That makes a total of 130 cells for each implemented case.
+%? That makes a total of 130 cells for each implemented case.
 % Classical RNN consists primarily of three layers, represented in \mbox{Figure~\ref{fig:RNN-structure}}.
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=\columnwidth]{II_Body/images/SoC-RNN.png}
-    \caption{Universal structure of RNN for SoC estimation.\textcolor{red}{Ready, but not eager to eradicate it.}}
+    \caption{Universal structure of RNN for SoC estimation.}
     \label{fig:RNN-structure}
 \end{figure}
 % In case the article did not specify the number of neurons per layer, the following equations have been used to get the initial raw estimation~\cite{eckhardt_choosing_2018}:
