@@ -22,6 +22,8 @@
 
 % Adds SVG Support out of SVG file
 \usepackage{svg}
+% \svgsetup{inkscape=force}   % Rerenders the inkscape images with new variants
+% \svgsetup{inkscape=page}    % TODO
 
 % Double line spacing
 % \usepackage{setspace}
@@ -193,8 +195,9 @@
 %%% \input{./III_Conclussion/figures} %! Separate figures and comments all by 1 for writing help.
 %%% \input{./III_Conclussion/tab_accuracies}  
 \input{./III_Conclussion/results}
-% \input{./III_Conclussion/tab_accuracies_new}
-% \input{./III_Conclussion/figures_new}
+\input{./III_Conclussion/tab_accuracies_new}
+% \IEEEtranTIE@iffilenewer
+\input{./III_Conclussion/figures_new}
 %%     \subsection{Hardware performance overview}
     %% \input{./III_Conclussion/performance}
 \section{Conclusion} \label{sec:conclussion}
