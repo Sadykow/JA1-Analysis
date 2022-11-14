@@ -5,9 +5,8 @@ The methods evaluation procedures will be conducted similarly to Mamo \textit{et
 They will undertake the same training, validation and testing procedure to determine the best technique and performance.
 %! Go more technical and complex
 % Each training stage has been written from the first principle to focus on performance gain and implementation of published methods.
-\textcolor{red}{Each training stage has been written from the first principle using the TensorFlow framework's official documentation, with additional some implementation to accommodate methods modifications\cite{}.
-%https://www.tensorflow.org/guide/keras/writing_a_training_loop_from_scratch
-It allows flexibility in modifying the training and evaluation procedures to come up with objective comparison criteria.}
+Each training stage has been written from the first principle using the CUDA-supported TensorFlow 2.3.1 framework's official documentation, with additional implementation to accommodate methods modifications\cite{chollet_writing_2020}.
+It allows flexibility in modifying the training and evaluation procedures to come up with objective comparison criteria.
 A single training iteration consists of several stages involving several performances and quality checks to ensure that training only keeps improving over time until the optimum is achieved before hitting a limit.
 
 % Save/load process to avoid overfitting early
@@ -60,7 +59,7 @@ If the model reaches the optimum state, then there are no more accuracy improvem
 \begin{figure}[ht]
     \centering
     \includesvg[width=\columnwidth]{II_Body/images/cross-data.svg}
-    \caption{Cross training data management.}
+    \caption{Three profiles cross data split for training, validation and testing in a simplistic SoC cycle representation through different temperatures.}
     \label{fig:cross-data}
 \end{figure}
 

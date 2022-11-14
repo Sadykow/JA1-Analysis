@@ -33,9 +33,11 @@ By training the model on the perfect state of charge from battery testers and th
 
 %
 %
+\ifthenelse {\boolean{thesis}} {
 The performance measurement of model predictions on embedded devices provided reasonable justification for using ML algorithms embeddedly.
 Even with the Chip-on-board devices' computational limitations, which have potential usage inside an Electrical vehicle, they are limited to Stateless model implementation.
 The most computationally practical approach has been measured over two potential devices: an android based ARM processor or a tensor computation dedicated device, like TPU processors on Coral devices.
+} { }
 
 %
 %[primary difference]

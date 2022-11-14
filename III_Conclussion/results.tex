@@ -24,7 +24,7 @@ However, that evaluation would have to be repeated for other batteries or deploy
 
 %
 %
-\mbox{Two tables, \ref{tab:acc-results1} and \ref{}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+\mbox{Table~\ref{tab:acc-results1}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
 \mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-5res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
 % \mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 
@@ -117,14 +117,15 @@ This model has not shown good accuracies on US06 and FUDS datasets, unlike with 
 
 %
 %
-\textbf{TOBE Updated with values upon readiness.}
 Model \#2 was an attempt to move from an old LSTM to a recently developed GPU type of cell.
-Both Adam and Nadam optimisers by themselves ran for half less epoch on GRU cell type than LSTM, but achieved similar accuracies.
-Embedding an additional optimiser with the same learning rate scheduling for fine-tuning purposes doubled and tripled the training time.
+Both Adam and Nadam optimisers by themselves ran for half less epoch on GRU cell type than LSTM, but achieve similar accuracies.
+Embedding an additional optimiser with the same learning rate scheduling for pre and fine-tuning purposes doubled and tripled the training time.
 % However, it utilised two different optimisers for the pre and fine-tuning phases.
 % The transition happened after a third of the maximum allowed iterations, which in some cases led to high accuracy spikes in the training process, as seen in Figure~\ref{fig:Model-2losses}.
 % The pre-tuning phase might have decreased the time to achieve the optimal results, but considering the number of input samples used - the difference is not noticeable between the LSTM and GPU models.
-Lowering the learning rate and switching the optimiser led to a much more stable learning curve but did not bring any improved prediction results.
+Lowering the learning rate and switching the optimiser led to a much more stable learning curve but did not bring any significantly improved prediction results.
+That effect can be observed on the DST and US06 validation plots, where the prediction line is far smoother compared to the other models.
+However, it did not bring any significant improvements to the overall performance.
 % Despite that, training went smoother, except for minor anomalies on the FUDS training as per Model~\ref{fig:Model-2res}, the overall behaviour capture across profiles did not improve.
 %\textcolor{red}{Matt: Do I even need to share my thoughts and refer to Table with potential why results worsened? I don't have an answer myself yet}
 
@@ -179,7 +180,7 @@ Generally, it took 2-5 attempts to return to the initially targeted minimum.
 
 %
 %
-\textcolor{red}{Model 5 Placeholder. The importance of the simplest optimiser does not mean better or more engineering efficiency if it takes 100+ epochs to achieve results. In general, it has the least steep learning curve in comparison to others} \\
+\textcolor{red}{The importance of the simplest optimiser does not mean better or more engineering efficiency if it takes 100+ epochs to achieve results. In general, it has the least steep learning curve in comparison to others} \\
 Model 5 implemented the most straightforward case to compare the efficiency of standardly used Adam optimisers and outline the bottom line for optimisers.
 Also, it acts as an indication to explore the ML models' limitations and what areas of a State of Charge curve are harder to capture.
 % Model \#5 is an indicator of the areas ML models have difficulties capturing.
@@ -187,14 +188,14 @@ Based on the SoC prediction absolute error area plots for DST and FUDS, Figure~\
 Similar areas could have been observed on previously mentioned models, with a lesser degree of miss accuracy.
 Those behaviours outline the effect of temperatures on the SoCs curves, causing problems for models to characterise them all together.
 However, Model \#5 has proven to be the most effective in capturing US06 above all others.
-Considering the general divergence of the testing curve and the MAE of the training approaching only an overall 1\%, it could be assumed that all attempts were less lickely to overfit the given data.
+Considering the general divergence of the testing curve and the MAE of the training approaching only an overall 1\%, it could be assumed that all attempts were less likely to overfit the given data.
 %It produced the lowest accuracy for DST and FUDS, but managed to get the best fit for US06 and capture FUDS.
 \textcolor{red}{
 It is hard to justify, given that the average testing history curve only diverges with every epoch.
 Due to its' slow fitting process, assumingly, they reach only a single minimum.
 The models were focused on a single minimal without diving too deep into the optimal solutions.
 %Therefore capturing both high trendies cases.
-Despite that, considering the overall performance of the training process and results, it proves that Adam is a far superior optimisation strategy.
+Despite that, considering the overall performance of the training process and results, it proves that Adam is a far superior optimisation strategy than its' predecessor SGD.
 }
 % Model \#6 applied an additional LSTM layer with separated neurons to test better capturing.
 % However, the result did not bring better error or faster convergence.

@@ -8,36 +8,6 @@ A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:expe
 
 % Recovery from faults.
 %
-\begin{figure}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.45\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{II_Body/images/history-bad.svg}
-      \caption{Model training process with no rollbacks}
-      \label{subfig:no-rollback}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.45\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{II_Body/images/history-good.svg}
-      \caption{Model training process with a rollback if current error higher than previous.}
-      \label{subfig:rollback}
-  \end{subfigure}
-  \caption{Training process comparison with and without having a recovery algorithm. \textcolor{red}{I forgot, what was I supposed to change here?}}
-  \label{fig:rollback}
-\end{figure}
-% As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
-Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course, Equation~\ref{eq:scheduler}.
-The implementation is equivalent to a \textit{linspace} function, where every epoch's learning rate $\hat{\alpha}$ gets calculated through \textit{start} and \textit{stop} variables, indicating boundaries of the rates' degradation, with $\Delta$ decrement through a total of \textit{N} number of iterations inclusive, and known $\alpha$ value.
-However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
-The best approach identified in this work to save time and produce reliable results has been to enforce a model to stick toward a single minimum.
-Since each model undergoes multiple attempts, there are good chances to explore a variety of different fitting scenarios rather than jumping between several minimal.
-Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
-While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
-Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot, Equation~\ref{eq:scheduler}.
-However, it did not affect the follow-up training, meaning that the learning rate always followed the stick degradation curve as per Figure~\ref{fig:l_rate_progress}.
-Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
-Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
 % Put a pseudo code for scheduler degradation.
 % elif type == 'linear':
 %   return linspace(0.001, 0.0001, 100)[epoch]
@@ -57,9 +27,9 @@ Once the model fails to improve the accuracy, it is considered the most optimum 
 %   \end{algorithmic}
 %   \label{alg:scheduler}
 % \end{algorithm}
-%! alpha_1 = alpha + delta
-%! Define delta degradation of learning rate
-%! Delta wash chosen to go from init to end. Decrement.
+% alpha_1 = alpha + delta
+% Define delta degradation of learning rate
+% Delta wash chosen to go from init to end. Decrement.
 \begin{equation}
   \begin{split}
       IF \ AN \ & OVERVFIT: \\
@@ -76,13 +46,43 @@ Once the model fails to improve the accuracy, it is considered the most optimum 
     \caption{Learning rate degradation.}
     \label{fig:l_rate_progress}
 \end{figure}
+% As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
+Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course, Equation~\ref{eq:scheduler}.
+The implementation is equivalent to a \textit{linspace} function, where every epoch's learning rate $\hat{\alpha}$ gets calculated through \textit{start} and \textit{stop} variables, indicating boundaries of the rates' degradation, with $\Delta$ decrement through a total of \textit{N} number of iterations inclusive, and known $\alpha$ value.
+However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
+The best approach identified in this work to save time and produce reliable results has been to enforce a model to stick toward a single minimum.
+In this case, the learning rate always follows the stick degradation curve as per Figure~\ref{fig:l_rate_progress}, without affecting the follow-up training with steep rate reduction upon failures.
+Since each model undergoes multiple attempts, there are good chances to explore a variety of different fitting scenarios rather than jumping between several minimal.
+Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
+While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
+Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot, Equation~\ref{eq:scheduler}.
+Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
+Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{II_Body/images/history-bad.svg}
+      \caption{Model training process with no rollbacks}
+      \label{subfig:no-rollback}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}[b]{0.45\textwidth}
+      \centering
+      \includesvg[width=\linewidth]{II_Body/images/history-good.svg}
+      \caption{Model training process with a rollback if current error higher than previous.}
+      \label{subfig:rollback}
+  \end{subfigure}
+  \caption{Training process comparison with and without having a recovery algorithm.}
+  \label{fig:rollback}
+\end{figure}
 
 % Betas and Epsilon instead on every optimiser page
 %
 The betas and epsilon optimisers' constants did not go through any similar optimisation process due to a lack of documented training attempts to improve fitting over State of Charge estimation on Lithium-Ion batteries.
 As a result, they were kept constant for all trained models except SGDw/M.
 Since Stochastic Gradient Descent does not use any other hyper-parameters except learning rate and single beta constant, its' value was set to $\beta_1 = 0.8$.
-\textcolor{red}{Sheduler and remaining hyper-params - \mbox{Table~\ref{tab:uni-hyperparams}}}
+The learning rate limits of the scheduler and remaining hyperparameters used in all cases are summarised in \mbox{Table~\ref{tab:uni-hyperparams}}.
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
   \caption{Optimisers Hyper-Parameters}
