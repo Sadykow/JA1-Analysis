@@ -13,20 +13,18 @@ A single training iteration consists of several stages involving several perform
 % Save/load process to avoid overfitting early
 %
 Algorith~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
-\textcolor{blue}{
+Every training run works with all three profiles, where the first cycle type is used for training and validation, and another two for testing and performance rating, as illustrated in Figure~\ref{fig:cross-data} with five SoC cycles per type.
 After a model setup, initial parameters definition and a single iteration (epoch) run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting at Ag.~\ref{alg:training} ln.~\ref{alg:training-check}.
-If an improvement is observed, the model will be saved as a checkpoint if it requires a rollback, and the model continues to undertake a follow-up evaluation, Ag.~\ref{alg:training} ln.~\ref{alg:training-succes}.
-Otherwise, the model will be rolled to the previous checkpoint and undertake another attempt with a half-reduced current learning rate.
-Within 10 to 30 attempts, models recover and continue learning there as, by the time of reaching around 50, they start to show NaN results with no potential for recovery, with an error between 3-6\%, Ag.~\ref{alg:training} lns.~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}.
-}
-
-%! Testing procedures explanation and reasoning
-%!TODO: Create a graph following the psudocode as a reference
-After training is concluded and improvement has been observed, it is verified against a single cycle at 25\textdegree{}C to confirm the general fitting process and produce an output for later use during performance averaging, Ag.~\ref{alg:training} ln.~\ref{alg:training-valid}.
-Then, it gets tested against two other cycles, assessing the general capture of the State of Charge cycling under different conditions, Ag.~\ref{alg:training} ln.~\ref{alg:training-test}.
+\textcolor{blue}{The cross interchanging between different temperatures for validation has been neglected to avoid unnecessary complexity for results comparison.}
+If an improvement is observed, the model will be saved as a checkpoint for a rollback upon necessity, and the model continues to undertake a follow-up evaluation, Ag.~\ref{alg:training} ln.~\ref{alg:training-succes}.
+Otherwise, the model will be rolled to the previous state and undertake another attempt with a half-reduced current learning rate.
+Within 3 to 8 attempts, models recover and continue learning there as, by the time of reaching around 30-50, they start to show NaN results with no potential for recovery, with an error between 3-6\%, Ag.~\ref{alg:training} lns.~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}.
+Cycle type train on Figure~\ref{fig:cross-data} demonstrates the one to five data breakdown between validation and training, where the cycle of 25\textdegree{}C confirms the general fitting process and produces an output for later use during performance averaging, Ag.~\ref{alg:training} ln.~\ref{alg:training-valid}.
+In the end, it gets tested against two other cycles types on Figure~\ref{fig:cross-data}, assessing the general capture of the State of Charge cycling under different conditions, Ag.~\ref{alg:training} ln.~\ref{alg:training-test}.
+Two cycles from each type of 25\textdegree{}C and 30\textdegree{}C were selected for illustrative purposes as the most value close ranges and most likely battery states at idle.
 The better results, the more objective model becomes in unseen conditions.
 % An additional test against another battery takes place to verify the models' behaviour and the possibility for further improvement with new samples, which will not be part of performance measurements or discussion.
-For this investigation, verifying with a single cycle at 25 degrees was the primary criteria assessment.
+For this investigation, verifying with a single cycle at 25\textdegree{}C was the primary criteria assessment, as per the research goal and limitation with provided data amount.
 Due to the potential assumption that a model inside an electric vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
 The results from two other sample tests confirm that estimations are still rational within State of Charge behaviour boundaries.
 If the model reaches the optimum state, then there are no more accuracy improvements and hyper-parameter to adjust, the training process will be stopped and undertake the final evaluation against the entire training set with all three profiles, Ag.~\ref{alg:training} ln.~\ref{alg:training-end}.
@@ -59,8 +57,12 @@ If the model reaches the optimum state, then there are no more accuracy improvem
         \end{algorithmic}
     \label{alg:training}
 \end{algorithm}
-%! Draw a figure
-
+\begin{figure}[ht]
+    \centering
+    \includesvg[width=\columnwidth]{II_Body/images/cross-data.svg}
+    \caption{Cross training data management.}
+    \label{fig:cross-data}
+\end{figure}
 
 % Accuracy evaluation explanation with drawings
 %
