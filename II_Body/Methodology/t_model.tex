@@ -5,28 +5,29 @@ The methods evaluation procedures will be conducted similarly to Mamo \textit{et
 They will undertake the same training, validation and testing procedure to determine the best technique and performance.
 %! Go more technical and complex
 % Each training stage has been written from the first principle to focus on performance gain and implementation of published methods.
-Each training stage has been written from the first principle using the CUDA-supported TensorFlow 2.3.1 framework's official documentation, with additional implementation to accommodate methods modifications\cite{chollet_writing_2020}.
+Each training stage has been written from the first principle using the CUDA-supported TensorFlow 2.3.1 framework's official documentation, with additional implementation to accommodate method modifications\cite{chollet_writing_2020}.
 It allows flexibility in modifying the training and evaluation procedures to come up with objective comparison criteria.
 A single training iteration consists of several stages involving several performances and quality checks to ensure that training only keeps improving over time until the optimum is achieved before hitting a limit.
 
 % Save/load process to avoid overfitting early
 %
-Algorith~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
-Every training run works with all three profiles, where the first cycle type is used for training and validation, and another two for testing and performance rating, as illustrated in Figure~\ref{fig:cross-data} with five SoC cycles per type.
-After a model setup, initial parameters definition and a single iteration (epoch) run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting at Ag.~\ref{alg:training} ln.~\ref{alg:training-check}.
-\textcolor{blue}{The cross interchanging between different temperatures for validation has been neglected to avoid unnecessary complexity for results comparison.}
-If an improvement is observed, the model will be saved as a checkpoint for a rollback upon necessity, and the model continues to undertake a follow-up evaluation, Ag.~\ref{alg:training} ln.~\ref{alg:training-succes}.
+Algorithm~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
+Every training run works with all three profiles, where the first cycle type is used for training and validation, and another two for testing and performance rating, as illustrated in Figure~\ref{fig:cross-data} with five charge/discharge cycles per type.
+After a model setup, initial parameter definition and a single iteration (epoch) run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting at Ag.~\ref{alg:training} ln.~\ref{alg:training-check}.
+The cross-interchanging between different temperatures for validation has been neglected to avoid unnecessary complexity for results comparison.
+With an observed improvement, the model will be saved as a checkpoint for a rollback if needed, and then it continues to undertake a follow-up evaluation, Ag.~\ref{alg:training} ln.~\ref{alg:training-succes}.
 Otherwise, the model will be rolled to the previous state and undertake another attempt with a half-reduced current learning rate.
-Within 3 to 8 attempts, models recover and continue learning there as, by the time of reaching around 30-50, they start to show NaN results with no potential for recovery, with an error between 3-6\%, Ag.~\ref{alg:training} lns.~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}.
+Within 3 to 8 attempts, models recover and continue learning with an error between 3-6\%, Ag.~\ref{alg:training} lns.~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}, there as by the time of reaching around 30 to 50 trials they start to show obvious overfitting or underfitting results with no potential for recovery.
 Cycle type train on Figure~\ref{fig:cross-data} demonstrates the one to five data breakdown between validation and training, where the cycle of 25\textdegree{}C confirms the general fitting process and produces an output for later use during performance averaging, Ag.~\ref{alg:training} ln.~\ref{alg:training-valid}.
+For this investigation, verifying with a single cycle at 25\textdegree{}C was the primary criteria assessment, as per the research goal and limitation with provided data amount.
+Due to the potential assumption that a model inside an electric vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
 In the end, it gets tested against two other cycles types on Figure~\ref{fig:cross-data}, assessing the general capture of the State of Charge cycling under different conditions, Ag.~\ref{alg:training} ln.~\ref{alg:training-test}.
 Two cycles from each type of 25\textdegree{}C and 30\textdegree{}C were selected for illustrative purposes as the most value close ranges and most likely battery states at idle.
 The better results, the more objective model becomes in unseen conditions.
 % An additional test against another battery takes place to verify the models' behaviour and the possibility for further improvement with new samples, which will not be part of performance measurements or discussion.
-For this investigation, verifying with a single cycle at 25\textdegree{}C was the primary criteria assessment, as per the research goal and limitation with provided data amount.
-Due to the potential assumption that a model inside an electric vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
-The results from two other sample tests confirm that estimations are still rational within State of Charge behaviour boundaries.
+% The results from two other sample tests confirm that estimations are still rational within State of Charge behaviour boundaries.
 If the model reaches the optimum state, then there are no more accuracy improvements and hyper-parameter to adjust, the training process will be stopped and undertake the final evaluation against the entire training set with all three profiles, Ag.~\ref{alg:training} ln.~\ref{alg:training-end}.
+%%%%%%%%%%%%%
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Training procedure}
         \begin{algorithmic}[1]
@@ -70,11 +71,11 @@ If the model reaches the optimum state, then there are no more accuracy improvem
 % The profile will be switched to another and perform the same training, validation and testing steps.
 % This mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
 % Based on the progressive accuracy increase, a final iteration for this plot and discussion will be based on the lowest training and validation error.
-\textcolor{red}{For all error calculations in training, verification and testing the following process was adapted.}
+The following process was adapted for all error calculations in training, verification, and testing.
 Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where the actual State of Charge is compared with prediction.
 The filled area below the plot captures the error Absolute Error Difference between two lines, as per Equation~\ref{eq:abs-error}.
 %%%%%%
-Test procedure performed on two cycles of each profile but at a different temperature to assess how perceptive the model is to capture average and high heat spikes at which accumulator may end up.
+The test procedure was performed on two cycles of each profile but at a different temperature to assess how perceptive the model is to capture the average and high heat spikes that the battery module might experience.
 Each result is summarised into a table and reported based on metrics values.
 %%%%%%
 \begin{figure}[ht]

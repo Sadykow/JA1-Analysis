@@ -2,7 +2,7 @@
 % Explanation
 %
 \subsubsection{Classic and Robust Online Adaptive Moment Estimation}
-The most commonly and by default used in Time-series prediction is Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
+The most commonly used optimiser in Time-series prediction is the Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
 The \mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias as per the source.
 In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg:Adam-Line-2Moment}} used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
 % On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
@@ -30,7 +30,7 @@ In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg
 
 % Extension with Robust Online
 %
-Javid et al.~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam (RoAdam) \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Online}}, along with third $\beta$ constant at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-3Moment}}.
+Javid \textit{et al.}~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam (RoAdam), Algorithm~\ref{alg:RoAdam}, at line \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Online}}, along with third $\beta$ constant at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-3Moment}}.
 Adding the direct influence of a loss function to the gradient update adds an online calculus to regular $Adam$ correction.
 The framework library contained no inbuild implementation of the Robust optimiser.
 Instead, it was implemented from the first principle and overwriting the model training procedure.
@@ -69,9 +69,9 @@ Instead, it was implemented from the first principle and overwriting the model t
 %       \hline\hline \\[-3mm]
 %       Source     & $\alpha$ & $\beta_1 $ & $\beta_2$ & $\beta_3$ &  $\epsilon$ \\
 %       \hline
-%       \makecell[l]{Song et al.~\cite{song_lithium-ion_2018} \&\\Chemale et al.~\cite{Chemali2017}}
+%       \makecell[l]{Song \textit{et al.}~\cite{song_lithium-ion_2018} \&\\Chemale \textit{et al.}~\cite{Chemali2017}}
 %               & $0.001$ & $0.9$ & $0.999$ & |   &$10^{-8}$ \\% 0.0000001
-%       Javid et al.~\cite{javid_adaptive_2020}
+%       Javid \textit{et al.}~\cite{javid_adaptive_2020}
 %               & $0.001$ & $0.9$ & $0.999$ & $0.999$ &$10^{-8}$ \\% 0.0000001
 %       \hline\hline
 %   \end{tabular}

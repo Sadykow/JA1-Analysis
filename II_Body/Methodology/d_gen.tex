@@ -6,7 +6,7 @@ This method learns by recognising a pattern within sequential data input, thus p
 % It makes the following approach applicable to almost any type of time series-dependent problem~\cite{anton_battery_2013}.
 % The two vectors or matrices define the Input and Output Layers.
 Two vectors or matrices have defined inputs and outputs of a model.
-The general description of a single input \textbf{X} is in \mbox{Equations~\ref{eq:x-matrix}} and an output \textbf{Y} on the \mbox{Equations~\ref{eq:y-matrix}}.
+The general description of a single input \textbf{X} is in \mbox{Equation~(\ref{eq:x-matrix})} and an output \textbf{Y} \mbox{Equation~(\ref{eq:y-matrix})}.
 $V, I, T, SoC$ represent Voltage (V), Current (A), Temperature (\textdegree{}C) as input features, and the percentage of State of Charge (between 0 and 1) as output.
 All samples are equally time distributed, and the $t$ represents the number of input time steps at a time.
 % Since the sampling rate during the charging process is less than during discharge, the missing step times were resampled.
@@ -33,7 +33,7 @@ Considering the characteristic of Constant Current and Constant Voltage charging
 \begin{figure}[htbp]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/chemali_accuracy.svg}
-    \caption{SoC estimation accuracy of LSTM-RNN with various network depths in time by Chemali et al.~\cite{Chemali2017} in plot representation.}
+    \caption{SoC estimation accuracy of LSTM-RNN with various network depths in time by Chemali \textit{et al.}~\cite{Chemali2017} in plot representation.}
     \label{fig:chemali-accuracy}
 \end{figure}
 % For dataset generation for training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per \mbox{Figure~\ref{fig:Windowing3f}}, where $s$ represents the step between each window, less than the number of input time steps.
@@ -42,10 +42,10 @@ Considering the characteristic of Constant Current and Constant Voltage charging
     
 } {
     Both stateful and stateless methods rely on input samples' quality and length.
-    Chemali et al.~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy the model produced and the longer it took to compute.
-    The results of the research have been plotted on \mbox{Figure~\ref{fig:chemali-accuracy}}, outlining the root square parabola behaviour of size of the history against error in the prediction.
-    The optimum size of the windows for stateless models, obtained by Chemali et al.~\cite{Chemali2017}, will be 500 samples.
-    Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance.
+    Chemali \textit{et al.}~\cite{Chemali2017} researched the impact of the history length of input samples: the longer the period of input readings, the better accuracy the model produced and the longer it took to compute.
+    The research results have been plotted in \mbox{Figure~\ref{fig:chemali-accuracy}}, outlining the root square parabola behaviour of size of the history against error in the prediction.
+    The optimum size of the windows for stateless models, obtained by Chemali \textit{et al.}~\cite{Chemali2017} is 500 samples.
+    Any more significant matrices will lead to an increase in computation time but an insignificant difference in performance, thus 500 will be used in this work.
 }
 
 % Windowing technique, batching and normalisation. **Figure 4**
@@ -56,7 +56,7 @@ All stateful models used the same windowing technique to keep data generation si
 The state reset for stateful models happens at the end of every cycle, allowing a batching mechanism to speed up the training process.
 For example, 12 datasets of discharge process with similar Voltage, Current and the State of Charge, but different temperatures at a time $t$ can be treated as a single batch.
 The statefulness of a model preserves the state at index $i$ to the same index in the next batch~\cite{zhu_statefulnes_tfdocs_2020}.
-In addition, the normalisation technique by the mean and standard deviation based on entire training data only of all three input features has been applied to speed up the fitting process.
+In addition, the normalisation technique by the mean and standard deviation based on the entire training data only of all three input features has been applied to speed up the fitting process.
 %%%
 % For the process of training for Stateful models speeding up, all data can be separated by batches \textit{b}, for each batch representing a different temperature category, creating a 4-dimensional matrix.
 % \textit{f} defines the number of features as per Voltage, Current and Temperature.
@@ -71,7 +71,7 @@ In addition, the normalisation technique by the mean and standard deviation base
 %     \end{split}
 %     \label{eq:XY-shape}
 % \end{equation}
-%One of the first methods of SoC Estimation by Chemali \textit{et al.}~\cite{Chemali2017} proved that 500 input time-steps produced the most efficient results, any further grow made insignificant impact.
+%One of the first methods of SoC Estimation by Chemali \textit{\textit{et al.}}~\cite{Chemali2017} proved that 500 input time-steps produced the most efficient results, any further grow made insignificant impact.
 %The same value used in this article. \\
 
 %

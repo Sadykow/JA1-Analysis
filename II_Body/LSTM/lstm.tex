@@ -12,12 +12,12 @@ For its' ten years of existence, it became the most widely used type of RNN in t
 \begin{figure}[ht]%[htbp]
     \centering
     \includegraphics[width=\linewidth]{II_Body/LSTM/images/LSTM.jpg}
-    \caption{Long Short-Term Memory Cell}
+    \caption{Structure of Long Short-Term Memory unit cell~\cite{Hochreiter:1997:LSM:1246443.1246450}.}
     \label{fig:LSTM-cell}
 \end{figure}
 Unlike GRU, this cell utilises three gates instead of 2.
-The update gate gets replaced with separate input $i_t$ and output $o_t$, as per \mbox{Equation~\ref{eq:LSTM-gates}}.
-All gets utilise the same sigmoid \mbox{Equation~\ref{eq:sigmoid}}.
+The update gate gets replaced with separate input $i_t$ and output $o_t$, as per \mbox{Equation~(\ref{eq:LSTM-gates})}.
+All gets utilise the same sigmoid \mbox{Equation~(\ref{eq:sigmoid})}.
 %\textcolor{red}{Those are classical LSTM approaches. Using history sizes, no Stateless methods.}
 %Unlike with GRU, the update gates are renamed as an input gate $i_t$, with the same equation. Even that the forget gate $f_t$ is the same, model utilises another one, output gate $g_t$ as per Equations~\ref{eq:LSTM-gates}.
 \begin{equation}
@@ -29,7 +29,7 @@ All gets utilise the same sigmoid \mbox{Equation~\ref{eq:sigmoid}}.
     \label{eq:LSTM-gates}
 \end{equation}
 The main difference between LSTM and GRU lies in the cell state calculation.
-Using the same $tanh$ activation function, \mbox{Equation~\ref{eq:LSTM-output}} describes how cells will be updated and propagated further.
+Using the same $tanh$ activation function, \mbox{Equation~(\ref{eq:LSTM-output})} describes how cells will be updated and propagated further.
 The $c_t$ represents the cell state at a timestamp.
 \begin{equation}
     \begin{split}
@@ -55,9 +55,9 @@ The $c_t$ represents the cell state at a timestamp.
 % Introduction and origins of attention usage
 %
 \subsubsection{LSTM with Attention Layer}
-The research conducted by~\cite{mamo_long_2020} was intended to determine weaknesses and improve LSTM structure by introducing additional techniques into the default layer of the training model. 
-They added Attention Layer~\cite{yang_hierarchical_2016} between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
-\mbox{Figure~\ref{fig:attention}} summarises the model structure, and \mbox{Equations~\ref{eq:AttentionWithContext}} and~\ref{eq:Addition} define the internal logic between hidden layers and output.
+The research conducted by Mamo \textit{et al.}~\cite{mamo_long_2020} was intended to determine weaknesses and improve LSTM structure by introducing additional techniques into the default layer of the training model. 
+They added an Attention Layer~\cite{yang_hierarchical_2016} between LSTM and fully connected layers to improve accuracy and replace traditional gradient optimiser with probability-based Differential Evolution.
+\mbox{Figure~\ref{fig:attention}} summarises the model structure, and \mbox{Equations~(\ref{eq:AttentionWithContext})} and~(\ref{eq:Addition}) define the internal logic between hidden layers and output.
 
 % The origins of the source code
 %

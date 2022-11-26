@@ -64,7 +64,7 @@ From the results, the optimiser's choice affects the speed of the training offli
 However, all models lacked additional input features such as SoC, similar to whether or stock-price forecasting methods.
 The inability to accurately estimate SoC at the current time and then use it as an input for further predictions reduces the chances for good estimation.
 Like CC, the accuracy of other SoC estimation methods proves ineffective due to poor capture of Coulumbinc Efficiency in the system.
-The most reasonable approach for further investigation is to use the approach similar to Tadele Momo~\textif{et al.}\cite{mamo_long_2020} (Model \#3) and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner. 
+The most reasonable approach for further investigation is to use the approach similar to Tadele Momo~\textit{et al.}\cite{mamo_long_2020} (Model \#3) and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner. 
 It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios.
 With a modified training loop and choice of the method that gave the lowest error, like Model №4 with Adam or Robust Adam optimiser, as per Javid et al.~\cite{javid_adaptive_2020}, further research will exploit possible improvements combining two designs.
 \ifthenelse {\boolean{thesis}} {
