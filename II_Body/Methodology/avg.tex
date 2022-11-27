@@ -12,18 +12,23 @@ The resulting plots and values provide far more representative statistical crite
 % Average 10 attempts with accuracy calculus.
 During preliminary work, the research attempted to train many models of the same type to produce a best-fitting line.
 %Due to MLs' stochastic nature,
-The training results had a huge variance, similar to Subfigure~\ref{subfig:Model-DEMO-10} and ~\ref{subfig:Model-DEMO2-10}.
-The Earliest attempt to unify all models was the application of the same set seed number for all models.
-However, determining a case from an infinite number of possibilities to produce equally effective models is the least effective method.
-Therefore, an average result of multiple attempts to smoothen history and SoC prediction curves has been introduced.
-Figures~\ref{fig:Model-DEMO} and~\ref{fig:Model-DEMO2} represent the difference between single and multiple averaged models and the general spread.
-Subfigure~\ref{subfig:Model-DEMO-10} demonstrates how ten different models, each potentially minimised toward a single minimal, get spread from each other, producing variable results.
-Similar case with SoC prediction on Subfigure~\ref{subfig:Model-DEMO2-10}, where combined predictions and RMS highlight potential inefficancies in the prediction of the same task 
-Subfigures~\ref{subfig:Model-DEMO-1} and~\ref{subfig:Model-DEMO-avr} show a comparison between randomly selected single and averaged model history results.
-Whereas Subfigures~\ref{subfig:Model-DEMO2-1} and~\ref{subfig:Model-DEMO2-avr} outline that the best case does bring subjective results to the efficiency of the techniques in terms of accurate results.
-Due to the most trendiness plots and apparent convergence or divergence inclination, the method has proven to be the most objective result.
-\textit{NaN} values were ignored in the cases of prolonged history.
-The same method has been applied to all SoC plots for all models, reported further.
+The training results had a significant variance.
+As such, training was repeated ten times for each data set to remove the statistical variance from the comparison results, and the average of all ten trained models has been used in each result.
+Figures~\ref{fig:Model-DEMO} and~\ref{fig:Model-DEMO2} show this process, where \ref{subfig:Model-DEMO-1} and \ref{subfig:Model-DEMO2-1} show a single test training history and end SoC prediction, \ref{subfig:Model-DEMO-10} and \ref{subfig:Model-DEMO2-10} show the spread of 10 similar trainings and \ref{subfig:Model-DEMO-avr} and \ref{subfig:Model-DEMO2-avr} show the averaged result.
+It is apparent that while some repeats were highly accurate, others had more significant errors, subfigure~\ref{subfig:Model-DEMO-10}.
+The averaging provides a representative result that is statistically repeatable.
+% similar to Subfigure~\ref{subfig:Model-DEMO-10} and ~\ref{subfig:Model-DEMO2-10}.
+% The Earliest attempt to unify all models was the application of the same set seed number for all models.
+% However, determining a case from an infinite number of possibilities to produce equally effective models is the least effective method.
+% Therefore, an average result of multiple attempts to smoothen history and SoC prediction curves has been introduced.
+% Figures~\ref{fig:Model-DEMO} and~\ref{fig:Model-DEMO2} represent the difference between single and multiple averaged models and the general spread.
+% Subfigure~\ref{subfig:Model-DEMO-10} demonstrates how ten different models, each potentially minimised toward a single minimal, get spread from each other, producing variable results.
+% Similar case with SoC prediction on Subfigure~\ref{subfig:Model-DEMO2-10}, where combined predictions and RMS highlight potential inefficancies in the prediction of the same task 
+% Subfigures~\ref{subfig:Model-DEMO-1} and~\ref{subfig:Model-DEMO-avr} show a comparison between randomly selected single and averaged model history results.
+% Whereas Subfigures~\ref{subfig:Model-DEMO2-1} and~\ref{subfig:Model-DEMO2-avr} outline that the best case does bring subjective results to the efficiency of the techniques in terms of accurate results.
+% Due to the most trendiness plots and apparent convergence or divergence inclination, the method has proven to be the most objective result.
+% \textit{NaN} values were ignored in the cases of prolonged history.
+% The same method has been applied to all SoC plots for all models, reported further.
 %Several evaluation possibilities were tested. In the end, an average of 10 provided the most objective results to overview.
 %\textcolor{red}{Show plot of 1, then all 10 and average took.}
 \begin{figure*}[htbp]
@@ -76,3 +81,8 @@ The same method has been applied to all SoC plots for all models, reported furth
   \caption{State of Charge results averaging demonstration}
   \label{fig:Model-DEMO2}
 \end{figure*}
+
+%
+%
+In the next Section~\ref{sec:results}, first tests to determine optimum hyperparameters were carried out, then the full evaluation of models against each of the drive cycles is presented,
+In each case, the train/validation/test procedures and error metrics of Section~\ref{subsec:t_model} are followed, with learning rate method of ~\ref{subsec:l-rate} and averaging of 10 trainings of ~\ref{subsec:avg} to ensure the best and most accurate representation of each model.

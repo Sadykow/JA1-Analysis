@@ -1,46 +1,47 @@
-% Intro paragraph with init conditions of data and params
 %
-Since it is common for temperatures in the EVs' accumulator to spike from ambient 20 degrees to the limit of 60, all temperature ranges were used together to train each model.
+% Intro paragraph with init conditions of data and params
+Since it is common for temperatures in an EVs' battery pack to range from ambient 20 degrees to the limit of 60, all temperature ranges were used together to train each model.
 The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set) from another two.
-This approach led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
+This approach led to the accuracy being lower than other researchers reported by training individually for temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}. %! single?
 The following section compares the models trained on each individual and then tests against the entire dataset of all three profiles.
 All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters. %% to make an objective comparison.
-
+\textcolor{red}{first the evaluation of hyperparameters is carried out then}
 % Metrics references
 %
 %%Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
-The metrics were reported using the equations outlined in the \mbox{Table~\ref{tab:metrics}}.
-Figures were generated during each iteration of the training process from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
-After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing assessment of the efficiency of the learning process.
+%%%%%! > The metrics were reported using the equations outlined in the \mbox{Table~\ref{tab:metrics}}.
+%%%%%! > Figures were generated during each iteration of the training process from the data samples outlined in the \mbox{Subsection~\ref{subsec:b_data}}.
+%%%%%! > After completing the predefined amount of epochs, each metric was recorded in a comma-separated file to produce accuracy plots, allowing assessment of the efficiency of the learning process.
 
 % Intro to the hyper-parameters calculation, the Evaluation process of layers and neurons to get the best set
 %
-The hyperparameters selection process based on evaluating the best set of layers and neurons for all research models has been determined and recorded before the primary training process.
-\mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} based on the average of three attempts per each current profile has been produced, sorted by applicable criteria and used through the rest of the experiments.
-The lowest mean average error and relative memory size were selected as primary research aspects.
-It is important to note that those parameters are not universally applicable to any other kind of battery or telemetries from electric vehicles.
-The set of hyperparameters may have been promising for the data in this research.
-However, that evaluation would have to be repeated for other batteries or deployments with car endurance records.
+%%%%%! > The hyperparameters selection process based on evaluating the best set of layers and neurons for all research models has been determined and recorded before the primary training process.
+%%%%%! > \mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} based on the average of three attempts per each current profile has been produced, sorted by applicable criteria and used through the rest of the experiments.
+%%%%%! > The lowest mean average error and relative memory size were selected as primary research aspects.
+%%%%%! > It is important to note that those parameters are not universally applicable to any other kind of battery or telemetries from electric vehicles.
+%%%%%! > The set of hyperparameters may have been promising for the data in this research.
+%%%%%! > However, that evaluation would have to be repeated for other batteries or deployments with car endurance records.
 
 %
 %
-\mbox{Table~\ref{tab:acc-results1}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
-\mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-5res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
+%%%%%! > \mbox{Table~\ref{tab:acc-results1}}, contains results of accuracy validation on six implemented models over entire drive cycles datasets.
+%%%%%! > \mbox{Figures between \ref{fig:Model-1res} and \ref{fig:Model-5res}} demonstrated the best-selected cases for visual demonstration and comparison of training on one profile and validation against the other two.
 % \mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 
-\subsection{Average evaluations and Hyperparameters}
+\subsection{Optimisation of layers and neurons}
 %
 %! Hyperparameters results, rollback and learning rate
 %! 135  Models to asses. That is why only average of 3 attempts was used. Average MAE was calculated from the Average of each individual profile.
-The ranges between 1-3 layers and incremental combinations of neurons from 131-1572 were used to determine the most optimum set of hyperparameters for all models to work with.
-Any values higher or lower of both parameters did not provide worthy outputs, therefore, has been amended from the research.
+The ranges between 1-3 layers \textit{'L'} and incremental combinations of neurons \textit{'N'} from 131-1572 were used to determine the most optimum set of hyperparameters for all models to work with.
+Any values higher or lower of both parameters did not provide worthy outputs, therefore, has been ommited.
 In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
 For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
 %%%%%%%%%%%%%%%
 Training simple LSTM models with Adam optimiser for three current profiles three times only resulted in a total of 135 trained models.
 % because 180 models are too much to bare
 They all can be summarised in 15 different sets of hyperparameters to compare.
-\mbox{Tables~\ref{tab:param-search1} and~\ref{tab:param-search2}} report the average results of the five best models based on the lowest average training error of all three profiles and occupied memory space in a compressed state in MegaBytes (MB).
+\mbox{Tables~\ref{tab:param-search1}} reports the average results of the five best models based on the lowest average training error of all three profiles.
+%% and occupied memory space in a compressed state in MegaBytes (MB).
 The time in seconds highlights the duration of training over a single epoch.
 For online training on a low-power device, it could be considered as an essential factor, sacrificing some amount of accuracy, but not in this research.
 The angle of inclination is a line fit to the average error training over time, starting from the second epoch until the end of the training.
@@ -49,6 +50,7 @@ It can be determined either by visually examining the average training curve of 
 % It reports the trend of the model performance, where alpha represents the angle and c the heights.
 % In the tables below, the negative \textbf{revesersed tangent?} represents the error degradation, there as the positive a clear overfit.
 As a result, a model with index 10 with three layers and a total of 131 neurons (43 per layer) has been selected as the main researched hyperparameters combination for all follow-up models.
+This was also the lowest memory combination, which served as another criterion in favour of this selection.
 % \textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
@@ -69,41 +71,54 @@ As a result, a model with index 10 with three layers and a total of 131 neurons 
   \end{tabular}
   }
 \end{table}
-\begin{table}[htbp]
-  \renewcommand{\arraystretch}{1.3}
-  \caption{Hyper-params selection - Sorted by lightest}
-  \centering
-  \label{tab:param-search2}
-  \resizebox{\columnwidth}{!}{
-  \begin{tabular}{ l l r r r r r}
-      \hline\hline \\[-3mm]
-      $ index $ & $L$x$N$ & \textbf{size (MB)} & $time(s)$ & $	\angle $ inclination & $avr \ MAE$\\
-      \hline
-      10        & 3x131   & \textbf{0.17} & 2112.38   & converges            & 2.5137   \\
-       5        & 2x131   & \textbf{0.22} & 1429.48   & converges            & 3.0304   \\
-       0        & 1x131   & \textbf{0.30} &  846.73   & converges            & 3.7015   \\
-      11        & 3x262   & \textbf{0.64} & 2304.04   & converges            & 2.8515   \\
-       6        & 2x262   & \textbf{0.85} & 1670.61   & converges            & 2.8789   \\
-      \hline\hline
-  \end{tabular}
-  }
-\end{table}
+% \begin{table}[htbp]
+%   \renewcommand{\arraystretch}{1.3}
+%   \caption{Hyper-params selection - Sorted by lightest}
+%   \centering
+%   \label{tab:param-search2}
+%   \resizebox{\columnwidth}{!}{
+%   \begin{tabular}{ l l r r r r r}
+%       \hline\hline \\[-3mm]
+%       $ index $ & $L$x$N$ & \textbf{size (MB)} & $time(s)$ & $	\angle $ inclination & $avr \ MAE$\\
+%       \hline
+%       10        & 3x131   & \textbf{0.17} & 2112.38   & converges            & 2.5137   \\
+%        5        & 2x131   & \textbf{0.22} & 1429.48   & converges            & 3.0304   \\
+%        0        & 1x131   & \textbf{0.30} &  846.73   & converges            & 3.7015   \\
+%       11        & 3x262   & \textbf{0.64} & 2304.04   & converges            & 2.8515   \\
+%        6        & 2x262   & \textbf{0.85} & 1670.61   & converges            & 2.8789   \\
+%       \hline\hline
+%   \end{tabular}
+%   }
+% \end{table}
 
 %
 %
 \subsection{Models results overview}
 %! 150  Models to work with
-Implementation of several variations of time-series models allowed analysis of multiple paths of evolution of machine learning techniques in State of Charge estimation over the past three years.
-A review of the resulting pros and cons, accuracies and complexity helps make a reasonable justification for further improvements.
-Based on the summary of accuracies across entire training sets of all three profiles Table~\ref{tab:acc-results1}, the Highway way driving achieved the highest error on validation and testing against either profile for all models.
+% Implementation of several variations of time-series models allowed analysis of multiple paths of evolution of machine learning techniques in State of Charge estimation over the past three years.
+% A review of the resulting pros and cons, accuracies and complexity helps make a reasonable justification for further improvements.
+Results are presented for all tests on five models herein.
+All results presented in figures~\ref{fig:Model-1res}-\ref{fig:Model-5res}.
+The total errors for each model are summarised in Table~\ref{tab:acc-results1}.
+Based on the summary of accuracies, Table~\ref{tab:acc-results1}, the highway way driving (US06) achieved the highest error on validation and testing against either profile for all models.
 In total, 150 models have been produced, recorded and evaluated.
-Further observation will focus primarily on DST and FUDS-based models and their efficiency at generalising each-others and US06 profiles.
-The set of figures~\ref{fig:Model-1res}-\ref{fig:Model-4res} and early mentioned Table will act as two primary sources of the results for further overview and discussion.
+% Further observation will focus primarily on DST and FUDS-based models and their efficiency at generalising each-others and US06 profiles.
+% The set of figures~\ref{fig:Model-1res}-\ref{fig:Model-4res} and early mentioned Table will act as two primary sources of the results for further overview and discussion.
+
+%? #1-4 pretty good at testing on other set (1.5-3)
+%? #5 was bad at testing on training set (3-5) simply not reach to given time
+%? In all cases DST trained model performed best for testing on other drive cycles
+
+%? #1 DST trained is best (Average of 2.86, 2.77,3.28)
+%? #3 DST trained second best
+%? #4 3rd best with #2
+
+%* **verably, accurate when tested on the same drive cycles as training (eg DST on DST), with MSE in the range 1.58-3.45%. #5 less accurate that any (3.08-4.78 )
 
 %
 %
 Model \#1 has been based on the most simple and oldest research, made by Chemali \textit{et al.}~\cite{Chemali2017} in 2017.
-Unlike during this research, back then, it utilised the simplest model structure with a single layer and no complicated cell modifications or optimiser enhancements.
+The original implementation utilised the simplest model structure with a single layer and no complicated cell modifications or optimiser enhancements.
 % We used all temperature ranges, whereas he only 1-3. His method had 3.31 at out conditions; we lowered it to 2.51
 While they utilised from 1 to 3 temperature ranges, the modification of the hyperparameter increased the model's efficiency by 25\% at five different ambients, although not achieving equally good results due to different methodologies and research goals.
 % 2.77-ours, there his 0.77. He did Either C-D on one, or D on 3
@@ -206,6 +221,15 @@ Despite that, considering the overall performance of the training process and re
 %
 %
 \subsection{Observations and discussions}
+%? Person published this model ... [red]
+%? Their accracy was ....
+%? Our accuracy was .....
+%? Reasons for differenct.
+%?----
+%? Reasons for difference in B
+%? Why 1-4 better than 5
+%? Why DST better
+%? Wht #1 is best.
 %! Which is best at reproducing itself? (4) Furthest fit
 %! Which is best for real scenarios? 1 - Since it does not go too far into minimum, experiancing overfit with other models.
 %! Which drive cycles is best to train? DST trained models

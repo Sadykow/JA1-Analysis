@@ -2,9 +2,9 @@
 % Methods and their optimisers
 %
 %! Five stated models
-The reviewed articles used constant hyperparameters values for models and optimisers, including learning rate.
-However, each selected different values based on experiments and observations, somewhere in the range of 0.001, the standard framework provided, down to 0.0005(0.0001), to make a smooth stepping and minimise potential missing the optimum minimum.
-A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:experiment}}.
+The reviewed articles that the chosen models for testing based on used constant hyperparameters values for models and optimisers, including learning rate.
+However, each selected different values based on experiments and observations, somewhere in the range of 0.001, the standard framework provided, down to 0.0001, to make a smooth stepping and minimise potential missing the optimum minimum.
+% A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:experiment}}.
 
 % Recovery from faults.
 %
@@ -43,21 +43,34 @@ A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:expe
 \begin{figure}[ht]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/l_rate.svg}
-    \caption{Learning rate degradation.}
+    \caption{Learning rate degradation. \textcolor{red}{ADD ANNOTATION}}
     \label{fig:l_rate_progress}
 \end{figure}
 % As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
-Therefore, a stepping learning rate algorithm has been used for every optimiser over the training course, Equation~\ref{eq:scheduler}.
+In this work, a stepping learning rate algorithm has been used for every optimiser over the training course, Equation~(\ref{eq:scheduler}).
 The implementation is equivalent to a \textit{linspace} function, where every epoch's learning rate $\hat{\alpha}$ gets calculated through \textit{start} and \textit{stop} variables, indicating boundaries of the rates' degradation, with $\Delta$ decrement through a total of \textit{N} number of iterations inclusive, and known $\alpha$ value.
-However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
-The best approach identified in this work to save time and produce reliable results has been to enforce a model to stick toward a single minimum.
-In this case, the learning rate always follows the stick degradation curve as per Figure~\ref{fig:l_rate_progress}, without affecting the follow-up training with steep rate reduction upon failures.
-Since each model undergoes multiple attempts, there are good chances to explore a variety of different fitting scenarios rather than jumping between several minimal.
-Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
-While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
-Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot, Equation~\ref{eq:scheduler}.
-Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
-Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
+%
+% Like adaptive time stepping in Finite Element Analysis [ref] by Pr David Holmes
+The learning rate is sequentially reduced following a standard stepped scheme.
+However, an additional adaptive phase is introduced in this work.
+While training error in subsequent epochs reduces, the stepped scheme is followed.
+The adaptive scheme is deployed if the learning error increases from one epoch into the next.
+Then, the rate is halved, and the same epoch is rerun.
+If the training error remains above the error of the previous epoch, the learning rate continues to be reduced to a predetermined minimum.
+The prior stepped scheme resumes if the error returns to a convergent value.
+\textcolor{red}{It is shown in Figure~\ref{fig:l_rate_progress}, where two adaptive schemes are applied and reconverged from, and a final *** adaptive decay ends the training. Asymptote?}
+%
+This approach has been found to be superior in this work to other adaptive learning rate schemes and is employed for all subsequent training.
+%
+% However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
+% The best approach identified in this work to save time and produce reliable results has been to enforce a model to stick toward a single minimum.
+% In this case, the learning rate always follows the stick degradation curve as per Figure~\ref{fig:l_rate_progress}, without affecting the follow-up training with steep rate reduction upon failures.
+% Since each model undergoes multiple attempts, there are good chances to explore a variety of different fitting scenarios rather than jumping between several minimal.
+% Two subfigures on \mbox{Figure~\ref{fig:rollback}} demonstrate two different training attempts with and without a recovery algorithm.
+% While subfigure~\ref{subfig:no-rollback} keeps the training process until either the number of 100 epochs gets reached or rapid overfit, the subfigure~\ref{subfig:no-rollback} continues reaching the selected minimal for as long as it can achieve a result.
+% Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot, Equation~\ref{eq:scheduler}.
+% Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
+% Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}[b]{0.45\textwidth}
@@ -85,7 +98,7 @@ Since Stochastic Gradient Descent does not use any other hyper-parameters except
 The learning rate limits of the scheduler and remaining hyperparameters used in all cases are summarised in \mbox{Table~\ref{tab:uni-hyperparams}}.
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
-  \caption{Optimisers Hyper-Parameters}
+  \caption{Optimiser Hyper-Parameters}
   \centering
   \label{tab:uni-hyperparams}
   \resizebox{\columnwidth}{!}{
