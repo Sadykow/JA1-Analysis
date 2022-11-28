@@ -60,8 +60,7 @@ Focusing specifically on RNN models applied to SoC estimation, \mbox{Table~\ref{
 
 %
 % Intro where are specifics. Hyper-para. THere is w\a hole range, Table summarises many.
-%! HOW WOULD REFER TO MULTUPLE OF THEM HERE. Verify at meeting
-\textcolor{red}{The earliest attempts to train an RNN model to predict the SoC was to fit several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.}
+The earliest attempts to train an RNN model to predict the SoC was to fit several cycles of a single battery utilisation dataset at different temperatures~\cite{song_lithium-ion_2018, xiao_accurate_2019,javid_adaptive_2020, jiao_gru-rnn_2020}.
 Later, to generalise battery behaviour to multiple usage scenarios, leading to higher Root Mean Squared Error, but broader application, like in Mamo \textit{et al.}~\cite{mamo_long_2020} work.
 %For instance, by comparing similar procedures of testing from Song et al.~\cite{song_lithium-ion_2018} and Mamo et al.~\cite{mamo_long_2020} who conducted their research methods but used different validation mechanisms, it can be seen how accuracy error doubles if testing performs at a different temperature or untrained driving profile.
 This approach led to doubled accuracy error on the testing data, perfomed at a different temperature or untrained driving profile, as compared with similar testing procedures from Song et al.~\cite{song_lithium-ion_2018} and Mamo et al.~\cite{mamo_long_2020}.
@@ -188,11 +187,11 @@ Each method will be validated through those samples (either DST, US06 or FUDS dr
 Since there has been no comparison between which RNN type or driving profile impacts State of Charge estimation for both charge and discharge cycles, this article aims to identify the most viable and optimum method for custom build Electric vehicles.
 % Sometimes, multiple published models presented results relying only on discharge cycles, describing the efficiency of modelling on a single battery or in an ideal lab environment~\cite{xia_state_2018,javid_adaptive_2020,jiao_gru-rnn_2020,mamo_long_2020,zhang_deep_2020}.
 However, long overnight charge cycles and regenerative breaking burst charges are equally crucial for the SoC percentage in the context of Electric vehicles' battery utilisation at prolonged usage and influence models' weight and biasses.
-\textcolor{red}{\textit{
-(1)This article will focus on the accuracy of SoC prediction based on the model training from charge and discharge cycles across various temperatures.
-(2)This article will present a novel methodology for comparing multiple models with different techniques to each other, accommodating MLs' stochastic nature.
-(3)This article will compare multiple works in SoC estimation to identify the most applicable to car driving and prose methods to build on top further.
-}}
+% \textcolor{red}{\textit{
+This article will focus on the accuracy of SoC prediction based on the model training from charge and discharge cycles across various temperatures.
+% (2)This article will present a novel methodology for comparing multiple models with different techniques to each other, accommodating MLs' stochastic nature.
+% (3)This article will compare multiple works in SoC estimation to identify the most applicable to car driving and prose methods to build on top further.
+% }}
 % ~\cite{Chemali2017,}
 %
 %

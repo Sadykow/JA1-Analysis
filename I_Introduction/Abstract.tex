@@ -37,12 +37,12 @@ As a result of the research, several weaknesses have been identified during revi
 % Since batteries commonly have non-linear characteristics, statistical-based Machine Learning methods have the potential to replace the traditional model.
 The present paper conducts a practical usability investigation on Recurrent Neural Networks (RNN) to determine the best-suited machine learning method for Electric vehicles (EV).
 Through the implementation of models from multiple published sources and cross-validation testing with several driving scenarios of Lithium-Ion batteries, several models have been assessed on accuracy and drawbacks.% against simulations of different driving conditions.
-\begin{itemize}
-    \item Five models were selected from various published State of Charge estimation models based on cell types (GRU and LSTM with Attention) and optimisers (SGD, Adam, Nadam, AdaMax and Robust Adam).
-    \item Five models were selected from various published State of Charge estimation models based on cell types of GRU or LSTM and optimisers like Stochastic Gradient Descent, Adam, Nadam, AdaMax and Robust Adam, with extensions via Momentum calculus or Attention layer.
-\end{itemize}
-% Five models were selected from various published State of Charge estimation models based on cell types of GRU or LSTM and optimisers like Stochastic Gradient Descent, Adam, Nadam, AdaMax and Robust Adam, with extensions via Momentum calculus or Attention layer.
-\textcolor{red}{Each method will be examined by applying training techniques like a learning rate scheduler or rollback recovery to speed up fitting, highlighting implementation specifics, and attempting to use the TensorFlow framework as close as possible to the source on an openly available battery data.}
+% \begin{itemize}
+%     \item Five models were selected from various published State of Charge estimation models based on cell types (GRU and LSTM with Attention) and optimisers (SGD, Adam, Nadam, AdaMax and Robust Adam).
+%     \item Five models were selected from various published State of Charge estimation models based on cell types of GRU or LSTM and optimisers like Stochastic Gradient Descent, Adam, Nadam, AdaMax and Robust Adam, with extensions via Momentum calculus or Attention layer.
+% \end{itemize}
+Five models were selected from various published State of Charge estimation models based on cell types of GRU or LSTM and optimisers like Stochastic Gradient Descent, Adam, Nadam, AdaMax and Robust Adam, with extensions via Momentum calculus or Attention layer.
+Each method will be examined by applying training techniques like a learning rate scheduler or rollback recovery to speed up fitting, highlighting implementation specifics, and all of that using the TensorFlow framework as close as possible to the published sources on openly available battery data.
 The results highlight the percentage accuracy in the average of 3.64\% of Root Mean Squared Error, several drawbacks of the overall implementation, and propose potential solutions for further improvement.
 Every implemented model had a similar drawback of poor capturing of the middle area of a charge, applying higher weight on a voltage rather than current.
 The combined techniques in a single custom model could be better suited to improve accuracy further.

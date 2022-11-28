@@ -6,58 +6,27 @@
 %? - Accurate methods of developed to fit ML to SoC
 %? - BEst training - Best model
 
-The work has offered several implementations of Machine Learning algorithms for State of Charge estimation of A123 batteries.
-Several combinations of model structures and optimisers were investigated, implemented and performance measured using several drive cycles.
+%
+%
+The work has offered several implementations of Machine Learning algorithms for State of Charge estimation of A123 Lithium-Ion batteries.
+Several Recursive Neural Network models were selected from already published based on the most common and promising structures and optimisers.
+Five models were investigated, implemented, performance measured, and cross-evaluated using three drive cycles at five battery temperature ranges together from 20-50\textdegree{}.
+Half a dozen thousand samples per profile of charge and discharge cycles were resampled to equal 1Hz rate and organised in 500 samples long matrices consisting of Voltage, Current, Temperature and corresponding charge percentage.
+To adequately compare performance across models and comprehend the stochastic nature of Machine Learning a set of hyperparameters was predetermined through trial and error evaluation and multiple attempts of averaging.
+By involving a learning rate scheduler and rollback technique to justify early stopping the speed of the training has been increased and the probability of model early overfill has been reduced.
+
+%
+%
+After comparing 135 models of different sets of Layers and Neurons, the most accurate, lightweight and reasonable training time long ended up being 3 layers with 43 neurons per each.
+Then, another 150 combinations of 5 methods models for 3 driving profiles ten times were processed through the same training, testing and performance measurement procedures, to conclude that a DST-based simple LSTM with Adam optimisers make the best self and others capturing model.
+The next, which can closely match the same results, but with better self-capturing capabilities ended up being an LSTM with an Attention model.
+While an Attention layer had a significant impact on capturing the complex driving profiles like FUDS, it failed to characterise the other two.
+Both models were trained for relatively the same number of epochs, going through multiple attempts of learning rate reduction scheduler to achieve the lowest possible optimum.
+Even though the error results were mostly commonly doubled from their already published equivalents, with the tripled amount of data and complexity of fitting both charge and discharge cycles, the increased error in prediction battery cycles remained below 5\% and line fitting accurately describes a State of Charge behaviour, especially at critical points of full charge and depletion.
 
 %
 %
 Even though most models provided excellent results, they lacked the accuracy of time-series models, observed in similar scenarios.
-By closely examining average weights between three input features and general observation, models tend to rely more on the voltages than currents.
-Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution. 
-Therefore, the poor prediction was observed in the shallow middle area of the charge due to this lack of weights placed on current, which directly affect the State of Charge.
-In addition, the number of Amps per hour used in calculating the Coulum Counting tended to be overlooked by the training process of the SoC prediction models from Voltage, Current and Temperature.
-The lack of current significance caused errors in the flat voltage areas, where direct interpolation of sensor reading to SoC becomes difficult.
-It is observed in the comparison plots of different driving profiles. 
-
-%
-%
-\textcolor{red}{The usage of any training profiles has limitations in application to actual electrical vehicles due to temperature variation and other non-obvious factors.
-The models tend to put equal or lower weight on the temperature feature.
-While all values are within a tolerance of 1 degree, the actual car will much more severely increase or decrease slope over utilisation.
-Despite the highlighted limitations, all models have proven to capture complicated current profile behaviours up to the FUDS schedule but are not very efficient in the general characterisation of the system.
-That behaviour can be observed throughout the training process.
-The better the fit over a single training profile, the more offset it becomes against the other two.
-It makes DST appear to be a better learning input profile since it makes a suitable generalisation of the other two driving characteristics and does create such offsets as rapid.
-Although, its intention is only for stress testing and does not characterise the general behaviour of drivers.
-The mistake that models make relies on one feature than all three, which makes the current setup unsuitable and requires actual car data to train a proper SoC model.}
-
-%
-%
-The solution to all weight placement issues could be potentially resolved by introducing SoC as part of the input features.
-However, the property of the predicting output and the discovered average percentage miss accuracy makes it questionable to use.
-Usage of the Coulomb Counter may fix this problem, making a model have enough information to predict the total battery consumption.
-However, due to the Coulumbinc efficiency of Li-ion cells, CC methods suffer from many factors that make reading equally inaccurate in the long run.
-By training the model on the perfect state of charge from battery testers and then using CC reading from battery utilisation within a device, Machine Learning and other methods such as Kalman filter may prove more effective with further tests.
-
-%
-%
-\ifthenelse {\boolean{thesis}} {
-The performance measurement of model predictions on embedded devices provided reasonable justification for using ML algorithms embeddedly.
-Even with the Chip-on-board devices' computational limitations, which have potential usage inside an Electrical vehicle, they are limited to Stateless model implementation.
-The most computationally practical approach has been measured over two potential devices: an android based ARM processor or a tensor computation dedicated device, like TPU processors on Coral devices.
-} { }
-
-%
-%[primary difference]
-\textcolor{blue}{The model training process consists of several essential steps: data acquisition, model construction with training, validation and deployment.
-The methods described in the analysed articles applied different methods to all of them independently.
-This work summarised all steps together to determine a reasonable approach for further improvements.
-From the results, the choice of optimiser affects the speed of the training offline but closely helps achieve better performance in the online scenarios.
-However, all models lacked additional input features as SoC, similar to whether or stock-price forecasting methods.
-The inability to accurately estimate SoC at the current time and then using it as an input for further predictions reduces the chances for good estimation.
-Like CC, the accuracy of other SoC estimation methods proves itself ineffective due to poor capture of coulumbic efficiency in the system.
-The most reasonable approach for further investigation is to use the approach similar to Tadele Momo et al.~\cite{mamo_long_2020} (Model \#3) and modify the structure of the model to accommodate SoC, not as just history dependant, but a possibility of variance in the output, which gets applied in a feed-forward manner. 
-It is a common way of forecasting weather or predicting stock prices in ML problem-solving scenarios.
-With a modified training loop and choice of the method that gave the lowest error, like Model \#5 with Adam or Robust Adam optimiser, as per Javid et al.~\cite{javid_adaptive_2020}, further research will exploit possible improvements combining two designs.
-The implementation of this method and further investigation is the topic for the next article.
-}
+The highest error regions were observed at the middle point of the charge, where the voltage of Lithium Ion batteries stays at 3.3V most of the time.
+Being the SoC the function of current, that behaviour could indicate that Recurrent Neural Networks are tended to put more weight on the voltage feature instead.
+While Model \#1 was chosen to be the best model for generalisation driving behaviour, it has little room for improvement, whereas Model \#3 with its extension to the structure may prove as a vital starting point for the next research iteration of charge prediction models, utilising output feature as an input, like time-series models tend to do in the other scenarios.

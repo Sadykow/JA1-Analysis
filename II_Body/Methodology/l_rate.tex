@@ -43,7 +43,7 @@ However, each selected different values based on experiments and observations, s
 \begin{figure}[ht]
     \centering
     \includesvg[width=\linewidth]{II_Body/images/l_rate.svg}
-    \caption{Learning rate degradation. \textcolor{red}{ADD ANNOTATION}}
+    \caption{Learning rate degradation.}
     \label{fig:l_rate_progress}
 \end{figure}
 % As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
@@ -58,7 +58,7 @@ The adaptive scheme is deployed if the learning error increases from one epoch i
 Then, the rate is halved, and the same epoch is rerun.
 If the training error remains above the error of the previous epoch, the learning rate continues to be reduced to a predetermined minimum.
 The prior stepped scheme resumes if the error returns to a convergent value.
-\textcolor{red}{It is shown in Figure~\ref{fig:l_rate_progress}, where two adaptive schemes are applied and reconverged from, and a final *** adaptive decay ends the training. Asymptote?}
+It is shown in Figure~\ref{fig:l_rate_progress}, where two adaptive schemes are applied and reconverged from, and a final ultimate adaptive decay ends the training.
 %
 This approach has been found to be superior in this work to other adaptive learning rate schemes and is employed for all subsequent training.
 %
