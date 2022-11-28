@@ -5,8 +5,9 @@ The training process was conducted through all datasets for a single battery tes
 This approach led to the accuracy being lower than other researchers reported by training individually for single temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
 The following section compares the models trained on each individual and then tests against the entire dataset of all three profiles.
 All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters. %% to make an objective comparison.
-First, the evaluation of hyperparameters is carried out, then all models are compared by 9 plots per each method, outlining training history, prediction on itself and generalisation of other profiles per each driving schedule.
-In the end, the performance is summarised in a table, which represents MAE, RMSE and $R^2$ of each method per profile against the entire dataset of each driving schedule.
+First, the evaluation of hyperparameters is carried out.
+Then all models are compared by nine plots per method, outlining training history, prediction on itself and generalisation of other profiles per each driving schedule.
+In the end, the performance is summarised in a table, representing MAE, RMSE and $R^2$ of each method per profile against the entire dataset of each driving schedule.
 % Metrics references
 %
 %%Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
@@ -34,7 +35,7 @@ In the end, the performance is summarised in a table, which represents MAE, RMSE
 %! Hyperparameters results, rollback and learning rate
 %! 135  Models to asses. That is why only average of 3 attempts was used. Average MAE was calculated from the Average of each individual profile.
 The ranges between 1-3 layers \textit{'L'} and incremental combinations of neurons \textit{'N'} from 131-1572 were used to determine the most optimum set of hyperparameters for all models to work with.
-Any values higher or lower of both parameters did not provide worthy outputs, therefore, has been ommited.
+Any values higher or lower of both parameters did not provide worthy outputs, therefore, have been omitted.
 In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
 For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
 %%%%%%%%%%%%%%%
@@ -44,7 +45,7 @@ They all can be summarised in 15 different sets of hyperparameters to compare.
 \mbox{Tables~\ref{tab:param-search1}} reports the average results of the five best models based on the lowest average training error of all three profiles.
 %% and occupied memory space in a compressed state in MegaBytes (MB).
 The time in seconds highlights the duration of training over a single epoch.
-For online training on a low-power device, it could be considered as an essential factor, sacrificing some amount of accuracy, but not in this research.
+Online training on a low-power device could be considered an essential factor, sacrificing some accuracy, but not in this research.
 The angle of inclination is a line fit to the average error training over time, starting from the second epoch until the end of the training.
 It can be determined either by visually examining the average training curve of all attempts or through a simple line fitting, where negative or positive reversed tangent of angle alpha will represent converges or divergence and constant C the height of the curve or average error.
 %

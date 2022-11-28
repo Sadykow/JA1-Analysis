@@ -3,7 +3,7 @@ Several models' structures and optimisers were investigated, implemented, and pe
 
 %
 %
-Even though most models provided excellent results, they lacked the accuracy of time-series models, observed in similar scenarios like weather forecasting or stock price prediction.
+Even though most models provided excellent results, they lacked the accuracy of time-series models observed in similar scenarios like weather forecasting or stock price prediction.
 % By closely examining average weights between three input features and general observation, models tend to rely more on the voltages than currents.
 Through a visual examination of simplest to more complex models, it appears that Voltage data hold higher weight on a system than current.
 % Even with manual adjustment, a higher weight on the current did not make enough impact to consider it a reasonable solution. 
@@ -21,7 +21,7 @@ While all values are within a tolerance of 1 degree, a car will much more severe
 Despite the highlighted limitations, all models have proven to capture complicated current profile behaviours up to the FUDS schedule but are not very efficient in the general characterisation of the system.
 That behaviour can be observed throughout the training process.
 The better the fit over a single training profile, the more offset it becomes against the other two.
-It makes DST appear to be a better learning input profile since it makes a suitable generalisation of the other two driving characteristics and does create such offsets as rapid.
+DST is a better learning input profile since it makes a suitable generalisation of the other two driving characteristics and creates rapid offsets.
 Although, its intention is only for stress testing and does not characterise the general behaviour of drivers.
 The mistake that models make relies on one feature than all three, which makes the current setup unsuitable and requires actual car data or online retraining to produce a proper SoC model.
 

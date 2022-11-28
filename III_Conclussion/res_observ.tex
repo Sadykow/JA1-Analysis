@@ -28,7 +28,7 @@ However, with 2-3 times increased complexity of the input data, due to training 
 %
 %
 Model \#2 was an attempt to move from an old LSTM to a recently developed GPU type of cell.
-Both Adam and Nadam optimisers by themselves ran for half less epoch on GRU cell type than LSTM, but achieve similar accuracies.
+Both Adam and Nadam optimisers by themselves ran for half less epoch on GRU cell type than LSTM but achieved similar accuracies.
 Embedding an additional optimiser with the same learning rate scheduling for pre and fine-tuning purposes doubled and tripled the training time.
 %! General achieved above 99.2% of R2 on all experiments.
 % However, it utilised two different optimisers for the pre and fine-tuning phases.
@@ -36,7 +36,7 @@ Embedding an additional optimiser with the same learning rate scheduling for pre
 % The pre-tuning phase might have decreased the time to achieve the optimal results, but considering the number of input samples used - the difference is not noticeable between the LSTM and GPU models.
 While Xiao \textit{et al.}~\cite{xiao_accurate_2019} achieved above 99.2\% $R^2$ for all their cases, Model \#2 got by 1\% lover score, being trained on both charge and discharge.
 However, based on individual temperature cases, an MAE for US06 was the lowest, in comparison to other profiles with 0.63\%, while based on Table~\ref{tab:acc-results1} FUDS achieved only 2.72\%
-A significant difference is justified by the doubled amount of data and utilisation of variance of temperatures, rather than exploring individual cases.
+A significant difference is justified by the doubled amount of data and utilisation of variance of temperatures rather than exploring individual cases.
 However, the history plots on Figure~\ref{fig:Model-2res} resemble the same pattern, indicating that the pre and fine-tune phases behaved similarly.
 Lowering the learning rate and switching the optimiser led to a much more stable learning curve but did not bring any significantly improved prediction results.
 % That effect can be observed on the DST and US06 validation plots, where the prediction line is far smoother compared to the other models.
@@ -47,18 +47,18 @@ Lowering the learning rate and switching the optimiser led to a much more stable
 %
 %
 % %! Model 3 repeats the same procedures as Model 1, except for an additional layer before the output.
-Similar to Model \#1, Mamo~\textit{et al.}~\cite{mamo_long_2020} utilised a single temperature rage, but with single or two profiles of DST, US06 or FUDS.
+Similar to Model \#1, Mamo~\textit{et al.}~\cite{mamo_long_2020} utilised a single temperature rage but with single or two profiles of DST, US06 or FUDS.
 Their use of only the discharge cycle does not allow direct comparison between results or plots.
 %Adding the attention layer as per Model \# 3 did not make an overall improvement system improvement, but it produced much smoother outputs.
 %* 0C : 0.2040\% 25C: 0.0757\%  45C: 0.11\%
-However, their focus was on the improvement from LSTM to LSTM with attention indicating an error reduction by 0.076-0.204\% for three temperature ranges.
+However, their focus was on improving a simple LSTM to LSTM with attention, indicating an error reduction by 0.076-0.204\% for three temperature ranges.
 %*3: US06: 5.97-5.38 FUDS: 5.03-4.02
 %*3: US06: 5.98-5.27 FUDS: 5.33-3.61
 Similar improvements can be observed between Model \#1 and \#3 on the testing data, except for DST, based on the overall performance, up to 0.4\% better fitting the other profiles, especially with US06.
 %* 3: 2.60 - 4.14   1: 2.42 - 4.07
 %*    3.00 - 4.32      2.96 - 3.94
 %*    1.48 - 3.35      1.62 - 3.42
-A similar pattern can be observed between Figures~\ref{fig:Model-3res} and ~\ref{fig:Model-1res} with 0.04\% and 0.14\% for US06 and FUDS respectively.
+A similar pattern can be observed between Figures~\ref{fig:Model-3res} and ~\ref{fig:Model-1res} with 0.04\% and 0.14\% for US06 and FUDS, respectively.
 % However, the prediction has a lesser variant and smoother behaviour referring to a state of charge. 
 The Absolute error areal fill showed none or fewer spike predictions on validation data.
 % Results on the DST model did not show noticeable improvements as opposed to the Model \#1, but still shows the lowest testing error against two other profiles.
@@ -68,7 +68,7 @@ The Absolute error areal fill showed none or fewer spike predictions on validati
 % The behaviour of the DST-based model is similar to Model \#1, with the same flaws in the charge and discharge curves.
 %!---- Model \#3 was able to achieve the lowest error twice faster but also went to overfit without learning step adjustment, as per Figure~\ref{fig:Model-3losses}.
 %! ----It could make a reasonably good capture of all three profiles with US06 profiles.
-FUDS model became much smoother in training with the attention layer, but still has difficulty in capturing above 40\% charge in the testing scenarios compared to the DST version, subfigure~\ref{subfig:Model-3res-testing}. 
+FUDS model became much smoother in training with the attention layer but still has difficulty in capturing above 40\% charge in the testing scenarios compared to the DST version, subfigure~\ref{subfig:Model-3res-testing}. 
 % Unlike a simpler model, the testing clearly shows that the training line converges over time, which indicates an improvement toward generalising the more complex behaviours.
 % improved on the FUDS training and better fir on Figure 9.i.
 % Instable, variet, noisy
@@ -82,12 +82,12 @@ Besides the noticeable difference between the final results in comparison with M
 %* 50C - 1.9 -> 0.84 = 1.06
 Similarly to the second method, Model \#4 applied a different optimiser.
 However, additional complexity to other processing introduced better overall accuracy Table~\ref{tab:acc-results1}, similar to what was reported by Javid~\textit{et al.}~\cite{javid_adaptive_2020}.
-Based on their results the error between a simple NN to Robust GRU lowered by 1.06-3.12\% for 3 individual temperature ranges.
+Based on their results, the error between a simple NN to Robust GRU lowered by 1.06-3.12\% for three individual temperature ranges.
 A similar pattern can be observed between Model \#5 and \#4, where training error averages in the range of 1.89-2.94\%.
 Just like it would between Javid~\textit{et al.}~\cite{javid_adaptive_2020} comparisons of NN with Unscented Kalman filter and Robust, and Model \#2 and \#4 in this work.
 All three models experienced better training convergence in a shorter time, as per Figure~\ref{fig:Model-4res}.
 % According to all three profiles, improved optimisers lead to better capture on the validation set but further on the testing.
-Figures show the improved capture at the isolated case but worse general capture as opposed to other models.
+Figures show the improved capture at the isolated case but worse general capture than other models.
 % On Average, the GRU models achieve an optimum three times faster than LSTM.
 % So, the prolonged utilisation of the model results from an optimiser, not a type of a cells
 % However, the difficulty in capturing the below 30\% of a charge is still preserved.
@@ -102,13 +102,13 @@ Figures show the improved capture at the isolated case but worse general capture
 %
 % \textcolor{red}{The importance of the simplest optimiser does not mean better or more engineering efficiency if it takes 100+ epochs to achieve results. In general, it has the least steep learning curve in comparison to others} \\
 Model \#5 implemented the most straightforward case to compare the efficiency of standardly used Adam and robust variant optimisers% and outline the bottom line for optimisers.
-Even though it is based on the work of Jiao~\textit{et al.}~\cite{jiao_gru-rnn_2020}, the purpose was to compare results and validate that Methodology can reach the limit of 100 epochs, without breaking.
-Their work has been performed on a battery tester at ambient temperature, without reporting the batteries' internal, which leaves little possibility for error comparison.
-Assuming a single temperature range somewhere within 25-30 degrees and discharge-only cycles, the accuracy error below 0.01\% and general $R^2$ above 99\% is very hard to match.
-However, it acts as an indication to explore the ML models' limitations and what areas of a State of Charge curve are harder to capture.
+Even though it is based on the work of Jiao~\textit{et al.}~\cite{jiao_gru-rnn_2020}, the purpose was to compare results and validate that Methodology can reach the limit of 100 epochs without breaking.
+Their work has been performed on a battery tester at ambient temperature without reporting the batteries' internal, which leaves little possibility for error comparison.
+Assuming a single temperature range within 25-30 degrees and discharge-only cycles, the accuracy error below 0.01\% and general $R^2$ above 99\% is tough to match.
+However, it is an indication to explore the ML models' limitations and what areas of a State of Charge curve are harder to capture.
 % Model \#5 is an indicator of the areas ML models have difficulties capturing.
 Based on the SoC prediction absolute error area plots for DST and FUDS, Figure~\ref{fig:Model-5res}, the charge above 30\%, some degree between 90-80\% of discharge and below 50\% creates the highest discrepancies in the prediction.
-Similar areas could have been observed on previously mentioned models, with a lesser degree of miss accuracy.
+Similar areas could have been observed on previously mentioned models with a lesser degree of miss accuracy.
 Those behaviours outline the effect of temperatures on the SoCs curves, causing problems for models to characterise them all together.
 % However, Model \#5 has proven to be the most effective in capturing US06 above all others.
 Considering the general divergence of the testing curve and the MAE of the training trend approaching only an overall 1\% as opposed to other models, which a generally below that limit, it could be assumed that all attempts were less likely to overfit the given data.
@@ -123,10 +123,11 @@ Considering the general divergence of the testing curve and the MAE of the train
 
 %
 %
-Overall, the Attention layer of Model \#3 performed great at capturing complex behaviours like the FUDS profile, whereas a DST usage is good to describe other driving behaviours as a universal solution.
-As per the research question of this work, DST-based Model \#1 acts as a superior model to all versions, due to the lowest testing error, simplicity and lightweight.
-However, the impact of the Attention layer on the improvement LSTM capturing characteristics without a doubt is worthy to consider, apart from providing room for further improvements.
-Yet, a combination of all four strategies used in every model may lead to far better outcomes in both capturing complex behaviour and generalising other driving profiles
+Overall, the Attention layer of Model \#3 performed great at capturing complex behaviours like the FUDS profile.
+In contrast, DST usage is suitable for describing other driving behaviours as a universal solution.
+As per the research question of this work, DST-based Model \#1 acts as a superior model to all versions due to the lowest testing error, simplicity and lightweight.
+However, the attention layer's impact on improving LSTM capturing characteristics is worth considering, apart from providing room for further improvements.
+Yet, a combination of all four strategies used in every model may lead to far better outcomes in both complex capturing behaviour and generalising other driving profiles
 
 %
 %
