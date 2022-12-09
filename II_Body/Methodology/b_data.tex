@@ -38,24 +38,23 @@ It results in $\sim$58613 and $\sim$12171 samples for training and validation ov
 Each model from \mbox{Table~\ref{tab:experiment}} was trained independant on each drive cycle profile and then tested against the other two, as per Mamo \textit{et al.}~\cite{mamo_long_2020}.
 The performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to a total of 47022 testing samples.
 % After compleating three models per profile for every evaluated method, the overall performance calculation has been conducted against all samples of all three profiles, making a good performance capture for any possible driving conditions.
-\ifthenelse {\boolean{thesis}} {
-\begin{figure}[htbp]
+\begin{figure*}[htbp]
     \centering
-    \begin{subfigure}[b]{0.35\textheight}
+    \begin{subfigure}[b]{0.28\textheight}
         \centering
         \includesvg[width=\linewidth]{II_Body/images/Current-DST.svg}
         \caption{Dynamic Stress Test (DST)}
         \label{subfig:profs-DST}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.35\textheight}
+    \begin{subfigure}[b]{0.28\textheight}
         \centering
         \includesvg[width=\linewidth]{II_Body/images/Current-US06.svg}
         \caption{Highway driving schedule (US06)}
         \label{subfig:profs-US}
     \end{subfigure}
     \hfill
-    \begin{subfigure}[b]{0.35\textheight}
+    \begin{subfigure}[b]{0.28\textheight}
         \centering
         \includesvg[width=\linewidth]{II_Body/images/Current-FUDS.svg}
         \caption{Federal urban driving schedule (FUDS)}
@@ -63,34 +62,7 @@ The performance calculation has been conducted over two cycles of 30\textdegree{
     \end{subfigure}
     \caption{Current consumptions of three battery testing profiles, emulating Constant-Current-Constant-Voltage charge and regenerative discharge until cells reached top or bottom cut-offs.}
     \label{fig:current-profs}
-\end{figure}
-} {
-    \begin{figure}[htbp]
-        \centering
-        \begin{subfigure}[b]{\columnwidth}
-            \centering
-            \includesvg[width=\linewidth]{II_Body/images/Current-DST.svg}
-            \caption{Dynamic Stress Test (DST)}
-            \label{subfig:profs-DST}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[b]{\columnwidth}
-            \centering
-            \includesvg[width=\linewidth]{II_Body/images/Current-US06.svg}
-            \caption{Highway driving schedule (US06)}
-            \label{subfig:profs-US}
-        \end{subfigure}
-        \hfill
-        \begin{subfigure}[b]{\columnwidth}
-            \centering
-            \includesvg[width=\linewidth]{II_Body/images/Current-FUDS.svg}
-            \caption{Federal urban driving schedule (FUDS)}
-            \label{subfig:profs-FUDS}
-        \end{subfigure}
-        \caption{Current consumptions of three battery testing profiles, emulating Constant-Current-Constant-Voltage charge and regenerative discharge until cells reached top or bottom cut-offs.}
-        \label{fig:current-profs}
-    \end{figure}
-}
+\end{figure*}
 % State of charge calculation with equations.
 %
 Like in any battery usage scenario, the State of Charge has not been provided in the CALCE data.

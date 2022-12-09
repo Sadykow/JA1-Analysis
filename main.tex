@@ -1,50 +1,92 @@
-% \documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
-\documentclass[journal]{IEEEtranTIE}
-\usepackage{graphicx}
-\usepackage{cite}
+%  LaTeX support: latex@mdpi.com 
+%  For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+\documentclass[journal,article,submit,pdftex,moreauthors]{Definitions/mdpi} 
+% For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal and change "submit" to "accept". The document class line would be, e.g., \documentclass[preprints,article,accept,moreauthors,pdftex]{mdpi}. This is especially recommended for submission to arXiv, where line numbers should be removed before posting. For preprints.org, the editorial staff will make this change immediately prior to posting.
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+% Choose between the following MDPI journals:
+% acoustics, actuators, addictions, admsci, adolescents, aerospace, agriculture, agriengineering, agronomy, ai, algorithms, allergies, alloys, analytica, animals, antibiotics, antibodies, antioxidants, applbiosci, appliedchem, appliedmath, applmech, applmicrobiol, applnano, applsci, aquacj, architecture, arts, asc, asi, astronomy, atmosphere, atoms, audiolres, automation, axioms, bacteria, batteries, bdcc, behavsci, beverages, biochem, bioengineering, biologics, biology, biomass, biomechanics, biomed, biomedicines, biomedinformatics, biomimetics, biomolecules, biophysica, biosensors, biotech, birds, bloods, blsf, brainsci, breath, buildings, businesses, cancers, carbon, cardiogenetics, catalysts, cells, ceramics, challenges, chemengineering, chemistry, chemosensors, chemproc, children, chips, cimb, civileng, cleantechnol, climate, clinpract, clockssleep, cmd, coasts, coatings, colloids, colorants, commodities, compounds, computation, computers, condensedmatter, conservation, constrmater, cosmetics, covid, crops, cryptography, crystals, csmf, ctn, curroncol, currophthalmol, cyber, dairy, data, dentistry, dermato, dermatopathology, designs, diabetology, diagnostics, dietetics, digital, disabilities, diseases, diversity, dna, drones, dynamics, earth, ebj, ecologies, econometrics, economies, education, ejihpe, electricity, electrochem, electronicmat, electronics, encyclopedia, endocrines, energies, eng, engproc, ent, entomology, entropy, environments, environsciproc, epidemiologia, epigenomes, est, fermentation, fibers, fintech, fire, fishes, fluids, foods, forecasting, forensicsci, forests, foundations, fractalfract, fuels, futureinternet, futureparasites, futurepharmacol, futurephys, futuretransp, galaxies, games, gases, gastroent, gastrointestdisord, gels, genealogy, genes, geographies, geohazards, geomatics, geosciences, geotechnics, geriatrics, hazardousmatters, healthcare, hearts, hemato, heritage, highthroughput, histories, horticulturae, humanities, humans, hydrobiology, hydrogen, hydrology, hygiene, idr, ijerph, ijfs, ijgi, ijms, ijns, ijtm, ijtpp, immuno, informatics, information, infrastructures, inorganics, insects, instruments, inventions, iot, j, jal, jcdd, jcm, jcp, jcs, jdb, jeta, jfb, jfmk, jimaging, jintelligence, jlpea, jmmp, jmp, jmse, jne, jnt, jof, joitmc, jor, journalmedia, jox, jpm, jrfm, jsan, jtaer, jzbg, kidney, kidneydial, knowledge, land, languages, laws, life, liquids, literature, livers, logics, logistics, lubricants, lymphatics, machines, macromol, magnetism, magnetochemistry, make, marinedrugs, materials, materproc, mathematics, mca, measurements, medicina, medicines, medsci, membranes, merits, metabolites, metals, meteorology, methane, metrology, micro, microarrays, microbiolres, micromachines, microorganisms, microplastics, minerals, mining, modelling, molbank, molecules, mps, msf, mti, muscles, nanoenergyadv, nanomanufacturing, nanomaterials, ncrna, network, neuroglia, neurolint, neurosci, nitrogen, notspecified, nri, nursrep, nutraceuticals, nutrients, obesities, oceans, ohbm, onco, oncopathology, optics, oral, organics, organoids, osteology, oxygen, parasites, parasitologia, particles, pathogens, pathophysiology, pediatrrep, pharmaceuticals, pharmaceutics, pharmacoepidemiology, pharmacy, philosophies, photochem, photonics, phycology, physchem, physics, physiologia, plants, plasma, pollutants, polymers, polysaccharides, poultry, powders, preprints, proceedings, processes, prosthesis, proteomes, psf, psych, psychiatryint, psychoactives, publications, quantumrep, quaternary, qubs, radiation, reactions, recycling, regeneration, religions, remotesensing, reports, reprodmed, resources, rheumato, risks, robotics, ruminants, safety, sci, scipharm, seeds, sensors, separations, sexes, signals, sinusitis, skins, smartcities, sna, societies, socsci, software, soilsystems, solar, solids, sports, standards, stats, stresses, surfaces, surgeries, suschem, sustainability, symmetry, synbio, systems, taxonomy, technologies, telecom, test, textiles, thalassrep, thermo, tomography, tourismhosp, toxics, toxins, transplantology, transportation, traumacare, traumas, tropicalmed, universe, urbansci, uro, vaccines, vehicles, venereology, vetsci, vibration, viruses, vision, waste, water, wem, wevj, wind, women, world, youth, zoonoticdis 
+
+%---------
+% article
+%---------
+% The default type of manuscript is "article", but can be replaced by: 
+% abstract, addendum, article, book, bookreview, briefreport, casereport, comment, commentary, communication, conferenceproceedings, correction, conferencereport, entry, expressionofconcern, extendedabstract, datadescriptor, editorial, essay, erratum, hypothesis, interestingimage, obituary, opinion, projectreport, reply, retraction, review, perspective, protocol, shortnote, studyprotocol, systematicreview, supfile, technicalnote, viewpoint, guidelines, registeredreport, tutorial
+% supfile = supplementary materials
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+%------------------
+% moreauthors
+%------------------
+% If there is only one author the class option oneauthor should be used. Otherwise use the class option moreauthors.
+
+%---------
+% pdftex
+%---------
+% The option pdftex is for use with pdfLaTeX. If eps figures are used, remove the option pdftex and use LaTeX and dvi2pdf.
+
+%=================================================================
+% MDPI internal commands
+\firstpage{1} 
+\makeatletter 
+\setcounter{page}{\@firstpage} 
+\makeatother
+\pubvolume{1}
+\issuenum{1}
+\articlenumber{0}
+\pubyear{2022}
+\copyrightyear{2022}
+%\externaleditor{Academic Editor: Firstname Lastname}
+\datereceived{} 
+%\daterevised{} % Only for the journal Acoustics
+\dateaccepted{} 
+\datepublished{} 
+%\datecorrected{} % Corrected papers include a "Corrected: XXX" date in the original paper.
+%\dateretracted{} % Corrected papers include a "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/} % If needed use \linebreak
+%\doinum{}
+%------------------------------------------------------------------
+% The following line should be uncommented if the LaTeX file is uploaded to arXiv.org
+%\pdfoutput=1
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, lineno, float, amsmath, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, cleveref, amsthm, hyphenat, natbib, hyperref, footmisc, url, geometry, newfloat, caption
+% \usepackage{cite}
 \usepackage{picinpar}
-\usepackage{amsmath}
-\usepackage{url}
 \usepackage{flushend}
-\usepackage[latin1]{inputenc}
+% \usepackage[latin1]{inputenc}
 \usepackage{colortbl}
-\usepackage{soul}
-\usepackage{multirow}
 \usepackage{pifont}
 \usepackage{color}
 \usepackage{alltt}
-\usepackage[hidelinks]{hyperref}
-\usepackage{enumerate}
+% \usepackage[hidelinks]{hyperref}
+% \usepackage{enumerate}
 \usepackage{siunitx}
 \usepackage{breakurl}
-\usepackage{epstopdf}
 \usepackage{pbox}
 
 % Adds SVG Support out of SVG file
 \usepackage{svg}
 % \svgsetup{inkscape=force}   % Rerenders the inkscape images with new variants
-% \svgsetup{inkscape=page}    % TODO
-
-% Double line spacing
-% \usepackage{setspace}
-% \doublespace
-%\linespread{2pc}
+% \svgsetup{inkscape=page}
 
 % Fancy table related trick
-\usepackage{tikz}
 \usepackage{makecell}
 \def\chk{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 
 % Python code
 \usepackage{listings}
-
-% Algorithmic
-\usepackage{algorithm, algorithmic}
-
-% Subfigures
-\usepackage{caption}
-\usepackage{subcaption}
-
 %Code listing style
 \lstdefinestyle{mystyle}{
   backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
@@ -67,87 +109,21 @@
 %style code listing set
 \lstset{style=mystyle}
 
+% Algorithmic
+\usepackage{algorithm, algorithmic}
+
+% Subfigures
+\usepackage{subcaption}
+
 % Produce landscape pages in a (mainly) portrait document.
-\usepackage{pdflscape}
+% \usepackage{pdflscape}
 
 % Adding if execution to define between thesis and article
-\usepackage{ifthen}
 \newboolean{thesis}
 \setboolean{thesis}{false}
 
 % Intext plus-minus
 \usepackage{textcomp}
-
-\begin{document}
-\title{Practical evaluation of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles.}
-\author{
-	\vskip 1em
-	
-	Marat Sadykov, % \emph{Student Membership},
-	Sam Haines,% \emph{Student Membership},
-    \\ Dr Mark Broadmeadow, %\emph{Techinical Supervisor}
-    \\ A/Prof Geoff Walker, %\emph{Associate Research Supervisor} and
-	\\ A/Prof David Holmes, %\emph{Principal Research Supervisor},
-
-	\thanks{
-	
-		Manuscript received Month xx, 2xxx; revised Month xx, XXXX; accepted Month x, XXXX.
-		This work was supported in part by the Government of Australia under Automotive Engineering Graduate Program (AEGP) Grant.
-		
-		Marat Sadykov, Sam Haines and A/Prof David Holmes are with the School of Mech., Medical \& Process Engineering,  Queensland University of Technology (QUT), Brisbane, QLD, 4000, Australia. (e-mail: d.holmes@qut.edu.au). 
-		
-		Dr Mark Broadmeadow and A/Prof Geoff Walker are with the School of Electrical Engineering \& Robotics,  Queensland University of Technology (QUT), Brisbane, QLD, 4000, Australia. %(e-mail: mark.broadmeadow@qut.edu.au, geoffrey.walker@qut.edu.au)
-	}
-}
-\maketitle
-
-\begin{abstract}
-    \textbf{
-    \input{I_Introduction/Abstract}
-    % Abstract - to be updated
-    }
-\end{abstract}
-
-%
-% IF
-\ifthenelse {\boolean{thesis}}
-%
-% THEN
-{
-\begin{IEEEkeywords}
-    Adaptive Moment Estimation (Adam),
-    Adaptive Moment Estimation based on the infinity norm (Adamax),
-    Attention Layer,
-    Chip-on-Board (CoB),
-    Electric Vehicle (EV),
-    Gradient Recurrent Unit (GRU),
-    Lithium-Ion battery (Li-Ion),
-    Long Short-Term Memory (LSTM),
-    Nesterov Adaptive Moment Estimation (Nadam),
-    % Raspberry Pi 4 (R-Pi4),
-    Recurrent Neural Networks (RNN),
-    Robust Online Adaptive Moment Estimation (RoAdam),
-    State of Charge (SOC) estimation,
-    Stochastic Gradient Descent with Momentum (SGDw/M),
-    % Tensor Processing Unit (TPU),
-    TensorFlow (TF),
-    Time-Series Machine Learning
-\end{IEEEkeywords}
-}
-%
-% ELSE
-{
-\begin{IEEEkeywords}
-    Driving schedulers,
-    Optimisers,
-    Recurrent Neural Networks (RNNs),
-    State of Charge (SOC) estimation,
-    Time-Series Machine Learning
-\end{IEEEkeywords}
-}
-
-\markboth{IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS}%
-{}
 
 %New colors defined below
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -157,12 +133,147 @@
 \definecolor{limegreen}{rgb}{0.2, 0.8, 0.2}
 \definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
 \definecolor{greenhtml}{rgb}{0.0, 0.5, 0.0}
+%=================================================================
+%% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
 
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Practical evaluation of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles}
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Practical evaluation of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0000-0000-0000-000X} % Add \orcidA{} behind the author's name
+\newcommand{\orcidauthorB}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+\newcommand{\orcidauthorC}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+\newcommand{\orcidauthorD}{0000-0000-0000-000X} % Add \orcidB{} behind the author's name
+
+% Authors, for the paper (add full first names)
+\Author{Marat Sadykov $^{1,\ddagger}$\orcidA{}, Sam Haines, Dr Mark Broadmeadow\orcidD{}, A/Prof Geoff Walker\orcidC{} and A/Prof David Holmes $^{2,\dagger,\ddagger}$*\orcidB{}}
+
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Marat Sadykov, Sam Haines, Dr Mark Broadmeadow, A/Prof Geoff Walker and A/Prof David Holmes}
+
+% MDPI internal command: Authors, for citation in the left column
+%! Verify the order for principal superviosors
+\AuthorCitation{Sadykov, M.; Holmes, D.; Haines, S.; Broadmeadow, M.; Walker, G.}
+% If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{%
+$^{1}$ \quad Affiliation 1; e-mail@e-mail.com\\
+$^{2}$ \quad Affiliation 2; e-mail@e-mail.com}
+
+% Contact information of the corresponding author
+\corres{Correspondence: e-mail@e-mail.com; Tel.: (optional; include country code; if there are multiple corresponding authors, add author initials) +xx-xxxx-xxx-xxxx (F.L.)}
+
+% Current address and/or shared authorship
+\firstnote{Current address: Affiliation 3.} 
+\secondnote{These authors contributed equally to this work.}
+% The commands \thirdnote{} till \eighthnote{} are available for further notes
+
+%\simplesumm{} % Simple summary
+
+%\conference{} % An extended version of a conference paper
+
+% Abstract (Do not insert blank lines, i.e. \\) 
+\abstract{
+	% State of Charge (SoC) estimation is a crucial property of a Lithium-Ion battery in any electrical system.
+	% An accurate charge percentage, without any discrepancies, allows a battery management system (BMS) to enhance battery module utilisation further, allowing higher endurance or prolonging overall utilisation for more cycles.
+	% There have been numerous attempts to determine SoC without physical intervention, such as battery modelling.
+	% Since batteries commonly have non-linear characteristics, statistical-based Machine Learning methods have the potential to replace the traditional model.
+	The present paper conducts a practical usability investigation on Recurrent Neural Networks (RNN) to determine the best-suited machine learning method for Electric vehicles (EV).
+	Through the implementation of models from multiple published sources and cross-validation testing with several driving scenarios of Lithium-Ion batteries, several models have been assessed on accuracy and drawbacks.% against simulations of different driving conditions.
+	% \begin{itemize}
+	%     \item Five models were selected from various published State of Charge estimation models based on cell types (GRU and LSTM with Attention) and optimisers (SGD, Adam, Nadam, AdaMax and Robust Adam).
+	%     \item Five models were selected from various published State of Charge estimation models based on cell types of GRU or LSTM and optimisers like Stochastic Gradient Descent, Adam, Nadam, AdaMax and Robust Adam, with extensions via Momentum calculus or Attention layer.
+	% \end{itemize}
+	Five models were selected from various published State of Charge estimation models based on cell types of GRU or LSTM and optimisers like Stochastic Gradient Descent, Adam, Nadam, AdaMax and Robust Adam, with extensions via Momentum calculus or Attention layer.
+	Each method will be examined by applying training techniques like a learning rate scheduler or rollback recovery to speed up fitting, highlighting implementation specifics, and all of that using the TensorFlow framework as close as possible to the published sources on openly available battery data.
+	The results highlight the percentage accuracy in the average of 3.64\% of Root Mean Squared Error, several drawbacks of the overall implementation, and propose potential solutions for further improvement.
+	Every implemented model had a similar drawback of poor capturing of the middle area of a charge, applying higher weight on a voltage rather than current.
+	The combined techniques in a single custom model could be better suited to improve accuracy further.
+}
+
+% Keywords
+\keyword{
+    % Adaptive Moment Estimation (Adam);
+    % Adaptive Moment Estimation based on the infinity norm (Adamax);
+    % Attention Layer;
+    % Chip-on-Board (CoB);
+    Driving schedulers;
+    % Electric Vehicle (EV);
+    Gradient Recurrent Unit (GRU);
+    Optimisers;
+    Lithium-Ion battery (Li-Ion);
+    Long Short-Term Memory (LSTM);
+    % Nesterov Adaptive Moment Estimation (Nadam);
+    % Raspberry Pi 4 (R-Pi4);
+    Recurrent Neural Networks (RNNs);
+    % Robust Online Adaptive Moment Estimation (RoAdam);
+    State of Charge (SOC) estimation;
+    % Stochastic Gradient Descent with Momentum (SGDw/M);
+    % Tensor Processing Unit (TPU);
+    % TensorFlow (TF);
+    Time-Series Machine Learning
+}
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data
+%\dataset{DOI number or link to the deposited data set if the data set is published separately. If the data set shall be published as a supplement to this paper, this field will be filled by the journal editors. In this case, please submit the data set as a supplement.}
+%\datasetlicense{License under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Encyclopedia
+%\encyclopediadef{For entry manuscripts only: please provide a brief overview of the entry title instead of an abstract.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Advances in Respiratory Medicine
+%\addhighlights{yes}
+%\renewcommand{\addhighlights}{%
+
+%\noindent This is an obligatory section in “Advances in Respiratory Medicine”, whose goal is to increase the discoverability and readability of the article via search engines and other scholars. Highlights should not be a copy of the abstract, but a simple text allowing the reader to quickly and simplified find out what the article is about and what can be cited from it. Each of these parts should be devoted up to 2~bullet points.\vspace{3pt}\\
+%\textbf{What are the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}\vspace{3pt}
+%\textbf{What is the implication of the main finding?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Introduction
 \section{Introduction} \label{sec:Introduction}
 \input{./I_Introduction/Intro}
-% \section{ThesisIntro} \label{sec:thesisIntroduction}
-% \input{./I_Introduction/ThesisIntro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Implementation
 \section{Prelimery algorithmic evaluation} \label{sec:Body}
 \input{./II_Body/RNN2}
@@ -174,14 +285,15 @@
         \input{./II_Body/Optimisers/adam}
         \input{./II_Body/Optimisers/ensemble}
     \input{./II_Body/Methodology/d_gen}
-\begin{landscape}
+\startlandscape
     \begin{figure}[ht]
         \centering
         \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
         \caption{Data Windowing scheme at 1Hz sampling rate. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from the actual implementation. The initial index $i$ was kept as a value close to the beginning of the data, around zero.}
         \label{fig:Windowing3f}
     \end{figure}
-\end{landscape}
+\finishlandscape
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Methodology
 \section{Evaluation methodology} \label{sec:Meth}
 \input{./II_Body/Methodology/Methodology}
@@ -190,7 +302,8 @@
     \input{./II_Body/Methodology/l_rate}
     \input{./II_Body/Methodology/avg}
     % \input{./II_Body/Methodology/hardware}    %! Hardware goes to the thesis
-%%% Conclusion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Results
 \section{Performance and Results}\label{sec:results}
 %%% \input{./III_Conclussion/fig_history}
 %%% \input{./III_Conclussion/figures} %! Separate figures and comments all by 1 for writing help.
@@ -200,18 +313,126 @@
     \input{III_Conclussion/res_overview.tex}
     \subsection{Observations and discussions}
     \input{III_Conclussion/res_observ.tex}
-% \IEEEtranTIE@iffilenewer
-\input{./III_Conclussion/figures_new} 
-\begin{landscape}
-\input{./III_Conclussion/tab_accuracies_new}
-\end{landscape}
-%%     \subsection{Hardware performance overview}
-    %% \input{./III_Conclussion/performance}
+    \input{./III_Conclussion/figures_new} 
+    \startlandscape
+    \input{./III_Conclussion/tab_accuracies_new}
+    \finishlandscape
+    % \subsection{Hardware performance overview}
+    % \input{./III_Conclussion/performance}
 \section{Conclusion} \label{sec:conclussion}
 \input{./III_Conclussion/articleConclussion}
+\section{TOBE READAPTED TO MDPI specs}
 \input{./III_Conclussion/acknowledgements}
+Manuscript received Month xx, 2xxx; revised Month xx, XXXX; accepted Month x, XXXX.
+This work was supported in part by the Government of Australia under Automotive Engineering Graduate Program (AEGP) Grant.
 
-\bibliographystyle{IEEEtranTIE}
+Marat Sadykov, Sam Haines and A/Prof David Holmes are with the School of Mech., Medical \& Process Engineering,  Queensland University of Technology (QUT), Brisbane, QLD, 4000, Australia. (e-mail: d.holmes@qut.edu.au). 
+
+Dr Mark Broadmeadow and A/Prof Geoff Walker are with the School of Electrical Engineering \& Robotics,  Queensland University of Technology (QUT), Brisbane, QLD, 4000, Australia. %(e-mail: mark.broadmeadow@qut.edu.au, geoffrey.walker@qut.edu.au)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+%\supplementary{The following supporting information can be downloaded at:  \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title.}
+
+% Only for the journal Methods and Protocols:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following supporting information can be downloaded at: \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title. A supporting video article is available at doi: link.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{
+	For research articles with several authors, a short paragraph specifying their individual contributions must be provided. The following statements should be used ``Conceptualization, X.X. and Y.Y.; methodology, X.X.; software, X.X.; validation, X.X., Y.Y. and Z.Z.; formal analysis, X.X.; investigation, X.X.; resources, X.X.; data curation, X.X.; writing---original draft preparation, X.X.; writing---review and editing, X.X.; visualization, X.X.; supervision, X.X.; project administration, X.X.; funding acquisition, Y.Y. All authors have read and agreed to the published version of the manuscript.'', please turn to the  \href{http://img.mdpi.org/data/contributor-role-instruction.pdf}{CRediT taxonomy} for the term explanation. Authorship must be limited to those who have contributed substantially to the work~reported.
+}
+
+\funding{
+    The research was funded by the Automotive Engineering Graduate Program (AEGP), grand number AEGP000036, from the Australian Government Department of Industry Science, Energy and Resources in cooperation with industry partner Prohelion.
+
+    
+    and  add ``The APC was funded by XXX''. Check carefully that the details given are accurate and use the standard spelling of funding agency names at \url{https://search.crossref.org/funding}, any errors may affect your future funding.
+}
+
+\institutionalreview{
+    In this section, you should add the Institutional Review Board Statement and approval number, if relevant to your study. You might choose to exclude this statement if the study did not require ethical approval. Please note that the Editorial Office might ask you for further information. Please add “The study was conducted in accordance with the Declaration of Helsinki, and approved by the Institutional Review Board (or Ethics Committee) of NAME OF INSTITUTE (protocol code XXX and date of approval).” for studies involving humans. OR “The animal study protocol was approved by the Institutional Review Board (or Ethics Committee) of NAME OF INSTITUTE (protocol code XXX and date of approval).” for studies involving animals. OR “Ethical review and approval were waived for this study due to REASON (please provide a detailed justification).” OR “Not applicable” for studies not involving humans or animals.
+}
+
+\informedconsent{
+    Any research article describing a study involving humans should contain this statement. Please add ``Informed consent was obtained from all subjects involved in the study.'' OR ``Patient consent was waived due to REASON (please provide a detailed justification).'' OR ``Not applicable'' for studies not involving humans. You might also choose to exclude this statement if the study did not involve humans.
+
+    Written informed consent for publication must be obtained from participating patients who can be identified (including by the patients themselves). Please state ``Written informed consent has been obtained from the patient(s) to publish this paper'' if applicable.
+}
+
+\dataavailability{
+    In this section, please provide details regarding where data supporting reported results can be found, including links to publicly archived datasets analyzed or generated during the study. Please refer to suggested Data Availability Statements in section ``MDPI Research Data Policies'' at \url{https://www.mdpi.com/ethics}. If the study did not report any data, you might add ``Not applicable'' here.
+}
+
+\acknowledgments{
+    In this section you can acknowledge any support given which is not covered by the author contribution or funding sections. This may include administrative and technical support, or donations in kind (e.g., materials used for experiments).
+}
+
+\conflictsofinterest{
+    The authors declare no conflict of interest.
+    The funders had no role in the design of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or in the decision to publish the~results
+
+    
+    Authors must identify and declare any personal circumstances or interest that may be perceived as inappropriately influencing the representation or interpretation of reported research results. Any role of the funders in the design of the study; in the collection, analyses or interpretation of data; in the writing of the manuscript; or in the decision to publish the results must be declared in this section. If there is no role, please state ``The funders had no role in the design of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or in the decision to publish the~results''.
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+\sampleavailability{Samples of the compounds ... are available from the authors.}
+
+%% Only for journal Encyclopedia
+%\entrylink{The Link to this entry published on the encyclopedia platform.}
+
+\abbreviations{Abbreviations}{
+The following abbreviations are used in this manuscript:\\
+
+\noindent 
+\begin{tabular}{@{}ll}
+    Adam & Adaptive Moment Estimation\\
+    Adamax & Adaptive Moment Estimation based on the infinity norm\\
+    EV & Electric Vehicle (EV)\\
+    GRU & Gradient Recurrent Unit\\
+    Li-Ion & Lithium-Ion battery\\
+    LSTM & Long Short-Term Memory\\
+    MDPI & Multidisciplinary Digital Publishing Institute\\
+    Nadam & Nesterov Adaptive Moment Estimation\\
+    RNNs & Recurrent Neural Networks\\
+    RoAdam & Robust Online Adaptive Moment Estimation\\
+    SoC & State of Charge\\
+    SGDw/M & Stochastic Gradient Descent with Momentum\\
+    TF & TensorFlow
+    % DOAJ & Directory of open access journals\\
+    % TLA & Three letter acronym\\
+    % LD & Linear dichroism
+\end{tabular}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+\appendixtitles{no} % Leave argument "no" if all appendix headings stay EMPTY (then no dot is printed after "Appendix A"). If the appendix sections contain a heading then change the argument to "yes".
+\appendixstart
+\appendix
+\section[\appendixname~\thesection]{Robust Adam implementation} \label{app:RoAdam}
+% \subsection[\appendixname~\thesubsection]{}
+\input{../X-Appendix/AppendixE}
+\clearpage
+\section[\appendixname~\thesection]{Getting Number of Flops from TF2.4} \label{app:flops}
+\input{../X-Appendix/AppendixF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{adjustwidth}{-\extralength}{0cm}
+%\printendnotes[custom] % Un-comment to print a list of endnotes
+
+\reftitle{References}
+
+% Please provide either the correct journal abbreviation (e.g. according to the “List of Title Word Abbreviations” http://www.issn.org/services/online-services/access-to-the-ltwa/) or the full name of the journal.
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here. 
+
+%=====================================
+% References, variant A: external bibliography
+%=====================================
 \bibliography{
     ../Z-References/References,
     I_Introduction/BibIntro,
@@ -220,19 +441,29 @@
     II_Body/GRU/BibGRU,
     II_Body/Optimisers/BibOpt.bib
 }
+
+% If authors have biography, please use the format below
+%\section*{Short Biography of Authors}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author1.pdf}}}
+%{\textbf{Firstname Lastname} Biography of first author}
 %
-% IF
-\ifthenelse {\boolean{thesis}}
-%
-% THEN
-{
-\clearpage
-\appendices
-\section{Appendix A: Robust Adam implementation}  \label{app:RoAdam}
-\input{../X-Appendix/AppendixE}
-\clearpage
-\section{Appendix B: Getting Number of Flops from TF2.4}  \label{app:flops}
-\input{../X-Appendix/AppendixF}
-}
-{}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author2.jpg}}}
+%{\textbf{Firstname Lastname} Biography of second author}
+
+% For the MDPI journals use author-date citation, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{adjustwidth}
 \end{document}
+
