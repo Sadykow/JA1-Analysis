@@ -84,5 +84,10 @@ The averaging provides a representative result that is statistically repeatable.
 
 %
 %
-In the next Section~\ref{sec:results}, first tests to determine optimum hyperparameters were carried out, then the full evaluation of models against each of the drive cycles is presented,
-In each case, the train/validation/test procedures and error metrics of Section~\ref{subsec:t_model} are followed, with learning rate method of ~\ref{subsec:l-rate} and averaging of 10 trainings of ~\ref{subsec:avg} to ensure the best and most accurate representation of each model.
+\ifthenelse{\boolean{thesis}}{
+    In the next Section~\ref{sec:AN:Results}, first tests to determine optimum hyperparameters were carried out, then the full evaluation of models against each of the drive cycles is presented,
+    In each case, the train/validation/test procedures and error metrics of Section~\ref{subsec:t_model} are followed, with learning rate method of ~\ref{subsec:l-rate} and averaging of 10 trainings of ~\ref{subsec:avg} to ensure the best and most accurate representation of each model.
+} {
+    In the next Section~\ref{sec:results}, first tests to determine optimum hyperparameters were carried out, then the full evaluation of models against each of the drive cycles is presented,
+    In each case, the train/validation/test procedures and error metrics of Section~\ref{subsec:t_model} are followed, with learning rate method of ~\ref{subsec:l-rate} and averaging of 10 trainings of ~\ref{subsec:avg} to ensure the best and most accurate representation of each model.
+}

@@ -1,22 +1,22 @@
 The work offered several implementations of Machine Learning algorithms for State of Charge Estimation over A123 batteries.
 The computation of the accuracies, recently summarised in \mbox{Tables~\ref{tab:acc-results1} and~\ref{tab:acc-results2}}, has involved multi-device calculations.
 The measurement has been performed over the entire dataset of each profile.
-Therefore, a synchronisation strategy has been attempted to speed up the process and keep devices temperature safe.
-Fans at 45-50\% duty cycle kept temperatures within 45-52 degrees range.
-A small timeout to switch between sample intensive datasets allowed GPUs to cool off between models.
+Therefore, a synchronisation strategy has been attempted to speed up the process and keep the devices' temperature safe.
+Fans at 45-50\% duty cycle kept temperatures within the 45-52 degrees range.
+A small timeout to switch between sample-intensive datasets allowed GPUs to cool off between models.
 
 %
 %
 Since the end goal is to deploy an electric vehicle to run processing online, there have been several attempts to measure performance on a few categories of embedded devices.
 By itself, Stateful models are not supported by TFLite.
 Thus, a single attempt to make a Custom Stateful stateless model test is time inefficient, and those seemed unreasonable.
-Instead, six models were broke down into five foundation implementations and performance profiled, \mbox{Table~\ref{tab:speed}}.
+Instead, six models were broken down into five foundation implementations and performance profiled, \mbox{Table~\ref{tab:speed}}.
 Calculation of accuracies performed with 20 attempts average and offset calculation with mean of the difference between maximum and minimum.
-As a result, Coral TPU has an advantage over Raspberrypi since the core is dedicated to run tensor computations, despite Pi's latest hardware release.
-The android selection only proved how time-consuming usage of ML model on relatively old CPU could be, but in a proper synchronised manner and without rapid consumption, such devices still have their usage in such application.
+As a result, Coral TPU has an advantage over RaspberryPi since the core is dedicated to running tensor computations, despite Pi's latest hardware release.
+The android selection only proved how time-consuming the usage of ML models on a relatively old CPU could be.
+However, in a properly synchronised manner and without rapid consumption, such devices still have their usage in such applications.
 % Steady Voltage consumption over USB Port stable around 5.03V for all devices. Coral TPU steady current - 0.07A. Keep those details for the Ch5 if asked.
-\textcolor{red}{\textbf{When Testing validation process  with plot generation was performen on TPU deices using TFLite, the accuracy degradation and overall accuracy against entire dataset was calculated using GPUs and CPU.}}
-
+While validation and testing processes with plot generation were performed on TPU devices using TFLite, the accuracy degradation and overall accuracy against the entire dataset were calculated using GPUs and CPU.
 \begin{table}[ht]
     \renewcommand{\arraystretch}{1.3}
     \caption{Model performance results across multiple embedded devices.}
