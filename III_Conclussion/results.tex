@@ -1,13 +1,13 @@
 %
 % Intro paragraph with init conditions of data and params
-Since it is common for temperatures in an EVs' battery pack to range from ambient 20 degrees to the limit of 60, all temperature ranges were used together to train each model.
-The training process was conducted through all datasets for a single battery testing profile and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set) from another two. 
-This approach led to the accuracy being lower than other researchers reported by training individually for single temp ranges like with Xiao et al.~\cite{xiao_accurate_2019}.
+Since it is common for temperatures in an EVs' battery pack to range from ambient 20 degrees to the limit of 60\textdegree{}C, all temperature ranges were used together to train each model.
+The training process was conducted through all datasets for a single battery testing profile, and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set) from another two. 
+This approach led to the accuracy being lower than other researchers reported by training individually for single temp ranges such as Xiao \textit{et al.}~\cite{xiao_accurate_2019}.
 The following section compares the models trained on each individual and then tests against the entire dataset of all three profiles.
 All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters. %% to make an objective comparison.
-First, the evaluation of hyperparameters is carried out.
-Then all models are compared by nine plots per method, outlining training history, prediction on itself and generalisation of other profiles per each driving schedule.
-In the end, the performance is summarised in a table, representing MAE, RMSE and $R^2$ of each method per profile against the entire dataset of each driving schedule.
+First, the evaluation of hyperparameters was carried out.
+Then all models were compared by nine plots per method, outlining training history, prediction on itself, and generalisation of other profiles per each driving schedule.
+In the end, the performance was summarised in a table, representing MAE, RMSE and $R^2$ of each method per profile against the entire dataset of each driving schedule.
 % Metrics references
 %
 %%Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
@@ -35,14 +35,14 @@ In the end, the performance is summarised in a table, representing MAE, RMSE and
 %! Hyperparameters results, rollback and learning rate
 %! 135  Models to asses. That is why only average of 3 attempts was used. Average MAE was calculated from the Average of each individual profile.
 The ranges between 1-3 layers \textit{'L'} and incremental combinations of neurons \textit{'N'} from 131-1572 were used to determine the most optimum set of hyperparameters for all models to work with.
-Any values higher or lower of both parameters did not provide worthy outputs, therefore, have been omitted.
+Any values higher or lower than both parameters did not provide worthy outputs and therefore have been omitted.
 In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
 For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
 %%%%%%%%%%%%%%%
 Training simple LSTM models with Adam optimiser for three current profiles three times only resulted in a total of 135 trained models.
 % because 180 models are too much to bare
 They all can be summarised in 15 different sets of hyperparameters to compare.
-\mbox{Tables~\ref{tab:param-search1}} reports the average results of the five best models based on the lowest average training error of all three profiles.
+\mbox{Table~\ref{tab:param-search1}} reports the average results of the five best models based on the lowest average training error of all three profiles.
 %% and occupied memory space in a compressed state in MegaBytes (MB).
 The time in seconds highlights the duration of training over a single epoch.
 Online training on a low-power device could be considered an essential factor, sacrificing some accuracy, but not in this research.
@@ -59,7 +59,6 @@ This was also the lowest memory combination, which served as another criterion i
   \caption{Hyper-params selection - Sorted by Average MAE}
   \centering
   \label{tab:param-search1}
-  \resizebox{\columnwidth}{!}{
   \begin{tabular}{ l l r r r r}
       \hline\hline \\[-3mm]
       $ index $ & $L$x$N$ & $size (MB)$ & $time(s)$ & $	\angle $ inclination & \textbf{avr MAE}\\
@@ -71,7 +70,6 @@ This was also the lowest memory combination, which served as another criterion i
        7        & 2x524   & 3.33    & 1990.49   & diverges             & \textbf{3.0303} \\
       \hline\hline
   \end{tabular}
-  }
 \end{table}
 % \begin{table}[htbp]
 %   \renewcommand{\arraystretch}{1.3}

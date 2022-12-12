@@ -7,7 +7,7 @@ Unlike a simple Recurrent NN with a single activation function in the cells, GRU
 On top of the activation function, it adds two gates related to input and propagated sequences.
 The reset gate $r_t$ controls the level information, which has to be ignored.
 The update gate $i_t$ controls the impact of previous information on the current status.
-The gates implemented by \textit{sigmoid} \mbox{Equation~(\ref{eq:sigmoid})} and gated get updated with \mbox{Equations~(\ref{eq:GRU-gates})}.
+The gates implemented by \textit{sigmoid} \mbox{Equation~(\ref{eq:sigmoid})} get updated with \mbox{Equations~(\ref{eq:GRU-gates})}.
 Both gates are related to cell input sequence $x_t$ and the memory cell's output at last time stamp $h_{t-1}$.
 %The structure of the layers is similar to a Dense network, with similar input and output layers.
 %\textbf{Y. Song~\cite{song_lithium-ion_2018} considered them less complex than another variation (LSTM-RNN) due to the usage of 2 gates rather than 3.}
@@ -27,8 +27,8 @@ Both gates are related to cell input sequence $x_t$ and the memory cell's output
     \label{eq:GRU-gates}
 \end{equation}
 %The standard activation function or content of the memory gets modified with equation~\ref{eq:GRU-output}, where \textit{func} represent the activation function and $\ast$ multiplication by element.
-The memory cell output $h_t$ get calculated through the early chosen activation function, $tanh$ in \mbox{Equation~(\ref{eq:GRU-output})}.
-The $\ast$ stand for multiplication by element.
+The memory cell output $h_t$ gets calculated through the early chosen activation function, $tanh$ in \mbox{Equation~(\ref{eq:GRU-output})}.
+The $\ast$ stands for multiplication by element.
 \begin{equation}
     \begin{split}
         \hat{h_t} &= tanh \left (W_{\hat{h}} \left [f_t \ast h_{t-1}, x_t \right ] + b_{\hat{h}} \right ) \\

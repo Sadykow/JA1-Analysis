@@ -6,7 +6,7 @@
 %
 Three devices acted as embedded computing test units in different hardware and computational levels: Tensor Processing Unit (TPU), Raspberry Pi 4 (R-Pi4), and an Android-based smartphone.
 Coral TPU produced by Google has limited specifications information, but the software has provided two libraries for average and maximum clock frequency computation.
-Raspberry Pi 4 powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
+Raspberry Pi 4 is powered with Quad-core Cortex-A72 (ARM v8) and 2GB RAM.
 The Operating System was selected with a beta version of Raspbian 64 (aarch64).
 The selection of Android devices depended on the highest percentage distribution.
 An Octa-core Cortex-A53 with 3GB RAM seemed the most commonly used at the time.
@@ -22,7 +22,7 @@ Tensorboard is used to observe progress and keep records to analyse training lat
 %
 End of the training testing of each model has been performed on the Coral TPU device with TensorFlow-Lite Runtime library version 2.5.0.
 Every model has been trained and converted to its' TFLite version to validate the ability to be suitable for deployment.
-At the current stage and version of the Tensorflow, the Stateful models have not been supported for lite version conversion.
+At the current stage and version of the TensorFlow, the Stateful models have not been supported for lite version conversion.
 Final model testing against the entire set of all three profiles has been performed on a desktop machine with an Intel CPU and two Graphical Processors with Compute Capability Score of 7.5.
 The version of the CUDA library for GPU computation that has been used is 11.1 from the beginning of the research.
 %

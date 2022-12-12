@@ -1,32 +1,32 @@
 \subsection{Model training, validation and testing metrics functions} \label{subsec:t_model}
 % The evaluation process, how it is done and what it means to achieve
 %
-The methods evaluation procedures will be conducted similarly to Mamo \textit{et al.}~\cite{mamo_long_2020} research.
-They will undertake the same training, validation and testing procedure to determine the best technique and performance.
+The methods evaluation procedures will be conducted similarly to Mamo and Wang's~\cite{mamo_long_2020} research.
+They will undertake the same training, validation, and testing procedure to determine the best technique and performance.
 %! Go more technical and complex
 % Each training stage has been written from the first principle to focus on performance gain and implementation of published methods.
-Each training stage has been written from the first principle using the CUDA-supported TensorFlow 2.3.1 framework's official documentation, with additional implementation to accommodate method modifications\cite{chollet_writing_2020}.
+Each training stage has been written from first principles using the CUDA-supported TensorFlow 2.3.1 framework's official documentation, with additional implementation to accommodate method modifications~\cite{chollet_writing_2020}.
 It allows flexibility in modifying the training and evaluation procedures to come up with objective comparison criteria.
-A single training iteration consists of several stages involving several performances and quality checks to ensure that training only keeps improving over time until the optimum is achieved before hitting a limit.
+A single training iteration consists of several stages, involving several performances and quality checks, to ensure that training only keeps improving over time until the optimum is achieved before hitting a limit.
 
 % Save/load process to avoid overfitting early
 %
 Algorithm~\ref{alg:training} provides the pseudocode summary for the primary training procedures undertaken by every model.
-Every training run works with all three profiles, where the first cycle type is used for training and validation, and another two for testing and performance rating, as illustrated in Figure~\ref{fig:cross-data} with five charge/discharge cycles per type.
-After a model setup, initial parameter definition and a single iteration (epoch) run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting at Ag.~\ref{alg:training} ln.~\ref{alg:training-check}.
+Every training run works with all three profiles, where the first cycle type is used for training and validation, and another two for testing and performance rating, as illustrated in Figure~\ref{fig:cross-data}, with five charge/discharge cycles per type.
+After a model setup, initial parameter definition and a single iteration (epoch) run with the entire training dataset, the models' mean average accuracy is compared with previous results to decide if retraining is necessary to foresight potential overfitting at Ag.~\ref{alg:training} Ln.~\ref{alg:training-check}.
 The cross-interchanging between different temperatures for validation has been neglected to avoid unnecessary complexity for results comparison.
-With an observed improvement, the model will be saved as a checkpoint for a rollback if needed, and then it continues to undertake a follow-up evaluation, Ag.~\ref{alg:training} ln.~\ref{alg:training-succes}.
+With an observed improvement, the model will be saved as a checkpoint for a rollback if needed, and then it continues to undertake a follow-up evaluation, Ag.~\ref{alg:training} Ln.~\ref{alg:training-succes}.
 Otherwise, the model will be rolled to the previous state and undertake another attempt with a half-reduced current learning rate.
-Within 3 to 8 attempts, models recover and continue learning with an error between 3-6\%, Ag.~\ref{alg:training} lns.~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}, there as by the time of reaching around 30 to 50 trials they start to show obvious overfitting or underfitting results with no potential for recovery.
-Cycle type train on Figure~\ref{fig:cross-data} demonstrates the one to five data breakdown between validation and training, where the cycle of 25\textdegree{}C confirms the general fitting process and produces an output for later use during performance averaging, Ag.~\ref{alg:training} ln.~\ref{alg:training-valid}.
+Within 3 to 8 attempts, models recover and continue learning with an error between 3-6\%, Ag.~\ref{alg:training} Lns.~\ref{alg:training-recovery-start} to~\ref{alg:training-recovery-end}, as by the time of reaching around 30 to 50 trials they start to show obvious overfitting or underfitting results with no potential for recovery.
+Cycle type train on Figure~\ref{fig:cross-data} demonstrates the one-to-five data breakdown between validation and training, where the cycle of 25\textdegree{}C confirms the general fitting process and produces an output for later use during performance averaging, Ag.~\ref{alg:training} Ln.~\ref{alg:training-valid}.
 For this investigation, verifying with a single cycle at 25\textdegree{}C was the primary criteria assessment, as per the research goal and limitation with provided data amount.
-Due to the potential assumption that a model inside an electric vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
-In the end, it gets tested against two other cycles types on Figure~\ref{fig:cross-data}, assessing the general capture of the State of Charge cycling under different conditions, Ag.~\ref{alg:training} ln.~\ref{alg:training-test}.
-Two cycles from each type of 25\textdegree{}C and 30\textdegree{}C were selected for illustrative purposes as the most value close ranges and most likely battery states at idle.
-The better results, the more objective model becomes in unseen conditions.
+Due to the potential assumption that a model inside an Electric Vehicle will undertake constant online learning, there will be no situation when the model has to make completely unpredictable scenarios.
+In the end, it gets tested against two other cycles types in Figure~\ref{fig:cross-data}, assessing the general capture of the State of Charge cycling under different conditions, Ag.~\ref{alg:training} Ln.~\ref{alg:training-test}.
+Two cycles from each type of 25\textdegree{}C and 30\textdegree{}C were selected for illustrative purposes as the most value-close ranges and most likely battery states at idle.
+The better the results, the more objective the model becomes in unseen conditions.
 % An additional test against another battery takes place to verify the models' behaviour and the possibility for further improvement with new samples, which will not be part of performance measurements or discussion.
 % The results from two other sample tests confirm that estimations are still rational within State of Charge behaviour boundaries.
-If the model reaches the optimum state, then there are no more accuracy improvements and hyper-parameter to adjust, the training process will be stopped and undertake the final evaluation against the entire training set with all three profiles, Ag.~\ref{alg:training} ln.~\ref{alg:training-end}.
+If the model reaches the optimum state, when there are no more accuracy improvements and hyper-parameters to adjust, the training process will be stopped and it will undertake the final evaluation against the entire training set with all three profiles, Ag.~\ref{alg:training} Ln.~\ref{alg:training-end}.
 %%%%%%%%%%%%%
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Training procedure}
@@ -60,7 +60,7 @@ If the model reaches the optimum state, then there are no more accuracy improvem
 \begin{figure}[ht]
     \centering
     \includesvg[width=\columnwidth]{II_Body/images/cross-data.svg}
-    \caption{Three profiles cross data split for training, validation and testing in a simplistic SoC cycle representation through different temperatures.}
+    \caption{Three profiles cross data split for training, validation and testing in a simplistic SoC cycle representation through different temperatures}
     \label{fig:cross-data}
 \end{figure}
 
@@ -72,8 +72,8 @@ If the model reaches the optimum state, then there are no more accuracy improvem
 % This mechanism will output three models per method and nine figures outlining training and validation learning accuracies.
 % Based on the progressive accuracy increase, a final iteration for this plot and discussion will be based on the lowest training and validation error.
 The following process was adapted for all error calculations in training, verification, and testing.
-Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where the actual State of Charge is compared with prediction.
-The filled area below the plot captures the error Absolute Error Difference between two lines, as per Equation~\ref{eq:abs-error}.
+Figure~\ref{fig:plot_demo} shows an example of accuracy evaluation, where the actual State of Charge is compared with the model's prediction.
+The filled area below the plot captures the Absolute Error Difference between two lines, as per Equation~\ref{eq:abs-error}.
 %%%%%%
 The test procedure was performed on two cycles of each profile but at a different temperature to assess how perceptive the model is to capture the average and high heat spikes that the battery module might experience.
 Each result is summarised into a table and reported based on metrics values.
@@ -81,8 +81,8 @@ Each result is summarised into a table and reported based on metrics values.
 \begin{figure}[ht]
     % RMSE equation: RMS = (tf.keras.backend.sqrt(tf.keras.backend.square(y_test_one[::,]-PRED)))
     \centering
-    \includesvg[width=\columnwidth]{II_Body/images/plot-example.svg}
-    \caption{Accuracy plot demonstration.}
+    \includesvg[width=\textwidth]{II_Body/images/plot-example.svg}
+    \caption{Accuracy plot demonstration}
     \label{fig:plot_demo}
 \end{figure}
 \begin{equation}
@@ -191,14 +191,13 @@ Each result is summarised into a table and reported based on metrics values.
 %! References on who used.
 %! varied metric used across articles, we will used 3.
 Metrics functions act as user evaluation criteria to assess the performance of the trained model during both fitting and validation processes.
-Although some papers relied on different evaluation criteria, for this research, metrics were unified with several equations provided in \mbox{Table~\ref{tab:metrics}}.
+Although some papers relied on different evaluation criteria, for this research, metrics were unified, with several equations provided in \mbox{Table~\ref{tab:metrics}}.
 Thus, the same criteria will be used to compare the models' efficiency against each other.
 \begin{table}[htbp]
     \renewcommand{\arraystretch}{1.3}
     \caption{Model's metrics functions}
     \centering
     \label{tab:metrics}
-    \resizebox{\columnwidth}{!}{
     \begin{tabular}{l c}
         \hline\hline \\[-3mm]
         Function Name & Equation \\ 
@@ -214,7 +213,6 @@ Thus, the same criteria will be used to compare the models' efficiency against e
         \hline\hline
         % Error : Not decided if useful yet & $ \frac{SoC_t-\hat{SoC_5}}{SoC_t}$
     \end{tabular}
-    }
 \end{table}
 
 % Concluding purpose of the training and ultimate goad of getting so creative

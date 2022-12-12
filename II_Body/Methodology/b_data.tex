@@ -11,7 +11,6 @@ According to the associated paper, the battery cycling has been performed with a
     \caption{Battery characteristics}
     \centering
     \label{tab:battery}
-    \resizebox{\columnwidth}{!}{
     \begin{tabular}{ l c c c c c }
         \hline\hline \\[-3mm]
         Brand & Cell      & Cell & Battery & Nominal          & Charge/discharge\\
@@ -19,24 +18,23 @@ According to the associated paper, the battery cycling has been performed with a
         % \makecell{Brand name} & \makecell{Cell Chemistry} & \makecell{Cell Type} & \makecell{Battery Weight} & \makecell{Nominal Capacity $C_{N}$} & \makecell{Nominal Voltage} & \makecell{Charge/discharge cut-off voltage} \\
         \hline
         %A456 \\ (former A123) & 76g+-1g & 2.3Ah & 3.2V & 3.65V, 2.0 V\\
-        A123   & LiFePO4 & ANR26650 & 70g        & 2.3Ah & 3.6V,\\
+        A123   & LiFePO4 & ANR26650 & 70g        & 2.3Ah & 3.6V\\
         (2012) &         & \textbf{M1-A}     & \textpm 2g &       & 2.0V \\
         \hline\hline
     \end{tabular}
-    }
 \end{table}
 
 %
 % How to work with battery data and which were selected.
-The Battery Cycling data over 2 Li-Ion cells were stored as Excel spreadsheets over temperature range 0\textdegree{}C and 50\textdegree{}C degrees, with 10 degrees step and tolerance of around 0.5-1\textdegree{}C, including ambient 25\textdegree{}C.
+The Battery Cycling data over 2 Li-Ion cells were stored as Excel spreadsheets over temperature range 0\textdegree{}C and 50\textdegree{}C degrees, with 10 degree steps and tolerance of around 0.5-1\textdegree{}C, including an ambient temperature of 25\textdegree{}C.
 Each testing cycle contains three profiles, distinguished by their current consumption, emulating a stress test or driving scenarios: Dynamic stress test (DST) - Figure~\ref{subfig:profs-DST}, Highway (US06) - Figure~\ref{subfig:profs-US} and the Federal urban driving schedules (FUDS) - Figure~\ref{subfig:profs-FUDS}.
 Each cycle consists of charge and discharge periods, with a sampling rate of 4Hz and 1Hz, respectively.
 Charging periods have been linearly interpolated to match the data sampling rate.
 %without additional random noise due to insignificant impact.
-The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since this is the most common temperature range for EVs involved in our research.
-It results in $\sim$58613 and $\sim$12171 samples for training and validation over one profile.
-Each model from \mbox{Table~\ref{tab:experiment}} was trained independant on each drive cycle profile and then tested against the other two, as per Mamo \textit{et al.}~\cite{mamo_long_2020}.
-The performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to a total of 47022 testing samples.
+The range of 20\textdegree{}C to 50\textdegree{}C was used as a training and validation dataset since, this is the most common temperature range for EVs involved in the research.
+It results in $\sim$58,613 and $\sim$12,171 samples for training and validation over one profile.
+Each model from \mbox{Table~\ref{tab:experiment}} was trained independantly on each drive cycle profile and then tested against the other two, as per Mamo and Wang~\cite{mamo_long_2020}.
+The performance calculation has been conducted over two cycles of 30\textdegree{}C and 40\textdegree{}C samples for each of the two remaining profiles, leading to a total of 47,022 testing samples.
 % After compleating three models per profile for every evaluated method, the overall performance calculation has been conducted against all samples of all three profiles, making a good performance capture for any possible driving conditions.
 \begin{figure*}[htbp]
     \centering
@@ -63,6 +61,7 @@ The performance calculation has been conducted over two cycles of 30\textdegree{
     \caption{Current consumptions of three battery testing profiles, emulating Constant-Current-Constant-Voltage charge and regenerative discharge until cells reached top or bottom cut-offs.}
     \label{fig:current-profs}
 \end{figure*}
+
 % State of charge calculation with equations.
 %
 Like in any battery usage scenario, the State of Charge has not been provided in the CALCE data.
@@ -75,7 +74,7 @@ The SoC value can be calculated from the difference between Charge and Discharge
 %         \label{eq:SoC-DC}
 %     \end{split}
 % \end{equation}
-The resulting trend can be validated with Coulomb Counting using the integral of the consumed and/or produced current $I$ between initial $t_0$ and the end of cycle $t_n$ time, divided by converted to seconds Nominal Capacity $C_{N}$ of the batteries, as per \mbox{Equation~\ref{eq:SoC-calc}}.
+The resulting trend can be validated with Coulomb Counting, using the integral of the consumed and/or produced current $I$ between initial $t_0$ and the end of cycle $t_n$ time, divided by (converted to seconds) Nominal Capacity $C_{N}$ of the batteries, as per \mbox{Equation~\ref{eq:SoC-calc}}.
 \begin{equation}
     \begin{split}
         % \hat{SoC} &= \frac{\int_{t_0}^{t_n} I(t)dt} {C_{N}} = \frac{\int_{t_0}^{t_n} I(t)dt} {2.3*3600} \\

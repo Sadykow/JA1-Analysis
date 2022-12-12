@@ -2,11 +2,11 @@
 %
 Building on the variants of ML used for SoC estimation from the literature,~\mbox{Table~\ref{tab:review}}, the models to be investigated in this work are given in~\mbox{Table~\ref{tab:experiment}}.
 % Deriving from \mbox{Table~\ref{tab:review}}, \mbox{Table~\ref{tab:experiment}} compiles models, which will be evaluated in this work.
-It provides details of five different implementations that vary in structure and learning process but will undergo the same training, validation, testing and performance measurement procedures.
+It provides details of five different implementations that vary in structure and learning process but will undergo the same training, validation, testing, and performance measurement procedures.
 Implementation of each model is carried out as faithfully as possible to the original published versions.
 Any details on implementation not present in the original published papers were assumed based on ML's standard methods at their writing time.
 This section focuses on a detailed overview of each component required to build and train the Machine Learning model.
-It will go through each type of model used in this investigation and breaks them part by part to overview potential strengths and weaknesses.
+It will go through each type of model used in this investigation, and breaks them part by part to overview potential strengths and weaknesses.
 In addition, every optimiser will be discussed in the growing complexity to visualise their development process over time and pick the most efficient for the final goal.
 % \textcolor{blue}{
 % The selection criteria for the review were based on an unordinary approach to the problem compared to standard framework examples, learning what directions have been attempted and determining promising methods for further research and enhancement.
@@ -26,7 +26,6 @@ In addition, every optimiser will be discussed in the growing complexity to visu
         }
         \centering
         \label{tab:experiment}
-        \resizebox{\columnwidth}{!}{
     \begin{tabular}{c l r}
         \hline\hline \\[-4mm]
         \# & Type                 & Optimiser  \\
@@ -39,14 +38,13 @@ In addition, every optimiser will be discussed in the growing complexity to visu
         5  & LSTM                 & SGDw/M \\
         \hline\hline
     \end{tabular}
-    }
 \end{table}
 
 %  Model Structure
 % Parameters definition layers and neurons selection
 %
 \subsection{Model structure and implementation} \label{subsec:structure}
-The general summary model structure is represented in \mbox{Figure~\ref{fig:RNN-structure}}, with three feature inputs (Voltage, Current and Temperature) and a single percentage output (State of Charge).
+The general summary model structure is represented in \mbox{Figure~\ref{fig:RNN-structure}}, with three feature inputs (Voltage, Current, and Temperature) and a single percentage output (State of Charge).
 %? The most efficient number of layers and hidden neurons for the State of Charge estimation application was determined to be 3, with 43 per each.
 Since the output consists of only a single sample, it is defined by a fully connected layer - a dense layer with a single neuron.
 %? That makes a total of 130 cells for each implemented case.
@@ -87,7 +85,7 @@ Since the output consists of only a single sample, it is defined by a fully conn
 %
 Several activation functions for those layers are widely used in machine learning libraries for time series problems~\cite{amidi_cs_2018}.
 For the SoC prediction problem, all authors used the same function.
-Experimentally confirmed that the best one for all hidden layers is the hyperbolic \textit{tangent} function, \mbox{Equation~(\ref{eq:tanh})}.
+They experimentally confirmed that the best one for all hidden layers is the hyperbolic \textit{tangent} function, \mbox{Equation~(\ref{eq:tanh})}.
 The output layer uses a \textit{sigmoid} function as an activation to bound the result between zero and one, indicating the percentage of the charge \mbox{Equation~(\ref{eq:sigmoid})}.
 A dropout layer technique with a 20\% cut-off has been applied to all hidden layers to prevent early data overfitting over long training periods.
 \begin{equation}
@@ -114,8 +112,8 @@ A dropout layer technique with a 20\% cut-off has been applied to all hidden lay
 % Requires editing below
 The efficiency of an RNN in a time series problem is defined by the ability of the neurons to store memory as an internal state.
 With time, the memory of long-passed samples may fade away.
-The problem is called vanishing gradient when the value to update network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
-Long-term dependencies are not captured since layers with a slight gradient do not significantly affect the system due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
+The problem is called the vanishing gradient, when the value to update the network weights shrinks as it propagates through time~\cite{rasifaghihi_predictive_2020}.
+Long-term dependencies are not captured, since layers with a slight gradient do not significantly affect the system due to insufficient weight change~\cite{rasifaghihi_predictive_2020,hochreiter_vanishing_1998}.
 The more complicated structures of neurons tend to solve that problem.
 % The gradient is the value used to update Neural Networks’ weight.
 %"Therefore, layers that get a small gradient do not learn, and they cause the network to have short-term memory."
@@ -124,7 +122,7 @@ The more complicated structures of neurons tend to solve that problem.
 
 % Introduction statement to Gated Recurrent Unit and Long-Short Term Memory.
 %
-Two commonly used Recurrent Neural Network utilises memory cells: Gated Recurrent Unit (GRU) and Long Short-Term Memory (LSTM), with possible extensions implemented by the referenced articles' authors.
+Two commonly used Recurrent Neural Networks utilise memory cells: Gated Recurrent Unit (GRU) and Long Short-Term Memory (LSTM), with possible extensions implemented by the referenced articles' authors.
 % The GRU implementation will be used as a stateful technique by preserving a state from batch to batch with a single sample at a time.
 The GRU and LSTM will take a stateless approach, providing a fixed number of timestamps for all implemented models.
 The stateless implementations with non-gradient calculus-based optimisation algorithms will not be used as part of the research because effectiveness has not been proven during preliminary work for this case.

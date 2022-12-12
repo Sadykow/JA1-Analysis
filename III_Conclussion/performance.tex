@@ -10,8 +10,8 @@ A small timeout to switch between sample-intensive datasets allowed GPUs to cool
 Since the end goal is to deploy an electric vehicle to run processing online, there have been several attempts to measure performance on a few categories of embedded devices.
 By itself, Stateful models are not supported by TFLite.
 Thus, a single attempt to make a Custom Stateful stateless model test is time inefficient, and those seemed unreasonable.
-Instead, six models were broken down into five foundation implementations and performance profiled, \mbox{Table~\ref{tab:speed}}.
-Calculation of accuracies performed with 20 attempts average and offset calculation with mean of the difference between maximum and minimum.
+Instead, six models were broken down into five foundation implementations and performance profiled, as shown in \mbox{Table~\ref{tab:speed}}.
+Calculation of accuracies were performed with 20 attempts average and offset calculation with mean of the difference between maximum and minimum.
 As a result, Coral TPU has an advantage over RaspberryPi since the core is dedicated to running tensor computations, despite Pi's latest hardware release.
 The android selection only proved how time-consuming the usage of ML models on a relatively old CPU could be.
 However, in a properly synchronised manner and without rapid consumption, such devices still have their usage in such applications.

@@ -3,7 +3,7 @@
 %
 \subsubsection{Classic and Robust Online Adaptive Moment Estimation}
 The most commonly used optimiser in Time-series prediction is the Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
-The \mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias as per the source.
+\mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias as per the source.
 In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg:Adam-Line-2Moment}} used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
 % On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
@@ -30,10 +30,10 @@ In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg
 
 % Extension with Robust Online
 %
-Javid \textit{et al.}~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam (RoAdam), Algorithm~\ref{alg:RoAdam}, at line \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Online}}, along with third $\beta$ constant at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-3Moment}}.
+Javid \textit{et al.}~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm, introducing a Robust Online version of Adam (RoAdam), Algorithm~\ref{alg:RoAdam}, at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Online}}, along with third $\beta$ constant at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-3Moment}}.
 Adding the direct influence of a loss function to the gradient update adds an online calculus to regular $Adam$ correction.
 The framework library contained no inbuild implementation of the Robust optimiser.
-Instead, it was implemented from the first principle and overwriting the model training procedure.
+Instead, it was implemented from first principles through overwriting the model training procedure.
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
   \caption{Robust Online Adaptive Moment Estimation (RoAdam) optimisation}
   \begin{algorithmic}[1]

@@ -1,7 +1,7 @@
 \subsection{Dataset description and generator} \label{subsec:dataset}
 % Windowing technique, batching and normalisation. **Figure 4**
 %
-A recurrent Neural Network is a subclass of NN, proven effective in weather or stock price forecasting.
+A Recurrent Neural Network is a subclass of NN, proven effective in weather or stock price forecasting. %? Maybe add references from somewhere
 This method learns by recognising a pattern within sequential data input, thus predicting the future outcome.
 % It makes the following approach applicable to almost any type of time series-dependent problem~\cite{anton_battery_2013}.
 % The two vectors or matrices define the Input and Output Layers.
@@ -30,9 +30,10 @@ Considering the characteristic of Constant Current and Constant Voltage charging
 
 % Describe the size of the history selection.
 %
+%! Find the picture and redo the title with "various"
 \begin{figure}[ht]
     \centering
-    \includesvg[width=\columnwidth]{II_Body/images/chemali_accuracy.svg}
+    \includesvg[width=\textwidth]{II_Body/images/chemali_accuracy.svg}
     \caption{SoC estimation accuracy of LSTM-RNN with various network depths in time by Chemali \textit{et al.}~\cite{Chemali2017} in plot representation.}
     \label{fig:chemali-accuracy}
 \end{figure}
@@ -54,7 +55,7 @@ For dataset generation for training and testing purposes, data is combined in a 
 These figures make an example of the stateless model input data visualisation, where the step between each window $s$ is less than the number of input time steps.
 All stateful models used the same windowing technique to keep data generation simple but with a sample size of 1.
 The state reset for stateful models happens at the end of every cycle, allowing a batching mechanism to speed up the training process.
-For example, 12 datasets of discharge process with similar Voltage, Current and the State of Charge, but different temperatures at a time $t$ can be treated as a single batch.
+For example, 12 datasets of discharge process with similar Voltage, Current, and State of Charge, but different temperatures at a time $t$, can be treated as a single batch.
 The statefulness of a model preserves the state at index $i$ to the same index in the next batch~\cite{zhu_statefulnes_tfdocs_2020}.
 In addition, the normalisation technique by the mean and standard deviation based on the entire training data only of all three input features has been applied to speed up the fitting process.
 %%%
