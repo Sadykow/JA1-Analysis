@@ -85,47 +85,7 @@ Another strategy would be to use a variety of statistical or gradient-based opti
 Due to the stochastic nature of ML, it is hard to give any clear winner among optimisers by only judging their complexity, not average performance with multiple trials.
 % \textcolor{red}{\textbf{Matt: I moved most of the details about the table to caption. However, since this paragraph and the next were swapped, I had to do my best to avoid driving profile mentioning where possible. Perhaps we should consider swapping them back or some sentences.}}
 \ifthenelse{\boolean{thesis}}{
-    \begin{table}[h]
-        \renewcommand{\arraystretch}{1.3}
-        \caption{Evaluated papers implementation summary.
-        The model type highlights a primary path in structuring a Neural Network.
-        Statefulness defines the input method, where stateless uses a fixed size of input samples per feature and statefully applies each time-sample one at a time in batches.
-        %Optimiser selection sets the algorithm for the learning process from one of the following methods: Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
-        Optimisers are defined from Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
-        }
-        \centering
-        \label{tab:review}
-    \resizebox{\textwidth}{!}{
-    \begin{tabular}{l|c|c|c|c|c|c|c|c|c|l}
-        \hline\hline \\[-4mm]
-        \multicolumn{1}{ c }{} & 
-        \multicolumn{2}{|c|}{Model} & 
-        \multicolumn{2}{ c|}{State-} & 
-        \multicolumn{5}{ c|}{Optimiser} &
-        \multirow{2}{ 4em }{Extension} \\
-        \cline{1-4} \cline{5-10}
-        Reference source & GRU  & LSTM & -less & -ful & Adam & Nadam & SGD & AdaMax & DE\footnote{Differential Evolution} & \\
-        \hline
-        Song \textit{et al.}~\cite{song_lithium-ion_2018}
-            & \chk &      &      & \chk & \chk &      &      &      &      & 4 Layers  \\
-        Chemali \textit{et al.}~\cite{Chemali2017}
-            &      & \chk & \chk &      & \chk &      &      &      &      &           \\
-        Mamo and Wang~\cite{mamo_long_2020}
-            &      & \chk & \chk &      &      &      &      &      & \chk & Attention \\
-        Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020}
-            & \chk &      &      & \chk &      &      & \chk &      &      & Momentum  \\
-        Xiao \textit{et al.}~\cite{xiao_accurate_2019}
-            & \chk &      &      & \chk &      & \chk &      & \chk &      & Ensemble  \\
-        Javid \textit{et al.}~\cite{javid_adaptive_2020}
-            & \chk &      & \chk &      & \chk &      &      &      &      & Robust    \\
-        Zhang \textit{et al.}~\cite{zhang_deep_2020}
-            &      & \chk & \chk &      &      & \chk &      &      &      & Online    \\
-        \hline\hline
-    \end{tabular}
-    }
-    \end{table}
-} {
-\begin{table*}[h]
+\begin{table}[h]
     \renewcommand{\arraystretch}{1.3}
     \caption{Evaluated papers implementation summary.
     The model type highlights a primary path in structuring a Neural Network.
@@ -163,7 +123,51 @@ Due to the stochastic nature of ML, it is hard to give any clear winner among op
     \hline\hline
 \end{tabular}
 }
-\end{table*}
+\end{table}
+} {
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \caption{Evaluated papers implementation summary.
+    The model type highlights a primary path in structuring a Neural Network.
+    Statefulness defines the input method, where stateless uses a fixed size of input samples per feature and statefully applies each time-sample one at a time in batches.
+    %Optimiser selection sets the algorithm for the learning process from one of the following methods: Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
+    Optimisers are defined from Adaptive moment estimation (Adam), Nesterov adaptive moment estimation  (Nadam), Stochastic gradient descent (SGD), AdaMax (AM) and Differential Evolution (DE).
+    }
+    \centering
+    \label{tab:review}
+\begin{adjustwidth}{-\extralength}{0cm}
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \begin{tabularx}{\fulllength}{l|c|c|c|c|c|c|c|c|c|l}
+        % \hline\hline \\[-5mm]
+        \toprule \\[-6mm]
+        \multicolumn{1}{ c }{} & 
+        \multicolumn{2}{|c|}{\textbf{Model}} & 
+        \multicolumn{2}{ c|}{\textbf{State-}} & 
+        \multicolumn{5}{ c|}{\textbf{Optimiser}} &
+        \multirow{2}{ 4em }{\textbf{Extension}} \\
+        \cline{1-4} \cline{5-10}
+        \textbf{Reference source} & \textbf{GRU}  & \textbf{LSTM} & \textbf{-less} & \textbf{-ful} & \textbf{Adam} & \textbf{Nadam} & \textbf{SGD} & \textbf{AdaMax} & \textbf{DE\textsuperscript{1}} & \\
+        \hline
+        Song \textit{et al.}~\cite{song_lithium-ion_2018}
+            & \chk &      &      & \chk & \chk &      &      &      &      & 4 Layers  \\
+        Chemali \textit{et al.}~\cite{Chemali2017}
+            &      & \chk & \chk &      & \chk &      &      &      &      &           \\
+        Mamo and Wang~\cite{mamo_long_2020}
+            &      & \chk & \chk &      &      &      &      &      & \chk & Attention \\
+        Jiao \textit{et al.}~\cite{jiao_gru-rnn_2020}
+            & \chk &      &      & \chk &      &      & \chk &      &      & Momentum  \\
+        Xiao \textit{et al.}~\cite{xiao_accurate_2019}
+            & \chk &      &      & \chk &      & \chk &      & \chk &      & Ensemble  \\
+        Javid \textit{et al.}~\cite{javid_adaptive_2020}
+            & \chk &      & \chk &      & \chk &      &      &      &      & Robust    \\
+        Zhang \textit{et al.}~\cite{zhang_deep_2020}
+            &      & \chk & \chk &      &      & \chk &      &      &      & Online    \\
+        % \hline\hline
+        \bottomrule
+    \end{tabularx}
+\end{adjustwidth}
+\noindent{\footnotesize{\textsuperscript{1} Differential Evolution}}
+\end{table}
 }
 
 % Although experiments which involved extrapolation of ideal laboratory conditions with accurate sensory to real-world conditions, worth different environmental characteristics or sensory interference - are not currently available.

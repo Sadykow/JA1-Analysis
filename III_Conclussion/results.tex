@@ -54,6 +54,7 @@ It can be determined either by visually examining the average training curve of 
 As a result, a model with index 10 with three layers and a total of 131 neurons (43 per layer) has been selected as the main researched hyperparameters combination for all follow-up models.
 This was also the lowest memory combination, which served as another criterion in favour of this selection.
 % \textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
+\ifthenelse{\boolean{thesis}}{
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
   \caption{Hyper-params selection - Sorted by Average MAE}
@@ -71,6 +72,26 @@ This was also the lowest memory combination, which served as another criterion i
       \hline\hline
   \end{tabular}
 \end{table}
+} {
+\begin{table}[H]
+  \caption{Hyper-params selection - Sorted by Average MAE}
+  \centering
+  \label{tab:param-search1}
+  \newcolumntype{C}{>{\centering\arraybackslash}X}
+  \begin{tabularx}{\textwidth}{ C C C C C C}
+      \toprule
+      \textbf{index} & \textbf{N/L} & \textbf{size (MB)} & \textbf{time(s)} & \textbf{$	\angle $ inclination} & \textbf{avr MAE}\\
+      \midrule
+      10        & 131/3   & 0.17    & 2112.38   & converges   & \textbf{2.5137} \\
+      11        & 262/3   & 0.63    & 2304.04   & converges   & \textbf{2.8515} \\
+       6        & 262/2   & 0.85    & 1670.61   & converges   & \textbf{2.8789} \\
+       5        & 131/2   & 0.22    & 1429.47   & converges   & \textbf{3.0303} \\
+       7        & 524/2   & 3.33    & 1990.49   & diverges    & \textbf{3.0303} \\
+       \ \ \vdots   & \ \ \vdots  & \ \ \vdots  & \ \ \vdots    & \ \ \vdots      & \ \ \vdots \\
+       \bottomrule
+  \end{tabularx}
+\end{table}
+}
 % \begin{table}[htbp]
 %   \renewcommand{\arraystretch}{1.3}
 %   \caption{Hyper-params selection - Sorted by lightest}

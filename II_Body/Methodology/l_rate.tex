@@ -42,7 +42,7 @@ However, each selected different values based on experiments and observations, s
 \end{equation}
 \begin{figure}[ht]
     \centering
-    \includesvg[width=\linewidth]{II_Body/images/l_rate.svg}
+    \includesvg[width=\textwidth]{II_Body/images/l_rate.svg}
     \caption{Learning rate degradation}
     \label{fig:l_rate_progress}
 \end{figure}
@@ -76,7 +76,7 @@ This approach has been found to be superior in this work to other adaptive learn
   \begin{subfigure}[b]{0.45\textwidth}
       \centering
       \includesvg[width=\linewidth]{II_Body/images/history-bad.svg}
-      \caption{Model training process with no rollbacks}
+      \caption{Model training process with no rollbacks \\ }
       \label{subfig:no-rollback}
   \end{subfigure}
   \hfill
@@ -96,6 +96,7 @@ The betas and epsilon optimisers' constants did not go through any similar optim
 As a result, they were kept constant for all trained models except SGDw/M.
 Since Stochastic Gradient Descent does not use any other hyper-parameters except the learning rate and the single beta constant, its value was set to $\beta_1 = 0.8$.
 The learning rate limits of the scheduler and remaining hyperparameters used in all cases are summarised in \mbox{Table~\ref{tab:uni-hyperparams}}.
+\ifthenelse{\boolean{thesis}}{
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
   \caption{Optimiser Hyper-Parameters}
@@ -111,7 +112,22 @@ The learning rate limits of the scheduler and remaining hyperparameters used in 
       \hline\hline
   \end{tabular}
 \end{table}
-
+} {
+\begin{table}[H]
+  \caption{Optimiser Hyper-Parameters}
+  \label{tab:uni-hyperparams}
+  \newcolumntype{C}{>{\centering\arraybackslash}X}
+  \begin{tabularx}{\textwidth}{ C C C C C C }
+    \toprule
+    \textbf{$\alpha$} & \textbf{$\beta_1 $} & \textbf{$\beta_2$} & \textbf{$\beta_3$} &  \textbf{$\epsilon$} \\
+    \midrule
+    Linear         &  &  &  & \\% 0.0000001
+    Scheduler      & $0.9$ & $0.999$ & $0.999$ &$10^{-8}$ \\% 0.0000001
+    (0.001-0.0001) &  &  &  & \\% 0.0000001
+    \bottomrule
+  \end{tabularx}
+\end{table}
+}
 % Layers and neurons
 %
 The work performed by other authors from Table~\ref{tab:review} uses a constant number of layers and neurons to conduct the experiments.
