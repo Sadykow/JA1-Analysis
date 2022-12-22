@@ -2,7 +2,7 @@
 % Definition of the GRU
 %
 \subsubsection{Gated Recurrent Unit (GRU) based models} \label{subsub:gru}
-One of the methods proposed by Cho \textit{et al.}~\cite{GRU_cho_properties_2014}, which improves the behaviour of the Neural network, is Gated Recurrent Unit.
+One of the methods proposed by Cho \textit{et al.}~\cite{GRU_cho_properties_2014}, which improves the behaviour of the Neural network, is the Gated Recurrent Unit.
 Unlike a simple Recurrent NN with a single activation function in the cells, GRU implements different logics to deal with vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.
 On top of the activation function, it adds two gates related to input and propagated sequences.
 The reset gate $r_t$ controls the level information, which has to be ignored.
@@ -16,7 +16,7 @@ Both gates are related to cell input sequence $x_t$ and the memory cell's output
 \begin{figure}[ht]%[htbp]
     \centering
     \includegraphics[width=0.70\textwidth]{II_Body/GRU/images/GRU.jpg}
-    \caption{Structure of a gated recurrent unit cell~\cite{li_approach_2019}.}
+    \caption{Structure of a gated recurrent unit (GRU) cell~\cite{li_approach_2019}.}
     \label{fig:GRU-cell}
 \end{figure}
 \begin{equation}

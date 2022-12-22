@@ -3,10 +3,11 @@
 %
 \subsubsection{Ensemble optimisation with Nesterov Momentum Adam and AdaMax}
 The Adam algorithm remains the most commonly used optimiser.
-The reason behind changing it to another lie in two potential issues.
-The first is if the training converges, which may not happen at all~\cite{reddi_convergence_2019}.
-The second is if the optimal solution gets frequently missed at large learning steps~\cite{wilson_marginal_2017}.
-Xiao \textit{et al.}~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address those issues.
+% The reason behind changing it to another lie in two potential issues.
+However, two potential issues motivate changing to a different algorithm.
+First, the training may not converge~\cite{reddi_convergence_2019},
+and second, if the optimal solution gets frequently missed at large learning steps~\cite{wilson_marginal_2017}.
+Xiao \textit{et al.}~\cite{xiao_accurate_2019} proposed a novel alternative of combining several optimisers to address these issues.
 The new ensemble optimisation algorithm is based on the combination of Nesterov Momentum Adam (Nadam), \mbox{Algorithm~\ref{alg:nadam}}~\cite{dozat_nadam_2016}, and the AdaMax, \mbox{Algorithm~\ref{alg:adamax}}~\cite{kingma_adam_2017}, at certain moments of training.
 
 % Nadam's advantage over Adam
@@ -45,7 +46,7 @@ The Nadam optimiser \mbox{Algorithm~\ref{alg:nadam}} extends the Adam, which imp
 %
 \mbox{Algorithm~\ref{alg:adamax}} in the ensemble sequence is AdaMax~\cite{kingma_adam_2017}, another modification of the Adam.
 The second-order moment on \mbox{Ag~\ref{alg:adamax}, Ln~\ref{alg:AdaMax-Line}} gets replaced with the infinity norm of the moment.
-As a result, Xiao \textit{et al.}~\cite{xiao_accurate_2019} considered AdaMax to have a stable weight updating rule and be used in the fine-tuning phase since its' advantage lies in the reduction of gradient fluctuation. 
+As a result, Xiao \textit{et al.}~\cite{xiao_accurate_2019} considered AdaMax to have a stable weight updating rule and be used in the fine-tuning phase since its advantage lies in the reduction of gradient fluctuation. 
 \begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
     \caption{Adaptive Moment Estimation based on the infinity norm (Adamax)}
     \begin{algorithmic}[1]

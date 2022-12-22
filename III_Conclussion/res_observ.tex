@@ -47,7 +47,7 @@ Lowering the learning rate and switching the optimiser led to a much more stable
 %
 %
 % %! Model 3 repeats the same procedures as Model 1, except for an additional layer before the output.
-Similar to Model \#1, Mamo and Wang~\cite{mamo_long_2020} utilised a single temperature rage but with single or two profiles of DST, US06, or FUDS.
+Similar to Model \#1, Mamo and Wang~\cite{mamo_long_2020} utilised a single temperature range but with single or two profiles of DST, US06, or FUDS.
 Their use of only the discharge cycle does not allow direct comparison between results or plots.
 %Adding the attention layer as per Model \# 3 did not make an overall improvement system improvement, but it produced much smoother outputs.
 %* 0C : 0.2040\% 25C: 0.0757\%  45C: 0.11\%
@@ -60,7 +60,7 @@ Similar improvements can be observed between Model \#1 and \#3 on the testing da
 %*    1.48 - 3.35      1.62 - 3.42
 A similar pattern can be observed between Figures~\ref{fig:Model-3res} and ~\ref{fig:Model-1res} with 0.04\% and 0.14\% for US06 and FUDS, respectively.
 % However, the prediction has a lesser variant and smoother behaviour referring to a state of charge. 
-The Absolute error area fill showed none or fewer spike predictions on validation data.
+The absolute error area fill showed none or fewer spike predictions on validation data.
 % Results on the DST model did not show noticeable improvements as opposed to the Model \#1, but still shows the lowest testing error against two other profiles.
 %! However, more complex profiles like US06 FUDS models and overall capture are reasonable better.
 % However, the general accuracy on more trendies profiles demonstrated a noticeable average improvement.
@@ -81,7 +81,7 @@ Besides the noticeable difference between the final results in comparison with M
 %* 25C - 2.5 -> 1.1  = 1.4
 %* 50C - 1.9 -> 0.84 = 1.06
 Similarly to the second method, Model \#4 applied a different optimiser.
-However, additional complexity to other processing introduced better overall accuracy \mbox{Table~\ref{tab:acc-results1}}, similar to what was reported by Javid~\textit{et al.}~\cite{javid_adaptive_2020}.
+However, additional complexity to other processing introduced better overall accuracy, as per \mbox{Table~\ref{tab:acc-results1}}, which is similar to what was reported by Javid~\textit{et al.}~\cite{javid_adaptive_2020}.
 Based on their results, the error between a simple NN to Robust GRU lowered by 1.06-3.12\% for three individual temperature ranges.
 A similar pattern can be observed between Model \#5 and \#4, where training error averages were in the range of 1.89-2.94\%.
 Just like it did between Javid~\textit{et al.}~\cite{javid_adaptive_2020} comparisons of NN with Unscented Kalman filter and Robust, and Model \#2 and \#4 in this work.
@@ -109,7 +109,7 @@ Assuming a single temperature range within 25-30 degrees and discharge-only cycl
 However, it is an indication to explore the ML models' limitations and what areas of a State of Charge curve are harder to capture.
 % Model \#5 is an indicator of the areas ML models have difficulties capturing.
 Based on the SoC prediction absolute error area plots for DST and FUDS (Figure~\ref{fig:Model-5res}), with the charge above 30\%, some degree between 90-80\% of discharge and below 50\% creates the highest discrepancies in the prediction.
-Similar areas could have been observed on previously mentioned models with a lesser degree of miss accuracy.
+Similar areas could have been observed on previously mentioned models with a lesser degree of inaccuracy.
 Those behaviours outline the effect of temperatures on the SoCs curves, causing problems for models to characterise them all together.
 % However, Model \#5 has proven to be the most effective in capturing US06 above all others.
 Considering the general divergence of the testing curve and the MAE of the training trend approaching only an overall 1\% as opposed to other models, which are generally below that limit, it could be assumed that all attempts were less likely to overfit the given data.

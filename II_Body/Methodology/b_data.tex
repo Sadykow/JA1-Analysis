@@ -77,14 +77,14 @@ The performance calculation has been conducted over two cycles of 30\textdegree{
         \caption{Federal urban driving schedule (FUDS)}
         \label{subfig:profs-FUDS}
     \end{subfigure}
-    \caption{Current consumptions of three battery testing profiles, emulating Constant-Current-Constant-Voltage charge and regenerative discharge until cells reached top or bottom cut-offs.}
+    \caption{Cell Current of three battery testing profiles, emulating Constant-Current-Constant-Voltage charge and regenerative discharge until cells reached top or bottom cut-offs.}
     \label{fig:current-profs}
 \end{figure*}
 
 % State of charge calculation with equations.
 %
 Like in any battery usage scenario, the State of Charge has not been provided in the CALCE data.
-However, the Arbin machine stores both in and out capacitances as separate arrays, along with the applied current.
+However, the Arbin machine stores both in and out charges as separate arrays, along with the applied current.
 The SoC value can be calculated from the difference between Charge and Discharge Capacities in $Ah$.
 % The \textit{MinMax} algorithm allows adjustment of the minimum and maximum point of the SoC to be within bounds 0 and 100\%.
 % \begin{equation}

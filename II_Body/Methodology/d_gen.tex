@@ -7,7 +7,7 @@ This method learns by recognising a pattern within sequential data input, thus p
 % The two vectors or matrices define the Input and Output Layers.
 Two vectors or matrices have defined inputs and outputs of a model.
 The general description of a single input \textbf{X} is in \mbox{Equation~(\ref{eq:x-matrix})} and an output \textbf{Y} \mbox{Equation~(\ref{eq:y-matrix})}.
-$V, I, T, SoC$ represent Voltage (V), Current (A), Temperature (\textdegree{}C) as input features, and the percentage of State of Charge (between 0 and 1) as output.
+$V, I, T$ represent Voltage (V), Current (A), Temperature (\textdegree{}C) as input features, and $SoC$ is the fraction of State of Charge (between 0 and 1) as output.
 All samples are equally time distributed, and the $t$ represents the number of input time steps at a time.
 % Since the sampling rate during the charging process is less than during discharge, the missing step times were resampled.
 Considering the characteristic of Constant Current and Constant Voltage charging, this workaround should not cause any training issues.
