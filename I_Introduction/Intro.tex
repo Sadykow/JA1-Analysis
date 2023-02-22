@@ -15,11 +15,20 @@
 
 % The state of Charge, methods and its' value on BMS.
 %
-\textls[-5]{The development of effective methods for state-of-charge (SoC) estimation remains a crucial research focus.
-Various techniques to estimate the SoC have been developed to enhance battery usage.
-The ability to determine the state of charge of a battery or a battery system is a required function of an advanced battery management system (BMS).
-Those techniques can be classified into three primary categories~\cite{ali_towards_2019,ng_enhanced_2009,robust_SoC,6953745}: direct measurement, model-based methods, and computer intelligence or machine learning (ML).
-Direct measurement methods take readings from the batteries, relying on sensors, such as the open-circuit voltage, internal resistance, or current readings over a set period (i.e., Coulomb counting)~\cite{ng_enhanced_2009,robust_SoC}.}
+\ifthenelse{\boolean{thesis}}{
+    The development of effective methods for state-of-charge (SoC) estimation remains a crucial research focus.
+    Various techniques to estimate the SoC have been developed to enhance battery usage.
+    The ability to determine the state of charge of a battery or a battery system is a required function of an advanced battery management system (BMS).
+    Those techniques can be classified into three primary categories~\cite{ali_towards_2019,ng_enhanced_2009,robust_SoC,6953745}: direct measurement, model-based methods, and computer intelligence or machine learning (ML).
+    Direct measurement methods take readings from the batteries, relying on sensors, such as the open-circuit voltage, internal resistance, or current readings over a set period (i.e., Coulomb counting)~\cite{ng_enhanced_2009,robust_SoC}.
+} {
+    \textls[-5]{The development of effective methods for state-of-charge (SoC) estimation remains a crucial research focus.
+    Various techniques to estimate the SoC have been developed to enhance battery usage.
+    The ability to determine the state of charge of a battery or a battery system is a required function of an advanced battery management system (BMS).
+    Those techniques can be classified into three primary categories~\cite{ali_towards_2019,ng_enhanced_2009,robust_SoC,6953745}: direct measurement, model-based methods, and computer intelligence or machine learning (ML).
+    Direct measurement methods take readings from the batteries, relying on sensors, such as the open-circuit voltage, internal resistance, or current readings over a set period (i.e., Coulomb counting)~\cite{ng_enhanced_2009,robust_SoC}.}
+}
+
 Model-based methods recreate the battery behaviour and use the sensor inputs to calculate the results using a predefined model~\cite{6953745}.
 Computer intelligence techniques enhance such models with additional data.
 These data-driven calculations aim to improve the model estimation by fitting it to the actual observed behaviour.
