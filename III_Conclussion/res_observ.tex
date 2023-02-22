@@ -130,12 +130,10 @@ In contrast, the DST usage was suitable for describing other driving behaviours 
 As per the research question of this work, DST-based Model 1 acted as a superior model as it had the lowest testing error and was simple and lightweight.
 However, the attention layer's impact on improvements in LSTM-capturing characteristics is worth considering, in addition to providing room for further improvements.
 However, a combination of all four strategies, when used in every model, may lead to far better outcomes in terms of both capturing complex behaviours and generalising other driving profiles.
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 5
-\added[id=Responce 3]{One of the biggest challenges in bringing these results to a conclusion was coming up with a consistent methodology, which was appropriately reflected in both the accuracy and repeatability of each method.
+One of the biggest challenges in bringing these results to a conclusion was coming up with a consistent methodology, which was appropriately reflected in both the accuracy and repeatability of each method.
 A testing methodology was developed with a determined set of hyperparameters: an average of 10 was taken for every model, and testing and training were carried out simultaneously on the different computational platforms (such as several GPUs and multicore CPU, through data splitting, to match the graphical-model-testing speed time), with multiple threads of different cycles.
 Then, the training and testing of the proposed models proceeded in a somewhat streamlined way, using a large number of models, with each containing multiple epochs of results and plots.
-Some of the biggest and most time-consuming challenges in this research were the implementation of nondocumented methods, such as the attention layer or Robust Adam, in the context of Tensorflow 2.3, the computational expense required for high-performance computers conducting 6--12 simultaneous model training sessions, and the storage in a ClickHouse SQL database for maximum access efficiency, and ensuring access to the linked tables to produce the final average numbers.}
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 5
+Some of the biggest and most time-consuming challenges in this research were the implementation of nondocumented methods, such as the attention layer or Robust Adam, in the context of Tensorflow 2.3, the computational expense required for high-performance computers conducting 6--12 simultaneous model training sessions, and the storage in a ClickHouse SQL database for maximum access efficiency, and ensuring access to the linked tables to produce the final average numbers.
 %
 %
 % The initial methodology tested the impact of the neurons and layers on the model's accuracy to fit battery data.

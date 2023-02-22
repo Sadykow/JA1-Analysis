@@ -233,17 +233,13 @@ By comparing the implementation and results from different sources and comparing
 }
 Each subset contains an implementation derived from various key references, changing either the structure of the models or the learning approach.
 This should help us to develop a methodology that can further extrapolate offline trained methods from the lab condition to road-drive tests.
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 6
-\added[id=Responce 3]{These algorithms have been used on all kinds of rechargeable batteries, but this research focuses on only one type of cell, which is openly available for everyone to access.}
-%! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Response 3 - Point 6
+These algorithms have been used on all kinds of rechargeable batteries, but this research focuses on only one type of cell, which is openly available for everyone to access.
 % The recent advancement and commonly used subsets are Gradient Recurrent Unit and Long Shot-Term Memory unit cells.
 % Recurrent Neural Network has been confirmed suitable for the battery-related system by authors discussed further, such as Chemali~\cite{LSTM_Hochreiter1997}.
 % However, there is no valid proof of if GRU or LSTM is helpful for battery SoC estimation.
 % The best way to separate them and explore differences and efficiencies is to use them as Stateful and Stateless models.
 The A123 lithium-ion battery data with three typical driving profiles, obtained from the University of Maryland 2012~\cite{noauthor_calce_2017} cycling experiment, acted as training and testing samples.
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 3
-\added[id=Responce 3]{Several spreadsheets of the sensory measured values of an experimentally cycled single Li-ion cell have been obtained by the Universities' Battery Research Group using a battery cycler.}
-%! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Response 3 - Point 3
+Several spreadsheets of the sensory measured values of an experimentally cycled single Li-ion cell have been obtained by the Universities' Battery Research Group using a battery cycler.
 Each method is validated through these samples (either DST, US06, or FUDS driving profiles) and tested compared to the robustness and accuracy of state-of-charge estimations for batteries in the other two unseen schedulers.
 
 %
@@ -255,14 +251,11 @@ Each method is validated through these samples (either DST, US06, or FUDS drivin
 }
 % Sometimes, multiple published models presented results relying only on discharge cycles, describing the efficiency of modelling on a single battery or in an ideal lab environment~\cite{xia_state_2018,javid_adaptive_2020,jiao_gru-rnn_2020,mamo_long_2020,zhang_deep_2020}.
 However, long overnight charge cycles and regenerative breaking burst charges are equally crucial for the SoC percentage in the context of electric vehicles' battery utilisation with prolonged usage and influence the models' weight and biases.
-\deleted[id=Responce 3]{This article will focus on the accuracy of SoC prediction based on the model training from charge and discharge cycles across various temperatures.}
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 2, Response 1 - Point 1
-\added[id=Responce 1]{The contribution of this work is in the implementation of all those methods in a comparable way, evaluated against real-world drive cycle scenarios using full charge--discharge cycles over various temperatures and extrapolated into different driving profiles.
+The contribution of this work is in the implementation of all those methods in a comparable way, evaluated against real-world drive cycle scenarios using full charge--discharge cycles over various temperatures and extrapolated into different driving profiles.
 It works out which is best for machine-learning SoC prediction and shows novelty in the testing validation procedures.
 There have been many publications, but none tested these methods against each other under the same set of testing circumstances.
 To move forward with either an effective SoC estimation or the development of a new SoC estimation algorithm,  the most effective algorithm for real-world scenarios must be determined.
-This paper provides that evaluation and concludes which approach is the most appropriate.}
-%! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Response 3 - Point 2, Response 1 - Point 1
+This paper provides that evaluation and concludes which approach is the most appropriate.
 % (2)This article will present a novel methodology for comparing multiple models with different techniques to each other, accommodating MLs' stochastic nature.
 % (3)This article will compare multiple works in SoC estimation to identify the most applicable to car driving and prose methods to build on top further.
 % }}

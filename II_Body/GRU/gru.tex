@@ -5,10 +5,7 @@
 One of the methods proposed by Cho et al.~\cite{GRU_cho_properties_2014}, which improves the behaviour of the neural network, is the gated recurrent unit.
 Unlike a simple recurrent NN with a single activation function in the cells, the GRU implements different logics to deal with the vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.
 In addition to the activation function, it adds two gates related to input and propagated sequences.
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 2 - Point 2
-\deleted[id=Responce 2]{The reset gate $r_t$ }
-\added[id=Responce 2]{The forget gate $f_t$ }controls the level information, which has to be ignored.
-%! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Response 2 - Point 2
+The forget gate $f_t$ controls the level information, which has to be ignored.
 The update gate $i_t$ controls the impact of previous information on the current status.
 The gates implemented by sigmoid \mbox{Equation~(\ref{eq:sigmoid})} are updated with \mbox{Equation~(\ref{eq:GRU-gates})}.
 Both gates are related to cell input sequence $x_t$ and the memory cell's output at the last time stamp $h_{t-1}$.

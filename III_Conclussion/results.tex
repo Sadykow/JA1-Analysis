@@ -7,10 +7,8 @@ The following section compares the models trained on each individual and then te
 All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters.
 First, the evaluation of hyperparameters was carried out.
 Then, all models were compared, using nine plots per method, outlining their training history, prediction, and the generalisation of other profiles per driving schedule.
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 7
-\added[id=Responce 3]{All the models' deployment testing was proved to operate effectively on low-power devices regarding predictions for EV applications.
-Although it is beyond the scope of this paper, in work published elsewhere, the algorithm performed adequately, indicating that, if not during training, an actual real-time prediction could work on onboard hardware.}
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 7
+All the models' deployment testing was proved to operate effectively on low-power devices regarding predictions for EV applications.
+Although it is beyond the scope of this paper, in work published elsewhere, the algorithm performed adequately, indicating that, if not during training, an actual real-time prediction could work on onboard hardware.
 The performance was summarised in a table representing the MAE, RMSE, and $R^2$ of each method for each profile against the entire dataset of each driving schedule.
 % Metrics references
 %
@@ -117,20 +115,18 @@ This was also the lowest memory combination, which served as another criterion i
 %   }
 % \end{table}
 
-%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 1
 %
 % Flops
-\added[id=Responce 3]{
 With a new set of hyperparameters of 43 neurons per three layers, each model was adapted, as well as an equivalent number of floating point operations per second (FLOPs), which used each model to provide a single output; this is reported in Table~\ref{tab:flops}.
 The impact of the optimiser was not included in the calculation, nor was the complexity of the training process, due to the significant impact of testing hardware.
-}% and sorted by the speed in descending order. has been calculated to create a comparitive results. 
+% and sorted by the speed in descending order. has been calculated to create a comparitive results. 
 \ifthenelse{\boolean{thesis}}{
 However, the table was sorted in descending order based on the relative training speed over a single sample, considering the optimiser algorithms' number of operations, as discussed in Section~\ref{sec:AN:Body}.
   \begin{table}[H]
     \caption{
-      \added[id=Response 3]{A number of floating point operations per second (FLOPs) for each model, with 3 layers and 131 neurons (43 per layer), and hyperparameters.
-      The optimiser column serves as a reference.}
-        }
+      A number of floating point operations per second (FLOPs) for each model, with 3 layers and 131 neurons (43 per layer), and hyperparameters.
+      The optimiser column serves as a reference.
+      }
     \newcolumntype{C}{>{\centering\arraybackslash}X}
     \label{tab:flops}
     \centering
@@ -151,9 +147,9 @@ However, the table was sorted in descending order based on the relative training
 However, the table was sorted in descending order based on the relative training speed over a single sample, considering the optimiser algorithms' number of operations, as discussed in Section~\ref{sec:Body}.
 \begin{table}[H]
   \caption{
-    \added[id=Response 3]{A number of floating point operations per second (FLOPs) for each model, with 3 layers and 131 neurons (43 per layer), and hyperparameters.
-    The optimiser column serves as a reference.}
-      }
+    A number of floating point operations per second (FLOPs) for each model, with 3 layers and 131 neurons (43 per layer), and hyperparameters.
+    The optimiser column serves as a reference.
+    }
     \newcolumntype{C}{>{\centering\arraybackslash}X}
     \label{tab:flops}
     \begin{tabularx}{\textwidth}{>{\centering}m{0.5cm}CCC}
@@ -170,4 +166,3 @@ However, the table was sorted in descending order based on the relative training
     \end{tabularx}
 \end{table}
 }
-%! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Response 3 - Point 1
