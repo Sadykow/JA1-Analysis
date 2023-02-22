@@ -1,13 +1,17 @@
-%
 % Intro paragraph with init conditions of data and params
-Since it is common for temperatures in an EVs' battery pack to range from ambient 20 degrees to the limit of 60\textdegree{}C, all temperature ranges were used together to train each model.
-The training process was conducted through all datasets for a single battery testing profile, and validated on a single cycle of unseen data of 25\textdegree{}C (less or around 20\% of the entire set) from another two. 
-This approach led to the accuracy being lower than other researchers reported by training individually for single temp ranges such as Xiao \textit{et al.}~\cite{xiao_accurate_2019}.
-The following section compares the models trained on each individual and then tests against the entire dataset of all three profiles.
-All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters. %% to make an objective comparison.
+%
+Since it is common for temperatures in an EV's battery pack to range from an ambient 20 degrees to the limit of 60 \textdegree{}C, all temperature ranges were used together to train each model.
+The training process was conducted through all datasets for a single battery testing profile, and validated on a single cycle of unseen data of 25 \textdegree{}C (less or around 20\% of the entire set) from another two datasets.
+This approach led to the accuracy being lower than that reported by other researchers, who were training individually for single temperature ranges, such as \mbox{Xiao et al.~\cite{xiao_accurate_2019}}.
+The following section compares the models trained on each individual and then tests them against the entire dataset of all three profiles.
+All examples were trained using charge and discharge cycles with a predetermined set of hyperparameters.
 First, the evaluation of hyperparameters was carried out.
-Then all models were compared by nine plots per method, outlining training history, prediction on itself, and generalisation of other profiles per each driving schedule.
-In the end, the performance was summarised in a table, representing MAE, RMSE and $R^2$ of each method per profile against the entire dataset of each driving schedule.
+Then, all models were compared, using nine plots per method, outlining their training history, prediction, and the generalisation of other profiles per driving schedule.
+%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 7
+\added[id=Responce 3]{All the models' deployment testing was proved to operate effectively on low-power devices regarding predictions for EV applications.
+Although it is beyond the scope of this paper, in work published elsewhere, the algorithm performed adequately, indicating that, if not during training, an actual real-time prediction could work on onboard hardware.}
+%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 7
+The performance was summarised in a table representing the MAE, RMSE, and $R^2$ of each method for each profile against the entire dataset of each driving schedule.
 % Metrics references
 %
 %%Final tests for a model performance were conducted against an entire set of two remaining profiles separately.
@@ -31,33 +35,33 @@ In the end, the performance was summarised in a table, representing MAE, RMSE an
 % \mbox{Figures \ref{fig:Model-1losses} to \ref{fig:Model-6losses}} refer to the best model over the learning process, based on minimum Mean average or Root Mean Squared errors.
 
 \subsection{Optimisation of layers and neurons}
-%
-%! Hyperparameters results, rollback and learning rate
+% Hyperparameters results, rollback and learning rate
 %! 135  Models to asses. That is why only average of 3 attempts was used. Average MAE was calculated from the Average of each individual profile.
-The ranges between 1-3 layers \textit{'L'} and incremental combinations of neurons \textit{'N'} from 131-1572 were used to determine the most optimum set of hyperparameters for all models to work with.
-Any values higher or lower than both parameters did not provide worthy outputs and therefore have been omitted.
-In a case with multiple layers, the number of neurons gets evenly distributed per layer, narrowed to the lowest integer.
-For example, three layers at 1048 neurons would represent each LSTM or GRU layer containing only 349.
+%
+Between one and three layers \textit{'L'} and incremental combinations of neurons \textit{'N'} from 131 to 1572 were used to determine the optimum set of hyperparameters for all models to work with.
+Any values higher or lower than both parameters did not provide worthy outputs; therefore, these were omitted.
+In a case with multiple layers, the number of neurons was evenly distributed per layer and narrowed to the lowest possible integer.
+For example, three layers at 1048 neurons would represent each LSTM or GRU layer, containing only~349.
 %%%%%%%%%%%%%%%
-Training simple LSTM models with Adam optimiser for three current profiles three times only resulted in a total of 135 trained models.
+Training simple LSTM models with an Adam optimiser for three current profiles only three times  resulted in a total of 135 trained models.
 % because 180 models are too much to bare
-They all can be summarised in 15 different sets of hyperparameters to compare.
-\mbox{Table~\ref{tab:param-search1}} reports the average results of the five best models based on the lowest average training error of all three profiles.
+These could all be summarised in 15 different hyperparameters sets for comparison.
+\mbox{Table~\ref{tab:param-search1}} reports the average results of the five best models, based on the lowest average training error of all three profiles.
 %% and occupied memory space in a compressed state in MegaBytes (MB).
 The time in seconds highlights the duration of training over a single epoch.
-Online training on a low-power device could be considered an essential factor, sacrificing some accuracy, but not in this research.
+Online training on a low-power device could be considered an essential factor, sacrificing some accuracy; however, this was not the case in this research.
 The angle of inclination is a line fit to the average error training over time, starting from the second epoch until the end of the training.
-It can be determined either by visually examining the average training curve of all attempts or through a simple line fitting, where negative or positive reversed tangent of angle alpha will represent convergence or divergence and constant C the height of the curve or average error.
+This can be determined either by visually examining the average training curve of all attempts or through a simple line fitting, where the negative or positive reversed tangent of angle alpha represents the convergence or divergence, and constant C represents the height of the curve or average error.
 %
 % It reports the trend of the model performance, where alpha represents the angle and c the heights.
 % In the tables below, the negative \textbf{revesersed tangent?} represents the error degradation, there as the positive a clear overfit.
-As a result, a model with index 10 with three layers and a total of 131 neurons (43 per layer) has been selected as the main researched hyperparameters combination for all follow-up models.
+As a result, a model with index 10, with three layers, and a total of 131 neurons (43 per layer) was selected as the main research hyperparameter combination for all follow-up models.
 This was also the lowest memory combination, which served as another criterion in favour of this selection.
 % \textbf{Angle of inclination of a line tanh-1(alpha) without adding 180 }
 \ifthenelse{\boolean{thesis}}{
 \begin{table}[htbp]
   \renewcommand{\arraystretch}{1.3}
-  \caption{Hyper-params selection - Sorted by Average MAE}
+  \caption{Hyperparameters' selection, sorted by average MAE.}
   \centering
   \label{tab:param-search1}
   \begin{tabular}{ l l r r r r}
@@ -69,26 +73,27 @@ This was also the lowest memory combination, which served as another criterion i
        6        & 2x262   & 0.85    & 1670.61   & converges            & \textbf{2.8789} \\
        5        & 2x131   & 0.22    & 1429.47   & converges            & \textbf{3.0303} \\
        7        & 2x524   & 3.33    & 1990.49   & diverges             & \textbf{3.0303} \\
+       \ \ \vdots   & \ \ \vdots  & \ \ \vdots  & \ \ \vdots    & \ \ \vdots      & \ \ \vdots \\
       \hline\hline
   \end{tabular}
 \end{table}
 } {
 \begin{table}[H]
-  \caption{Hyper-params selection - Sorted by Average MAE}
-  \centering
+  \caption{Hyperparameters' selection, sorted by average MAE.}
+  %\centering
   \label{tab:param-search1}
   \newcolumntype{C}{>{\centering\arraybackslash}X}
-  \begin{tabularx}{\textwidth}{ C C C C C C}
-      \toprule
-      \textbf{index} & \textbf{N/L} & \textbf{size (MB)} & \textbf{time(s)} & \textbf{$	\angle $ inclination} & \textbf{avr MAE}\\
-      \midrule
-      10        & 131/3   & 0.17    & 2112.38   & converges   & \textbf{2.5137} \\
-      11        & 262/3   & 0.63    & 2304.04   & converges   & \textbf{2.8515} \\
-       6        & 262/2   & 0.85    & 1670.61   & converges   & \textbf{2.8789} \\
-       5        & 131/2   & 0.22    & 1429.47   & converges   & \textbf{3.0303} \\
-       7        & 524/2   & 3.33    & 1990.49   & diverges    & \textbf{3.0303} \\
-       \ \ \vdots   & \ \ \vdots  & \ \ \vdots  & \ \ \vdots    & \ \ \vdots      & \ \ \vdots \\
-       \bottomrule
+  \begin{tabularx}{\textwidth}{CCCC>{\centering}m{2.5cm}C}
+    \toprule
+    \textbf{Index} & \textbf{N/L} & \textbf{Size (MB)} & \textbf{Time (s)} & $\pmb{\angle}$~\textbf{Inclination} & \textbf{avg. MAE}\\
+    \midrule
+    10  & 131/3 & 0.17  & 2112.38 & converges & 2.5137 \\
+    11  & 262/3 & 0.63  & 2304.04 & converges & 2.8515 \\
+    6   & 262/2 & 0.85  & 1670.61 & converges & 2.8789 \\
+    5   & 131/2 & 0.22  & 1429.47 & converges & 3.0303 \\
+    7   & 524/2 & 3.33  & 1990.49 & diverges  & 3.0303 \\
+    \ \ \vdots & \ \ \vdots & \ \ \vdots & \ \ \vdots  & \ \ \vdots   & \ \ \vdots \\
+    \bottomrule
   \end{tabularx}
 \end{table}
 }
@@ -112,3 +117,57 @@ This was also the lowest memory combination, which served as another criterion i
 %   }
 % \end{table}
 
+%! >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Response 3 - Point 1
+%
+% Flops
+\added[id=Responce 3]{
+With a new set of hyperparameters of 43 neurons per three layers, each model was adapted, as well as an equivalent number of floating point operations per second (FLOPs), which used each model to provide a single output; this is reported in Table~\ref{tab:flops}.
+The impact of the optimiser was not included in the calculation, nor was the complexity of the training process, due to the significant impact of testing hardware.
+}% and sorted by the speed in descending order. has been calculated to create a comparitive results. 
+\ifthenelse{\boolean{thesis}}{
+However, the table was sorted in descending order based on the relative training speed over a single sample, considering the optimiser algorithms' number of operations, as discussed in Section~\ref{sec:AN:Body}.
+  \begin{table}[H]
+    \caption{
+      \added[id=Response 3]{A number of floating point operations per second (FLOPs) for each model, with 3 layers and 131 neurons (43 per layer), and hyperparameters.
+      The optimiser column serves as a reference.}
+        }
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \label{tab:flops}
+    \centering
+    \begin{tabular}{llcc}
+        \hline \hline
+        \textbf{\#} & \textbf{Type} & \textbf{FLOPs} & \textbf{Optimiser} \\
+        \hline
+        2  & \hyperref[fig:GRU-cell]{GRU}                  & 102127 & \hyperref[alg:ENS]{Ensemble}  \\
+        &                      &  & (\hyperref[alg:nadam]{Nadam} \& \hyperref[alg:adamax]{AdaMax}) \\
+        4  & \hyperref[fig:GRU-cell]{GRU}                  & 102127 & \hyperref[alg:RoAdam]{RoAdam} \\
+        5  & \hyperref[fig:LSTM-cell]{LSTM}                 & 120494 & \hyperref[alg:SGDwM]{SGDw/M} \\
+        1  & \hyperref[fig:LSTM-cell]{LSTM}                 & 120494 & \hyperref[alg:Adam]{Adam}  \\
+        3  & \hyperref[fig:LSTM-cell]{LSTM} + \hyperref[fig:attention]{Attention}     & 207450 & \hyperref[alg:Adam]{Adam} \\
+        \hline \hline
+    \end{tabular}
+  \end{table}
+} {
+However, the table was sorted in descending order based on the relative training speed over a single sample, considering the optimiser algorithms' number of operations, as discussed in Section~\ref{sec:Body}.
+\begin{table}[H]
+  \caption{
+    \added[id=Response 3]{A number of floating point operations per second (FLOPs) for each model, with 3 layers and 131 neurons (43 per layer), and hyperparameters.
+    The optimiser column serves as a reference.}
+      }
+    \newcolumntype{C}{>{\centering\arraybackslash}X}
+    \label{tab:flops}
+    \begin{tabularx}{\textwidth}{>{\centering}m{0.5cm}CCC}
+      \toprule
+      \textbf{\#} & \textbf{Type} & \textbf{FLOPs} & \textbf{Optimiser} \\
+      \midrule
+      2 & GRU        & 102,127 & Ensemble \\
+      &          & & (Nadam and AdaMax) \\
+      4 & GRU        & 102,127 & RoAdam \\
+      5 & LSTM       & 120,494 & SGDw/M \\
+      1 & LSTM       & 120,494 & Adam \\
+      3 & LSTM + Attention  & 207,450 & Adam \\
+      \bottomrule
+    \end{tabularx}
+\end{table}
+}
+%! <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Response 3 - Point 1

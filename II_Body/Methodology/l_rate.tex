@@ -2,8 +2,8 @@
 % Methods and their optimisers
 %
 %! Five stated models
-The reviewed articles that the chosen models for testing were based on used constant hyperparameter values for models and optimisers, including learning rate.
-However, each selected different values based on experiments and observations, somewhere in the range of 0.001 (the standard framework provided) down to 0.0001, to make a smooth stepping and minimise potentially missing the optimum minimum.
+The reviewed articles from which the chosen models were selected for testing used constant hyperparameter values for models and optimisers, including learning rate.
+However, each selected different values based on experiments and observations, somewhere in the range from 0.001 (the standard framework provided) down to 0.0001, to ensure a smooth stepping and minimise the potential of missing the optimum minimum.
 % A detailed overview of each method has been marked in \mbox{Table ~\ref{tab:experiment}}.
 
 % Recovery from faults.
@@ -32,35 +32,29 @@ However, each selected different values based on experiments and observations, s
 % Delta wash chosen to go from init to end. Decrement.
 \begin{equation}
   \begin{split}
-      IF \ AN \ & OVERFIT: \\
-      \hat{\alpha} &= \frac{\alpha }{2} \\
-      ELSE: & \\
+    IF \ AN \ & OVERFIT: \\
+      \hat{\alpha} &= \frac{\hat{\alpha} }{2} \\
+    ELSE: & \\
       \Delta &= \frac{stop - start}{N-1} \\
-      \hat{\alpha} &= \alpha + \Delta \times epoch \\
-      \label{eq:scheduler}
+      \hat{\alpha} &= \alpha - \Delta \times epoch
+    \label{eq:scheduler}
   \end{split}
 \end{equation}
-\begin{figure}[ht]
-    \centering
-    \includesvg[width=\textwidth]{II_Body/images/l_rate.svg}
-    \caption{Learning rate degradation}
-    \label{fig:l_rate_progress}
-\end{figure}
 % As a result, a separate learning rate scheduler has been used instead of applying each learning rate separately for every model.
-In this work, a stepping learning rate algorithm has been used for every optimiser over the training course, Equation~(\ref{eq:scheduler}).
-The implementation is equivalent to a \textit{linspace} function, where every epoch's learning rate $\hat{\alpha}$ gets calculated through \textit{start} and \textit{stop} variables, indicating boundaries of the rates' degradation, with $\Delta$ decrement through a total of \textit{N} number of iterations inclusive, and known $\alpha$ value.
+In this work, a stepping learning rate algorithm was used for every optimiser over the training course given by Equation~(\ref{eq:scheduler}).
+The implementation was equivalent to a \textit{linspace} function, where every epoch's learning rate $\hat{\alpha}$ was calculated through \textit{start} and \textit{stop} variables, indicating the boundaries of rate degradation, with a $\Delta$ decrement through a total of \textit{N} iterations and the known $\alpha$ value.
 %
 % Like adaptive time stepping in Finite Element Analysis [ref] by Pr David Holmes
-The learning rate is sequentially reduced following a standard stepped scheme.
-However, an additional adaptive phase is introduced in this work.
-While training error in subsequent epochs reduces, the stepped scheme is followed.
-The adaptive scheme is deployed if the learning error increases from one epoch into the next.
-Then, the rate is halved, and the same epoch is rerun.
-If the training error remains above the error of the previous epoch, the learning rate continues to be reduced to a predetermined minimum.
-The prior stepped scheme resumes if the error returns to a convergent value.
-It is shown in Figure~\ref{fig:l_rate_progress}, where two adaptive schemes are applied and reconverged from, and a final ultimate adaptive decay ends the training.
+The learning rate was sequentially reduced following a standard stepped scheme.
+However, an additional adaptive phase was introduced in this work.
+The training error was reduced in subsequent epochs when the stepped scheme was followed. %please check intended meaning has been retained %? Sadykov: Still confusing, but I guess the original was even worse. So be it.
+The adaptive scheme was deployed if the learning error increased from one epoch to the next.
+Then, the rate was halved, and the same epoch was rerun.
+If the training error remained above the error of the previous epoch, the learning rate continued to be reduced to a predetermined minimum.
+The prior stepped scheme resumed if the error returned to a convergent value.
+Figure~\ref{fig:l_rate_progress} shows two adaptive schemes that were applied and reconverged, and a final ultimate adaptive decay ended the training.
 %
-This approach has been found to be superior in this work to other adaptive learning rate schemes, and is employed for all subsequent training.
+Based on two training tests in Figure~\ref{fig:rollback}, with and without this approach, the rollback method was found to be superior to other adaptive learning rate schemes presented in this work and was employed for all subsequent training.
 %
 % However, continuous learning rate reduction does not resolve the issue of overfitting or missing a minimum.
 % The best approach identified in this work to save time and produce reliable results has been to enforce a model to stick toward a single minimum.
@@ -71,30 +65,38 @@ This approach has been found to be superior in this work to other adaptive learn
 % Considering that all attempts to train the estimator eventually tended to overfit, the learning rate's value has been reduced by half each time model recovers from overshoot, Equation~\ref{eq:scheduler}.
 % Epochs 26 and further indicate the training attempt to recover from the overfitting state on an LSTM model, reducing the rate in several dozen attempts, never reaching zero.
 % Once the model fails to improve the accuracy, it is considered the most optimum fit to initiate early stopping.
-\begin{figure}[htbp]
+
+\begin{figure}[ht]
   \centering
+  \includesvg[width=\textwidth]{II_Body/images/l_rate.svg}
+  \caption{Learning rate degradation}
+  \label{fig:l_rate_progress}
+\end{figure}
+\vspace{-6pt}
+\begin{figure}[H]
+  % \centering
   \begin{subfigure}[b]{0.45\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{II_Body/images/history-bad.svg}
-      \caption{Model training process with no rollbacks \\ }
-      \label{subfig:no-rollback}
+    % \centering
+    \includesvg[width=6cm]{II_Body/images/history-bad.svg}
+    \caption{\centering}
+    \label{subfig:no-rollback}
   \end{subfigure}
-  \hfill
+  % \hfill
   \begin{subfigure}[b]{0.45\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{II_Body/images/history-good.svg}
-      \caption{Model training process with a rollback if current error higher than previous}
-      \label{subfig:rollback}
+    % \centering
+    \includesvg[width=6cm]{II_Body/images/history-good.svg}
+    \caption{\centering}
+    \label{subfig:rollback}
   \end{subfigure}
-  \caption{Training process comparison with and without having a recovery algorithm}
+  \caption{Training process comparison with and without a recovery algorithm. (\textbf{a}) Model training process with no rollbacks; (\textbf{b}) model training process with a rollback if the current error is higher than the previous error.}
   \label{fig:rollback}
 \end{figure}
 
 % Betas and Epsilon instead on every optimiser page
 %
-The betas and epsilon optimisers' constants did not go through any similar optimisation process due to a lack of documented training attempts to improve fitting over State of Charge estimation on Lithium-Ion batteries.
+The betas and epsilon optimiser constants did not go through any similar optimisation process, due to a lack of documented training attempts to improve fitting over the state-of-charge estimation on lithium-ion batteries.
 As a result, they were kept constant for all trained models except SGDw/M.
-Since Stochastic Gradient Descent does not use any other hyper-parameters except the learning rate and the single beta constant, its value was set to $\beta_1 = 0.8$.
+Since the stochastic gradient descent does not use any hyperparameters except the learning rate and the single beta constant, its value was set to $\beta_1 = 0.8$.
 The learning rate limits of the scheduler and remaining hyperparameters used in all cases are summarised in \mbox{Table~\ref{tab:uni-hyperparams}}.
 \ifthenelse{\boolean{thesis}}{
 \begin{table}[htbp]
@@ -114,23 +116,23 @@ The learning rate limits of the scheduler and remaining hyperparameters used in 
 \end{table}
 } {
 \begin{table}[H]
-  \caption{Optimiser Hyper-Parameters}
+  \caption{Optimiser's Hyperparameters.}
   \label{tab:uni-hyperparams}
   \newcolumntype{C}{>{\centering\arraybackslash}X}
-  \begin{tabularx}{\textwidth}{ C C C C C C }
+  \begin{tabularx}{\textwidth}{CCCCCC}
     \toprule
-    \textbf{$\alpha$} & \textbf{$\beta_1 $} & \textbf{$\beta_2$} & \textbf{$\beta_3$} &  \textbf{$\epsilon$} \\
+    \boldmath{$\alpha$} & \boldmath{$\beta_1 $} & \boldmath{$\beta_2$} & \boldmath{$\beta_3$} & \boldmath{$\epsilon$} \\
     \midrule
-    Linear         &  &  &  & \\% 0.0000001
-    Scheduler      & $0.9$ & $0.999$ & $0.999$ &$10^{-8}$ \\% 0.0000001
-    (0.001-0.0001) &  &  &  & \\% 0.0000001
+    Linear    & & & & \\
+    scheduler   & $0.9$ & $0.999$ & $0.999$ &$10^{-8}$ \\
+    (0.001--0.0001) & & & & \\
     \bottomrule
   \end{tabularx}
 \end{table}
 }
 % Layers and neurons
 %
-The work performed by other authors from Table~\ref{tab:review} uses a constant number of layers and neurons to conduct the experiments.
-Only a few have provided reasoning for the selections or results from other attempted experiments without changing the technique~\cite{jiao_gru-rnn_2020,mamo_long_2020}.
-The least time-consuming method evaluated the most promising combination of the number of layers and neurons to create the best similar circumstances for all methods.
-The most promising candidates were taken through a dozen similar attempts to get an average result, and produce several selection criteria for later use.
+The work performed by other authors, in Table~\ref{tab:review}, used a constant number of layers and neurons to conduct the experiments.
+Only a few provided their reasoning for the selections or results obtained from other attempted experiments without changing the \linebreak technique~\cite{jiao_gru-rnn_2020,mamo_long_2020}.
+The least time-consuming method evaluated the most promising combination of layers and neurons to create the best, similar circumstances for all methods.
+The most promising candidates were taken through a dozen similar attempts to obtain an average result and produce several selection criteria for later use.

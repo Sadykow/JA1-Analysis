@@ -2,44 +2,40 @@
 % 150  Models to work with
 % Implementation of several variations of time-series models allowed analysis of multiple paths of evolution of machine learning techniques in State of Charge estimation over the past three years.
 % A review of the resulting pros and cons, accuracies and complexity helps make a reasonable justification for further improvements.
-Results are presented for all tests on five models herein.
-All results are presented in figures~\ref{fig:Model-1res}-\ref{fig:Model-5res}.
+The results are presented for all tests on five included models.
+All the results are illustrated in Figures~\ref{fig:Model-1res}--\ref{fig:Model-5res}.
 The total errors for each model are summarised in Table~\ref{tab:acc-results1}.
 % Based on the summary of accuracies, Table~\ref{tab:acc-results1}, the highway way driving (US06) achieved the highest error on validation and testing against either profile for all models.
-In total, 150 models have been produced, recorded and evaluated to meet all methodology requirements.
+In total, 150 models were produced, recorded, and evaluated to meet all methodology requirements.
 % Further observation will focus primarily on DST and FUDS-based models and their efficiency at generalising each-others and US06 profiles.
 % The set of figures~\ref{fig:Model-1res}-\ref{fig:Model-4res} and early mentioned Table will act as two primary sources of the results for further overview and discussion.
 
 %?? Just observe simple trends, don't discuss your unseccesful attempts or unrelated shift. What are the results?
 %? #1-4 pretty good at testing on other set (1.5-3)
-Based on observation of both figures and table with overall results, it can be concluded that Models 1 to 4 achieved great results, considering the complexity of the given task in the amount of input data, with training accuracies between 1.58\% to 3.37\%.
-All fourth models showed steady or converging training and testing curves on their dataset at the history plots on subfigures a, d and g for DST, US06 and FUDS respectively.
+Based on an observation of the table, figures, and the overall results, it can be concluded that Models 1--4 achieved great results considering the complexity of the given task and the quantity of input data, with training accuracies between 1.58\% and 3.37\%.
+All four models showed steady or converging training and testing curves on their dataset at the history plots in subfigures \textit{a}, \textit{d} and \textit{g} for DST, US06, and FUDS, respectively.
 %? #5 was bad at testing on training set (3-5) simply not reach to given time
-Model 5 showed the worst results being the simplest and less common nowadays due to its simplicity in implementation and, therefore, lack of efficiency.
-Besides the average errors being 3.08\% to 4.78\%, the history curve showed clear divergence on the testing curve. 
-Because of the minimal training fitting rate, it could not achieve relatively similar accuracy on the training dataset compared to other models.
+Model 5 showed the worst results, being the simplest and least common due to its simplicity in implementation and resulting lack of efficiency.
+With average errors ranging from 3.08\% to 4.78\%, the history curve showed a clear divergence from the testing curve.
+Due to the minimal training fitting rate, the model could not achieve a relatively similar accuracy on the training dataset compared to other models.
 %! WHere do I show that the whole point is having 5 is to convince that if model does not go to 100 it does not mean that it implemented badly, it simply achieved accuracy faster, where as this one may take forever to even get close to results.
 %? In all cases DST trained model performed best for testing on other drive cycles
-Overall, in all cases which managed to reach the optimum point, the FUDS dataset showed the best results in capturing the complex behaviour, with the best being on Model 4, utilising a Robust Adam dataset.
+Overall, of all cases that managed to reach the optimum point, the FUDS dataset showed the best results in capturing the complex behaviour, with the best being achieved by Model 4, utilising a robust Adam dataset.
 In contrast, the DST-based model showed great results in capturing the behaviour of other datasets.
 %*DST  1: 0.09-0.51 -- 2: 1.31-1.68 -- 3: 0.05-0.87 -- 4: 0.93-1.22
 %*FUDS 1: 3.08-2.07 -- 2: 4.02-1.31 -- 3: 3.51-1.79 -- 4: 4.16-2.45
-The error variance between training and testing results in the DST case is generally within 0.05-1.31\% for US06 and 0.51-1.68\% for FUDS, as opposed to FUDS being 3.08-4.16\% for DST and 1.31-2.45\% for US06.
+The error variance between training and testing results in the DST case was generally within 0.05--1.31\% for US06 and 0.51--1.68\% for FUDS, as opposed to FUDS, which was  3.08--4.16\% for DST and 1.31--2.45\% for US06.
 
 %? #1 DST trained is best (Average of 2.86, 2.77,3.28)
 %*Avg: 1 - 2.97%, 2 - 4.07%, 3 - 3.16%, 4 - 3.60%, 5 - 4.62
-DST-trained Model 1 showed the best testing results, with the average training and testing accuracy at 2.97\%.
+DST-trained Model 1 showed the best testing results, with an average training and testing accuracy of 2.97\%.
 %? #3 DST trained second best
-Model 3 showed the second-best results for the same profile at 3.16\% with only a 0.19\% difference, which can be considered meaningless given the number of applied attempts.
+Model 3 showed the second-best results for the same profile, at 3.16\%, with only a 0.19\% difference, which can be considered meaningless given the number of attempts.
 %? #4 3rd best with #2
-Model 4 comes as the third-best, sharing similarities in implementation specifics with Model 2, with values being 3.60\% and 4.07\%, respectively.
+Model 4 was the third-best, sharing similarities in implementation specifics with Model 2, with values of 3.60\% and 4.07\%, respectively.
 %*Plots-Avg: 1 - 3.245%, 2 - 3.995%, 3 - 3.37%, 4 - 3.45%, 5 - 4.44
-The same trend can be observed by only following training and testing plots, where Models 1, 3, 4 and 2 end up with 3.245, 3.7, 3.45 and 3.995 average percentage errors.
+The same trend can be observed by following the training and testing plots, where Models 1, 3, 4, and 2 obtained 3.245, 3.7, 3.45, and 3.995 average percentage errors.
 %* **verably, accurate when tested on the same drive cycles as training (eg DST on DST), with MSE in the range 1.58-3.45%. #5 less accurate that any (3.08-4.78 )
-
-
-
-
 
 %
 %
