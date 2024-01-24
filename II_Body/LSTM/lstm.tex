@@ -5,16 +5,19 @@
 The most commonly used time-series machine learning model is the long short-term memory cell~\cite{LSTM_Hochreiter1997}.
 As in GRU, LSTM models preserve long-term dependencies in the extended data sequences.
 In its ten years of existence, it has become the most widely used type of RNN in those applications.
-\mbox{Figure~\ref{fig:LSTM-cell}} summarises the internal cell logic.
+\ifthenelse{\boolean{thesis}}{\mbox{Figure~\ref{subfig:NN-LongTerm}} summarises the internal cell logic.}
+{\mbox{Figure~\ref{fig:LSTM-cell}} summarises the internal cell logic.}
 %Currently, the most common usage of the Time-series Machine Learning model is the prediction of stock prices, weather prognostic or any other time-dependent data.
 %However, vanishing gradient is the most common problem for any of those scenarios.
 % Long-range data tend to fade away from the model, which impacts overall prediction.
+\ifthenelse{\boolean{thesis}}{}{
 \begin{figure}[H]%[htbp]
     % \centering
     \includegraphics[width=0.80\textwidth]{II_Body/LSTM/images/LSTM.jpg}
     \caption{Structure of a long short-term memory unit cell~\cite{LSTM_Hochreiter1997}.}
     \label{fig:LSTM-cell}
-\end{figure}    
+\end{figure}
+}
 Unlike the GRU, this cell utilises three gates instead of two.
 The update gate is replaced with a separate input $i_t$ and output $o_t$, as per \mbox{Equation~(\ref{eq:LSTM-gates})}.
 All gates utilise the same sigmoid \mbox{Equation~(\ref{eq:sigmoid})}.

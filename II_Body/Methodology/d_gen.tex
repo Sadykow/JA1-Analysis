@@ -33,9 +33,7 @@ Considering the characteristics of a constant current and constant voltage charg
 %! Find the picture and redo the title with "various"
 % For dataset generation for training and testing purposes, data is combined in a 3-dimensional matrix using windowing techniques as per \mbox{Figure~\ref{fig:Windowing3f}}, where $s$ represents the step between each window, less than the number of input time steps.
 % \if{thesis}
-\ifthenelse {\boolean{thesis}} {
-    
-} {
+\ifthenelse {\boolean{thesis}} {} {
     Both stateful and stateless methods rely on the input samples' quality and length.
     Chemali et al.~\cite{Chemali2017} researched the impact of the history of input samples: the longer the period of input readings, the better the accuracy the model produced and the longer it took to compute.
     The research results are plotted in \mbox{Figure~\ref{fig:chemali-accuracy}}, outlining the root square parabola behaviour regarding the size of the history compared with errors in the prediction.

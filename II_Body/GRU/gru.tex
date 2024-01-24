@@ -3,7 +3,8 @@
 %
 \subsubsection{Gated Recurrent Unit (GRU)-Based Models} \label{subsub:gru}
 One of the methods proposed by Cho et al.~\cite{GRU_cho_properties_2014}, which improves the behaviour of the neural network, is the gated recurrent unit.
-Unlike a simple recurrent NN with a single activation function in the cells, the GRU implements different logics to deal with the vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.
+\ifthenelse{\boolean{thesis}}{Unlike a simple recurrent NN with a single activation function in the cells, the GRU implements different logics to deal with the vanishing gradient, as per \mbox{Figure~\ref{subfig:NN-Gated}}.}
+{Unlike a simple recurrent NN with a single activation function in the cells, the GRU implements different logics to deal with the vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.}
 In addition to the activation function, it adds two gates related to input and propagated sequences.
 The forget gate $f_t$ controls the level information, which has to be ignored.
 The update gate $i_t$ controls the impact of previous information on the current status.
@@ -30,13 +31,15 @@ The $\ast$ stands for multiplication by element.
         h_t &= \left( 1-i_t \right) h_{t-1}+i_t \hat{h_t}
     \end{split}
     \label{eq:GRU-output}
-\end{equation}    
+\end{equation}
+\ifthenelse{\boolean{thesis}}{}{
 \begin{figure}[H]%[htbp] %Attention AE: please change additin to addition
     % \centering
     \includegraphics[width=0.70\textwidth]{II_Body/GRU/images/GRU.jpg}
     \caption{Structure of a gated recurrent unit (GRU) cell~\cite{li_approach_2019}.}
     \label{fig:GRU-cell}
 \end{figure}
+}
 % The GRU can act both as a stateful and stateless cell for the model by implementing the model training library.
 % For comparison, a Stateful cell will be used per implementation from Song \textit{et al.}~\cite{song_lithium-ion_2018} and similar articles.
 %
