@@ -2,27 +2,27 @@
 % Explanation
 %
 \subsubsection{Classic and Robust Online Adaptive Moment Estimation}
-The most commonly used optimiser in Time-series prediction is the Adaptive Moment Estimation~\cite{kingma_adam_2017} (Adam) optimiser.
-The \mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias as per the source.
-In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg:Adam-Line-2Moment}} used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
+The most commonly used optimiser in time-series prediction is the adaptive moment estimation~\cite{kingma_adam_2017} (Adam) optimiser.
+\mbox{Algorithm~\ref{alg:Adam}} highlights the steps required to update model weights and bias, as per the source.
+In addition to a second $\beta$ constant at \mbox{Algorithm~\ref{alg:Adam}, Line~\ref{alg:Adam-Line-2Moment}} used for the momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
 % On top of two constants $\beta$ used for momentum calculation, the algorithm uses $\epsilon$, referred to as the fuzz factor.
-\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
-  \caption{Adaptive Moment Estimation (Adam) optimisation}
+\begin{algorithm}[H]%\captionsetup{labelfont={sc,bf}, labelsep=newline}
+  \caption{Adaptive moment estimation (Adam) optimisation.}
   \begin{algorithmic}[1]
     \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
     \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
     \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
     \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
-    \STATE Define Loss function: $L$ \\
-           Get hyperparameters: $\alpha, \beta_1, \beta_2, \epsilon$
-    \WHILE{$W_t \text{ not converge}$}
-    \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_W L_t (W_{t-1})$ \COMMENT{Obtain gradient}
-    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ moment calculation}
-    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{$2_{nd}$ moment calculation \label{alg:Adam-Line-2Moment}}
-    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{Corrected $\hat{m_t}$}
-    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{Corrected $\hat{\upsilon_t}$}
-    \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ \COMMENT{Update parameters}
+    \STATE Define loss function: $L$ \\
+    Get hyperparameters: $\alpha, \beta_1, \beta_2, \epsilon$
+    \WHILE{$W_t \text{ does not converge}$}
+      \STATE $t \gets t+1$
+      \STATE $g_t \gets \nabla_W L_t (W_{t-1})$ \COMMENT{obtain gradient}
+      \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{1st moment calculation}
+      \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{2nd moment calculation \label{alg:Adam-Line-2Moment}}
+      \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{corrected $\hat{m_t}$}
+      \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{corrected $\hat{\upsilon_t}$}
+      \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{\sqrt{\hat{\upsilon_t}}+\epsilon} $ \COMMENT{update parameters}
     \ENDWHILE
   \end{algorithmic}
   \label{alg:Adam}
@@ -30,30 +30,30 @@ In addition to a second $\beta$ constant at \mbox{Ag~\ref{alg:Adam}, Ln~\ref{alg
 
 % Extension with Robust Online
 %
-Javid \textit{et al.}~\cite{javid_adaptive_2020} extended the default $Adam$ algorithm introducing a Robust Online version of Adam (RoAdam), Algorithm~\ref{alg:RoAdam}, at line \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Online}}, along with third $\beta$ constant at \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-3Moment}}.
-Adding the direct influence of a loss function to the gradient update adds an online calculus to regular $Adam$ correction.
-The framework library contained no inbuild implementation of the Robust optimiser.
-Instead, it was implemented from the first principle and overwriting the model training procedure.
-\begin{algorithm}\captionsetup{labelfont={sc,bf}, labelsep=newline}
-  \caption{Robust Online Adaptive Moment Estimation (RoAdam) optimisation}
+Javid et al.~\cite{javid_adaptive_2020} extended the default Adam algorithm, introducing a robust online version of Adam (RoAdam), Algorithm~\ref{alg:RoAdam}, at \mbox{Algorithm~\ref{alg:RoAdam}, Line~\ref{alg:RoAdam-Line-Online}}, along with a third $\beta$ constant at \mbox{Algorithm~\ref{alg:RoAdam}, Line~\ref{alg:RoAdam-Line-3Moment}}.
+Adding the direct influence of a loss function to the gradient update adds an online calculus to the regular Adam correction.
+The framework library contained no inbuilt implementation of the robust optimiser.
+Instead, this was implemented using first principles by overwriting the model training procedure.
+\begin{algorithm}[H]%\captionsetup{labelfont={sc,bf}, labelsep=newline}
+  \caption{Robust online adaptive moment estimation (RoAdam) optimisation.}
   \begin{algorithmic}[1]
     \STATE \textbf{Number of input samples} \\ $N\gets length(\textit{input data})$\\
     \STATE \textbf{Size of windows} \\ $S\gets length(V_{i..n})$\\
     \STATE Input: $x_n = [V_{i..n}, I_{i..n}, T_{i..n}] - $Shape: $X = (N, S, 3)$
     \STATE Output:$y_n = [SoC_{n}] - $Shape:$Y = (N, 1)$
-    \STATE Define Loss function $L$ and initial loss $L_t = 1.0$ \label{alg:RoAdam-Line-Loss}\\
-           Get hyperparameters: $\alpha, \beta_1, \beta_2, \beta_3, \epsilon$
+    \STATE Define loss function $L$ and initial loss $L\left(W_{-1}\right) = 1.0$ \label{alg:RoAdam-Line-Loss}\\
+    Get hyperparameters: $\alpha, \beta_1, \beta_2, \beta_3, \epsilon$
     \STATE Initialise: $m,v=zeroes$ and $d=ones$ \label{alg:RoAdam-Line-Vars} \\
-    \WHILE{$W_t \text{ not converge}$}
-    \STATE $t \gets t+1$
-    \STATE $g_t \gets \nabla_\phi L_t (W_{t-1})$ \COMMENT{Obtain gradient}
-    \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{$1_{st}$ moment calculation}
-    \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{$2_{nd}$ moment calculation}
-    \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{Corrected $\hat{m_t}$}
-    \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{Corrected $\hat{\upsilon_t}$}
-    \STATE $r_t \gets \parallel L_t\left(W_{t-1}\right)/L_t\left(W_{t-2}\right) \parallel $ \COMMENT{Relative prediction error term of the loss function \label{alg:RoAdam-Line-Online}} 
-    \STATE $d_t \gets \beta_3 d_{t-1}+\left(1-\beta_3\right)r_t $ \COMMENT{$3^{rd}$ moment calculation \label{alg:RoAdam-Line-3Moment}}
-    \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{d_t\sqrt{\hat{\upsilon_t}}+\epsilon} $ \COMMENT{Update parameters}
+    \WHILE{$W_t \text{ does not converge}$}
+      \STATE $t \gets t+1$
+      \STATE $g_t \gets \nabla_W L_t (W_{t-1})$ \COMMENT{obtain gradient}
+      \STATE $m_t \gets \beta_1 m_{t-1}+(1-\beta_1) g_t $ \COMMENT{1st moment calculation}
+      \STATE $\upsilon_t \gets \beta_2 \upsilon_{t-1}+ \left(1-\beta_2 \right)g^2_t $ \COMMENT{2nd moment calculation}
+      \STATE $\hat{m_t} \gets \frac{m_t}{1-\beta^t_1}$ \COMMENT{corrected $\hat{m_t}$}
+      \STATE $\hat{\upsilon_t} \gets \frac{\upsilon_t}{1-\beta^t_2} $ \COMMENT{corrected $\hat{\upsilon_t}$}
+      \STATE $r_t \gets \parallel L_t\left(W_{t-1}\right)/L_t\left(W_{t-2}\right) \parallel $ \COMMENT{relative prediction error term of the loss function \label{alg:RoAdam-Line-Online}}
+      \STATE $d_t \gets \beta_3 d_{t-1}+\left(1-\beta_3\right)r_t $ \COMMENT{3rd moment calculation \label{alg:RoAdam-Line-3Moment}}
+      \STATE $W_t \gets W_{t-1}- \alpha \frac{\hat{m_t}}{d_t\sqrt{\hat{\upsilon_t}}+\epsilon} $ \COMMENT{Update parameters}
     \ENDWHILE
   \end{algorithmic}
   \label{alg:RoAdam}
@@ -87,8 +87,8 @@ Instead, it was implemented from the first principle and overwriting the model t
 The code itself can be located in Appendix~\ref{app:RoAdam}.
 }
 {}
-Unlike initial variables, $m$, and $v$ of the Adam algorithm, which get set as matrices of zeros, the $d$ variable in the RoAdam is initialised with ones, \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Vars}}.
-In addition, the algorithm depends on the loss calculation during parameters evaluation and not every framework supports it with in-built functionality.
+Unlike initial variables $m$ and $v$ of the Adam algorithm, which are set as matrices of zeros, the $d$ variable in the RoAdam algorithm is initialised with ones, \mbox{Algorithm~\ref{alg:RoAdam}, Line~\ref{alg:RoAdam-Line-Vars}}.
+In addition, the algorithm depends on the loss calculation during the parameter evaluation and not every framework supports this with inbuilt functionality.
 The previous loss result has to be preserved in the next iteration.
-The initial loss value must be set above zero per the algorithm to avoid a zero-division error, \mbox{Ag~\ref{alg:RoAdam}, Ln~\ref{alg:RoAdam-Line-Loss}}.
+The initial loss value must be set above zero in the algorithm to avoid a zero-division error, \mbox{Algorithm~\ref{alg:RoAdam}, Line~\ref{alg:RoAdam-Line-Loss}}.
 % Optimiser implementation from the first principle remains the most viable option for the current version of TensorFlow, there as PyTorch already has the variation inbuilt into the standard library.

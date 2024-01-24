@@ -1,41 +1,45 @@
 %  Gated Recurrent Unit
 % Definition of the GRU
 %
-\subsubsection{Gated Recurrent Unit (GRU) based models} \label{subsub:gru}
-One of the methods proposed by Cho \textit{et al.}~\cite{GRU_cho_properties_2014}, which improves the behaviour of the Neural network, is Gated Recurrent Unit.
-Unlike a simple Recurrent NN with a single activation function in the cells, GRU implements different logics to deal with vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.
-On top of the activation function, it adds two gates related to input and propagated sequences.
-The reset gate $r_t$ controls the level information, which has to be ignored.
+\subsubsection{Gated Recurrent Unit (GRU)-Based Models} \label{subsub:gru}
+One of the methods proposed by Cho et al.~\cite{GRU_cho_properties_2014}, which improves the behaviour of the neural network, is the gated recurrent unit.
+\ifthenelse{\boolean{thesis}}{Unlike a simple recurrent NN with a single activation function in the cells, the GRU implements different logics to deal with the vanishing gradient, as per \mbox{Figure~\ref{subfig:NN-Gated}}.}
+{Unlike a simple recurrent NN with a single activation function in the cells, the GRU implements different logics to deal with the vanishing gradient, as per \mbox{Figure~\ref{fig:GRU-cell}}.}
+In addition to the activation function, it adds two gates related to input and propagated sequences.
+The forget gate $f_t$ controls the level information, which has to be ignored.
 The update gate $i_t$ controls the impact of previous information on the current status.
-The gates implemented by \textit{sigmoid} \mbox{Equation~(\ref{eq:sigmoid})} and gated get updated with \mbox{Equations~(\ref{eq:GRU-gates})}.
-Both gates are related to cell input sequence $x_t$ and the memory cell's output at last time stamp $h_{t-1}$.
+The gates implemented by sigmoid \mbox{Equation~(\ref{eq:sigmoid})} are updated with \mbox{Equation~(\ref{eq:GRU-gates})}.
+Both gates are related to cell input sequence $x_t$ and the memory cell's output at the last time stamp $h_{t-1}$.
 %The structure of the layers is similar to a Dense network, with similar input and output layers.
 %\textbf{Y. Song~\cite{song_lithium-ion_2018} considered them less complex than another variation (LSTM-RNN) due to the usage of 2 gates rather than 3.}
 % \footnote{Bigger value - bigger impact}..
 %Weight W and bias b will be the training elements. Bias is added to each gate to increase network flexibility.\\
-\begin{figure}[ht]%[htbp]
-    \centering
-    \includegraphics[width=\linewidth]{II_Body/GRU/images/GRU.jpg}
-    \caption{Structure of a gated recurrent unit cell~\cite{li_approach_2019}.}
-    \label{fig:GRU-cell}
-\end{figure}
 \begin{equation}
     \begin{split}
-        f_t &= \sigma \left (W_{f} \left [h_{t-1}, x_t \right ] + b_f \right ) \\
-        i_t &= \sigma \left (W_{i} \left [h_{t-1}, x_t \right ] + b_i \right )
+        f_t &= \sigma \left( W_{f} \left[ h_{t-1}, x_t \right] + b_f \right) \\
+        i_t &= \sigma \left( W_{i} \left[ h_{t-1}, x_t \right] + b_i \right)
     \end{split}
     \label{eq:GRU-gates}
 \end{equation}
+
 %The standard activation function or content of the memory gets modified with equation~\ref{eq:GRU-output}, where \textit{func} represent the activation function and $\ast$ multiplication by element.
-The memory cell output $h_t$ get calculated through the early chosen activation function, $tanh$ in \mbox{Equation~(\ref{eq:GRU-output})}.
-The $\ast$ stand for multiplication by element.
+The memory cell output $h_t$ is calculated through the early chosen activation function $tanh$ in \mbox{Equation~(\ref{eq:GRU-output})}.
+The $\ast$ stands for multiplication by element.
 \begin{equation}
     \begin{split}
-        \hat{h_t} &= tanh \left (W_{\hat{h}} \left [f_t \ast h_{t-1}, x_t \right ] + b_{\hat{h}} \right ) \\
-        h_t &= \left (1-i_t \right ) h_{t-1}+i_t \hat{h_t}
+        \hat{h_t} &= tanh \left( W_{\hat{h}} \left[ f_t \ast h_{t-1}, x_t \right] + b_{\hat{h}} \right) \\
+        h_t &= \left( 1-i_t \right) h_{t-1}+i_t \hat{h_t}
     \end{split}
     \label{eq:GRU-output}
 \end{equation}
+\ifthenelse{\boolean{thesis}}{}{
+\begin{figure}[H]%[htbp] %Attention AE: please change additin to addition
+    % \centering
+    \includegraphics[width=0.70\textwidth]{II_Body/GRU/images/GRU.jpg}
+    \caption{Structure of a gated recurrent unit (GRU) cell~\cite{li_approach_2019}.}
+    \label{fig:GRU-cell}
+\end{figure}
+}
 % The GRU can act both as a stateful and stateless cell for the model by implementing the model training library.
 % For comparison, a Stateful cell will be used per implementation from Song \textit{et al.}~\cite{song_lithium-ion_2018} and similar articles.
 %

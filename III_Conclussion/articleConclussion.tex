@@ -8,27 +8,32 @@
 
 %
 %
-The work has offered several implementations of Machine Learning algorithms for State of Charge estimation of A123 Lithium-Ion batteries.
-Several Recursive Neural Network models were selected from already published based on the most common and promising structures and optimisers.
-Five models were investigated, implemented, performance measured, and cross-evaluated using three drive cycles at five battery temperature ranges together from 20-50\textdegree{}.
-Half a dozen thousand samples per profile of charge and discharge cycles were resampled to equal 1Hz rate.
-They organised in 500 samples-long 3D arrays consisting of Voltage, Current, Temperature and corresponding charge percentage.
-To adequately compare performance across models and comprehend the stochastic nature of Machine Learning, a set of hyperparameters was predetermined through trial and error evaluation and multiple attempts of averaging.
-By involving a learning rate scheduler and rollback technique to justify early stopping, the speed of the training has been increased, and the probability of model early overfill has been reduced.
+This work presented several implementations of machine learning algorithms for the state-of-charge estimation of A123 lithium-ion batteries.
+Several recursive neural network examples were selected from previously published models, based on the most common and promising structures and optimisers.
+Five models were investigated and implemented, and their performance was measured and cross-evaluated using three drive cycles at five battery temperature ranges  from 20 to 50 \textdegree{}C.
+Half a dozen thousand samples per charge and discharge cycle profile were resampled to a 1 Hz rate.
+These were organised in 500-sample 3D arrays consisting of voltage, current, temperature, and the corresponding charge percentage.
+While the methods and methodology covered in this article can be used on other battery chemistries and have been covered in the literature, if the models are trained on one type and then tested on another, without new training with combined batteries, they will not produce the expected results by themselves.
+However, the evaluation and comparison of the models' effectiveness were beyond this work's scope.
+To adequately compare performance across models and comprehend the stochastic nature of machine learning, a set of hyperparameters was predetermined through a trial-and-error evaluation and multiple attempts at averaging.
+Due to the inclusion of a learning rate scheduler and rollback technique to justify early stopping, the training speed increased, and the probability of the model suffering from early overfitting was reduced.
 
 %
 %
-After comparing 135 models of different sets of Layers and Neurons, the most accurate, lightweight and reasonable training time ended up being 3 layers with 43 neurons per each.
-Then, another 150 combinations of 5 methods models for three driving profiles ten times were processed through the same training, testing and performance measurement procedures to conclude that a DST-based simple LSTM with Adam optimisers make the best self and others capturing model.
-The next, which can closely match the same results, but with better self-capturing capabilities, ended up being an LSTM with an Attention model.
-While an Attention layer had a significant impact on capturing the complex driving profiles like FUDS, it failed to characterise the other two.
-Both models were trained for relatively the same number of epochs, going through multiple attempts of learning rate reduction scheduler to achieve the lowest possible optimum.
-Even though the error results were mostly commonly doubled from their already published equivalents, with the tripled amount of data and complexity of fitting both charge and discharge cycles, the increased error in prediction battery cycles remained below 5\%, and line fitting accurately describes a State of Charge behaviour, especially at critical points of full charge and depletion.
+After comparing 135 models of different sets of layers and neurons, the most accurate, lightweight and reasonable training time was found to be three layers, with 43 neurons each.
+Then, another 150 combinations (five models for three driving profiles, at ten times each) were processed through the same training, testing, and performance measurement procedures. This led to the conclusion that a DST-based simple LSTM network with Adam optimisers was the best model to capture itself and others.
+The next best model, which could almost match the same results and had better self-capturing abilities, was an LSTM network with an attention model.
+While the attention layer had a significant impact on capturing complex driving profiles such as FUDS, it failed to characterise the other two profiles.
+Both models were trained for almost the same number of epochs, going through multiple attempts at the learning rate reduction scheduler to achieve the lowest possible optimum.
+Although the error results were mostly commonly double their already published equivalents, with triple the quantity of data and an increased complexity when fitting both charge and discharge cycles, the increased error in the battery cycle prediction remained below 5\%, and line-fitting accurately described their state-of-charge behaviour, especially at critical points of full charge and depletion.
 
 %
 %
-Even though most models provided excellent results, they lacked the accuracy of time-series models observed in similar scenarios.
-The highest error regions were observed at the middle point of the charge, where the voltage of Lithium Ion batteries stays at 3.3V most of the time.
-Being the SoC the function of current, that behaviour could indicate that Recurrent Neural Networks are tended to put more weight on the voltage feature instead.
-While Model \#1 was chosen to be the best model for generalisation driving behaviour, it has little room for improvement.
-In contrast, Model \#3, with its extension to the structure, may prove a vital starting point for the following research iteration of charge prediction models, utilising the output feature as an input, like time-series models tend to do in the other scenarios.
+Although most models provided excellent results, they lacked the accuracy of time series models observed in similar scenarios.
+The highest error regions were observed at the middle point of the charge, where the voltage of lithium-ion batteries remained at 3.3~V most of the time.
+With the SoC as a function of current, this behaviour could indicate that recurrent neural networks place more emphasis on the voltage feature.
+Model 1 was the best model for the generalisation of driving behaviour; this showed little room for improvement.
+In contrast, Model 3, with an extension to the structure, may provide a vital starting point for future research iterations of charge prediction models utilising the output feature as an input, as time series models tend to do in other scenarios.
+Overall, this work provides a comparative evaluation of several published methods when implemented under the same conditions, which has not been achieved to date.
+These results allow us to establish a methodology that can be used in further research.
+However, to overcome the weight distribution, further research is needed, using a four-feature-based model where the SoC acts as one of the input parameters, to develop improvements to the machine-learning-based state-of-charge estimation.

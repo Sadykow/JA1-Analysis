@@ -1,0 +1,331 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model \#1 Chemali2017 %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+    \centering
+    \begin{adjustwidth}{-\extralength}{0cm}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M1-history-DST-mae.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-1-train.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-1-test.svg}
+        \caption{\centering}
+        \label{subfig:Model-1res-DSTvsFUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M1-history-US06-mae.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-1-train.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-1-test.svg}
+        \caption{\centering}
+    \end{subfigure}
+    % %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M1-history-FUDS-mae.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-1-train.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-1-test.svg}
+        \caption{\centering}
+    \end{subfigure}
+    \end{adjustwidth}
+    \caption{Model 1: stateless LSTM. (\textbf{a}) Average training and testing MAE history; average of 10~attempts. (\textbf{b}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{c})~Testing on two cycles of US06 and FUDS profiles; average of 10 attempts. (\textbf{d}) Average training and testing MAE history; average of 10 attempts. (\textbf{e}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{f}) Testing on two cycles of US06 and FUDS profiles; average of 10~attempts. (\textbf{g})~Average training and testing MAE history; average of 10~attempts. (\textbf{h}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{i}) Testing on two cycles of DST and US06 profiles; average of 10 attempts.}
+    \label{fig:Model-1res}
+\end{figure}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model \#2 BinXia2020 %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+    \centering
+    \begin{adjustwidth}{-\extralength}{0cm}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M2-history-DST-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-2-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-2-test.svg}
+        \caption{\vspace{+2pt}\centering}
+        \label{subfig:Model-2res-DSTvsFUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M2-history-US06-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-2-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-2-test.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    % % %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.44\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M2-history-FUDS-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-2-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-2-test.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \end{adjustwidth}
+    \caption{Model 2: stateless GRU with ensemble. (\textbf{a}) Average training and testing MAE history; average of 10 attempts. (\textbf{b}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25~\textdegree{}C. (\textbf{c}) Testing on two cycles of US06 and FUDS profiles; average of 10 attempts. (\textbf{d}) Average training and testing MAE history; average of 10 attempts. (\textbf{e}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{f}) Testing on two cycles of US06 and FUDS profiles; average of 10 attempts; (\textbf{g}) Average training and testing MAE history; average of 10 attempts. (\textbf{h})~Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{i}) Testing on two cycles of DST and US06 profiles; average of 10 attempts.}
+    \label{fig:Model-2res}
+\end{figure}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model \#3 TadeleMamo2020 %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+    \centering
+    \begin{adjustwidth}{-\extralength}{0cm}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results_new/M3-history-DST-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results_new/DST-3-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results_new/DST-3-test.svg}
+        \caption{\vspace{+2pt}\centering}
+        \label{subfig:Model-3res-DSTvsFUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M3-history-US06-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-3-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-3-test.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    % %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M3-history-FUDS-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-3-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-3-test.svg}
+        \caption{\vspace{+2pt}\centering}
+        \label{subfig:Model-3res-testing}
+    \end{subfigure}
+    \end{adjustwidth}
+    \caption{Model 3: stateless LSTM with attention. (\textbf{a}) Average training and testing MAE history; average of 10 attempts. (\textbf{b}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25~\textdegree{}C. (\textbf{c}) Testing on two cycles of US06 and FUDS profiles; average of 10 attempts. (\textbf{d}) Average training and testing MAE history; average of 10 attempts. (\textbf{e}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{f}) Testing on two cycles of DST and FUDS profiles; average of 10 attempts. (\textbf{g}) Average training and testing MAE history; average of 10 attempts. (\textbf{h})~Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{i}) Testing on two cycles of DST and US06 profiles; average of 10 attempts.}
+    \label{fig:Model-3res}
+\end{figure}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model \#4 Javid2020 %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+    \centering
+    \begin{adjustwidth}{-\extralength}{0cm}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results_new/M4-history-DST-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=\linewidth]{III_Conclussion/Results_new/DST-4-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-4-test.svg}
+        \caption{\vspace{+2pt}\centering}
+        \label{subfig:Model-4res-DSTvsFUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M4-history-US06-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-4-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-4-test.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    % %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M4-history-FUDS-mae.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-4-train.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-4-test.svg}
+        \caption{\vspace{+2pt}\centering}
+    \end{subfigure}
+    \end{adjustwidth}
+    \caption{Model 4: Stateless GRU with Robust optimiser. (\textbf{a}) Average training and testing MAE history; average of 10 attempts. (\textbf{b}) Validation on a single cycle of SoC estimation; average of 10~attempts at 25~\textdegree{}C. (\textbf{c}) Testing on two cycles of US06 and FUDS profiles; average of 10 attempts. (\textbf{d})~Average training and testing MAE history; average of 10 attempts. (\textbf{e}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{f}) Testing on two cycles of DST and FUDS profiles; average of 10 attempts. (\textbf{g}) Average training and testing MAE history; average of 10 attempts. (\textbf{h})~Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{i}) Testing on two cycles of DST and US06 profiles; average of 10 attempts.}
+    \label{fig:Model-4res}
+\end{figure}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%% Model \#5 Jao2020 %%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[H]
+    \centering
+    \begin{adjustwidth}{-\extralength}{0cm}
+    %%%%%%%%%%%%%%%%% DST based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M5-history-DST-mae.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-5-train.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/DST-5-test.svg}
+        \caption{\centering\vspace{+2pt}}
+        \label{subfig:Model-5res-DSTvsFUDS}
+    \end{subfigure}
+    %%%%%%%%%%%%%%%%% US06 based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M5-history-US06-mae.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-5-train.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/US06-5-test.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    % %%%%%%%%%%%%%%%%% FUDS based tests %%%%%%%%%%%%%%%%%
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/M5-history-FUDS-mae.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-5-train.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.425\textwidth}
+        \centering
+        \includesvg[width=5.2cm]{III_Conclussion/Results_new/FUDS-5-test.svg}
+        \caption{\centering\vspace{+2pt}}
+    \end{subfigure}
+    \end{adjustwidth}
+    \caption{Model 5: stateless LSTM---simplest optimisers. (\textbf{a}) Average training and testing MAE history; average of 10 attempts with a higher Y-axis. \textbf{b}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25~\textdegree{}C. (\textbf{c}) Testing on two cycles of US06 and FUDS profiles; average of 10~attempts. (\textbf{d}) Average training and testing MAE history; average of 10~attempts. (\textbf{e}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{f}) Testing on two cycles of DST and FUDS profiles; average of 10 attempts. (\textbf{g}) Average training and testing MAE history; average of 10 attempts. (\textbf{h}) Validation on a single cycle of SoC estimation; average of 10 attempts at 25 \textdegree{}C. (\textbf{i})~Testing on two cycles of DST and US06 profiles; average of 10 attempts.}
+    \label{fig:Model-5res}
+\end{figure}
+\clearpage

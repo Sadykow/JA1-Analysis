@@ -1,28 +1,30 @@
 % Prolong battey Life
-@misc{calif_proper_2008,
-	title = {Proper {Care} {Extends} {Li}-{Ion} {Battery} {Life}},
-	url = {https://www.powerelectronics.com/markets/mobile/article/21859861/proper-care-extends-liion-battery-life},
-	abstract = {Li-ion battery lifetime depends on battery chemistry, depth of discharge, battery temperature and battery capacity termination level.},
-	language = {en-us},
-	urldate = {2021-02-04},
-	journal = {Power Electronics},
-	author = {Calif, Fran Hoffart},
-	month = apr,
+@article{calif_proper_2008,
+	author = {Hoffart, F.},
 	year = {2008},
-	file = {Snapshot:/mnt/WORK/Zotero/storage/DIXK2URZ/proper-care-extends-liion-battery-life.html:text/html}
+	month = {04},
+	pages = {24-28},
+	title = {Proper care extends li-ion battery life},
+	volume = {34},
+	journal = {Power Electronics Technology}
 }
 
 % ECM not able capture non-linear relationship
 @INPROCEEDINGS{6953745,
-  author={L. W. {Juang} and P. J. {Kollmeyer} and R. {Zhao} and T. M. {Jahns} and R. D. {Lorenz}},
-  booktitle={2014 IEEE Energy Conversion Congress and Exposition (ECCE)},
-  title={The impact of DC bias current on the modeling of lithium iron phosphate and lead-acid batteries observed using electrochemical impedance spectroscopy},
+  author={Juang, Larry W. and Kollmeyer, Phillip J. and Zhao, Ruxiu and Jahns, T. M. and Lorenz, R. D.},
+  booktitle={2014 IEEE Energy Conversion Congress and Exposition (ECCE)}, 
+  title={The impact of DC bias current on the modeling of lithium iron phosphate and lead-acid batteries observed using electrochemical impedance spectroscopy}, 
   year={2014},
   volume={},
   number={},
   pages={2575-2581},
-  doi={10.1109/ECCE.2014.6953745}
+  abstract={This paper deploys electrochemical impedance spectroscopy (EIS) to investigate the impact of temperature and dc bias current on battery impedance characteristics. Measured test results are used to demonstrate that, under conditions where the nonlinear Butler-Volmer equation is necessary to model the electrode charge transfer characteristics, the semicircular trajectory that typically appears in the EIS results shrinks in diameter as the battery's dc bias current increases. For a lithium-based battery, the nonlinearity introduced by the Butler-Volmer relationship is more pronounced at low temperature, while lead-acid batteries typically exhibit this nonlinearity even at room temperature. The impact of dc bias current on the battery model and EIS characteristics are thoroughly investigated using a combination of experimental tests combined with theoretical justification based on the Arrhenius equation. The value of using this observed relationship to improve the accuracy of battery models and condition monitors (e.g., state-of charge, etc.) is discussed in the paper.},
+  keywords={},
+  doi={10.1109/ECCE.2014.6953745},
+  ISSN={2329-3748},
+  month={Sep.},
 }
+
 % Categoris for SoC Estimation
 @article{ali_towards_2019,
 	title = {Towards a {Smarter} {Battery} {Management} {System} for {Electric} {Vehicle} {Applications}: {A} {Critical} {Review} of {Lithium}-{Ion} {Battery} {State} of {Charge} {Estimation}},
@@ -65,11 +67,17 @@
     journal = {Neural Computation},
     volume = {9},
     number = {8},
-    pages = {1735-1780},
+	month = nov,
     year = {1997},
+    issn = {0899-7667},
+	pages = {1735-1780},
+	numpages = {46},
     doi = {10.1162/neco.1997.9.8.1735},
     URL = {https://doi.org/10.1162/neco.1997.9.8.1735},
     eprint = {https://doi.org/10.1162/neco.1997.9.8.1735},
+	acmid = {1246450},
+    publisher = {MIT Press},
+    address = {Cambridge, MA, USA},
     abstract = { Learning to store information over extended time intervals by recurrent backpropagation takes a very long time, mostly because of insufficient, decaying error backflow. We briefly review Hochreiter's (1991) analysis of this problem, then address it by introducing a novel, efficient, gradient based method called long short-term memory (LSTM). Truncating the gradient where this does not do harm, LSTM can learn to bridge minimal time lags in excess of 1000 discrete-time steps by enforcing constant error flow through constant error carousels within special units. Multiplicative gate units learn to open and close access to the constant error flow. LSTM is local in space and time; its computational complexity per time step and weight is O. 1. Our experiments with artificial data involve local, distributed, real-valued, and noisy pattern representations. In comparisons with real-time recurrent learning, back propagation through time, recurrent cascade correlation, Elman nets, and neural sequence chunking, LSTM leads to many more successful runs, and learns much faster. LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms. }
 }
 % Coulumb Counting methods

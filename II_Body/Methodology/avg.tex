@@ -2,21 +2,21 @@
 % Stochastic nature of ML and Averaging 
 %
 %* Most deep learning algorithms are based on an optimization algorithm called stochastic gradient descent. — Page 98, Deep Learning, 2016.
-The five models of this research have a stochastic nature due to the use of randomness in the calculation of the gradient during the learning~\cite{alma991010036879604001}, like Stochastic Gradient Descent, which is discussed in Subsection~\ref{subsec:optimisers}.
-As such, getting repeatable results, worthy of comparison between each other, requires the implementation of an averaging method, where each model will undertake the same procedures multiple times.
-The resulting plots and values provide far more representative statistical criteria, as opposed to random fluctuations.
+The five models used in this research had a stochastic nature due to the use of randomness in the  gradient calculation during the learning~\cite{alma991010036879604001}, such as the stochastic gradient descent, which is discussed in Section~\ref{subsec:optimisers}.
+As such, obtaining repeatable results which were worth comparing required the implementation of an averaging method, in which each model undertook the same procedures multiple times.
+The resulting plots and values provided far more representative statistical criteria, as opposed to random fluctuations.
 % \textcolor{red}{5 ML is stochastict thongs. As such, to get repeatable you need to account for statistics, to account, we have implemented averaging methods, where each model is trained 10 times and results averaged to provide significant statistical criteria (representative) as opposed to random fluctuations/
 %As an example of this method FUDS has been used, showing a spread....}
 
-%
 % Average 10 attempts with accuracy calculus.
-During preliminary work, the research attempted to train many models of the same type to produce a best-fitting line.
+%
+During preliminary work, this research attempted to train many models of the same type to produce the best-fitting line.
 %Due to MLs' stochastic nature,
-The training results had a significant variance.
-As such, training was repeated ten times for each data set to remove the statistical variance from the comparison results, and the average of all ten trained models has been used in each result.
-Figures~\ref{fig:Model-DEMO} and~\ref{fig:Model-DEMO2} show this process, where \ref{subfig:Model-DEMO-1} and \ref{subfig:Model-DEMO2-1} show a single test training history and end SoC prediction, \ref{subfig:Model-DEMO-10} and \ref{subfig:Model-DEMO2-10} show the spread of 10 similar trainings and \ref{subfig:Model-DEMO-avr} and \ref{subfig:Model-DEMO2-avr} show the averaged result.
-It is apparent that while some repeats were highly accurate, others had more significant errors, subfigure~\ref{subfig:Model-DEMO-10}.
-The averaging provides a representative result that is statistically repeatable.
+The training results showed a significant variance.
+As such, training was repeated ten times for each dataset to remove the statistical variance from the comparison results, and the average of all ten trained models was used in each result.
+Figures~\ref{fig:Model-DEMO} and~\ref{fig:Model-DEMO2} show this process, where Figures \ref{fig:Model-DEMO}a and \ref{fig:Model-DEMO2}a show a single test training history and final SoC prediction, Figures \ref{fig:Model-DEMO}b and \ref{fig:Model-DEMO2}b show the spread of 10 similar training sessions, and Figures \ref{fig:Model-DEMO}c and \ref{fig:Model-DEMO2}c show the averaged result.
+It is apparent that, while some repeats were highly accurate, others had more significant errors, see Figure~\ref{fig:Model-DEMO}b.
+The averaging provided a representative, statistically repeatable result.
 % similar to Subfigure~\ref{subfig:Model-DEMO-10} and ~\ref{subfig:Model-DEMO2-10}.
 % The Earliest attempt to unify all models was the application of the same set seed number for all models.
 % However, determining a case from an infinite number of possibilities to produce equally effective models is the least effective method.
@@ -31,63 +31,62 @@ The averaging provides a representative result that is statistically repeatable.
 % The same method has been applied to all SoC plots for all models, reported further.
 %Several evaluation possibilities were tested. In the end, an average of 10 provided the most objective results to overview.
 %\textcolor{red}{Show plot of 1, then all 10 and average took.}
-\begin{figure*}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.325\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO1-history-FUDS-mae.svg}
-      \caption{Single model history for training and testing}
-      \label{subfig:Model-DEMO-1}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.325\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO2-history-FUDS-mae.svg}
-      \caption{All 10 attempts of histories on a single plot for training and testing}
-      \label{subfig:Model-DEMO-10}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.325\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO3-history-FUDS-mae.svg}
-      \caption{Average of 10 attempts of histories for training and testing}
-      \label{subfig:Model-DEMO-avr}
-  \end{subfigure}
-  \caption{History results averaging demonstration}
-  \label{fig:Model-DEMO}
-\end{figure*}
-\begin{figure*}[htbp]
-  \centering
-  \begin{subfigure}[b]{0.325\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO1-SoC-FUDS.svg}
-      \caption{Single model SoC prediction for training \ \ \ \ \ }
-      \label{subfig:Model-DEMO2-1}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.325\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO2-SoC-FUDS.svg}
-      \caption{All 10 attempts of SoC prediction on a single plot for training}
-      \label{subfig:Model-DEMO2-10}
-  \end{subfigure}
-  \hfill
-  \begin{subfigure}[b]{0.325\textwidth}
-      \centering
-      \includesvg[width=\linewidth]{III_Conclussion/Results_new/DEMO3-SoC-FUDS.svg}
-      \caption{Average of 10 attempts of SoC prediction for training}
-      \label{subfig:Model-DEMO2-avr}
-  \end{subfigure}
-  \caption{State of Charge results averaging demonstration}
-  \label{fig:Model-DEMO2}
-\end{figure*}
+\begin{figure}[H]
+    % \centering
+    \begin{subfigure}[b]{0.325\textwidth}
+        % \centering
+        \includesvg[width=4.5cm]{III_Conclussion/Results_new/DEMO1-history-FUDS-mae.svg}
+        \caption{\centering}
+        \label{subfig:Model-DEMO-1}
+    \end{subfigure}
+    % \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        % \centering
+        \includesvg[width=4.5cm]{III_Conclussion/Results_new/DEMO2-history-FUDS-mae.svg}
+        \caption{\centering}
+        \label{subfig:Model-DEMO-10}
+    \end{subfigure}
+    % \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        % \centering
+        \includesvg[width=4.5cm]{III_Conclussion/Results_new/DEMO3-history-FUDS-mae.svg}
+        \caption{\centering}
+        \label{subfig:Model-DEMO-avr}
+    \end{subfigure}
+    \caption{History results averaging demonstration. (\textbf{a}) Single model history for training and testing; (\textbf{b}) All 10 attempts of histories for training and testing; (\textbf{c}) Average of 10 attempts of histories for training and testing.}
+    \label{fig:Model-DEMO}
+\end{figure}
+\begin{figure}[H] %Attention AE: please change SoC(%) to SoC (%).
+    % \centering
+    \begin{subfigure}[b]{0.325\textwidth}
+        % \centering
+        \includesvg[width=4.5cm]{III_Conclussion/Results_new/DEMO1-SoC-FUDS.svg}
+        \caption{\centering}
+        \label{subfig:Model-DEMO2-1}
+    \end{subfigure}
+    %\hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        % \centering
+        \includesvg[width=4.5cm]{III_Conclussion/Results_new/DEMO2-SoC-FUDS.svg}
+        \caption{\centering}
+        \label{subfig:Model-DEMO2-10}
+    \end{subfigure}
+    % \hfill
+    \begin{subfigure}[b]{0.325\textwidth}
+        % \centering
+        \includesvg[width=4.5cm]{III_Conclussion/Results_new/DEMO3-SoC-FUDS.svg}
+        \caption{\centering}
+        \label{subfig:Model-DEMO2-avr}
+    \end{subfigure}
+    \caption{State of charge results' averaging demonstration. (\textbf{a}) Single-model SoC prediction for training; (\textbf{b}) all 10 attempts a SoC prediction on a single plot; (\textbf{c}) average of 10 attempts at SoC prediction for training.}
+    \label{fig:Model-DEMO2}
+\end{figure}
 
 %
 %
 \ifthenelse{\boolean{thesis}}{
-    In the next Section~\ref{sec:AN:Results}, first tests to determine optimum hyperparameters were carried out, then the full evaluation of models against each of the drive cycles is presented,
-    In each case, the train/validation/test procedures and error metrics of Section~\ref{subsec:t_model} are followed, with learning rate method of ~\ref{subsec:l-rate} and averaging of 10 trainings of ~\ref{subsec:avg} to ensure the best and most accurate representation of each model.
+    In the next Section~\ref{sec:AN:Results}, first tests to determine optimum hyperparameters are discussed; then, the full evaluation of models against each of the drive cycles is presented.
 } {
-    In the next Section~\ref{sec:results}, first tests to determine optimum hyperparameters were carried out, then the full evaluation of models against each of the drive cycles is presented,
-    In each case, the train/validation/test procedures and error metrics of Section~\ref{subsec:t_model} are followed, with learning rate method of ~\ref{subsec:l-rate} and averaging of 10 trainings of ~\ref{subsec:avg} to ensure the best and most accurate representation of each model.
+    In the next Section~\ref{sec:results}, the first tests carried out to determine the optimum hyperparameters are discussed; then, the full evaluation of models against each of the drive cycles is presented.
+    In each case, the train/validation/test procedures and error metrics of \mbox{Section~\ref{subsec:t_model}} were followed, with the learning rate method in Section~\ref{subsec:l-rate} and an average of 10 training sessions as in Section~\ref{subsec:avg} to ensure the best and most accurate representation of each model.
 }

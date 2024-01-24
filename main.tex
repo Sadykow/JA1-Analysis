@@ -1,153 +1,143 @@
-% \documentclass[journal, onecolumn, draftclsnofoot]{IEEEtranTIE}
-\documentclass[journal]{IEEEtranTIE}
-\usepackage{graphicx}
-\usepackage{cite}
+% LaTeX support: latex@mdpi.com
+% For support, please attach all files needed for compiling as well as the log file, and specify your operating system, LaTeX version, and LaTeX editor.
+
+%=================================================================
+\documentclass[energies,article,accept,pdftex,moreauthors]{Definitions/mdpi}
+% For posting an early version of this manuscript as a preprint, you may use "preprints" as the journal and change "submit" to "accept". The document class line would be, e.g., \documentclass[preprints,article,accept,moreauthors,pdftex]{mdpi}. This is especially recommended for submission to arXiv, where line numbers should be removed before posting. For preprints.org, the editorial staff will make this change immediately prior to posting.
+
+%--------------------
+% Class Options:
+%--------------------
+%----------
+% journal
+%----------
+% Choose between the following MDPI journals:
+% acoustics, actuators, addictions, admsci, adolescents, aerospace, agriculture, agriengineering, agronomy, ai, algorithms, allergies, alloys, analytica, animals, antibiotics, antibodies, antioxidants, applbiosci, appliedchem, appliedmath, applmech, applmicrobiol, applnano, applsci, aquacj, architecture, arts, asc, asi, astronomy, atmosphere, atoms, audiolres, automation, axioms, bacteria, batteries, bdcc, behavsci, beverages, biochem, bioengineering, biologics, biology, biomass, biomechanics, biomed, biomedicines, biomedinformatics, biomimetics, biomolecules, biophysica, biosensors, biotech, birds, bloods, blsf, brainsci, breath, buildings, businesses, cancers, carbon, cardiogenetics, catalysts, cells, ceramics, challenges, chemengineering, chemistry, chemosensors, chemproc, children, chips, cimb, civileng, cleantechnol, climate, clinpract, clockssleep, cmd, coasts, coatings, colloids, colorants, commodities, compounds, computation, computers, condensedmatter, conservation, constrmater, cosmetics, covid, crops, cryptography, crystals, csmf, ctn, curroncol, currophthalmol, cyber, dairy, data, dentistry, dermato, dermatopathology, designs, diabetology, diagnostics, dietetics, digital, disabilities, diseases, diversity, dna, drones, dynamics, earth, ebj, ecologies, econometrics, economies, education, ejihpe, electricity, electrochem, electronicmat, electronics, encyclopedia, endocrines, energies, eng, engproc, ent, entomology, entropy, environments, environsciproc, epidemiologia, epigenomes, est, fermentation, fibers, fintech, fire, fishes, fluids, foods, forecasting, forensicsci, forests, foundations, fractalfract, fuels, futureinternet, futureparasites, futurepharmacol, futurephys, futuretransp, galaxies, games, gases, gastroent, gastrointestdisord, gels, genealogy, genes, geographies, geohazards, geomatics, geosciences, geotechnics, geriatrics, hazardousmatters, healthcare, hearts, hemato, heritage, highthroughput, histories, horticulturae, humanities, humans, hydrobiology, hydrogen, hydrology, hygiene, idr, ijerph, ijfs, ijgi, ijms, ijns, ijtm, ijtpp, immuno, informatics, information, infrastructures, inorganics, insects, instruments, inventions, iot, j, jal, jcdd, jcm, jcp, jcs, jdb, jeta, jfb, jfmk, jimaging, jintelligence, jlpea, jmmp, jmp, jmse, jne, jnt, jof, joitmc, jor, journalmedia, jox, jpm, jrfm, jsan, jtaer, jzbg, kidney, kidneydial, knowledge, land, languages, laws, life, liquids, literature, livers, logics, logistics, lubricants, lymphatics, machines, macromol, magnetism, magnetochemistry, make, marinedrugs, materials, materproc, mathematics, mca, measurements, medicina, medicines, medsci, membranes, merits, metabolites, metals, meteorology, methane, metrology, micro, microarrays, microbiolres, micromachines, microorganisms, microplastics, minerals, mining, modelling, molbank, molecules, mps, msf, mti, muscles, nanoenergyadv, nanomanufacturing, nanomaterials, ncrna, network, neuroglia, neurolint, neurosci, nitrogen, notspecified, nri, nursrep, nutraceuticals, nutrients, obesities, oceans, ohbm, onco, oncopathology, optics, oral, organics, organoids, osteology, oxygen, parasites, parasitologia, particles, pathogens, pathophysiology, pediatrrep, pharmaceuticals, pharmaceutics, pharmacoepidemiology, pharmacy, philosophies, photochem, photonics, phycology, physchem, physics, physiologia, plants, plasma, pollutants, polymers, polysaccharides, poultry, powders, preprints, proceedings, processes, prosthesis, proteomes, psf, psych, psychiatryint, psychoactives, publications, quantumrep, quaternary, qubs, radiation, reactions, recycling, regeneration, religions, remotesensing, reports, reprodmed, resources, rheumato, risks, robotics, ruminants, safety, sci, scipharm, seeds, sensors, separations, sexes, signals, sinusitis, skins, smartcities, sna, societies, socsci, software, soilsystems, solar, solids, sports, standards, stats, stresses, surfaces, surgeries, suschem, sustainability, symmetry, synbio, systems, taxonomy, technologies, telecom, test, textiles, thalassrep, thermo, tomography, tourismhosp, toxics, toxins, transplantology, transportation, traumacare, traumas, tropicalmed, universe, urbansci, uro, vaccines, vehicles, venereology, vetsci, vibration, viruses, vision, waste, water, wem, wevj, wind, women, world, youth, zoonoticdis
+
+%---------
+% article
+%---------
+% The default type of manuscript is "article", but can be replaced by:
+% abstract, addendum, article, book, bookreview, briefreport, casereport, comment, commentary, communication, conferenceproceedings, correction, conferencereport, entry, expressionofconcern, extendedabstract, datadescriptor, editorial, essay, erratum, hypothesis, interestingimage, obituary, opinion, projectreport, reply, retraction, review, perspective, protocol, shortnote, studyprotocol, systematicreview, supfile, technicalnote, viewpoint, guidelines, registeredreport, tutorial
+% supfile = supplementary materials
+
+%----------
+% submit
+%----------
+% The class option "submit" will be changed to "accept" by the Editorial Office when the paper is accepted. This will only make changes to the frontpage (e.g., the logo of the journal will get visible), the headings, and the copyright information. Also, line numbering will be removed. Journal info and pagination for accepted papers will also be assigned by the Editorial Office.
+
+%------------------
+% moreauthors
+%------------------
+% If there is only one author the class option oneauthor should be used. Otherwise use the class option moreauthors.
+
+%---------
+% pdftex
+%---------
+% The option pdftex is for use with pdfLaTeX. If eps figures are used, remove the option pdftex and use LaTeX and dvi2pdf.
+
+%=================================================================
+% MDPI internal commands
+\firstpage{1}
+\makeatletter
+\setcounter{page}{\@firstpage}
+\makeatother
+\pubvolume{16}
+\issuenum{4}
+\articlenumber{1628}
+\pubyear{2023}
+\copyrightyear{2023}
+\externaleditor{Academic Editors: Rodolfo Araneo, Massimo Panella and Antonello Rosato}
+\datereceived{23 December 2022}
+\daterevised{24 January 2023} % Only for the journal Acoustics
+\dateaccepted{27 January 2023}
+\datepublished{6 February 2023}
+%\datecorrected{} % Corrected papers include a "Corrected: XXX" date in the original paper.
+%\dateretracted{} % Corrected papers include a "Retracted: XXX" date in the original paper.
+\hreflink{https://doi.org/10.3390/en16041628} % If needed use \linebreak
+%\doinum{}
+%------------------------------------------------------------------
+% The following line should be uncommented if the LaTeX file is uploaded to arXiv.org
+%\pdfoutput=1
+
+%=================================================================
+% Add packages and commands here. The following packages are loaded in our class file: fontenc, inputenc, calc, indentfirst, fancyhdr, graphicx, epstopdf, lastpage, ifthen, lineno, float, amsmath, setspace, enumitem, mathpazo, booktabs, titlesec, etoolbox, tabto, xcolor, soul, multirow, microtype, tikz, totcount, changepage, attrib, upgreek, cleveref, amsthm, hyphenat, natbib, hyperref, footmisc, url, geometry, newfloat, caption
+% \usepackage{cite}
 \usepackage{picinpar}
-\usepackage{amsmath}
-\usepackage{url}
 \usepackage{flushend}
-\usepackage[latin1]{inputenc}
+% \usepackage[latin1]{inputenc}
 \usepackage{colortbl}
-\usepackage{soul}
-\usepackage{multirow}
 \usepackage{pifont}
 \usepackage{color}
 \usepackage{alltt}
-\usepackage[hidelinks]{hyperref}
-\usepackage{enumerate}
+% \usepackage[hidelinks]{hyperref}
+% \usepackage{enumerate}
 \usepackage{siunitx}
 \usepackage{breakurl}
-\usepackage{epstopdf}
 \usepackage{pbox}
+%\hypersetup{
+%    colorlinks = false,
+%    hidelinks
+%}
 
 % Adds SVG Support out of SVG file
-\usepackage{svg}
-% \svgsetup{inkscape=force}   % Rerenders the inkscape images with new variants
-% \svgsetup{inkscape=page}    % TODO
-
-% Double line spacing
-% \usepackage{setspace}
-% \doublespace
-%\linespread{2pc}
+%\usepackage{svg}
+%\usepackage[clean]{svg}
+% \svgsetup{inkscape=force} % Rerenders the inkscape images with new variants
+% \svgsetup{inkscape=page}
 
 % Fancy table related trick
-\usepackage{tikz}
 \usepackage{makecell}
 \def\chk{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
 
 % Python code
 \usepackage{listings}
-
-% Algorithmic
-\usepackage{algorithm, algorithmic}
-
-% Subfigures
-\usepackage{caption}
-\usepackage{subcaption}
-
 %Code listing style
 \lstdefinestyle{mystyle}{
-  backgroundcolor=\color{backcolour},   commentstyle=\color{codegreen},
-  keywordstyle=\color{magenta},
-  numberstyle=\tiny\color{codegray},
-  stringstyle=\color{codepurple},
-  basicstyle=\ttfamily\footnotesize,
-  breakatwhitespace=false,         
-  breaklines=true,                 
-  captionpos=b,                    
-  keepspaces=true,                 
-  numbers=left,                    
-  numbersep=5pt,                  
-  showspaces=false,                
-  showstringspaces=false,
-  showtabs=false,                  
-  tabsize=2
+backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\footnotesize,
+breakatwhitespace=false,
+breaklines=true,
+captionpos=b,
+keepspaces=true,
+numbers=left,
+numbersep=5pt,
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+tabsize=2
 }
 
 %style code listing set
 \lstset{style=mystyle}
 
+% Algorithmic
+\usepackage{algorithm, algorithmic}
+
+% Subfigures
+%\usepackage{subcaption}
+
 % Produce landscape pages in a (mainly) portrait document.
-\usepackage{pdflscape}
+% \usepackage{pdflscape}
 
 % Adding if execution to define between thesis and article
-\usepackage{ifthen}
 \newboolean{thesis}
 \setboolean{thesis}{false}
 
 % Intext plus-minus
 \usepackage{textcomp}
 
-\begin{document}
-\title{Practical evaluation of Lithium-Ion battery State of Charge estimation using Time-Series Machine Learning for Electric Vehicles.}
-\author{
-	\vskip 1em
-	
-	Marat Sadykov, % \emph{Student Membership},
-	Sam Haines,% \emph{Student Membership},
-    \\ Dr Mark Broadmeadow, %\emph{Techinical Supervisor}
-    \\ A/Prof Geoff Walker, %\emph{Associate Research Supervisor} and
-	\\ A/Prof David Holmes, %\emph{Principal Research Supervisor},
+% Addressing changes
+% \usepackage[]{changes}
+%! Comment the line above and uncomment the one below to produce the final version
+% \usepackage[final]{changes}
 
-	\thanks{
-	
-		Manuscript received Month xx, 2xxx; revised Month xx, XXXX; accepted Month x, XXXX.
-		This work was supported in part by the Government of Australia under Automotive Engineering Graduate Program (AEGP) Grant.
-		
-		Marat Sadykov, Sam Haines and A/Prof David Holmes are with the School of Mech., Medical \& Process Engineering,  Queensland University of Technology (QUT), Brisbane, QLD, 4000, Australia. (e-mail: d.holmes@qut.edu.au). 
-		
-		Dr Mark Broadmeadow and A/Prof Geoff Walker are with the School of Electrical Engineering \& Robotics,  Queensland University of Technology (QUT), Brisbane, QLD, 4000, Australia. %(e-mail: mark.broadmeadow@qut.edu.au, geoffrey.walker@qut.edu.au)
-	}
-}
-\maketitle
-
-\begin{abstract}
-    \textbf{
-    \input{I_Introduction/Abstract}
-    % Abstract - to be updated
-    }
-\end{abstract}
-
-%
-% IF
-\ifthenelse {\boolean{thesis}}
-%
-% THEN
-{
-\begin{IEEEkeywords}
-    Adaptive Moment Estimation (Adam),
-    Adaptive Moment Estimation based on the infinity norm (Adamax),
-    Attention Layer,
-    Chip-on-Board (CoB),
-    Electric Vehicle (EV),
-    Gradient Recurrent Unit (GRU),
-    Lithium-Ion battery (Li-Ion),
-    Long Short-Term Memory (LSTM),
-    Nesterov Adaptive Moment Estimation (Nadam),
-    % Raspberry Pi 4 (R-Pi4),
-    Recurrent Neural Networks (RNN),
-    Robust Online Adaptive Moment Estimation (RoAdam),
-    State of Charge (SOC) estimation,
-    Stochastic Gradient Descent with Momentum (SGDw/M),
-    % Tensor Processing Unit (TPU),
-    TensorFlow (TF),
-    Time-Series Machine Learning
-\end{IEEEkeywords}
-}
-%
-% ELSE
-{
-\begin{IEEEkeywords}
-    Driving schedulers,
-    Optimisers,
-    Recurrent Neural Networks (RNNs),
-    State of Charge (SOC) estimation,
-    Time-Series Machine Learning
-\end{IEEEkeywords}
-}
-
-\markboth{IEEE TRANSACTIONS ON INDUSTRIAL ELECTRONICS}%
-{}
+% \definechangesauthor[name={Responce 1}, color=purple]{Responce 1}
+% \definechangesauthor[name={Responce 2}, color=red]{Responce 2}
+% \definechangesauthor[name={Responce 3}, color=magenta]{Responce 3}
 
 %New colors defined below
 \definecolor{codegreen}{rgb}{0,0.6,0}
@@ -158,11 +148,162 @@
 \definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
 \definecolor{greenhtml}{rgb}{0.0, 0.5, 0.0}
 
+\usepackage[inkscapearea=page]{svg}%---red words can be deleted or can be changed
+\usepackage{import}
+\usepackage{relsize} % for scaling text inside svg images
+\usepackage{transparent}
+
+
+\usepackage[labelformat=simple]{subcaption}
+\renewcommand\thesubfigure{\alph{subfigure}}
+\DeclareCaptionLabelFormat{subcaptionlabel}{\normalfont(\textbf{#2}\normalfont)}
+\captionsetup[subfigure]{labelformat=subcaptionlabel}
+
+
+%\renewcommand{\glstextformat}[1]{\textcolor{black}{#1}}
+
+%=================================================================
+%% Please use the following mathematics environments: Theorem, Lemma, Corollary, Proposition, Characterization, Property, Problem, Example, ExamplesandDefinitions, Hypothesis, Remark, Definition, Notation, Assumption
+%% For proofs, please use the proof environment (the amsthm package is loaded by the MDPI class).
+
+%=================================================================
+% Full title of the paper (Capitalized)
+\Title{Practical Evaluation of Lithium-Ion Battery State-of-Charge Estimation Using Time-Series Machine Learning for Electric~Vehicles}
+
+% MDPI internal command: Title for citation in the left column
+\TitleCitation{Practical Evaluation of Lithium-Ion Battery State-of-Charge Estimation Using Time-Series Machine Learning for Electric Vehicles}
+
+% Author Orchid ID: enter ID or remove command
+\newcommand{\orcidauthorA}{0000-0002-6436-7069} % Add \orcidA{} Me
+\newcommand{\orcidauthorB}{0000-0002-2970-9158} % Add \orcidB{} Pr David Holmes
+\newcommand{\orcidauthorC}{0000-0001-8137-9507} % Add \orcidC{} Pr Geoff Walker
+\newcommand{\orcidauthorD}{0000-0001-7041-5904} % Add \orcidD{} Dr Mark Broadmeadow
+
+% Authors, for the paper (add full first names)
+\Author{\textls[-15]{Marat %MDPI: Please carefully check the accuracy of names, ORCIDs and affiliations.
+Sadykov $^{1,\dagger}$\orcidA{},
+Sam Haines $^{1}$,
+Mark Broadmeadow $^{2}$\orcidD{},
+Geoff Walker $^{2}$\orcidC{}
+and  David William Holmes $^{1,}$*$^{,\dagger}$\orcidB{}}
+}
+
+%\longauthorlist{yes}
+
+% MDPI internal command: Authors, for metadata in PDF
+\AuthorNames{Marat Sadykov, Sam Haines, Mark Broadmeadow, Geoff Walker and David William Holmes}
+
+% MDPI internal command: Authors, for citation in the left column
+\AuthorCitation{Sadykov, M.; Haines, S.; Broadmeadow, M.; Walker, G.; Holmes, D.W.}
+% If this is a Chicago style journal: Lastname, Firstname, Firstname Lastname, and Firstname Lastname.
+
+% Affiliations / Addresses (Add [1] after \address if there is only one affiliation.)
+\address{%MDPI: Addresses need to be listed frok small to large. Please add an inferior/superior unit, also, please provide postal code, city name and country. Same for affiliation 2.
+$^{1}$ \quad School of Mechanical, Medical and Process Engineering (MMPE), Queensland University of Technology~(QUT), Brisbane, QLD 4000, Australia\\ %MDPI: We added the email addresses here according to the submitting system. Please confirm.
+$^{2}$ \quad School of Electrical Engineering \& Robotics, Queensland University of Technology (QUT), Brisbane,~QLD~4000, Australia
+}
+
+% Contact information of the corresponding author
+\corres{Correspondence: d.holmes@qut.edu.au}
+
+% Current address and/or shared authorship
+% \firstnote{\hl{Queensland} %MDPI: for Universities please add an inferior unit, such as Department, College, School, etc Please confirm if this is the ``Current address'' and it should remain as a note type, or it should be formatted as affiliation 3.
+%  University of Technology (QUT), Brisbane, QLD 4000, Australia}
+% \secondnote{These authors contributed equally to this work.}
+\firstnote{These authors contributed equally to this work.}
+% The commands \thirdnote{} till \eighthnote{} are available for further notes
+
+%\simplesumm{} % Simple summary
+
+%\conference{} % An extended version of a conference paper
+
+% Abstract (Do not insert blank lines, i.e. \\)
+\abstract{
+This paper presents a practical usability investigation of recurrent neural networks (RNNs) to determine the best-suited machine learning method for estimating electric vehicle (EV) batteries' state of charge.
+Using models from multiple published sources and cross-validation testing with several driving scenarios to determine the state of charge of lithium-ion batteries, we assessed their accuracy and drawbacks.
+Five models were selected from various published state-of-charge estimation models, based on cell types with GRU or LSTM, and optimisers such as stochastic gradient descent, Adam, Nadam, AdaMax, and Robust Adam, with extensions via momentum calculus or an attention layer.
+Each method was examined by applying training techniques such as a learning rate scheduler or rollback recovery to speed up the fitting, highlighting the implementation specifics.
+All this was carried out using the TensorFlow framework, and the implementation was performed as closely to the published sources as possible on openly available battery data.
+The results highlighted an average percentage accuracy of 96.56\% for the correct SoC estimation and several drawbacks of the overall implementation, and we propose potential solutions for further improvement.
+Every implemented model had a similar drawback, which was the poor capturing of the middle area of charge, applying a higher weight to the voltage than the current.
+The combination of these techniques into a single custom model could result in a better-suited model, further improving the accuracy.
+}
+
+% Keywords
+\keyword{
+% Adaptive Moment Estimation (Adam);
+% Adaptive Moment Estimation based on the infinity norm (Adamax);
+% Attention Layer;
+% Chip-on-Board (CoB);
+driving schedulers;
+% Electric Vehicle (EV);
+gradient recurrent unit (GRU);
+optimisers;
+lithium-ion battery (Li-ion);
+long short-term memory (LSTM);
+% Nesterov Adaptive Moment Estimation (Nadam);
+% Raspberry Pi 4 (R-Pi4);
+recurrent neural networks (RNNs);
+% Robust Online Adaptive Moment Estimation (RoAdam);
+state-of-charge (SoC) estimation;
+% Stochastic Gradient Descent with Momentum (SGDw/M);
+% Tensor Processing Unit (TPU);
+% TensorFlow (TF);
+time-series machine learning
+}
+
+% The fields PACS, MSC, and JEL may be left empty or commented out if not applicable
+%\PACS{J0101}
+%\MSC{}
+%\JEL{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Diversity
+%\LSID{\url{http://}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Applied Sciences
+%\featuredapplication{Authors are encouraged to provide a concise description of the specific application or a potential application of the work. This section is not mandatory.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Data
+%\dataset{DOI number or link to the deposited data set if the data set is published separately. If the data set shall be published as a supplement to this paper, this field will be filled by the journal editors. In this case, please submit the data set as a supplement.}
+%\datasetlicense{License under which the data set is made available (CC0, CC-BY, CC-BY-SA, CC-BY-NC, etc.)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Toxins
+%\keycontribution{The breakthroughs or highlights of the manuscript. Authors can write one or two sentences to describe the most important part of the paper.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Encyclopedia
+%\encyclopediadef{For entry manuscripts only: please provide a brief overview of the entry title instead of an abstract.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Only for the journal Advances in Respiratory Medicine
+%\addhighlights{yes}
+%\renewcommand{\addhighlights}{%
+
+%\noindent This is an obligatory section in “Advances in Respiratory Medicine”, whose goal is to increase the discoverability and readability of the article via search engines and other scholars. Highlights should not be a copy of the abstract, but a simple text allowing the reader to quickly and simplified find out what the article is about and what can be cited from it. Each of these parts should be devoted up to 2~bullet points.\vspace{3pt}\\
+%\textbf{What are the main findings?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}\vspace{3pt}
+%\textbf{What is the implication of the main finding?}
+% \begin{itemize}[labelsep=2.5mm,topsep=-3pt]
+% \item First bullet.
+% \item Second bullet.
+% \end{itemize}
+%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Introduction
 \section{Introduction} \label{sec:Introduction}
 \input{./I_Introduction/Intro}
-% \section{ThesisIntro} \label{sec:thesisIntroduction}
-% \input{./I_Introduction/ThesisIntro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Implementation
 \section{Prelimery algorithmic evaluation} \label{sec:Body}
 \input{./II_Body/RNN2}
@@ -174,14 +315,15 @@
         \input{./II_Body/Optimisers/adam}
         \input{./II_Body/Optimisers/ensemble}
     \input{./II_Body/Methodology/d_gen}
-\begin{landscape}
-    \begin{figure}[ht]
+\startlandscape
+    \begin{figure}[H]
         \centering
-        \includegraphics[width=\linewidth]{II_Body/images/windowing3f-A3.jpg}
-        \caption{Data Windowing scheme at 1Hz sampling rate. For visualisation purposes, the $s$-step has been used as 250 seconds, which is different from the actual implementation. The initial index $i$ was kept as a value close to the beginning of the data, around zero.}
+        \includegraphics[width=20cm]{II_Body/images/windowing3f-A3.jpg}
+        \caption{Data windowing scheme at a 1 Hz sampling rate. For visualisation purposes, the $s$-step was 250 s, which was different from the actual implementation. The initial index $i$ was kept as close to the beginning of the data as possible, at around zero.}
         \label{fig:Windowing3f}
     \end{figure}
-\end{landscape}
+\finishlandscape
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Methodology
 \section{Evaluation methodology} \label{sec:Meth}
 \input{./II_Body/Methodology/Methodology}
@@ -190,49 +332,447 @@
     \input{./II_Body/Methodology/l_rate}
     \input{./II_Body/Methodology/avg}
     % \input{./II_Body/Methodology/hardware}    %! Hardware goes to the thesis
-%%% Conclusion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Results
 \section{Performance and Results}\label{sec:results}
 %%% \input{./III_Conclussion/fig_history}
 %%% \input{./III_Conclussion/figures} %! Separate figures and comments all by 1 for writing help.
 %%% \input{./III_Conclussion/tab_accuracies}  
 \input{./III_Conclussion/results}
     \subsection{Models results overview}
-    \input{III_Conclussion/res_overview.tex}
+    \input{./III_Conclussion/res_overview.tex}
+    \input{./III_Conclussion/figures_new-mdpi} 
+    \input{./III_Conclussion/tab_accuracies_new}
     \subsection{Observations and discussions}
-    \input{III_Conclussion/res_observ.tex}
-% \IEEEtranTIE@iffilenewer
-\input{./III_Conclussion/figures_new} 
-\begin{landscape}
-\input{./III_Conclussion/tab_accuracies_new}
-\end{landscape}
-%%     \subsection{Hardware performance overview}
-    %% \input{./III_Conclussion/performance}
+    \input{./III_Conclussion/res_observ.tex}
+    % \startlandscape
+    % \input{./III_Conclussion/tab_accuracies_new-mdpi} %* Replace if trouble happens
+    % \finishlandscape
+    % \subsection{Hardware performance overview}
+    % \input{./III_Conclussion/performance}
 \section{Conclusion} \label{sec:conclussion}
 \input{./III_Conclussion/articleConclussion}
-\input{./III_Conclussion/acknowledgements}
 
-\bibliographystyle{IEEEtranTIE}
-\bibliography{
-    ../Z-References/References,
-    I_Introduction/BibIntro,
-    II_Body/BibRNN,
-    II_Body/LSTM/BibLSTM,
-    II_Body/GRU/BibGRU,
-    II_Body/Optimisers/BibOpt.bib
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{6pt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% optional
+%\supplementary{The following supporting information can be downloaded at:  \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title.}
+
+% Only for the journal Methods and Protocols:
+% If you wish to submit a video article, please do so with any other supplementary material.
+% \supplementary{The following supporting information can be downloaded at: \linksupplementary{s1}, Figure S1: title; Table S1: title; Video S1: title. A supporting video article is available at doi: link.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\authorcontributions{
+    % Sadykov Marat Ramilevich: ... . M.S.
+    % Holmes David W: ... . D.H.
+    % Haines Sam: ... . S.H.
+    % Broadmeadow Mark: ... . M.B.
+    % Walker Geoff: ... . G.W
+    Conceptualisation, M.S., S.H., M.B. and D.W.H.;
+    methodology, M.S. and D.W.H.;
+    software, M.S.;
+    validation, M.S., D.W.H. and G.W.;
+    formal analysis, M.S. and D.W.H.;
+    investigation, M.S. and M.B.;
+    resources, M.S. and S.H.;
+    data curation, M.S.;
+    writing---original draft preparation, M.S.;
+    writing---review and editing, M.S., D.W.H. and G.W.;
+    visualisation, M.S.;
+    supervision, D.W.H. and G.W.;
+    project administration, D.W.H.;
+    funding acquisition, D.W.H.
+    All authors have read and agreed to the published version of the manuscript.
 }
-%
-% IF
-\ifthenelse {\boolean{thesis}}
-%
-% THEN
-{
-\clearpage
-\appendices
-\section{Appendix A: Robust Adam implementation}  \label{app:RoAdam}
-\input{../X-Appendix/AppendixE}
-\clearpage
-\section{Appendix B: Getting Number of Flops from TF2.4}  \label{app:flops}
-\input{../X-Appendix/AppendixF}
+
+\funding{
+    The research was funded by the Automotive Engineering Graduate Program (AEGP), grand number AEGP000036, from the Australian Government Department of Industry Science, Energy and Resources in cooperation with industry partner Prohelion.
 }
-{}
+
+% \institutionalreview{
+%     Not applicable
+% }
+
+% \informedconsent{
+%     Not applicable
+% }
+
+\dataavailability{
+    \textls[-5]{The lithium-ion battery cycling data presented in this study are openly available at the Battery Research Group of the Center for Advanced Life Cycle Engineering (CALCE) Group official repository website, which can be accessed using the following link: \url{https://web.calce.umd.edu/batteries/data.htm}, in the section on A123 batteries~\cite{noauthor_calce_2017} (accessed on 20 March~2020).}
+}
+
+\acknowledgments{
+    % \input{./III_Conclussion/acknowledgements}
+    All model evaluations were performed with the help of the QUT HDR research and technical staff, who arranged access to the a high-performance machine (HPC Lyra) for the extensive initial computations.
+    Finally, we gratefully acknowledge the original developers of the machine learning framework Tensorflow, from Google, who wrote detailed guides and documentation for all necessary tools used throughout the investigation~\cite{tensorflow2015-whitepaper}.
+}
+
+\conflictsofinterest{
+    The funders had no role in the design of the study; in the collection, analyses, or interpretation of data; in the writing of the manuscript; or in the decision to publish the results.
+} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+% \sampleavailability{Samples of the compounds ... are available from the authors.}
+
+%% Only for journal Encyclopedia
+%\entrylink{The Link to this entry published on the encyclopedia platform.}
+
+\abbreviations{Abbreviations}{
+    The following abbreviations are used in this manuscript:\\
+
+    \noindent
+    \begin{tabular}{@{}ll}
+        Adam & Adaptive moment estimation\\
+        Adamax & Adaptive moment estimation based on the infinity norm\\
+        EV & Electric vehicle (EV)\\
+        GRU & Gradient recurrent unit\\
+        Li-Ion & Lithium-ion battery\\
+        LSTM & Long short-term memory\\
+        MDPI & Multidisciplinary Digital Publishing Institute\\
+        Nadam & Nesterov's adaptive moment estimation\\
+        RNNs & Recurrent neural networks\\
+        RoAdam & Robust online adaptive moment estimation\\
+        SoC & State of charge\\
+        SGDw/M & Stochastic gradient descent with momentum\\
+        TF & TensorFlow
+        % DOAJ & Directory of open access journals\\
+        % TLA & Three letter acronym\\
+        % LD & Linear dichroism
+    \end{tabular}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Optional
+\appendixtitles{no} % Leave argument "no" if all appendix headings stay EMPTY (then no dot is printed after "Appendix A"). If the appendix sections contain a heading then change the argument to "yes".
+% \appendixstart
+% \appendix
+% \section[\appendixname~\thesection]{Robust Adam implementation} \label{app:RoAdam}
+% % \subsection[\appendixname~\thesubsection]{}
+% \input{../X-Appendix/AppendixE}
+% \clearpage
+% \section[\appendixname~\thesection]{Getting Number of Flops from TF2.4} \label{app:flops}
+% \input{../X-Appendix/AppendixF}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{adjustwidth}{-\extralength}{0cm}
+%\printendnotes[custom] % Un-comment to print a list of endnotes
+
+\reftitle{References}
+
+% Please provide either the correct journal abbreviation (e.g. according to the “List of Title Word Abbreviations” http://www.issn.org/services/online-services/access-to-the-ltwa/) or the full name of the journal.
+% Citations and References in Supplementary files are permitted provided that they also appear in the reference list here. 
+
+%=====================================
+% References, variant A: external bibliography
+%=====================================
+% \bibliography{
+%     ../Z-References/References,
+%     I_Introduction/BibIntro,
+%     II_Body/BibRNN,
+%     II_Body/LSTM/BibLSTM,
+%     II_Body/GRU/BibGRU,
+%     II_Body/Optimisers/BibOpt.bib
+% }
+\begin{thebibliography}{999}
+    % electricvehiclecouncil.com.au - Electric Vehicle Council - 10/09/2019 - Bailey Sievewright - Sydney, NSW, 2000
+    \bibitem[Sievewright(2019)]{state-ev-australia}
+    Sievewright, B.
+    \newblock State {Of} {Electric} {Vehicles},  2019.
+    \newblock Available online: \url{https://electricvehiclecouncil.com.au/wp-content/uploads/2019/09/State-of-EVs-in-Australia-2019.pdf}
+    \newblock (accessed on 7 September   2019).
+    
+    \bibitem[Hoffart(2008)]{calif_proper_2008}
+    Hoffart, F.
+    \newblock Proper care extends li-ion battery life.
+    \newblock {\em Power Electron. Technol.} {\bf 2008}, {\em 34},~24--28.
+    
+    
+    \bibitem[Ali \em{et~al.}(2019)Ali, Zafar, Nengroo, Hussain, Alvi, and
+    Kim]{ali_towards_2019}
+    Ali, M.U.; Zafar, A.; Nengroo, S.H.; Hussain, S.; Alvi, M.J.; Kim, H.J.
+    \newblock Towards a {Smarter} {Battery} {Management} {System} for {Electric}
+    {Vehicle} {Applications}: {A} {Critical} {Review} of {Lithium}-{Ion}
+    {Battery} {State} of {Charge} {Estimation}.
+    \newblock {\em Energies} {\bf 2019}, {\em 12},~446. [\href{http://doi.org/10.3390/en12030446}{CrossRef}]
+    
+    \bibitem[Ng \em{et~al.}(2009)Ng, Moo, Chen, and Hsieh]{ng_enhanced_2009}
+    Ng, K.S.; Moo, C.S.; Chen, Y.P.; Hsieh, Y.C.
+    \newblock Enhanced coulomb counting method for estimating state-of-charge and
+    state-of-health of lithium-ion batteries.
+    \newblock {\em Appl. Energy} {\bf 2009}, {\em 86},~1506--1511.
+    [\href{http://dx.doi.org/10.1016/j.apenergy.2008.11.021}{CrossRef}]
+    
+    \bibitem[Yan \em{et~al.}(2010)Yan, Xu, Qian, and Xu]{robust_SoC}
+    Yan, J.; Xu, G.; Qian, H.; Xu, Y.
+    \newblock Robust State of Charge Estimation for Hybrid Electric Vehicles:
+    Framework and Algorithms.
+    \newblock {\em Energies} {\bf 2010}, {\em 3},~1654--1672. [\href{http://dx.doi.org/10.3390/en3101654}{CrossRef}]
+    
+    \bibitem[{Juang} \em{et~al.}(2014){Juang}, {Kollmeyer}, {Zhao}, {Jahns}, and
+    {Lorenz}]{6953745}
+    {Juang}, L.W.; {Kollmeyer}, P.J.; {Zhao}, R.; {Jahns}, T.M.; {Lorenz}, R.D.
+    \newblock The impact of DC bias current on the modeling of lithium iron
+    phosphate and lead-acid batteries observed using electrochemical impedance
+    spectroscopy.
+    \newblock In Proceedings of the 2014 IEEE Energy Conversion Congress and
+    Exposition (ECCE), Pittsburgh, PA, USA, 14--18 September
+    2014; pp. 2575--2581. [\href{http://dx.doi.org/10.1109/ECCE.2014.6953745}{CrossRef}]
+    
+    \bibitem[Malkhandi(2006)]{malkhandi_fuzzy_2006}
+    Malkhandi, S.
+    \newblock Fuzzy logic-based learning system and estimation of state-of-charge
+    of lead-acid battery.
+    \newblock {\em Eng. Appl. Artif. Intell.} {\bf 2006},
+    {\em 19},~479--485. [\href{http://dx.doi.org/10.1016/j.engappai.2005.12.005}{CrossRef}]
+    \newpage
+    \bibitem[Hansen and Wang(2005)]{hansen_support_2005}
+    Hansen, T.; Wang, C.J.
+    \newblock Support vector based battery state of charge estimator.
+    \newblock {\em J. Power Sources} {\bf 2005}, {\em 141},~351--358.
+    [\href{http://dx.doi.org/10.1016/j.jpowsour.2004.09.020}{CrossRef}]
+    
+    \bibitem[Anton \em{et~al.}(2013)Anton, Nieto, Juez, Lasheras, Vega, and
+    Gutierrez]{anton_battery_2013}
+    Anton, J.C.A.; Nieto, P.J.G.; de Cos Juez, F.J.; Lasheras, F.S.; Vega, M.G.;
+    Gutierrez, M.N.R.
+    \newblock Battery state-of-charge estimator using the {SVM} technique.
+    \newblock {\em Appl. Math. Model.} {\bf 2013}, {\em 37},~6244--6253. [\href{http://dx.doi.org/10.1016/j.apm.2013.01.024}{CrossRef}]
+    
+    \bibitem[Song \em{et~al.}(2018)Song, Li, Peng, and Liu]{song_lithium-ion_2018}
+    Song, Y.; Li, L.; Peng, Y.; Liu, D.
+    \newblock Lithium-{Ion} {Battery} {Remaining} {Useful} {Life} {Prediction}
+    {Based} on {GRU}-{RNN}.
+    \newblock In Proceedings of the 2018 12th {International} {Conference} on
+    {Reliability}, {Maintainability}, and {Safety} ({ICRMS}), Shanghai, China, 17--19 October 2018; pp.
+    317--322. [\href{http://dx.doi.org/10.1109/ICRMS.2018.00067}{CrossRef}]
+    
+    \bibitem[Chemali \em{et~al.}(2018)Chemali, Kollmeyer, Preindl, Ahmed, and
+    Emadi]{Chemali2017}
+    Chemali, E.; Kollmeyer, P.J.; Preindl, M.; Ahmed, R.; Emadi, A.
+    \newblock Long {Short}-{Term} {Memory} {Networks} for {Accurate}
+    {State}-of-{Charge} {Estimation} of {Li}-ion {Batteries}.
+    \newblock {\em IEEE Trans. Ind. Electron.} {\bf 2018}, {\em
+    65},~6730--6739. [\href{http://dx.doi.org/10.1109/TIE.2017.2787586}{CrossRef}]
+    
+    \bibitem[Mamo and Wang(2020)]{mamo_long_2020}
+    Mamo, T.; Wang, F.
+    \newblock Long {Short}-{Term} {Memory} {With} {Attention} {Mechanism} for
+    {State} of {Charge} {Estimation} of {Lithium}-{Ion} {Batteries}.
+    \newblock {\em IEEE Access} {\bf 2020}, {\em 8},~94140--94151.
+    [\href{http://dx.doi.org/10.1109/ACCESS.2020.2995656}{CrossRef}]
+    
+    \bibitem[Jiao \em{et~al.}(2020)Jiao, Wang, and Qiu]{jiao_gru-rnn_2020}
+    Jiao, M.; Wang, D.; Qiu, J.
+    \newblock A {GRU}-{RNN} based momentum optimized algorithm for {SOC}
+    estimation.
+    \newblock {\em J. Power Sources} {\bf 2020}, {\em 459},~228051.
+    [\href{http://dx.doi.org/10.1016/j.jpowsour.2020.228051}{CrossRef}]
+    
+    \bibitem[Xiao \em{et~al.}(2019)Xiao, Liu, and Xiao]{xiao_accurate_2019}
+    Xiao, B.; Liu, Y.; Xiao, B.
+    \newblock Accurate {State}-of-{Charge} {Estimation} {Approach} for
+    {Lithium}-{Ion} {Batteries} by {Gated} {Recurrent} {Unit} {With} {Ensemble}
+    {Optimizer}.
+    \newblock {\em IEEE Access} {\bf 2019}, {\em 7},~54192--54202.
+    [\href{http://dx.doi.org/10.1109/ACCESS.2019.2913078}{CrossRef}]
+    
+    \bibitem[Javid \em{et~al.}(2020)Javid, Basset, and
+    Abdeslam]{javid_adaptive_2020}
+    Javid, G.; Basset, M.; Abdeslam, D.O.
+    \newblock Adaptive {Online} {Gated} {Recurrent} {Unit} for {Lithium}-{Ion}
+    {Battery} {SOC} {Estimation}.
+    \newblock In Proceedings of the {IECON} 2020 {the} 46th {Annual} {Conference}
+    of the {IEEE} {Industrial} {Electronics} {Society}, Singapore, 18--21 October 2020; pp. 3583--3587. [\href{http://dx.doi.org/10.1109/IECON43393.2020.9254506}{CrossRef}]
+    
+    \bibitem[Zhang \em{et~al.}(2020)Zhang, Li, and Li]{zhang_deep_2020}
+    Zhang, W.; Li, X.; Li, X.
+    \newblock Deep {Learning}-{Based} {Prognostic} {Approach} for {Lithium}-ion
+    {Batteries} with {Adaptive} {Time}-{Series} {Prediction} and {On}-{Line}
+    {Validation}.
+    \newblock {\em Measurement} {\bf 2020}, {\em 164},~108052. [\href{http://dx.doi.org/10.1016/j.measurement.2020.108052}{CrossRef}]
+    
+    \bibitem[Smith \em{et~al.}(2010)Smith, Burns, and Dahn]{Smith_2010}
+    Smith, A.J.; Burns, J.C.; Dahn, J.R.
+    \newblock A High Precision Study of the Coulombic Efficiency of Li-Ion
+    Batteries.
+    \newblock {\em Electrochem.-Solid-State Lett.} {\bf 2010}, {\em
+    13},~A177. [\href{http://dx.doi.org/10.1149/1.3487637}{CrossRef}]
+    
+    \bibitem[He \em{et~al.}(2014)He, Williard, Chen, and Pecht]{he_state_2014}
+    He, W.; Williard, N.; Chen, C.; Pecht, M.
+    \newblock State of charge estimation for {Li}-ion batteries using neural
+    network modeling and unscented {Kalman} filter-based error cancellation.
+    \newblock {\em Int. J. Electr. Power Energy Syst.}
+    {\bf 2014}, {\em 62},~783--791. [\href{http://dx.doi.org/10.1016/j.ijepes.2014.04.059}{CrossRef}]
+    
+    \bibitem[noa(2017)]{noauthor_calce_2017}
+    CALCE Battery Research Group, 2017.
+    %If it is a book, please add publisher and its location
+    %If it is a journal, please add journal name, volume and page number.
+    %If it is a conference, please add conference date and location and organization.
+    %If it is a website, please add website and access date.
+    %If it is a standard, please add publisher and its location.
+    \newblock Available online: \url{https://web.calce.umd.edu/batteries/data.htm#A123}
+    \newblock (accessed on 20 March 2020).
+    
+    \bibitem[Amidi and Amidi(2018)]{amidi_cs_2018}
+    Amidi, A.; Amidi, S.
+    \newblock {CS} 230---{Recurrent} {Neural} {Networks} {Cheatsheet}, 2018.
+    \newblock Available online: \url{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks}
+    \newblock (accessed on 11 June  2021).
+    
+    \bibitem[Rasifaghihi(2020)]{rasifaghihi_predictive_2020}
+    Rasifaghihi, N.
+    \newblock {Predictive Analytics: LSTM, GRU and Bidirectional LSTM in TensorFlow; Towards Data Science: 2020.}
+    \newblock Available online: \url{https://towardsdatascience.com/predictive-analysis-rnn-lstm-and-gru-to-predict-water-consumption-e6bb3c2b4b02}
+    \newblock (accessed on 6 March 2021).
+    
+    \bibitem[Hochreiter(1998)]{hochreiter_vanishing_1998}
+    Hochreiter, S.
+    \newblock The {Vanishing} {Gradient} {Problem} {During} {Learning} {Recurrent}
+    {Neural} {Nets} and {Problem} {Solutions}.
+    \newblock {\em Int. J. Uncertain. Fuzziness-Knowl.-Based Syst.} {\bf 1998}, {\em 6},~107--116. [\href{http://dx.doi.org/10.1142/S0218488598000094}{CrossRef}]
+    
+    \bibitem[Cho \em{et~al.}(2014)Cho, van Merrienboer, Bahdanau, and
+    Bengio]{GRU_cho_properties_2014}
+    Cho, K.; van Merrienboer, B.; Bahdanau, D.; Bengio, Y.
+    \newblock On the {Properties} of {Neural} {Machine} {Translation}:
+    {Encoder}-{Decoder} {Approaches}.
+    \newblock {\em arXiv} {\bf 2014}, arXiv:1409.1259.
+    
+    
+    \bibitem[Li \em{et~al.}(2019)Li, Xiao, and Fan]{li_approach_2019}
+    Li, C.; Xiao, F.; Fan, Y.
+    \newblock An {Approach} to {State} of {Charge} {Estimation} of {Lithium}-{Ion}
+    {Batteries} {Based} on {Recurrent} {Neural} {Networks} with {Gated}
+    {Recurrent} {Unit}.
+    \newblock {\em Energies} {\bf 2019}, {\em 12},~1592. [\href{http://dx.doi.org/10.3390/en12091592}{CrossRef}]
+    
+    \bibitem[Hochreiter and Schmidhuber(1997)]{LSTM_Hochreiter1997}
+    Hochreiter, S.; Schmidhuber, J.
+    \newblock Long Short-Term Memory.
+    \newblock {\em Neural Comput.} {\bf 1997}, {\em 9},~1735--1780.
+    %  \href{http://xxx.lanl.gov/abs/.}{{\normalfont
+    %  [.]}}.
+     [\href{http://dx.doi.org/10.1162/neco.1997.9.8.1735}{CrossRef}]
+    
+    \bibitem[Yang \em{et~al.}(2016)Yang, Yang, Dyer, He, Smola, and
+    Hovy]{yang_hierarchical_2016}
+    Yang, Z.; Yang, D.; Dyer, C.; He, X.; Smola, A.; Hovy, E.
+    \newblock Hierarchical {Attention} {Networks} for {Document} {Classification}.
+    \newblock In Proceedings of the 2016 {Conference} of the
+    {North} {American} {Chapter} of the {Association} for {Computational}
+    {Linguistics}: {Human} {Language} {Technologies}, San Diego, CA, USA, 12--17 June 2016; pp. 1480--1489. [\href{http://dx.doi.org/10.18653/v1/N16-1174}{CrossRef}]
+    
+    \bibitem[Genta Indra~Winata(2018)]{winata_attention-based_2018}
+    Winata, G.I.; Kampman, O.P.; Fung, P.
+    \newblock Attention-{Based} {LSTM} for {Psychological} {Stress} {Detection}
+    from {Spoken} {Language} {Using} {Distant} {Supervision}.
+    \newblock {In Proceedings of the 2018 IEEE International Conference on Acoustics, Speech and
+    Signal Processing (ICASSP),} Calgary, AB, Canada, 15--20 April 2018; pp. 6204--6208. [\href{http://dx.doi.org/10.1109/ICASSP.2018.8461990}{CrossRef}]
+    
+    \bibitem[Kingma and Ba(2017)]{kingma_adam_2017}
+    Kingma, D.P.; Ba, J.
+    \newblock Adam: {A} {Method} for {Stochastic} {Optimization}.
+    \newblock {\em arXiv} {\bf 2017},
+    \newblock arXiv:1412.6980.
+    
+    \bibitem[Reddi \em{et~al.}(2019)Reddi, Kale, and Kumar]{reddi_convergence_2019}
+    Reddi, S.J.; Kale, S.; Kumar, S.
+    \newblock On the {Convergence} of {Adam} and {Beyond}.
+    \newblock {\em arXiv} {\bf 2019}, arXiv:1904.09237.
+    
+    \bibitem[Wilson \em{et~al.}(2017)Wilson, Roelofs, Stern, Srebro, and
+    Recht]{wilson_marginal_2017}
+    Wilson, A.C.; Roelofs, R.; Stern, M.; Srebro, N.; Recht, B.
+    \newblock The {Marginal} {Value} of {Adaptive} {Gradient} {Methods} in
+    {Machine} {Learning}.
+    \newblock {\em arXiv} {\bf 2017}, arXiv:1705.08292.
+    
+    \bibitem[Dozat(2016)]{dozat_nadam_2016}
+    Dozat, T.
+    \newblock {Incorporating} {Nesterov} {Momentum} {into} {Adam}.
+    \newblock In Proceedings of the ICLR 2016 Workshop, San Juan, Puerto Rico, 2--4 May 2016; paper 107 review 10, p.~4.
+    
+    \bibitem[Zhu and Chollet(2020)]{zhu_statefulnes_tfdocs_2020}
+    Zhu, S.; Chollet, F.
+    \newblock {Recurrent {Neural} {Networks} ({RNN}) with {Keras}: {Cross}-Batch
+    Statefulness{\textbar}{TensorFlow} {Core}}; TensorFlow: 2020.
+    \newblock Available online: \url{https://www.tensorflow.org/guide/keras/rnn#cross-batch_statefulness}
+    \newblock (accessed on 11 June 2021).
+    
+    \bibitem[Xing \em{et~al.}(2014)Xing, He, Pecht, and Tsui]{xing_state_2014}
+    Xing, Y.; He, W.; Pecht, M.; Tsui, K.L.
+    \newblock State of charge estimation of lithium-ion batteries using the
+    open-circuit voltage at various ambient temperatures.
+    \newblock {\em Appl. Energy} {\bf 2014}, {\em 113},~106--115. [\href{http://dx.doi.org/10.1016/j.apenergy.2013.07.008}{CrossRef}]
+    
+    % \bibitem[noa(2011)]{noauthor_anr26650m1a}
+    % \hl{ANR26650M1A, 2011.} 
+    % 
+    % 
+    % 
+    % 
+    % 
+    \bibitem[{A123 Systems}(2011)]{noauthor_anr26650m1a}
+    {A123 Systems}.
+    \newblock Nanophosphate\textsuperscript{®} {High} {Power} {Lithium} {Ion} {Cell}
+    {ANR26650M1}-{A},  2011.
+    \newblock Available online: \url{https://www.buya123products.com/uploads/vipcase/844c1bd8bdd1190ebb364d572bc1e6e7.pdf}
+    \newblock (accessed on 30 November   2021).
+    
+    \bibitem[Chollet(2020)]{chollet_writing_2020}
+    Chollet, F.
+    \newblock {Writing a Training Loop from Scratch {\textbar}{TensorFlow}
+    {Core}}. 2020.
+    \newblock Available online: \url{https://www.tensorflow.org/guide/keras/writing_a_training_loop_from_scratch}
+    \newblock (accessed on 11 June  2021).
+    
+    \newpage
+    \bibitem[Goodfellow(2016 - 2016)]{alma991010036879604001}
+    Goodfellow, I.
+    \newblock {\em Deep Learning}; Adaptive Computation and Machine Learning; The
+    MIT Press: Cambridge, MA, USA, 2016.
+    
+    \bibitem[Abadi \em{et~al.}(2015)Abadi, Agarwal, Barham, Brevdo, Chen, Citro,
+    Corrado, Davis, Dean, Devin, Ghemawat, Goodfellow, Harp, Irving, Isard, Jia,
+    Jozefowicz, Kaiser, Kudlur, Levenberg, Man\'{e}, Monga, Moore, Murray, Olah,
+    Schuster, Shlens, Steiner, Sutskever, Talwar, Tucker, Vanhoucke, Vasudevan,
+    Vi\'{e}gas, Vinyals, Warden, Wattenberg, Wicke, Yu, and
+    Zheng]{tensorflow2015-whitepaper}
+    Abadi, M.; Agarwal, A.; Barham, P.; Brevdo, E.; Chen, Z.; Citro, C.; Corrado,
+    G.S.; Davis, A.; Dean, J.; Devin, M.; et~al.
+    \newblock {{TensorFlow}: Large-Scale Machine Learning on Heterogeneous Systems}. 2015.
+    \newblock Available online: \url{tensorflow.org} (accessed  on 11 June   2021). [\href{http://dx.doi.org/10.5281/zenodo.6574269}{CrossRef}]
+    
+\end{thebibliography}
+\PublishersNote{}
+
+% If authors have biography, please use the format below
+%\section*{Short Biography of Authors}
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author1.pdf}}}
+%{\textbf{Firstname Lastname} Biography of first author}
+%
+%\bio
+%{\raisebox{-0.35cm}{\includegraphics[width=3.5cm,height=5.3cm,clip,keepaspectratio]{Definitions/author2.jpg}}}
+%{\textbf{Firstname Lastname} Biography of second author}
+
+% For the MDPI journals use author-date citation, please follow the formatting guidelines on http://www.mdpi.com/authors/references
+% To cite two works by the same author: \citeauthor{ref-journal-1a} (\citeyear{ref-journal-1a}, \citeyear{ref-journal-1b}). This produces: Whittaker (1967, 1975)
+% To cite two works by the same author with specific pages: \citeauthor{ref-journal-3a} (\citeyear{ref-journal-3a}, p. 328; \citeyear{ref-journal-3b}, p.475). This produces: Wong (1999, p. 328; 2000, p. 475)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for journal Sci
+%\reviewreports{\\
+%Reviewer 1 comments and authors’ response\\
+%Reviewer 2 comments and authors’ response\\
+%Reviewer 3 comments and authors’ response
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{adjustwidth}
 \end{document}
+
