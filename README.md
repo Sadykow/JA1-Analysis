@@ -11,7 +11,9 @@ The full citation and output PDF can be found on the publication page with the f
 Sadykov, M.; Haines, S.; Broadmeadow, M.; Walker, G.; Holmes, D.W. Practical Evaluation of Lithium-Ion Battery State-of-Charge Estimation Using Time-Series Machine Learning for Electric Vehicles. *Energies* **2023**, *16*, 1628. [https://doi.org/10.3390/en16041628](https://doi.org/10.3390/en16041628 "Aricle Location")
 
 ## List of Authors:
-[Marat Sadykov (First Author)](https://orcid.org/0000-0002-6436-7069)
+[MPhil Marat Sadykov (First Author)](https://orcid.org/0000-0002-6436-7069)
+
+MPhil Sam Haines
 
 [Dr Mark Broadmeadow](https://orcid.org/0000-0001-7041-5904)
 
